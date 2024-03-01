@@ -1,8 +1,9 @@
 /**
-   @file Ordenación por burbuja
+   @file Ordenaciï¿½n por burbuja
 */
 
-   
+#include <chrono>
+using namespace std::chrono;   
 #include <iostream>
 using namespace std;
 #include <ctime>
@@ -16,14 +17,14 @@ using namespace std;
 
 
 /* ************************************************************ */ 
-/*  Método de ordenación por burbuja  */
+/*  Mï¿½todo de ordenaciï¿½n por burbuja  */
 
 /**
-   @brief Ordena un vector por el método de la burbuja.
+   @brief Ordena un vector por el mï¿½todo de la burbuja.
 
    @param T: vector de elementos. Debe tener num_elem elementos.
              Es MODIFICADO.
-   @param num_elem: número de elementos. num_elem > 0.
+   @param num_elem: nï¿½mero de elementos. num_elem > 0.
 
    Cambia el orden de los elementos de T de forma que los dispone
    en sentido creciente de menor a mayor.
@@ -35,14 +36,14 @@ void burbuja(int T[], int num_elem);
 
 
 /**
-   @brief Ordena parte de un vector por el método de la burbuja.
+   @brief Ordena parte de un vector por el mï¿½todo de la burbuja.
 
-   @param T: vector de elementos. Tiene un número de elementos 
+   @param T: vector de elementos. Tiene un nï¿½mero de elementos 
                    mayor o igual a final.Es MODIFICADO.
 
-   @param inicial: Posición que marca el incio de la parte del
+   @param inicial: Posiciï¿½n que marca el incio de la parte del
                    vector a ordenar.
-   @param final: Posición detrás de la última de la parte del
+   @param final: Posiciï¿½n detrï¿½s de la ï¿½ltima de la parte del
                    vector a ordenar. 
 		   inicial < final.
 
@@ -56,7 +57,7 @@ static void burbuja_lims(int T[], int inicial, int final);
 
 
 /**
-   Implementación de las funciones
+   Implementaciï¿½n de las funciones
 **/
 
 inline void burbuja(int T[], int num_elem)
@@ -82,24 +83,27 @@ static void burbuja_lims(int T[], int inicial, int final)
 
 
 
-int main()
-{
-  int n;
-  cout << "Introduce número de elementos del vector: ";
-  cin >> n;
+int main(int argc, char * argv[]){
 
-  int * T = new int[n];
+  int size = atoi(argv[1]);
+
+  high_resolution_clock::time_point tantes, tdespues;
+  duration<double> transcurrido;
+
+  int *T = new int[size];
   assert(T);
 
   srandom(time(0));
 
-  for (int i = 0; i < n; i++)
-    {
-      T[i] = random();
-    };
+  for (int i = 0; i < size; i++){
+    T[i] = random();
+  };
 
-  burbuja(T, n);
-
+  tantes = high_resolution_clock::now();
+  burbuja(T, size);
+  tdespues = high_resolution_clock::now();
+  transcurrido = duration_cast<duration<double>>(tdespues - tantes);
+  cout << transcurrido.count();
   delete [] T;
 
   return 0;
