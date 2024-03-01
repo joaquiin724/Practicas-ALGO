@@ -1,8 +1,0 @@
-File: burbuja.cpp
-
-Size 1:	          
-Size 10:	          
-Size 100:	          
-Size 1000:	          
-Size 10000:	          
-Size 100000:	          
