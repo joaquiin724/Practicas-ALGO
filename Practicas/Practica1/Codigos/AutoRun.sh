@@ -16,7 +16,7 @@ for file in "${files[@]}"; do
 
 
     # Bucles principales de ejecucion-> i para el tamaño de los datos y j para el numero de ejecuciones
-    for ((i=1; i<=100000 ; i*=10)) do
+    for ((i=1000; i<=100000 ; i*=10)) do
             printf "\nSize $i:\t" >> $file.txt
         for ((j=1; j<=10 ; j++)) do
             # Ejecucion del programa y redireccion a archivo txt
