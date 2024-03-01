@@ -1,8 +1,10 @@
 /**
-   @file Ordenación por mezcla
+   @file Ordenaciï¿½n por mezcla
 */
 
    
+#include <chrono>
+using namespace std::chrono;   
 #include <iostream>
 using namespace std;
 #include <ctime>
@@ -16,14 +18,14 @@ using namespace std;
 
 
 /* ************************************************************ */ 
-/*  Método de ordenación por mezcla  */
+/*  Mï¿½todo de ordenaciï¿½n por mezcla  */
 
 /**
-   @brief Ordena un vector por el método de mezcla.
+   @brief Ordena un vector por el mï¿½todo de mezcla.
 
    @param T: vector de elementos. Debe tener num_elem elementos.
              Es MODIFICADO.
-   @param num_elem: número de elementos. num_elem > 0.
+   @param num_elem: nï¿½mero de elementos. num_elem > 0.
 
    Cambia el orden de los elementos de T de forma que los dispone
    en sentido creciente de menor a mayor.
@@ -35,13 +37,13 @@ void mergesort(int T[], int num_elem);
 
 
 /**
-   @brief Ordena parte de un vector por el método de mezcla.
+   @brief Ordena parte de un vector por el mï¿½todo de mezcla.
 
-   @param T: vector de elementos. Tiene un número de elementos 
+   @param T: vector de elementos. Tiene un nï¿½mero de elementos 
                    mayor o igual a final. Es MODIFICADO.
-   @param inicial: Posición que marca el incio de la parte del
+   @param inicial: Posiciï¿½n que marca el incio de la parte del
                    vector a ordenar.
-   @param final: Posición detrás de la última de la parte del
+   @param final: Posiciï¿½n detrï¿½s de la ï¿½ltima de la parte del
                    vector a ordenar. 
 		   inicial < final.
 
@@ -54,35 +56,35 @@ static void mergesort_lims(int T[], int inicial, int final);
 
 
 /**
-   @brief Ordena un vector por el método de inserción.
+   @brief Ordena un vector por el mï¿½todo de inserciï¿½n.
 
    @param T: vector de elementos. Debe tener num_elem elementos.
              Es MODIFICADO.
-   @param num_elem: número de elementos. num_elem > 0.
+   @param num_elem: nï¿½mero de elementos. num_elem > 0.
 
    Cambia el orden de los elementos de T de forma que los dispone
    en sentido creciente de menor a mayor.
-   Aplica el algoritmo de inserción.
+   Aplica el algoritmo de inserciï¿½n.
 */
 inline static 
 void insercion(int T[], int num_elem);
 
 
 /**
-   @brief Ordena parte de un vector por el método de inserción.
+   @brief Ordena parte de un vector por el mï¿½todo de inserciï¿½n.
 
-   @param T: vector de elementos. Tiene un número de elementos 
+   @param T: vector de elementos. Tiene un nï¿½mero de elementos 
                    mayor o igual a final. Es MODIFICADO.
-   @param inicial: Posición que marca el incio de la parte del
+   @param inicial: Posiciï¿½n que marca el incio de la parte del
                    vector a ordenar.
-   @param final: Posición detrás de la última de la parte del
+   @param final: Posiciï¿½n detrï¿½s de la ï¿½ltima de la parte del
                    vector a ordenar. 
 		   inicial < final.
 
    Cambia el orden de los elementos de T entre las posiciones
    inicial y final - 1 de forma que los dispone en sentido creciente
    de menor a mayor.
-   Aplica el algoritmo de la inserción.
+   Aplica el algoritmo de la inserciï¿½n.
 */
 static void insercion_lims(int T[], int inicial, int final);
 
@@ -90,16 +92,16 @@ static void insercion_lims(int T[], int inicial, int final);
 /**
    @brief Mezcla dos vectores ordenados sobre otro.
 
-   @param T: vector de elementos. Tiene un número de elementos 
+   @param T: vector de elementos. Tiene un nï¿½mero de elementos 
                    mayor o igual a final. Es MODIFICADO.
-   @param inicial: Posición que marca el incio de la parte del
+   @param inicial: Posiciï¿½n que marca el incio de la parte del
                    vector a escribir.
-   @param final: Posición detrás de la última de la parte del
+   @param final: Posiciï¿½n detrï¿½s de la ï¿½ltima de la parte del
                    vector a escribir
 		   inicial < final.
    @param U: Vector con los elementos ordenados.
    @param V: Vector con los elementos ordenados.
-             El número de elementos de U y V sumados debe coincidir
+             El nï¿½mero de elementos de U y V sumados debe coincidir
              con final - inicial.
 
    En los elementos de T entre las posiciones inicial y final - 1
@@ -111,7 +113,7 @@ static void fusion(int T[], int inicial, int final, int U[], int V[]);
 
 
 /**
-   Implementación de las funciones
+   Implementaciï¿½n de las funciones
 **/
 
 
@@ -196,71 +198,25 @@ static void fusion(int T[], int inicial, int final, int U[], int V[])
 
 int main(int argc, char * argv[])
 {
+  int size = atoi(argv[1]);
 
-  if (argc != 2)
-    {
-      cerr << "Formato " << argv[0] << " <num_elem>" << endl;
-      return -1;
-    }
+  high_resolution_clock::time_point tantes, tdespues;
+  duration<double> transcurrido;
 
-  int n = atoi(argv[1]);
-
-  int * T = new int[n];
+  int *T = new int[size];
   assert(T);
 
   srandom(time(0));
 
-  for (int i = 0; i < n; i++)
-    {
-      T[i] = random();
-    };
+  for (int i = 0; i < size; i++){
+    T[i] = random();
+  };
 
-  const int TAM_GRANDE = 10000;
-  const int NUM_VECES = 1000;
-
-  if (n > TAM_GRANDE)
-    {
-      clock_t t_antes = clock();
-      
-      mergesort(T, n);
-      
-      clock_t t_despues = clock();
-  
-      cout << n << "  " << ((double)(t_despues - t_antes)) / CLOCKS_PER_SEC 
-	   << endl;
-    } else {
-      int * U = new int[n];
-      assert(U);
-
-      for (int i = 0; i < n; i++)
-	U[i] = T[i];
-      
-      clock_t t_antes_vacio = clock();
-      for (int veces = 0; veces < NUM_VECES; veces++)
-	{
-	  for (int i = 0; i < n; i++)
-	    U[i] = T[i];
-	}
-      clock_t t_despues_vacio = clock();
-
-      clock_t t_antes = clock();
-      for (int veces = 0; veces < NUM_VECES; veces++)
-	{
-	  for (int i = 0; i < n; i++)
-	    U[i] = T[i];
-	  mergesort(U, n);
-	}
-      clock_t t_despues = clock();
-      cout << n << " \t  " 
-	   << ((double) ((t_despues - t_antes) - 
-			 (t_despues_vacio - t_antes_vacio))) / 
-	(CLOCKS_PER_SEC * NUM_VECES)
-	   << endl;
-
-      delete [] U;
-    }
-
-
+  tantes = high_resolution_clock::now();
+  mergesort(T, size);
+  tdespues = high_resolution_clock::now();
+  transcurrido = duration_cast<duration<double>>(tdespues - tantes);
+  cout << transcurrido.count();
   delete [] T;
 
   return 0;

@@ -1,8 +1,9 @@
 /**
-   @file Ordenación por selección
+   @file Ordenaciï¿½n por selecciï¿½n
 */
 
-   
+#include <chrono>
+using namespace std::chrono;   
 #include <iostream>
 using namespace std;
 #include <ctime>
@@ -16,18 +17,18 @@ using namespace std;
 
 
 /* ************************************************************ */ 
-/*  Método de ordenación por selección  */
+/*  Mï¿½todo de ordenaciï¿½n por selecciï¿½n  */
 
 /**
-   @brief Ordena un vector por el método de selección.
+   @brief Ordena un vector por el mï¿½todo de selecciï¿½n.
 
    @param T: vector de elementos. Debe tener num_elem elementos.
              Es MODIFICADO.
-   @param num_elem: número de elementos. num_elem > 0.
+   @param num_elem: nï¿½mero de elementos. num_elem > 0.
 
    Cambia el orden de los elementos de T de forma que los dispone
    en sentido creciente de menor a mayor.
-   Aplica el algoritmo de selección.
+   Aplica el algoritmo de selecciï¿½n.
 */
 inline static 
 void seleccion(int T[], int num_elem);
@@ -35,27 +36,27 @@ void seleccion(int T[], int num_elem);
 
 
 /**
-   @brief Ordena parte de un vector por el método de selección.
+   @brief Ordena parte de un vector por el mï¿½todo de selecciï¿½n.
 
-   @param T: vector de elementos. Tiene un número de elementos 
+   @param T: vector de elementos. Tiene un nï¿½mero de elementos 
                    mayor o igual a final. Es MODIFICADO.
-   @param inicial: Posición que marca el incio de la parte del
+   @param inicial: Posiciï¿½n que marca el incio de la parte del
                    vector a ordenar.
-   @param final: Posición detrás de la última de la parte del
+   @param final: Posiciï¿½n detrï¿½s de la ï¿½ltima de la parte del
                    vector a ordenar. 
 		   inicial < final.
 
    Cambia el orden de los elementos de T entre las posiciones
    inicial y final - 1de forma que los dispone en sentido creciente
    de menor a mayor.
-   Aplica el algoritmo de selección.
+   Aplica el algoritmo de selecciï¿½n.
 */
 static void seleccion_lims(int T[], int inicial, int final);
 
 
 
 /**
-   Implementación de las funciones
+   Implementaciï¿½n de las funciones
 **/
 
 void seleccion(int T[], int num_elem)
@@ -86,70 +87,25 @@ static void seleccion_lims(int T[], int inicial, int final)
 int main(int argc, char * argv[])
 {
 
-  if (argc != 2)
-    {
-      cerr << "Formato " << argv[0] << " <num_elem>" << endl;
-      return -1;
-    }
+   int size = atoi(argv[1]);
 
-  int n = atoi(argv[1]);
+  high_resolution_clock::time_point tantes, tdespues;
+  duration<double> transcurrido;
 
-  int * T = new int[n];
+  int *T = new int[size];
   assert(T);
 
   srandom(time(0));
 
-  for (int i = 0; i < n; i++)
-    {
-      T[i] = random();
-    };
+  for (int i = 0; i < size; i++){
+    T[i] = random();
+  };
 
-
-  const int TAM_GRANDE = 2000;
-  const int NUM_VECES = 100;
-
-  if (n > TAM_GRANDE)
-    {
-      clock_t t_antes = clock();
-      
-      seleccion(T, n);
-      
-      clock_t t_despues = clock();
-  
-      cout << n << "  " << ((double)(t_despues - t_antes)) / CLOCKS_PER_SEC 
-	   << endl;
-    } else {
-      int * U = new int[n];
-      assert(U);
-
-      for (int i = 0; i < n; i++)
-	U[i] = T[i];
-      
-      clock_t t_antes_vacio = clock();
-      for (int veces = 0; veces < NUM_VECES; veces++)
-	{
-	  for (int i = 0; i < n; i++)
-	    U[i] = T[i];
-	}
-      clock_t t_despues_vacio = clock();
-
-      clock_t t_antes = clock();
-      for (int veces = 0; veces < NUM_VECES; veces++)
-	{
-	  for (int i = 0; i < n; i++)
-	    U[i] = T[i];
-	  seleccion(U, n);
-	}
-      clock_t t_despues = clock();
-      cout << n << " \t  " 
-	   << ((double) ((t_despues - t_antes) - 
-			 (t_despues_vacio - t_antes_vacio))) / 
-	(CLOCKS_PER_SEC * NUM_VECES)
-	   << endl;
-
-      delete [] U;
-    }
-
+  tantes = high_resolution_clock::now();
+  seleccion(T, size);
+  tdespues = high_resolution_clock::now();
+  transcurrido = duration_cast<duration<double>>(tdespues - tantes);
+  cout << transcurrido.count();
   delete [] T;
 
   return 0;
