@@ -130,7 +130,7 @@ template<typename P>
 static void insercion_lims(P T[], int inicial, int final)
 {
   int i, j;
-  int aux;
+  P aux;
   for (i = inicial + 1; i < final; i++) {
     j = i;
     while ((T[j] < T[j-1]) && (j > inicial)) {
@@ -161,17 +161,17 @@ static void mergesort_lims(P T[], int inicial, int final)
     } else {
       int k = (final - inicial)/2;
 
-      int * U = new int [k - inicial + 1];
+      P * U = new P [k - inicial + 1];
       assert(U);
       int l, l2;
       for (l = 0, l2 = inicial; l < k - inicial; l++, l2++)
-	U[l] = T[l2];
+	    U[l] = T[l2];
       U[l] = INT_MAX;
 
-      int * V = new int [final - k + 1];
+      P * V = new P [final - k + 1];
       assert(V);
       for (l = 0, l2 = k; l < final - k; l++, l2++)
-	V[l] = T[l2];
+	    V[l] = T[l2];
       V[l] = INT_MAX;
 
       mergesort_lims(U, 0, k - inicial);
