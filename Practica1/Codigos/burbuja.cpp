@@ -3,7 +3,7 @@
 */
 
 #include <chrono>
-using namespace std::chrono;   
+using namespace std::chrono;
 #include <iostream>
 using namespace std;
 #include <ctime>
@@ -11,12 +11,7 @@ using namespace std;
 #include <climits>
 #include <cassert>
 
-
-
-
-
-
-/* ************************************************************ */ 
+/* ************************************************************ */
 /*  M�todo de ordenaci�n por burbuja  */
 
 /**
@@ -30,81 +25,98 @@ using namespace std;
    en sentido creciente de menor a mayor.
    Aplica el algoritmo de la burbuja.
 */
-inline static 
-void burbuja(int T[], int num_elem);
-
-
+template<typename P>
+inline static void burbuja(P T[], int num_elem);
 
 /**
    @brief Ordena parte de un vector por el m�todo de la burbuja.
 
-   @param T: vector de elementos. Tiene un n�mero de elementos 
+   @param T: vector de elementos. Tiene un n�mero de elementos
                    mayor o igual a final.Es MODIFICADO.
 
    @param inicial: Posici�n que marca el incio de la parte del
                    vector a ordenar.
    @param final: Posici�n detr�s de la �ltima de la parte del
-                   vector a ordenar. 
-		   inicial < final.
+                   vector a ordenar.
+       inicial < final.
 
    Cambia el orden de los elementos de T entre las posiciones
    inicial y final - 1de forma que los dispone en sentido creciente
    de menor a mayor.
    Aplica el algoritmo de la burbuja.
 */
-static void burbuja_lims(int T[], int inicial, int final);
-
-
+template<typename P>
+static void burbuja_lims(P T[], int inicial, int final);
 
 /**
    Implementaci�n de las funciones
 **/
-
-inline void burbuja(int T[], int num_elem)
+template<typename P>
+inline void burbuja(P T[], int num_elem)
 {
   burbuja_lims(T, 0, num_elem);
 };
-
-
-static void burbuja_lims(int T[], int inicial, int final)
+template<typename P>
+static void burbuja_lims(P T[], int inicial, int final)
 {
   int i, j;
   int aux;
   for (i = inicial; i < final - 1; i++)
     for (j = final - 1; j > i; j--)
-      if (T[j] < T[j-1])
-	{
-	  aux = T[j];
-	  T[j] = T[j-1];
-	  T[j-1] = aux;
-	}
+      if (T[j] < T[j - 1])
+      {
+        aux = T[j];
+        T[j] = T[j - 1];
+        T[j - 1] = aux;
+      }
 }
 
+int main(int argc, char *argv[]) {
+    int size = atoi(argv[1]);
 
+    high_resolution_clock::time_point tantes, tdespues;
+    duration<double> transcurrido;
 
+    int tipo = atoi(argv[2]); // 1: int, 2: float, 3: double
 
-int main(int argc, char * argv[]){
+    // Crear el array según el tipo especificado
+    if (tipo == 1) { // int
+        int *T = new int[size];
+        assert(T);
+        for (int i = 0; i < size; ++i) {
+            T[i] = random(); 
+        }
+        tantes = high_resolution_clock::now();
+        burbuja(T, size);
+        tdespues = high_resolution_clock::now();
+        transcurrido = duration_cast<duration<double>>(tdespues - tantes);
+        cout << transcurrido.count();
+        delete[] T;
+    } else if (tipo == 2) { // float
+        float *T = new float[size];
+        assert(T);
+        for (int i = 0; i < size; ++i) {
+            T[i] = random() / static_cast<float>(RAND_MAX);
+        }
+        tantes = high_resolution_clock::now();
+        burbuja(T, size);
+        tdespues = high_resolution_clock::now();
+        transcurrido = duration_cast<duration<double>>(tdespues - tantes);
+        cout << transcurrido.count();
+        delete[] T;
+    } else { // double
+        double *T = new double[size];
+        assert(T);
+        for (int i = 0; i < size; ++i) {
+            T[i] = random() / static_cast<double>(RAND_MAX);
+        }
+        tantes = high_resolution_clock::now();
+        burbuja(T, size);
+        tdespues = high_resolution_clock::now();
+        transcurrido = duration_cast<duration<double>>(tdespues - tantes);
+        cout << transcurrido.count();
+        delete[] T;
+    }
 
-  int size = atoi(argv[1]);
-
-  high_resolution_clock::time_point tantes, tdespues;
-  duration<double> transcurrido;
-
-  int *T = new int[size];
-  assert(T);
-
-  srandom(time(0));
-
-  for (int i = 0; i < size; i++){
-    T[i] = random();
-  };
-
-  tantes = high_resolution_clock::now();
-  burbuja(T, size);
-  tdespues = high_resolution_clock::now();
-  transcurrido = duration_cast<duration<double>>(tdespues - tantes);
-  cout << transcurrido.count();
-  delete [] T;
-
-  return 0;
-};
+    return 0;
+}

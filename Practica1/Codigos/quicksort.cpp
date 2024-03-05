@@ -31,8 +31,9 @@ using namespace std;
    en sentido creciente de menor a mayor.
    Aplica el algoritmo quicksort.
 */
+template<typename P>
 inline static 
-void quicksort(int T[], int num_elem);
+void quicksort(P T[], int num_elem);
 
 
 
@@ -52,7 +53,8 @@ void quicksort(int T[], int num_elem);
    de menor a mayor.
    Aplica el algoritmo quicksort.
 */
-static void quicksort_lims(int T[], int inicial, int final);
+template<typename P>
+static void quicksort_lims(P T[], int inicial, int final);
 
 
 /**
@@ -66,8 +68,9 @@ static void quicksort_lims(int T[], int inicial, int final);
    en sentido creciente de menor a mayor.
    Aplica el algoritmo de inserci�n.
 */
+template<typename P>
 inline static 
-void insercion(int T[], int num_elem);
+void insercion(P T[], int num_elem);
 
 
 /**
@@ -86,7 +89,8 @@ void insercion(int T[], int num_elem);
    de menor a mayor.
    Aplica el algoritmo de inserci�n.
 */
-static void insercion_lims(int T[], int inicial, int final);
+template<typename P>
+static void insercion_lims(P T[], int inicial, int final);
 
 
 /**
@@ -106,7 +110,8 @@ static void insercion_lims(int T[], int inicial, int final);
    menores que el pivote a su izquierda, despu�s los iguales y a la
    derecha los mayores. La posici�n del pivote se devuelve en pp.
 */
-static void dividir_qs(int T[], int inicial, int final, int & pp);
+template<typename P>
+static void dividir_qs(P T[], int inicial, int final, int & pp);
 
 
 
@@ -114,14 +119,14 @@ static void dividir_qs(int T[], int inicial, int final, int & pp);
    Implementaci�n de las funciones
 **/
 
-
-inline static void insercion(int T[], int num_elem)
+template<typename P>
+inline static void insercion(P T[], int num_elem)
 {
   insercion_lims(T, 0, num_elem);
 }
 
-
-static void insercion_lims(int T[], int inicial, int final)
+template<typename P>
+static void insercion_lims(P T[], int inicial, int final)
 {
   int i, j;
   int aux;
@@ -139,13 +144,14 @@ static void insercion_lims(int T[], int inicial, int final)
 
 const int UMBRAL_QS = 50;
 
-
-inline void quicksort(int T[], int num_elem)
+template<typename P>
+inline void quicksort(P T[], int num_elem)
 {
   quicksort_lims(T, 0, num_elem);
 }
 
-static void quicksort_lims(int T[], int inicial, int final)
+template<typename P>
+static void quicksort_lims(P T[], int inicial, int final)
 {
   int k;
   if (final - inicial < UMBRAL_QS) {
@@ -157,8 +163,8 @@ static void quicksort_lims(int T[], int inicial, int final)
   };
 }
 
-
-static void dividir_qs(int T[], int inicial, int final, int & pp)
+template<typename P>
+static void dividir_qs(P T[], int inicial, int final, int & pp)
 {
   int pivote, aux;
   int k, l;

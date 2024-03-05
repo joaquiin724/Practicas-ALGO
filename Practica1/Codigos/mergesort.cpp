@@ -31,8 +31,8 @@ using namespace std;
    en sentido creciente de menor a mayor.
    Aplica el algoritmo de mezcla.
 */
-inline static 
-void mergesort(int T[], int num_elem);
+template<typename P>
+inline static void mergesort(P T[], int num_elem);
 
 
 
@@ -52,7 +52,8 @@ void mergesort(int T[], int num_elem);
    de menor a mayor.
    Aplica el algoritmo de la mezcla.
 */
-static void mergesort_lims(int T[], int inicial, int final);
+template<typename P>
+static void mergesort_lims(P T[], int inicial, int final);
 
 
 /**
@@ -66,8 +67,9 @@ static void mergesort_lims(int T[], int inicial, int final);
    en sentido creciente de menor a mayor.
    Aplica el algoritmo de inserci�n.
 */
+template<typename P>
 inline static 
-void insercion(int T[], int num_elem);
+void insercion(P T[], int num_elem);
 
 
 /**
@@ -86,7 +88,8 @@ void insercion(int T[], int num_elem);
    de menor a mayor.
    Aplica el algoritmo de la inserci�n.
 */
-static void insercion_lims(int T[], int inicial, int final);
+template<typename P>
+static void insercion_lims(P T[], int inicial, int final);
 
 
 /**
@@ -108,7 +111,8 @@ static void insercion_lims(int T[], int inicial, int final);
    pone ordenados en sentido creciente, de menor a mayor, los
    elementos de los vectores U y V.
 */
-static void fusion(int T[], int inicial, int final, int U[], int V[]);
+template<typename P>
+static void fusion(P T[], int inicial, int final, int U[], int V[]);
 
 
 
@@ -116,14 +120,14 @@ static void fusion(int T[], int inicial, int final, int U[], int V[]);
    Implementaci�n de las funciones
 **/
 
-
-inline static void insercion(int T[], int num_elem)
+template<typename P>
+inline static void insercion(P T[], int num_elem)
 {
   insercion_lims(T, 0, num_elem);
 }
 
-
-static void insercion_lims(int T[], int inicial, int final)
+template<typename P>
+static void insercion_lims(P T[], int inicial, int final)
 {
   int i, j;
   int aux;
@@ -141,12 +145,15 @@ static void insercion_lims(int T[], int inicial, int final)
 
 const int UMBRAL_MS = 100;
 
-void mergesort(int T[], int num_elem)
+template<typename P>
+void mergesort(P T[], int num_elem)
 {
   mergesort_lims(T, 0, num_elem);
 }
 
-static void mergesort_lims(int T[], int inicial, int final)
+
+template<typename P>
+static void mergesort_lims(P T[], int inicial, int final)
 {
   if (final - inicial < UMBRAL_MS)
     {
@@ -175,8 +182,8 @@ static void mergesort_lims(int T[], int inicial, int final)
     };
 }
   
-
-static void fusion(int T[], int inicial, int final, int U[], int V[])
+template<typename P>
+static void fusion(P T[], int inicial, int final, int U[], int V[])
 {
   int j = 0;
   int k = 0;
@@ -196,28 +203,53 @@ static void fusion(int T[], int inicial, int final, int U[], int V[])
 
 
 
-int main(int argc, char * argv[])
-{
-  int size = atoi(argv[1]);
+int main(int argc, char *argv[]) {
 
-  high_resolution_clock::time_point tantes, tdespues;
-  duration<double> transcurrido;
+    int size = atoi(argv[1]);
 
-  int *T = new int[size];
-  assert(T);
+    high_resolution_clock::time_point tantes, tdespues;
+    duration<double> transcurrido;
 
-  srandom(time(0));
+    int tipo = atoi(argv[2]); // 1: int, 2: float, 3: double
 
-  for (int i = 0; i < size; i++){
-    T[i] = random();
-  };
+    // Crear el array según el tipo especificado
+    if (tipo == 1) { // int
+        int *T = new int[size];
+        assert(T);
+        for (int i = 0; i < size; ++i) {
+            T[i] = random(); 
+        }
+        tantes = high_resolution_clock::now();
+        mergesort(T, size);
+        tdespues = high_resolution_clock::now();
+        transcurrido = duration_cast<duration<double>>(tdespues - tantes);
+        cout << transcurrido.count();
+        delete[] T;
+    } else if (tipo == 2) { // float
+        float *T = new float[size];
+        assert(T);
+        for (int i = 0; i < size; ++i) {
+            T[i] = random() / static_cast<float>(RAND_MAX);
+        }
+        tantes = high_resolution_clock::now();
+        mergesort(T, size);
+        tdespues = high_resolution_clock::now();
+        transcurrido = duration_cast<duration<double>>(tdespues - tantes);
+        cout << transcurrido.count();
+        delete[] T;
+    } else { // double
+        double *T = new double[size];
+        assert(T);
+        for (int i = 0; i < size; ++i) {
+            T[i] = random() / static_cast<double>(RAND_MAX);
+        }
+        tantes = high_resolution_clock::now();
+        mergesort(T, size);
+        tdespues = high_resolution_clock::now();
+        transcurrido = duration_cast<duration<double>>(tdespues - tantes);
+        cout << transcurrido.count();
+        delete[] T;
+    }
 
-  tantes = high_resolution_clock::now();
-  mergesort(T, size);
-  tdespues = high_resolution_clock::now();
-  transcurrido = duration_cast<duration<double>>(tdespues - tantes);
-  cout << transcurrido.count();
-  delete [] T;
-
-  return 0;
-};
+    return 0;
+}

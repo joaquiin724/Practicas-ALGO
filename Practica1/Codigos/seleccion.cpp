@@ -30,8 +30,8 @@ using namespace std;
    en sentido creciente de menor a mayor.
    Aplica el algoritmo de selecci�n.
 */
-inline static 
-void seleccion(int T[], int num_elem);
+template<typename P>
+inline static void seleccion(P T[], int num_elem);
 
 
 
@@ -51,20 +51,21 @@ void seleccion(int T[], int num_elem);
    de menor a mayor.
    Aplica el algoritmo de selecci�n.
 */
-static void seleccion_lims(int T[], int inicial, int final);
+template<typename P>
+static void seleccion_lims(P T[], int inicial, int final);
 
 
 
 /**
    Implementaci�n de las funciones
 **/
-
-void seleccion(int T[], int num_elem)
+template<typename P>
+void seleccion(P T[], int num_elem)
 {
   seleccion_lims(T, 0, num_elem);
 }
-
-static void seleccion_lims(int T[], int inicial, int final)
+template<typename P>
+static void seleccion_lims(P T[], int inicial, int final)
 {
   int i, j, indice_menor;
   int menor, aux;
@@ -83,30 +84,53 @@ static void seleccion_lims(int T[], int inicial, int final)
 }
 
 
+int main(int argc, char *argv[]) {
 
-int main(int argc, char * argv[])
-{
+    int size = atoi(argv[1]);
 
-   int size = atoi(argv[1]);
+    high_resolution_clock::time_point tantes, tdespues;
+    duration<double> transcurrido;
 
-  high_resolution_clock::time_point tantes, tdespues;
-  duration<double> transcurrido;
+    int tipo = atoi(argv[2]); // 1: int, 2: float, 3: double
 
-  int *T = new int[size];
-  assert(T);
+    // Crear el array según el tipo especificado
+    if (tipo == 1) { // int
+        int *T = new int[size];
+        assert(T);
+        for (int i = 0; i < size; ++i) {
+            T[i] = random(); 
+        }
+        tantes = high_resolution_clock::now();
+        seleccion(T, size);
+        tdespues = high_resolution_clock::now();
+        transcurrido = duration_cast<duration<double>>(tdespues - tantes);
+        cout << transcurrido.count();
+        delete[] T;
+    } else if (tipo == 2) { // float
+        float *T = new float[size];
+        assert(T);
+        for (int i = 0; i < size; ++i) {
+            T[i] = random() / static_cast<float>(RAND_MAX);
+        }
+        tantes = high_resolution_clock::now();
+        seleccion(T, size);
+        tdespues = high_resolution_clock::now();
+        transcurrido = duration_cast<duration<double>>(tdespues - tantes);
+        cout << transcurrido.count();
+        delete[] T;
+    } else { // double
+        double *T = new double[size];
+        assert(T);
+        for (int i = 0; i < size; ++i) {
+            T[i] = random() / static_cast<double>(RAND_MAX);
+        }
+        tantes = high_resolution_clock::now();
+        seleccion(T, size);
+        tdespues = high_resolution_clock::now();
+        transcurrido = duration_cast<duration<double>>(tdespues - tantes);
+        cout << transcurrido.count();
+        delete[] T;
+    }
 
-  srandom(time(0));
-
-  for (int i = 0; i < size; i++){
-    T[i] = random();
-  };
-
-  tantes = high_resolution_clock::now();
-  seleccion(T, size);
-  tdespues = high_resolution_clock::now();
-  transcurrido = duration_cast<duration<double>>(tdespues - tantes);
-  cout << transcurrido.count();
-  delete [] T;
-
-  return 0;
-};
+    return 0;
+}

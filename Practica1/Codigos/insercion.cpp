@@ -30,8 +30,8 @@ using namespace std;
    en sentido creciente de menor a mayor.
    Aplica el algoritmo de inserci�n.
 */
-inline static 
-void insercion(int T[], int num_elem);
+template<typename P>
+inline static void insercion(P T[], int num_elem);
 
 
 
@@ -51,21 +51,22 @@ void insercion(int T[], int num_elem);
    de menor a mayor.
    Aplica el algoritmo de inserci�n.
 */
-static void insercion_lims(int T[], int inicial, int final);
+template<typename P>
+static void insercion_lims(P T[], int inicial, int final);
 
 
 
 /**
    Implementaci�n de las funciones
 **/
-
-inline static void insercion(int T[], int num_elem)
+template<typename P>
+inline static void insercion(P T[], int num_elem)
 {
   insercion_lims(T, 0, num_elem);
 }
 
-
-static void insercion_lims(int T[], int inicial, int final)
+template<typename P>
+static void insercion_lims(P T[], int inicial, int final)
 {
   int i, j;
   int aux;
@@ -82,31 +83,53 @@ static void insercion_lims(int T[], int inicial, int final)
 
 
 
-int main(int argc, char* argv[]){
-  int size = atoi(argv[1]);
+int main(int argc, char *argv[]) {
 
-  high_resolution_clock::time_point tantes, tdespues;
-  duration<double> transcurrido;
+    int size = atoi(argv[1]);
 
-  int *T = new int[size];
-  assert(T);
+    high_resolution_clock::time_point tantes, tdespues;
+    duration<double> transcurrido;
 
-  srandom(time(0));
+    int tipo = atoi(argv[2]); // 1: int, 2: float, 3: double
 
-  for (int i = 0; i < size; i++)
-    {
-      T[i] = random();
-    };
-  
-  tantes = high_resolution_clock::now();
-  insercion(T, size);
-  tdespues = high_resolution_clock::now();
+    // Crear el array según el tipo especificado
+    if (tipo == 1) { // int
+        int *T = new int[size];
+        assert(T);
+        for (int i = 0; i < size; ++i) {
+            T[i] = random(); 
+        }
+        tantes = high_resolution_clock::now();
+        insercion(T, size);
+        tdespues = high_resolution_clock::now();
+        transcurrido = duration_cast<duration<double>>(tdespues - tantes);
+        cout << transcurrido.count();
+        delete[] T;
+    } else if (tipo == 2) { // float
+        float *T = new float[size];
+        assert(T);
+        for (int i = 0; i < size; ++i) {
+            T[i] = random() / static_cast<float>(RAND_MAX);
+        }
+        tantes = high_resolution_clock::now();
+        insercion(T, size);
+        tdespues = high_resolution_clock::now();
+        transcurrido = duration_cast<duration<double>>(tdespues - tantes);
+        cout << transcurrido.count();
+        delete[] T;
+    } else { // double
+        double *T = new double[size];
+        assert(T);
+        for (int i = 0; i < size; ++i) {
+            T[i] = random() / static_cast<double>(RAND_MAX);
+        }
+        tantes = high_resolution_clock::now();
+        insercion(T, size);
+        tdespues = high_resolution_clock::now();
+        transcurrido = duration_cast<duration<double>>(tdespues - tantes);
+        cout << transcurrido.count();
+        delete[] T;
+    }
 
-  transcurrido = duration_cast<duration<double>>(tdespues - tantes);
-  cout << transcurrido.count();
-
-
-  delete [] T;
-
-  return 0;
-};
+    return 0;
+}

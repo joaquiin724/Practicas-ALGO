@@ -1,10 +1,10 @@
 def convert_file(input_file, output_file):
     with open(input_file, 'r') as f_in, open(output_file, 'w') as f_out:
         for line in f_in:
-            parts = line.split(':')
-            size = parts[0].strip()
-            values = list(map(float, parts[1].split()))
-            avg = sum(values) / len(values)
+            parts = line.split(':') # Divide la línea en dos partes a partir del caracter ':'
+            size = parts[0].strip() 
+            values = list(map(float, parts[1].split())) # Crea el array de valores de tiempos
+            avg = sum(values) / len(values) # Calcula el promedio de los tiempos
             f_out.write(f'{size} {avg}\n')
 
 import sys
