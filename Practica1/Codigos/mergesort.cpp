@@ -133,7 +133,7 @@ static void insercion_lims(P T[], int inicial, int final)
   int aux;
   for (i = inicial + 1; i < final; i++) {
     j = i;
-    while ((T[j] < T[j-1]) && (j > 0)) {
+    while ((T[j] < T[j-1]) && (j > inicial)) {
       aux = T[j];
       T[j] = T[j-1];
       T[j-1] = aux;
@@ -164,7 +164,7 @@ static void mergesort_lims(P T[], int inicial, int final)
       int * U = new int [k - inicial + 1];
       assert(U);
       int l, l2;
-      for (l = 0, l2 = inicial; l < k; l++, l2++)
+      for (l = 0, l2 = inicial; l < k - inicial; l++, l2++)
 	U[l] = T[l2];
       U[l] = INT_MAX;
 
@@ -174,7 +174,7 @@ static void mergesort_lims(P T[], int inicial, int final)
 	V[l] = T[l2];
       V[l] = INT_MAX;
 
-      mergesort_lims(U, 0, k);
+      mergesort_lims(U, 0, k - inicial);
       mergesort_lims(V, 0, final - k);
       fusion(T, inicial, final, U, V);
       delete [] U;
