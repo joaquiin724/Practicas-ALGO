@@ -96,7 +96,8 @@ int main(int argc, char *argv[]) {
         float *T = new float[size];
         assert(T);
         for (int i = 0; i < size; ++i) {
-            T[i] = random() / static_cast<float>(RAND_MAX);
+            // Hacer cast a float de random()
+            T[i] = static_cast<float>(random());
         }
         tantes = high_resolution_clock::now();
         burbuja(T, size);
@@ -108,7 +109,8 @@ int main(int argc, char *argv[]) {
         double *T = new double[size];
         assert(T);
         for (int i = 0; i < size; ++i) {
-            T[i] = random() / static_cast<double>(RAND_MAX);
+            // Hacer cast a double de random()
+            T[i] = static_cast<double>(random());
         }
         tantes = high_resolution_clock::now();
         burbuja(T, size);
