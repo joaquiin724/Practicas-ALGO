@@ -60,7 +60,7 @@ template<typename P>
 static void burbuja_lims(P T[], int inicial, int final)
 {
   int i, j;
-  int aux;
+  P aux;
   for (i = inicial; i < final - 1; i++)
     for (j = final - 1; j > i; j--)
       if (T[j] < T[j - 1])
@@ -70,6 +70,9 @@ static void burbuja_lims(P T[], int inicial, int final)
         T[j - 1] = aux;
       }
 }
+
+
+// Programa principal para probar el algoritmo de ordenación por burbuja
 
 int main(int argc, char *argv[]) {
     int size = atoi(argv[1]);
@@ -82,9 +85,11 @@ int main(int argc, char *argv[]) {
     // Crear el array según el tipo especificado
     if (tipo == 1) { // int
         int *T = new int[size];
+        // Verificación si la memoria fue asignada exitosamente
         assert(T);
         for (int i = 0; i < size; ++i) {
-            T[i] = random(); 
+            // Hacer cast a int de random()
+            T[i] = static_cast<int>(random());
         }
         tantes = high_resolution_clock::now();
         burbuja(T, size);
@@ -94,6 +99,7 @@ int main(int argc, char *argv[]) {
         delete[] T;
     } else if (tipo == 2) { // float
         float *T = new float[size];
+        // Verificación si la memoria fue asignada exitosamente
         assert(T);
         for (int i = 0; i < size; ++i) {
             // Hacer cast a float de random()
@@ -107,6 +113,7 @@ int main(int argc, char *argv[]) {
         delete[] T;
     } else { // double
         double *T = new double[size];
+        // Verificación si la memoria fue asignada exitosamente
         assert(T);
         for (int i = 0; i < size; ++i) {
             // Hacer cast a double de random()

@@ -69,7 +69,7 @@ template<typename P>
 static void insercion_lims(P T[], int inicial, int final)
 {
   int i, j;
-  int aux;
+  P aux;
   for (i = inicial + 1; i < final; i++) {
     j = i;
     while ((T[j] < T[j-1]) && (j > 0)) {
@@ -81,7 +81,7 @@ static void insercion_lims(P T[], int inicial, int final)
   };
 }
 
-
+// Programa principal para probar el algoritmo de ordenación por inserción
 
 int main(int argc, char *argv[]) {
 
@@ -95,9 +95,11 @@ int main(int argc, char *argv[]) {
     // Crear el array según el tipo especificado
     if (tipo == 1) { // int
         int *T = new int[size];
+        // Verificación si la memoria fue asignada exitosamente
         assert(T);
         for (int i = 0; i < size; ++i) {
-            T[i] = random(); 
+            // Hacer cast a int de random()
+            T[i] = static_cast<int>(random());
         }
         tantes = high_resolution_clock::now();
         insercion(T, size);
@@ -107,9 +109,11 @@ int main(int argc, char *argv[]) {
         delete[] T;
     } else if (tipo == 2) { // float
         float *T = new float[size];
+        // Verificación si la memoria fue asignada exitosamente
         assert(T);
         for (int i = 0; i < size; ++i) {
-            T[i] = random() / static_cast<float>(RAND_MAX);
+            // Hacer cast a float de random()
+            T[i] = static_cast<float>(random());
         }
         tantes = high_resolution_clock::now();
         insercion(T, size);
@@ -119,9 +123,11 @@ int main(int argc, char *argv[]) {
         delete[] T;
     } else { // double
         double *T = new double[size];
+        // Verificación si la memoria fue asignada exitosamente
         assert(T);
         for (int i = 0; i < size; ++i) {
-            T[i] = random() / static_cast<double>(RAND_MAX);
+            // Hacer cast a double de random()
+            T[i] = static_cast<double>(random());
         }
         tantes = high_resolution_clock::now();
         insercion(T, size);

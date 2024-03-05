@@ -11,11 +11,6 @@ using namespace std;
 #include <climits>
 #include <cassert>
 
-
-
-
-
-
 /* ************************************************************ */ 
 /*  M�todo de ordenaci�n por selecci�n  */
 
@@ -68,14 +63,14 @@ template<typename P>
 static void seleccion_lims(P T[], int inicial, int final)
 {
   int i, j, indice_menor;
-  int menor, aux;
+  P menor, aux;
   for (i = inicial; i < final - 1; i++) {
     indice_menor = i;
     menor = T[i];
     for (j = i; j < final; j++)
       if (T[j] < menor) {
-	indice_menor = j;
-	menor = T[j];
+        indice_menor = j;
+        menor = T[j];
       }
     aux = T[i];
     T[i] = T[indice_menor];
@@ -96,9 +91,11 @@ int main(int argc, char *argv[]) {
     // Crear el array según el tipo especificado
     if (tipo == 1) { // int
         int *T = new int[size];
+        // Verificación si la memoria fue asignada exitosamente
         assert(T);
         for (int i = 0; i < size; ++i) {
-            T[i] = random(); 
+            // Hacer cast a int de random()
+            T[i] = static_cast<int>(random());
         }
         tantes = high_resolution_clock::now();
         seleccion(T, size);
@@ -108,9 +105,11 @@ int main(int argc, char *argv[]) {
         delete[] T;
     } else if (tipo == 2) { // float
         float *T = new float[size];
+        // Verificación si la memoria fue asignada exitosamente
         assert(T);
         for (int i = 0; i < size; ++i) {
-            T[i] = random() / static_cast<float>(RAND_MAX);
+            // Hacer cast a float de random()
+            T[i] = static_cast<float>(random());
         }
         tantes = high_resolution_clock::now();
         seleccion(T, size);
@@ -120,9 +119,11 @@ int main(int argc, char *argv[]) {
         delete[] T;
     } else { // double
         double *T = new double[size];
+        // Verificación si la memoria fue asignada exitosamente
         assert(T);
         for (int i = 0; i < size; ++i) {
-            T[i] = random() / static_cast<double>(RAND_MAX);
+            // Hacer cast a double de random()
+            T[i] = static_cast<double>(random());
         }
         tantes = high_resolution_clock::now();
         seleccion(T, size);
