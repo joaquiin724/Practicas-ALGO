@@ -5,7 +5,8 @@ def convert_file(input_file, output_file):
             size = parts[0].strip() 
             values = list(map(float, parts[1].split())) # Crea el array de valores de tiempos
             avg = sum(values) / len(values) # Calcula el promedio de los tiempos
-            f_out.write(f'{size} {avg}\n')
+            avg_str = '{:.10f}'.format(avg) # Formatea el promedio para evitar la notación científica
+            f_out.write(f'{size} {avg_str}\n')
 
 import sys
 
