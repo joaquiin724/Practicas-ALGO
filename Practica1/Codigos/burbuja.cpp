@@ -10,6 +10,7 @@ using namespace std;
 #include <cstdlib>
 #include <climits>
 #include <cassert>
+#include <vector>
 
 /* ************************************************************ */
 /*  M�todo de ordenaci�n por burbuja  */
@@ -111,7 +112,7 @@ int main(int argc, char *argv[]) {
         transcurrido = duration_cast<duration<double>>(tdespues - tantes);
         cout << transcurrido.count();
         delete[] T;
-    } else { // double
+    } else{ // double
         double *T = new double[size];
         // Verificación si la memoria fue asignada exitosamente
         assert(T);

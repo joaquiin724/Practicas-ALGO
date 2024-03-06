@@ -150,6 +150,36 @@ for file in "${files4[@]}"; do
     python3 AutoMedia.py $file.txt output$file.txt
 done
 
+
+filestr=("mergesort" "quicksort" "burbuja" "insercion" "seleccion")
+
+for file in "${filestr[@]}"; do
+    
+    for ((i = 12308;i<=202308;i+=10000)) do
+        printf "$i: \t\t" >> "$file"4.txt
+        for ((j=1; j<=2 ; j++)) do
+            # Ejecucion del programa y redireccion a archivo txt
+            ./Ejecutables/$file $i 4 >> "$file"4.txt            
+            printf " " >> "$file"4.txt
+        done
+        printf "\n" >> "$file"4.txt
+    done
+done
+
+for file in "${filestr[@]}"; do
+    python3 AutoMedia.py "$file"4.txt output"$file"4.txt
+done
+
+
+
+
+
+
+
+
+
+#----------------------|Se mueven los archivos a la carpeta de resultados|----------------
+
 mv *.txt ./Resultados
 
 #---------------------------|Se eliminan los archivos innecesarios|-----------------------
@@ -174,7 +204,7 @@ set ylabel "Tiempo de ejecución"
 EOF
 
 # Bucle para generar gráficos para cada algoritmo y tipo de dato
-for algorithm in "burbuja" "insercion" "seleccion" "mergesort" "quicksort" "floyd" "fibonacci" "hanoi"; do
+for algorithm in "mergesort" "quicksort" "burbuja" "insercion" "seleccion"; do
     cat << EOF >> script_gnuplot.gp
 
 # Algoritmo $algorithm
@@ -182,7 +212,8 @@ for algorithm in "burbuja" "insercion" "seleccion" "mergesort" "quicksort" "floy
 set title "Algoritmo - $algorithm"
 plot "Resultados/output${algorithm}1.txt" using 1:2 with linespoints title "int", \
      "Resultados/output${algorithm}2.txt" using 1:2 with linespoints title "float", \
-     "Resultados/output${algorithm}3.txt" using 1:2 with linespoints title "double"
+     "Resultados/output${algorithm}3.txt" using 1:2 with linespoints title "double" \
+     "Resultados/output${algorithm}4.txt" using 1:2 with linespoints title "string"
 
 # Guardar la gráfica en un archivo de imagen
 set term png
@@ -196,3 +227,28 @@ gnuplot script_gnuplot.gp
 # Eliminar el script de Gnuplot
 rm script_gnuplot.gp
 done
+
+
+#----------------------------|El resto de algoritmos|-------------------------------
+
+for algorithm in "fibonacci" "hanoi" "floyd"; do
+    cat << EOF >> script_gnuplot.gp
+
+# Algoritmo $algorithm
+
+set title "Algoritmo - $algorithm"
+plot "Resultados/output${algorithm}.txt" using 1:2 with linespoints title "int"
+
+# Guardar la gráfica en un archivo de imagen
+set term png
+set output "./Graficas/${algorithm}.png"
+replot
+EOF
+done
+
+# Ejecutar Gnuplot con el script generado para los algoritmos adicionales
+gnuplot script_gnuplot.gp
+
+# Eliminar el script de Gnuplot
+rm script_gnuplot.gp
+
