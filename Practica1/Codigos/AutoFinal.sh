@@ -70,30 +70,6 @@ for ((opt=1; opt <= 3 ; ++opt)); do
         python3 AutoMedia.py $file$opt.txt output$file$opt.txt
     done
 
-    # ALGORITMOS DE ORDENACION CON EFICIENCIA O(n³)----------------------------------------------
-
-    files3=("floyd")
-
-    for file in "${files3[@]}"; do
-        
-        # Bucles principales de ejecucion
-        # i = tamaño de los datos 
-        # j = numero de ejecuciones
-
-        for ((i=50; i<=1250 ; i+=50)) do
-            printf "$i: \t\t" >> $file$opt.txt
-            for ((j=1; j<=2 ; j++)) do
-                # Ejecucion del programa y redireccion a archivo txt
-                ./Ejecutables/$file $i $opt >> $file$opt.txt            
-                printf " " >> $file$opt.txt
-            done
-            printf "\n" >> $file$opt.txt
-        done
-    done
-
-    for file in "${files2[@]}"; do
-        python3 AutoMedia.py $file$opt.txt output$file$opt.txt
-    done
 
     # ALGORITMOS DE ORDENACION CON EFICIENCIA O()----------------------------------------------
     
@@ -116,36 +92,64 @@ for ((opt=1; opt <= 3 ; ++opt)); do
         done
     done
 
-    for file in "${files2[@]}"; do
+    for file in "${files4[@]}"; do
         python3 AutoMedia.py $file$opt.txt output$file$opt.txt
     done
 
-    # ALGORITMOS DE ORDENACION CON EFICIENCIA O()----------------------------------------------
-    
-    files2=("hanoi")
 
-    for file in "${files2[@]}"; do
-        # Redireccion a archivo txt con los resultados con salto de linea tras cada archivo
-        # printf "File: $file.cpp\n" >> $file.txt
 
-        # Bucles principales de ejecucion-> i para el tamaño de los datos y j para el numero de ejecuciones
-        for ((i=3; i<=33 ; i++)) do
-            printf "$i: \t\t" >> $file$opt.txt
-            for ((j=1; j<=2 ; j++)) do
-                # Ejecucion del programa y redireccion a archivo txt
-                ./Ejecutables/$file $i $opt >> $file$opt.txt            
-                printf " " >> $file$opt.txt
-            done
-            printf "\n" >> $file$opt.txt
-        done
-    done
-
-    for file in "${files2[@]}"; do
-        python3 AutoMedia.py $file$opt.txt output$file$opt.txt
-    done
-
-    mv *.txt ./Resultados
 done
+
+# ALGORITMOS DE ORDENACION CON EFICIENCIA O()----------------------------------------------
+    
+files3=("hanoi")
+
+for file in "${files3[@]}"; do
+    # Redireccion a archivo txt con los resultados con salto de linea tras cada archivo
+    # printf "File: $file.cpp\n" >> $file.txt
+
+    # Bucles principales de ejecucion-> i para el tamaño de los datos y j para el numero de ejecuciones
+    for ((i=3; i<=33 ; i++)) do
+        printf "$i: \t\t" >> $file$opt.txt
+        for ((j=1; j<=2 ; j++)) do
+            # Ejecucion del programa y redireccion a archivo txt
+            ./Ejecutables/$file $i $opt >> $file$opt.txt            
+            printf " " >> $file$opt.txt
+        done
+        printf "\n" >> $file$opt.txt
+    done
+done
+
+for file in "${files3[@]}"; do
+    python3 AutoMedia.py $file$opt.txt output$file$opt.txt
+done
+
+# ALGORITMOS DE ORDENACION CON EFICIENCIA O(n³)----------------------------------------------
+
+files4=("floyd")
+
+for file in "${files4[@]}"; do
+        
+    # Bucles principales de ejecucion
+    # i = tamaño de los datos 
+    # j = numero de ejecuciones
+
+    for ((i=50; i<=1250 ; i+=50)) do
+        printf "$i: \t\t" >> $file.txt
+        for ((j=1; j<=2 ; j++)) do
+            # Ejecucion del programa y redireccion a archivo txt
+            ./Ejecutables/$file $i >> $file.txt            
+            printf " " >> $file.txt
+        done
+        printf "\n" >> $file.txt
+    done
+done
+
+for file in "${files4[@]}"; do
+    python3 AutoMedia.py $file.txt output$file.txt
+done
+
+mv *.txt ./Resultados
 
 #---------------------------|Se eliminan los archivos innecesarios|-----------------------
 
