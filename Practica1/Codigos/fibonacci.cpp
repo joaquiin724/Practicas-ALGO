@@ -1,19 +1,21 @@
 /**
-   @file Cálculo de la sucesión de Fibonacci
+   @file Cï¿½lculo de la sucesiï¿½n de Fibonacci
 */
 
    
 #include <iostream>
 using namespace std;
 #include <ctime>
+#include <chrono> 
+using namespace std::chrono;
 
 
 /**
-   @brief Calcula el término n-ésimo de la sucesión de Fibonacci.
+   @brief Calcula el tï¿½rmino n-ï¿½simo de la sucesiï¿½n de Fibonacci.
 
-   @param n: número de orden del término buscado. n >= 1.
+   @param n: nï¿½mero de orden del tï¿½rmino buscado. n >= 1.
 
-   @return: término n-ésimo de la sucesión de Fibonacci.
+   @return: tï¿½rmino n-ï¿½simo de la sucesiï¿½n de Fibonacci.
 */
 int fibo(int n)
 {
@@ -24,18 +26,20 @@ int fibo(int n)
 }
 
 
-int main()
+int main(int argc, char *argv[])
 {
+    int size = atoi(argv[1]);
 
-  int n;
-  int f;
- 
-  cout << "¿Número del término: ";
-  cin >> n;
+    high_resolution_clock::time_point tantes, tdespues;
+    duration<double> transcurrido;
+    int f;
 
-  f = fibo(n);
-
-  cout << "El término " << n << "-ésimo es: " << f << endl;
+    tantes = high_resolution_clock::now();	
+    f = fibo(size);
+    tdespues = high_resolution_clock::now();
+    transcurrido = duration_cast<duration<double>>(tdespues - tantes);
+    cout << transcurrido.count();
 
   return 0;
 }
+
