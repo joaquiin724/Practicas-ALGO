@@ -1,26 +1,27 @@
 /**
-   @file Resolución del problema de las Torres de Hanoi
+   @file Resoluciï¿½n del problema de las Torres de Hanoi
 */
 
    
 #include <iostream>
 using namespace std;
 #include <ctime>
-
+#include <chrono> 
+using namespace std::chrono;
 
 /**
    @brief Resuelve el problema de las Torres de Hanoi
-   @param M: número de discos. M > 1.
-   @param i: número de columna en que están los discos.
+   @param M: nï¿½mero de discos. M > 1.
+   @param i: nï¿½mero de columna en que estï¿½n los discos.
              i es un valor de {1, 2, 3}. i != j.
-   @param j: número de columna a que se llevan los discos.
+   @param j: nï¿½mero de columna a que se llevan los discos.
              j es un valor de {1, 2, 3}. j != i.
 
-   Esta función imprime en la salida estándar la secuencia de 
+   Esta funciï¿½n imprime en la salida estï¿½ndar la secuencia de 
    movimientos necesarios para desplazar los M discos de la
-   columna i a la j, observando la restricción de que ningún
-   disco se puede situar sobre otro de tamaño menor. Utiliza
-   una única columna auxiliar.
+   columna i a la j, observando la restricciï¿½n de que ningï¿½n
+   disco se puede situar sobre otro de tamaï¿½o menor. Utiliza
+   una ï¿½nica columna auxiliar.
 */
 void hanoi (int M, int i, int j);
 
@@ -32,22 +33,30 @@ void hanoi (int M, int i, int j)
   if (M > 0)
     {
       hanoi(M-1, i, 6-i-j);
-      cout << i << " -> " << j << endl;
       hanoi (M-1, 6-i-j, j);
   }
 }
+/**
+ * @brief En este cÃ³digo sÃ³lo tiene sentido contemplar el algoritmo con int ya que no se pueden tener un numero racional de discos para ver cuanto tardarÃ­a en finalizar el algortimo
+ * 
+ * @param argc 
+ * @param argv 
+ * @return int 
+ */
+int main(int argc, char *argv[]) {
+    int size = atoi(argv[1]);
 
-int main()
-{
+    high_resolution_clock::time_point tantes, tdespues;
+    duration<double> transcurrido;
 
-  int M;
-  do
-    {
-      cout << "Número de discos: ";
-      cin >> M;
-    } while (M <= 0);
+    //int tipo = atoi(argv[2]); // 1: int
+        tantes = high_resolution_clock::now();
+        hanoi(size, 1, 2);
+        tdespues = high_resolution_clock::now();
+        transcurrido = duration_cast<duration<double>>(tdespues - tantes);
+        cout << transcurrido.count();
+    
 
-  hanoi(M, 1, 2);
+    return 0;
 
-  return 0;
 }

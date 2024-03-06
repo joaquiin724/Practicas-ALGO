@@ -1,5 +1,5 @@
 /**
-   @file Ordenación por montones
+   @file Ordenaciï¿½n por montones
 */
 
    
@@ -9,54 +9,57 @@ using namespace std;
 #include <cstdlib>
 #include <climits>
 #include <cassert>
-
+#include <chrono> 
+using namespace std::chrono;
 
 
 
 
 
 /* ************************************************************ */ 
-/*  Método de ordenación por montones  */
+/*  Mï¿½todo de ordenaciï¿½n por montones  */
 
 /**
-   @brief Ordena un vector por el método de montones.
+   @brief Ordena un vector por el mï¿½todo de montones.
 
    @param T: vector de elementos. Debe tener num_elem elementos.
              Es MODIFICADO.
-   @param num_elem: número de elementos. num_elem > 0.
+   @param num_elem: nï¿½mero de elementos. num_elem > 0.
 
    Cambia el orden de los elementos de T de forma que los dispone
    en sentido creciente de menor a mayor.
-   Aplica el algoritmo de ordenación por montones.
+   Aplica el algoritmo de ordenaciï¿½n por montones.
 */
+template<typename P>
 inline static 
-void heapsort(int T[], int num_elem);
+void heapsort(P T[], int num_elem);
 
 
 
 /**
-   @brief Reajusta parte de un vector para que sea un montón.
+   @brief Reajusta parte de un vector para que sea un montï¿½n.
 
    @param T: vector de elementos. Debe tener num_elem elementos.
              Es MODIFICADO.
-   @param num_elem: número de elementos. num_elem > 0.
-   @param k: índice del elemento que se toma com raíz
+   @param num_elem: nï¿½mero de elementos. num_elem > 0.
+   @param k: ï¿½ndice del elemento que se toma com raï¿½z
    
    Reajusta los elementos entre las posiciones k y num_elem - 1 
-   de T para que cumpla la propiedad de un montón (APO), 
-   considerando al elemento en la posición k como la raíz.
+   de T para que cumpla la propiedad de un montï¿½n (APO), 
+   considerando al elemento en la posiciï¿½n k como la raï¿½z.
 */
-static void reajustar(int T[], int num_elem, int k);
+template<typename P>
+static void reajustar(P T[], int num_elem, int k);
 
 
 
 
 /**
-   Implementación de las funciones
+   Implementaciï¿½n de las funciones
 **/
 
-
-static void heapsort(int T[], int num_elem)
+template<typename P>
+static void heapsort(P T[], int num_elem)
 {
   int i;
   for (i = num_elem/2; i >= 0; i--)
@@ -70,8 +73,8 @@ static void heapsort(int T[], int num_elem)
     }
 }
   
-
-static void reajustar(int T[], int num_elem, int k)
+template<typename P>
+static void reajustar(P T[], int num_elem, int k)
 {
   int j;
   int v;
@@ -92,37 +95,58 @@ static void reajustar(int T[], int num_elem, int k)
   T[k] = v;
 }
   
+int main(int argc, char *argv[]) {
+    int size = atoi(argv[1]);
 
-      
-int main(int argc, char * argv[])
-{
+    high_resolution_clock::time_point tantes, tdespues;
+    duration<double> transcurrido;
 
-  if (argc != 2)
-    {
-      cerr << "Formato " << argv[0] << " <num_elem>" << endl;
-      return -1;
+    int tipo = atoi(argv[2]); // 1: int, 2: float, 3: double
+
+    // Crear el array segÃºn el tipo especificado
+    if (tipo == 1) { // int
+        int *T = new int[size];
+        // VerificaciÃ³n si la memoria fue asignada exitosamente
+        assert(T);
+        for (int i = 0; i < size; ++i) {
+            // Hacer cast a int de random()
+            T[i] = static_cast<int>(random());
+        }
+        tantes = high_resolution_clock::now();
+        heapsort(T, size);
+        tdespues = high_resolution_clock::now();
+        transcurrido = duration_cast<duration<double>>(tdespues - tantes);
+        cout << transcurrido.count();
+        delete[] T;
+    } else if (tipo == 2) { // float
+        float *T = new float[size];
+        // VerificaciÃ³n si la memoria fue asignada exitosamente
+        assert(T);
+        for (int i = 0; i < size; ++i) {
+            // Hacer cast a float de random()
+            T[i] = static_cast<float>(random());
+        }
+        tantes = high_resolution_clock::now();
+        heapsort(T, size);
+        tdespues = high_resolution_clock::now();
+        transcurrido = duration_cast<duration<double>>(tdespues - tantes);
+        cout << transcurrido.count();
+        delete[] T;
+    } else { // double
+        double *T = new double[size];
+        // VerificaciÃ³n si la memoria fue asignada exitosamente
+        assert(T);
+        for (int i = 0; i < size; ++i) {
+            // Hacer cast a double de random()
+            T[i] = static_cast<double>(random());
+        }
+        tantes = high_resolution_clock::now();
+        heapsort(T, size);
+        tdespues = high_resolution_clock::now();
+        transcurrido = duration_cast<duration<double>>(tdespues - tantes);
+        cout << transcurrido.count();
+        delete[] T;
     }
 
-  int n = atoi(argv[1]);
-
-  int * T = new int[n];
-  assert(T);
-
-  srandom(time(0));
-
-  for (int i = 0; i < n; i++)
-    {
-      T[i] = random();
-    };
-
-//  escribe_vector(T, n);
-
-  heapsort(T, n);
-
-  //escribe_vector(T, n);
-
-
-  delete [] T;
-
-  return 0;
-};
+    return 0;
+}
