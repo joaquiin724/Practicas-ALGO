@@ -166,7 +166,7 @@ static void quicksort_lims(P T[], int inicial, int final)
 template<typename P>
 static void dividir_qs(P T[], int inicial, int final, int & pp)
 {
-  int pivote, aux;
+  P pivote, aux;
   int k, l;
 
   pivote = T[inicial];
