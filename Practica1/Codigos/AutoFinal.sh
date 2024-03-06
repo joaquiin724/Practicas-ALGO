@@ -71,33 +71,34 @@ for ((opt=1; opt <= 3 ; ++opt)); do
     done
 
 
-    # ALGORITMOS DE ORDENACION CON EFICIENCIA O()----------------------------------------------
+
+
+
+done
+
+# ALGORITMOS DE ORDENACION CON EFICIENCIA O()----------------------------------------------
     
-    files4=("fibonacci")
+files5=("fibonacci")
 
-    for file in "${files4[@]}"; do
+for file in "${files5[@]}"; do
         
-        # Bucles principales de ejecucion
-        # i = tamaño de los datos 
-        # j = numero de ejecuciones
+    # Bucles principales de ejecucion
+    # i = tamaño de los datos 
+    # j = numero de ejecuciones
 
-        for ((i=2; i<=50 ; i+=2)) do
-            printf "$i: \t\t" >> $file$opt.txt
-            for ((j=1; j<=2 ; j++)) do
-                # Ejecucion del programa y redireccion a archivo txt
-                ./Ejecutables/$file $i $opt >> $file$opt.txt            
-                printf " " >> $file$opt.txt
-            done
-            printf "\n" >> $file$opt.txt
+    for ((i=2; i<=50 ; i+=2)) do
+        printf "$i: \t\t" >> $file.txt
+        for ((j=1; j<=2 ; j++)) do
+            # Ejecucion del programa y redireccion a archivo txt
+            ./Ejecutables/$file $i >> $file.txt            
+            printf " " >> $file.txt
         done
+        printf "\n" >> $file.txt
     done
+done
 
-    for file in "${files4[@]}"; do
-        python3 AutoMedia.py $file$opt.txt output$file$opt.txt
-    done
-
-
-
+for file in "${files5[@]}"; do
+    python3 AutoMedia.py $file.txt output$file.txt
 done
 
 # ALGORITMOS DE ORDENACION CON EFICIENCIA O()----------------------------------------------
