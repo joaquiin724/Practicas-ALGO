@@ -121,7 +121,7 @@ int main(int argc, char *argv[]) {
         transcurrido = duration_cast<duration<double>>(tdespues - tantes);
         cout << transcurrido.count();
         delete[] T;
-    } else { // double
+    } else if(tipo==3){ // double
         double *T = new double[size];
         // Verificación si la memoria fue asignada exitosamente
         assert(T);
@@ -135,7 +135,24 @@ int main(int argc, char *argv[]) {
         transcurrido = duration_cast<duration<double>>(tdespues - tantes);
         cout << transcurrido.count();
         delete[] T;
-    }
+    }else {
+      ifstream is;  
+      string aux, filename="quijote.txt"; // Variable usada para la lectura de las palabras en el caso de ser seleccionado el tipo 4
+      is.open(filename);// Apertura del archivo de entrada
 
+      string *T = new string[size];
+      for (int i = 0; i < size; i++){
+        is >> aux;
+          // Se copia en el array las palabras leidas de quijote.txt
+        T[i] = aux;
+      }
+      is.close();
+      tantes = high_resolution_clock::now();
+      insercion(T, size);
+      tdespues = high_resolution_clock::now();
+      transcurrido = duration_cast<duration<double>>(tdespues - tantes);
+      cout << transcurrido.count();
+      delete[] T;
+    }
     return 0;
 }
