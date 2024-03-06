@@ -6,16 +6,16 @@ name="burbuja"
 rm *.txt
 rm -r Grafica$name
 
-for ((j=1; j<=3 ; j++)) do
-    for ((i=5000; i<=50000 ; i+=5000)) do
-            printf "$i \t" >> SalidaTest$j$name.txt
-            ./Ejecutables/$name $i $j >> SalidaTest$j$name.txt            
-            printf "\n" >> SalidaTest$j$name.txt
-    done
-done
-
 # Crear un directorio para guardar las gráficas
 mkdir Grafica$name
+
+for ((j=1; j<=3 ; j++)) do
+    for ((i=5000; i<=50000 ; i+=5000)) do
+            printf "$i \t" >> Grafica$name/SalidaTest$j$name.txt
+            ./Ejecutables/$name $i $j >> Grafica$name/SalidaTest$j$name.txt            
+            printf "\n" >> Grafica$name/SalidaTest$j$name.txt
+    done
+done
 
 # Crear un script de Gnuplot para generar la gráfica
 cat << EOF > script_gnuplot.gp
@@ -36,9 +36,9 @@ set title "Algoritmo - $name"
     # 1:2 indica que se tomará la primera columna para el eje x y la segunda para el eje y
     # with linespoints indica que se dibujarán líneas uniendo los puntos
     # segundo "" indica el nombre que se le dará a la serie
-plot "SalidaTest1$name.txt" using 1:2 with linespoints title "int", \
-     "SalidaTest2$name.txt" using 1:2 with linespoints title "float", \
-     "SalidaTest3$name.txt" using 1:2 with linespoints title "double"
+plot "Grafica$name/SalidaTest1$name.txt" using 1:2 with linespoints title "int", \
+     "Grafica$name/SalidaTest2$name.txt" using 1:2 with linespoints title "float", \
+     "Grafica$name/SalidaTest3$name.txt" using 1:2 with linespoints title "double"
 
 # Guardar la gráfica en un archivo de imagen
 set term png

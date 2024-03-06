@@ -1,7 +1,10 @@
 #!/bin/bash
+# Archivo para compilar todos los programas en la carpeta ejecutables
 
-rm -r Ejecutables
-mkdir Ejecutables
+rm -r Ejecutables # Elimina la carpeta de ejecutables
+mkdir Ejecutables # Crea la carpeta ejecutables
+
+# Se compilan los programas y se guardan en la carpeta de ejecutables
 gcc -Og seleccion.cpp -o Ejecutables/seleccion -lstdc++
 gcc -Og burbuja.cpp -o Ejecutables/burbuja -lstdc++
 gcc -Og insercion.cpp -o Ejecutables/insercion -lstdc++

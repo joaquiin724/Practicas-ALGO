@@ -19,15 +19,15 @@ mkdir Resultados
 
 for ((opt=1; opt <= 3 ; ++opt)); do 
 
-    files=("burbuja" "insercion" "seleccion")
-    # files = ("fibonacci" "hanoi" "floyd" "heapsort" "insercion" "mergesort" "quicksort" "seleccion")
+    files=("burbuja" "insercion" "seleccion") # Array de archivos ejecutables con eficiencia O(n^2)
     
 
-    for file in "${files[@]}"; do
-        # Redireccion a archivo txt con los resultados con salto de linea tras cada archivo
-        # printf "File: $file.cpp\n" >> $file.txt
+    for file in "${files[@]}"; do # Se hace un bucle for para ejecutar cada archivo del array
 
-        # Bucles principales de ejecucion-> i para el tamaño de los datos y j para el numero de ejecuciones
+        # Bucles principales de ejecucion
+        # i = tamaño de los datos 
+        # j = numero de ejecuciones
+
         for ((i=5000; i<=125000 ; i+=5000)) do
             printf "$i: \t\t" >> $file$opt.txt
             for ((j=1; j<=5 ; j++)) do
@@ -50,10 +50,11 @@ for ((opt=1; opt <= 3 ; ++opt)); do
     files2=("mergesort" "quicksort")
 
     for file in "${files2[@]}"; do
-        # Redireccion a archivo txt con los resultados con salto de linea tras cada archivo
-        # printf "File: $file.cpp\n" >> $file.txt
 
-        # Bucles principales de ejecucion-> i para el tamaño de los datos y j para el numero de ejecuciones
+        # Bucles principales de ejecucion
+        # i = tamaño de los datos 
+        # j = numero de ejecuciones
+
         for ((i=50000; i<=1250000 ; i+=50000)) do
             printf "$i: \t\t" >> $file$opt.txt
             for ((j=1; j<=5 ; j++)) do
@@ -74,10 +75,11 @@ for ((opt=1; opt <= 3 ; ++opt)); do
     files3=("floyd")
 
     for file in "${files3[@]}"; do
-        # Redireccion a archivo txt con los resultados con salto de linea tras cada archivo
-        # printf "File: $file.cpp\n" >> $file.txt
+        
+        # Bucles principales de ejecucion
+        # i = tamaño de los datos 
+        # j = numero de ejecuciones
 
-        # Bucles principales de ejecucion-> i para el tamaño de los datos y j para el numero de ejecuciones
         for ((i=50; i<=1250 ; i+=50)) do
             printf "$i: \t\t" >> $file$opt.txt
             for ((j=1; j<=5 ; j++)) do
@@ -98,10 +100,11 @@ for ((opt=1; opt <= 3 ; ++opt)); do
     files4=("fibonacci")
 
     for file in "${files4[@]}"; do
-        # Redireccion a archivo txt con los resultados con salto de linea tras cada archivo
-        # printf "File: $file.cpp\n" >> $file.txt
+        
+        # Bucles principales de ejecucion
+        # i = tamaño de los datos 
+        # j = numero de ejecuciones
 
-        # Bucles principales de ejecucion-> i para el tamaño de los datos y j para el numero de ejecuciones
         for ((i=2; i<=50 ; i+=2)) do
             printf "$i: \t\t" >> $file$opt.txt
             for ((j=1; j<=5 ; j++)) do
@@ -143,6 +146,17 @@ for ((opt=1; opt <= 3 ; ++opt)); do
 
     mv *.txt ./Resultados
 done
+
+#---------------------------|Se eliminan los archivos innecesarios|-----------------------
+
+# Habilitar las expansiones de extglob
+shopt -s extglob
+
+# Eliminar archivos que no comiencen con "output" en la carpeta "Resultados"
+rm Resultados/!("output"*)
+
+#-----------------------------------------------------------------------------------------
+
 
 # Generación de gráficos con Gnuplot
 mkdir Graficas
