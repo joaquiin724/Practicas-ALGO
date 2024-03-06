@@ -1,8 +1,9 @@
 /**
-   @file Cálculo del coste de los caminos mínimos. Algoritmo de Floyd.
+   @file Cï¿½lculo del coste de los caminos mï¿½nimos. Algoritmo de Floyd.
 */
 
-   
+#include <chrono>
+using namespace std::chrono;     
 #include <iostream>
 using namespace std;
 #include <ctime>
@@ -17,9 +18,9 @@ static int const MAX_LONG  = 10;
 /**********************************************************************/
 
 /**
-   @brief Reserva espacio en memoria dinámica para una matriz cuadrada.
+   @brief Reserva espacio en memoria dinï¿½mica para una matriz cuadrada.
    
-   @param dim: dimensión de la matriz. dim > 0.
+   @param dim: dimensiï¿½n de la matriz. dim > 0.
 
    @returns puntero a la zona de memoria reservada.
 */
@@ -32,7 +33,7 @@ int ** ReservaMatriz(int dim);
    @brief Libera el espacio asignado a una matriz cuadrada.
    
    @param M: puntero a la zona de memoria reservada. Es MODIFICADO.
-   @param dim: dimensión de la matriz. dim > 0.
+   @param dim: dimensiï¿½n de la matriz. dim > 0.
 
    Liberar la zona memoria asignada a M y lo pone a NULL.
 */
@@ -44,7 +45,7 @@ void LiberaMatriz(int ** & M, int dim);
    @brief Rellena una matriz cuadrada con valores aleaotorias.
    
    @param M: puntero a la zona de memoria reservada. Es MODIFICADO.
-   @param dim: dimensión de la matriz. dim > 0.
+   @param dim: dimensiï¿½n de la matriz. dim > 0.
 
    Asigna un valor aleatorio entero de [0, MAX_LONG - 1] a cada
    elemento de la matriz M, salvo los de la diagonal principal
@@ -54,12 +55,12 @@ void RellenaMatriz(int **M, int dim);
 
 /**********************************************************************/	
 /**
-   @brief Cálculo de caminos mínimos.
+   @brief Cï¿½lculo de caminos mï¿½nimos.
    
    @param M: Matriz de longitudes de los caminos. Es MODIFICADO.
-   @param dim: dimensión de la matriz. dim > 0.
+   @param dim: dimensiï¿½n de la matriz. dim > 0.
 
-   Calcula la longitud del camino mínimo entre cada par de nodos (i,j),
+   Calcula la longitud del camino mï¿½nimo entre cada par de nodos (i,j),
    que se almacena en M[i][j].
 */
 void Floyd(int **M, int dim);
@@ -68,7 +69,7 @@ void Floyd(int **M, int dim);
 
 
 /**
-   Implementación de las funciones
+   Implementaciï¿½n de las funciones
 **/
 
 
@@ -141,17 +142,10 @@ void Floyd(int **M, int dim)
 /**********************************************************************/	
 int main (int argc, char **argv)
 {
-  clock_t tantes;    // Valor del reloj antes de la ejecución
-  clock_t tdespues;  // Valor del reloj después de la ejecución
-  int dim;           // Dimensión de la matriz
+  high_resolution_clock::time_point tantes, tdespues;
+  duration<double> transcurrido;
 
-  //Lectura de los parametros de entrada
-  if (argc != 2)
-    {
-      cout << "Parámetros de entrada: " << endl
-	   << "1.- Número de nodos" << endl << endl;
-      return 1;	
-    }	
+  int dim;
 
   dim = atoi(argv[1]);	
   int ** M = ReservaMatriz(dim);
@@ -160,11 +154,11 @@ int main (int argc, char **argv)
 		
 			
   // Empieza el algoritmo de floyd
-  tantes = clock();
+  tantes = high_resolution_clock::now();
   Floyd(M,dim);
-  tdespues = clock();
-  cout << "Tiempo: " << ((double)(tdespues-tantes))/CLOCKS_PER_SEC
-       << " s" << endl;
+  tdespues = high_resolution_clock::now();
+  transcurrido = duration_cast<duration<double>>(tdespues - tantes);
+  cout << transcurrido.count();
   LiberaMatriz(M,dim);
 
   return 0;
