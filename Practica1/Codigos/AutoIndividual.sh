@@ -9,7 +9,7 @@ rm -r Grafica$name
 for ((j=1; j<=3 ; j++)) do
     for ((i=5000; i<=50000 ; i+=5000)) do
             printf "$i \t" >> SalidaTest$j$name.txt
-            ./Ejecutables/$file $i $j >> SalidaTest$j$name.txt            
+            ./Ejecutables/$name $i $j >> SalidaTest$j$name.txt            
             printf "\n" >> SalidaTest$j$name.txt
     done
 done
