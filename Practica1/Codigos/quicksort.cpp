@@ -233,7 +233,6 @@ int main(int argc, char * argv[]){
         double *T = new double[size];
         // Verificación si la memoria fue asignada exitosamente
         assert(T);
-        quicksort(T,size);
         for (int i = 0; i < size; ++i) {
             // Hacer cast a double de random()
             T[i] = static_cast<double>(random());
