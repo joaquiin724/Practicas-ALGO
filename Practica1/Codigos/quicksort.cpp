@@ -198,22 +198,51 @@ int main(int argc, char * argv[]){
 
   high_resolution_clock::time_point tantes, tdespues;
   duration<double> transcurrido;
+  int tipo = atoi(argv[2]); // 1: int, 2: float, 3: double
 
-  int *T = new int[size];
-  assert(T);
-
-  srandom(time(0));
-
-  for (int i = 0; i < size; i++){
-    T[i] = random();
-  };
-
-  tantes = high_resolution_clock::now();
-  quicksort(T, size);
-  tdespues = high_resolution_clock::now();
-  transcurrido = duration_cast<duration<double>>(tdespues - tantes);
-  cout << transcurrido.count();
-  delete [] T;
-
-  return 0;
-};
+    // Crear el array según el tipo especificado
+    if (tipo == 1) { // int
+        int *T = new int[size];
+        // Verificación si la memoria fue asignada exitosamente
+        assert(T);
+        for (int i = 0; i < size; ++i) {
+            // Hacer cast a int de random()
+            T[i] = static_cast<int>(random());
+        }
+        tantes = high_resolution_clock::now();
+        quicksort(T, size);
+        tdespues = high_resolution_clock::now();
+        transcurrido = duration_cast<duration<double>>(tdespues - tantes);
+        cout << transcurrido.count();
+        delete[] T;
+    } else if (tipo == 2) { // float
+        float *T = new float[size];
+        // Verificación si la memoria fue asignada exitosamente
+        assert(T);
+        for (int i = 0; i < size; ++i) {
+            // Hacer cast a float de random()
+            T[i] = static_cast<float>(random());
+        }
+        tantes = high_resolution_clock::now();
+        quicksort(T, size);
+        tdespues = high_resolution_clock::now();
+        transcurrido = duration_cast<duration<double>>(tdespues - tantes);
+        cout << transcurrido.count();
+        delete[] T;
+    } else { // double
+        double *T = new double[size];
+        // Verificación si la memoria fue asignada exitosamente
+        quicksort(T,size);
+        for (int i = 0; i < size; ++i) {
+            // Hacer cast a double de random()
+            T[i] = static_cast<double>(random());
+        }
+        tantes = high_resolution_clock::now();
+        quicksort(T, size);
+        tdespues = high_resolution_clock::now();
+        transcurrido = duration_cast<duration<double>>(tdespues - tantes);
+        cout << transcurrido.count();
+        delete[] T;
+    }
+    return 0;
+}
