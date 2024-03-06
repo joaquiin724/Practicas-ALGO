@@ -69,6 +69,77 @@ for ((opt=1; opt <= 3 ; ++opt)); do
         python3 AutoMedia.py $file$opt.txt output$file$opt.txt
     done
 
+    # ALGORITMOS DE ORDENACION CON EFICIENCIA O(n³)----------------------------------------------
+
+    files2=("floyd")
+
+    for file in "${files2[@]}"; do
+        # Redireccion a archivo txt con los resultados con salto de linea tras cada archivo
+        # printf "File: $file.cpp\n" >> $file.txt
+
+        # Bucles principales de ejecucion-> i para el tamaño de los datos y j para el numero de ejecuciones
+        for ((i=50; i<=1250 ; i+=50)) do
+            printf "$i: \t\t" >> $file$opt.txt
+            for ((j=1; j<=5 ; j++)) do
+                # Ejecucion del programa y redireccion a archivo txt
+                ./$file $i $opt >> $file$opt.txt            
+                printf " " >> $file$opt.txt
+            done
+            printf "\n" >> $file$opt.txt
+        done
+    done
+
+    for file in "${files2[@]}"; do
+        python3 AutoMedia.py $file$opt.txt output$file$opt.txt
+    done
+
+    # ALGORITMOS DE ORDENACION CON EFICIENCIA O()----------------------------------------------
+    
+    files2=("fibonacci")
+
+    for file in "${files2[@]}"; do
+        # Redireccion a archivo txt con los resultados con salto de linea tras cada archivo
+        # printf "File: $file.cpp\n" >> $file.txt
+
+        # Bucles principales de ejecucion-> i para el tamaño de los datos y j para el numero de ejecuciones
+        for ((i=2; i<=50 ; i+=2)) do
+            printf "$i: \t\t" >> $file$opt.txt
+            for ((j=1; j<=5 ; j++)) do
+                # Ejecucion del programa y redireccion a archivo txt
+                ./$file $i $opt >> $file$opt.txt            
+                printf " " >> $file$opt.txt
+            done
+            printf "\n" >> $file$opt.txt
+        done
+    done
+
+    for file in "${files2[@]}"; do
+        python3 AutoMedia.py $file$opt.txt output$file$opt.txt
+    done
+
+    # ALGORITMOS DE ORDENACION CON EFICIENCIA O()----------------------------------------------
+    
+    files2=("hanoi")
+
+    for file in "${files2[@]}"; do
+        # Redireccion a archivo txt con los resultados con salto de linea tras cada archivo
+        # printf "File: $file.cpp\n" >> $file.txt
+
+        # Bucles principales de ejecucion-> i para el tamaño de los datos y j para el numero de ejecuciones
+        for ((i=3; i<=33 ; i++)) do
+            printf "$i: \t\t" >> $file$opt.txt
+            for ((j=1; j<=5 ; j++)) do
+                # Ejecucion del programa y redireccion a archivo txt
+                ./$file $i $opt >> $file$opt.txt            
+                printf " " >> $file$opt.txt
+            done
+            printf "\n" >> $file$opt.txt
+        done
+    done
+
+    for file in "${files2[@]}"; do
+        python3 AutoMedia.py $file$opt.txt output$file$opt.txt
+    done
 
     mv *.txt ./Resultados
 done
@@ -84,7 +155,7 @@ set ylabel "Tiempo de ejecución"
 EOF
 
 # Bucle para generar gráficos para cada algoritmo y tipo de dato
-for algorithm in "burbuja" "insercion" "seleccion" "mergesort" "quicksort"; do
+for algorithm in "burbuja" "insercion" "seleccion" "mergesort" "quicksort" "floyd" "fibonacci" "hanoi"; do
     cat << EOF >> script_gnuplot.gp
 
 # Algoritmo $algorithm
