@@ -110,18 +110,18 @@ for file in "${files3[@]}"; do
 
     # Bucles principales de ejecucion-> i para el tamaño de los datos y j para el numero de ejecuciones
     for ((i=3; i<=33 ; i++)) do
-        printf "$i: \t\t" >> $file$opt.txt
+        printf "$i: \t\t" >> $file.txt
         for ((j=1; j<=2 ; j++)) do
             # Ejecucion del programa y redireccion a archivo txt
-            ./Ejecutables/$file $i $opt >> $file$opt.txt            
-            printf " " >> $file$opt.txt
+            ./Ejecutables/$file $i >> $file.txt            
+            printf " " >> $file.txt
         done
-        printf "\n" >> $file$opt.txt
+        printf "\n" >> $file.txt
     done
 done
 
 for file in "${files3[@]}"; do
-    python3 AutoMedia.py $file$opt.txt output$file$opt.txt
+    python3 AutoMedia.py $file.txt output$file.txt
 done
 
 # ALGORITMOS DE ORDENACION CON EFICIENCIA O(n³)----------------------------------------------
