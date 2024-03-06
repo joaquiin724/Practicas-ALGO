@@ -112,7 +112,7 @@ static void insercion_lims(P T[], int inicial, int final);
    elementos de los vectores U y V.
 */
 template<typename P>
-static void fusion(P T[], int inicial, int final, int U[], int V[]);
+static void fusion(P T[], int inicial, int final, P U[], P V[]);
 
 
 
@@ -183,7 +183,7 @@ static void mergesort_lims(P T[], int inicial, int final)
 }
   
 template<typename P>
-static void fusion(P T[], int inicial, int final, int U[], int V[])
+static void fusion(P T[], int inicial, int final, P U[], P V[])
 {
   int j = 0;
   int k = 0;

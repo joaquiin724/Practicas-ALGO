@@ -30,7 +30,7 @@ for ((opt=1; opt <= 3 ; ++opt)); do
 
         for ((i=5000; i<=125000 ; i+=5000)) do
             printf "$i: \t\t" >> $file$opt.txt
-            for ((j=1; j<=5 ; j++)) do
+            for ((j=1; j<=2 ; j++)) do
                 # Ejecucion del programa y redireccion a archivo txt
                 ./Ejecutables/$file $i $opt >> $file$opt.txt            
                 printf " " >> $file$opt.txt
@@ -57,7 +57,7 @@ for ((opt=1; opt <= 3 ; ++opt)); do
 
         for ((i=50000; i<=1250000 ; i+=50000)) do
             printf "$i: \t\t" >> $file$opt.txt
-            for ((j=1; j<=5 ; j++)) do
+            for ((j=1; j<=2 ; j++)) do
                 # Ejecucion del programa y redireccion a archivo txt
                 ./Ejecutables/$file $i $opt >> $file$opt.txt            
                 printf " " >> $file$opt.txt
@@ -82,7 +82,7 @@ for ((opt=1; opt <= 3 ; ++opt)); do
 
         for ((i=50; i<=1250 ; i+=50)) do
             printf "$i: \t\t" >> $file$opt.txt
-            for ((j=1; j<=5 ; j++)) do
+            for ((j=1; j<=2 ; j++)) do
                 # Ejecucion del programa y redireccion a archivo txt
                 ./Ejecutables/$file $i $opt >> $file$opt.txt            
                 printf " " >> $file$opt.txt
@@ -107,7 +107,7 @@ for ((opt=1; opt <= 3 ; ++opt)); do
 
         for ((i=2; i<=50 ; i+=2)) do
             printf "$i: \t\t" >> $file$opt.txt
-            for ((j=1; j<=5 ; j++)) do
+            for ((j=1; j<=2 ; j++)) do
                 # Ejecucion del programa y redireccion a archivo txt
                 ./Ejecutables/$file $i $opt >> $file$opt.txt            
                 printf " " >> $file$opt.txt
@@ -131,7 +131,7 @@ for ((opt=1; opt <= 3 ; ++opt)); do
         # Bucles principales de ejecucion-> i para el tamaño de los datos y j para el numero de ejecuciones
         for ((i=3; i<=33 ; i++)) do
             printf "$i: \t\t" >> $file$opt.txt
-            for ((j=1; j<=5 ; j++)) do
+            for ((j=1; j<=2 ; j++)) do
                 # Ejecucion del programa y redireccion a archivo txt
                 ./Ejecutables/$file $i $opt >> $file$opt.txt            
                 printf " " >> $file$opt.txt
