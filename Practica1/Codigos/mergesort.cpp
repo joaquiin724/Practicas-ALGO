@@ -217,7 +217,7 @@ int main(int argc, char *argv[]) {
         int *T = new int[size];
         assert(T);
         for (int i = 0; i < size; ++i) {
-            T[i] = random(); 
+            T[i] = static_cast<int>(random());
         }
         tantes = high_resolution_clock::now();
         mergesort(T, size);
@@ -229,7 +229,7 @@ int main(int argc, char *argv[]) {
         float *T = new float[size];
         assert(T);
         for (int i = 0; i < size; ++i) {
-            T[i] = random() / static_cast<float>(RAND_MAX);
+            T[i] = static_cast<float>(random());
         }
         tantes = high_resolution_clock::now();
         mergesort(T, size);
@@ -241,7 +241,7 @@ int main(int argc, char *argv[]) {
         double *T = new double[size];
         assert(T);
         for (int i = 0; i < size; ++i) {
-            T[i] = random() / static_cast<double>(RAND_MAX);
+            T[i] = static_cast<double>(random());
         }
         tantes = high_resolution_clock::now();
         mergesort(T, size);

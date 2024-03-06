@@ -2,15 +2,14 @@
 # Este archivo es como el autorun pero sirve para ejecutar un solo archivo, en este
 # caso, el archivo especificado en la siguiente variable:
 
-name="burbuja"
-rm *.txt
+name="mergesort"
 rm -r Grafica$name
 
 # Crear un directorio para guardar las gráficas
 mkdir Grafica$name
 
 for ((j=1; j<=3 ; j++)) do
-    for ((i=5000; i<=50000 ; i+=5000)) do
+    for ((i=50000; i<=1250000 ; i+=50000)) do
             printf "$i \t" >> Grafica$name/SalidaTest$j$name.txt
             ./Ejecutables/$name $i $j >> Grafica$name/SalidaTest$j$name.txt            
             printf "\n" >> Grafica$name/SalidaTest$j$name.txt
