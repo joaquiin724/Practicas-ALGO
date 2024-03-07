@@ -4,6 +4,7 @@
 
  
 #include <chrono>
+#include <fstream>
 using namespace std::chrono;  
 #include <iostream>
 using namespace std;
@@ -229,7 +230,7 @@ int main(int argc, char * argv[]){
         transcurrido = duration_cast<duration<double>>(tdespues - tantes);
         cout << transcurrido.count();
         delete[] T;
-    } else (tipo==3){ // double
+    } else if (tipo==3){ // double
         double *T = new double[size];
         // Verificación si la memoria fue asignada exitosamente
         assert(T);
