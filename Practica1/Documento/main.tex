@@ -48,17 +48,21 @@
     En esta práctica, se han implementado los siguientes algoritmos de ordenación: \negrita{quicksort, mergesort, heapsort, inserción, burbuja,}
     y \negrita{selección}. Además, se han implementado los algoritmos de \negrita{Floyd}, que calcula el costo del camino mínimo entre cada par de nodos 
     de un grafo dirigido, de \negrita{Fibonacci}, que calcula los números de la sucesión de Fibonacci , y de \negrita{Hanoi}, que resuelve el famoso 
-    problema de las torres de Hanoi. \\ \\
-    En primer lugar, aunque tenemos la eficiencia teórica de estos algoritmos, se realizarán los calculos necesarios para demostrar
-    como se obtiene dicha eficiencia utilizando los distintos métodos estudiados en teoría. \\
-    En segundo lugar, se pasará al estudio empírimo de los algoritmos de ordenación de vectores para distintos tipos de datos, es decir, 
-    para datos tipo \negrita{int}, \negrita{float}, \negrita{double} y \negrita{string}. Posteriormente, se creará las gráficas para
-    cada algoritmo en las que visualizaremos el tiempo de ejecución en función del tamaño del vector y del tipo de dato. Finalmente 
-    para esta parte, se hara un calculo de \negrita{eficiencia híbrida} que se basa en ajustar la gráfica obtenida a la función de su eficiencia
-    teórica por mínimos cuadrados, obteniendo por tanto los literales de dicha función que ajustan la gráfica.\\
-    En tercer lugar, se hará el estudio de los otros tres algoritmos de forma similar, es decir, se estudiará la eficiencia
-    de estos de modo empírica, cuyo estudio se mostrará en las gráficas, y se calculará la eficiencia híbrida de estos, a partir
-    de la eficiencia teórica.\\ 
+    problema de las torres de Hanoi. Se ha aplicado la siguiente metodología:
+    \begin{itemize}
+        \item En primer lugar, aunque tenemos la eficiencia teórica de estos algoritmos, se realizarán los calculos necesarios para demostrar
+        como se obtiene dicha eficiencia utilizando los distintos métodos estudiados en teoría. \\
+        
+        \item En segundo lugar, se pasará al estudio empírico de los algoritmos de ordenación de vectores para distintos tipos de datos, es decir, 
+        para datos tipo \negrita{int}, \negrita{float}, \negrita{double} y \negrita{string}. Posteriormente, se creará las gráficas para
+        cada algoritmo en las que visualizaremos el tiempo de ejecución en función del tamaño del vector y del tipo de dato. Finalmente 
+        para esta parte, se hara un calculo de \negrita{eficiencia híbrida} que se basa en ajustar la gráfica obtenida a la función de su eficiencia
+        teórica por mínimos cuadrados, obteniendo por tanto los literales de dicha función que ajustan la gráfica.\\
+        
+        \item En tercer lugar, se hará el estudio de los otros tres algoritmos de forma similar, es decir, se estudiará la eficiencia
+        de estos de modo empírica, cuyo estudio se mostrará en las gráficas, y se calculará la eficiencia híbrida de estos, a partir
+        de la eficiencia teórica.\\     
+    \end{itemize}
 \section{Diseño del estudio}
     % Esta variable indica el algoritmo escogido para el estudio en varios ordenadores
     \newcommand{\mivar}{ordenación de vectores quicksort}
@@ -66,35 +70,74 @@
     Además, hemos realizado el estudio empírico de forma aislada para el algoritmo de ordenación de vectores
     quicksort en los distintos ordenadores de los participantes del grupo para ver como afectan las características
     hardware de cada ordenador en el tiempo de ejecución, cuyas gráficas se mostrarán en la sección de Algoritmos. \\
-    En ambos casos se ha hecho uso del sistema operativo Linux, concretamente de Ubuntu, y se ha utilizado el
+    En ambos casos se ha hecho uso del sistema operativo Linux, concretamente de Debian, y se ha utilizado el
     compilador gcc para la compilación de los programas  con el flag -Og para la optimización.
-    \subsection*{Algoritmos de ordenación de vectores}
-    Para el estudio de los algoritmos de ordenación de vectores, se ha creado un programa \negrita{AutoIndividual.sh} que dado un
-    algoritmo lo ejecutará para distintos tamaños de vectores, indicados en el segundo bucle, y para
-    distintos tipos de datos, indicado en el primer bucle. A continuación, crea una carpeta para guardar la gráfica
-    correspondiente a dicho algoritmo con los datos empíricos de tiempo de ejecución, así como un archivo .txt
-    con los datos obtenidos. Este procedimiento se ha usado para obtener distintas pruebas de los algoritmos de
-    ordenación y para obtener sus gráficas de forma independiente.
-    A partir de estas gráficas 
+    \subsection{Algoritmos de ordenación de vectores}
+    Para la facilitación del estudio empírico de los algoritmos se ha hecho uso de varios scripts, entre ellos:
+    \begin{itemize}
+        \item \textbf{[AutoCompile.sh]} Este script se encarga de compilar todos los ficheros en una misma carpeta con las mismas
+        opciones de compilación, para garantizar la máxima igualdad posible entre cada algoritmo y organizar la estructura de 
+        ficheros.
+        \item \textbf{[AutoFinal.sh]} Este script es el encargado de ejecutar todos los algoritmos varias veces con las opciones respectivas para cada uno,
+        el resultado se pasa por un programa AutoMedia.py que se encarga de realizar la media de las ejecuciones de los algoritmos,
+        este resultado es guardado en una carpeta llamada Resultados de la que posteriormente el mismo script genera las graficas
+        de cada algoritmo.
+        \item \textbf{[AutoIndividual.sh]} Este script es como el descrito previamente pero unicamente ejecuta un script, esto ha sido útil para hacer
+        pruebas sin la necesidad de esperar la gran cantidad de tiempo que requiere la ejecución de todos los algoritmos.
+    \end{itemize}
     
 \section{Algoritmos}
+Esta sección esta dedicada a mostrar los resultados obtenidos en el estudio de los algoritmos,
+la estructura seguida para mostrar los resultados consiste en mostrar, para cada algoritmo, los tiempos 
+de ejecución, junto con las gráficas obtenidas y los ajustes correspondientes. Previo a ello, se analizará
+en cada caso teoricamente la eficiencia prevista para cada algoritmo.
+
 \subsection{Burbuja}
 \begin{figure}[ht]
     \begin{minipage}{0.5\textwidth}
         \centering
         \includegraphics[width=\linewidth]{assets/Img/burbuja.png}
-        \caption{Ejecución algoritmo burbuja portatil}
-        \label{fig:photo1}
+        \caption{Ejecución algoritmo burbuja}
+        \label{fig:burbuja}
     \end{minipage}%
     \begin{minipage}{0.5\textwidth}
         \centering
         \includegraphics[width=\linewidth]{assets/Img/burbujastring.png}
-        \caption{Ejecución algoritmo burbuja con string portatil}
-        \label{fig:photo2}
+        \caption{Ejecución algoritmo burbuja con string}
+        \label{fig:burbujastring}
+    \end{minipage}
+\end{figure}
+\subsection{Seleccion}
+\begin{figure}[ht]
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{assets/Img/seleccion.png}
+        \caption{Ejecución algoritmo seleccion}
+        \label{fig:seleccion}
+    \end{minipage}%
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{assets/Img/seleccionstring.png}
+        \caption{Ejecución algoritmo seleccion con string}
+        \label{fig:seleccionstring}
     \end{minipage}
 \end{figure}
 
-
+\subsection{Inserción}
+\begin{figure}[ht]
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{assets/Img/insercion.png}
+        \caption{Ejecución algoritmo insercion}
+        \label{fig:insercion}
+    \end{minipage}%
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{assets/Img/insercionstring.png}
+        \caption{Ejecución algoritmo inserción con string}
+        \label{fig:insercionstring}
+    \end{minipage}
+\end{figure}
 \section{Conclusiones}
 
 \end{document}
