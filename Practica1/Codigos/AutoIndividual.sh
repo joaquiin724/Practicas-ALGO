@@ -2,7 +2,7 @@
 # Este archivo es como el autorun pero sirve para ejecutar un solo archivo, en este
 # caso, el archivo especificado en la siguiente variable:
 
-name="seleccion"
+name="burbuja"
 rm -r Grafica$name
 
 # Crear un directorio para guardar las gráficas
