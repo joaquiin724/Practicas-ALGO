@@ -9,14 +9,14 @@ rm -r Grafica$name
 mkdir Grafica$name
 
 for ((j=1; j<=3 ; j++)) do
-    for ((i=10000; i<=200000 ; i+=10000)) do
+    for ((i=5000; i<=125000 ; i+=5000)) do
         printf "$i \t" >> Grafica$name/SalidaTest$j$name.txt
         ./Ejecutables/$name $i $j >> Grafica$name/SalidaTest$j$name.txt            
         printf "\n" >> Grafica$name/SalidaTest$j$name.txt
     done
 done
 
-for ((i=10000; i<=200000 ; i+=10000)) do
+for ((i=12308; i<=202308 ; i+=10000)) do
     printf "$i \t" >> Grafica$name/SalidaTest4$name.txt
     ./Ejecutables/$name $i 4 >> Grafica$name/SalidaTest$j$name.txt            
     printf "\n" >> Grafica$name/SalidaTest4$name.txt
