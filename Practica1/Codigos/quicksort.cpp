@@ -133,7 +133,7 @@ static void insercion_lims(P T[], int inicial, int final)
   P aux;
   for (i = inicial + 1; i < final; i++) {
     j = i;
-    while ((T[j] < T[j-1]) && (j > 0)) {
+    while ((j > 0) && (T[j] < T[j-1])) {
       aux = T[j];
       T[j] = T[j-1];
       T[j-1] = aux;
