@@ -130,7 +130,7 @@ template<typename P>
 static void insercion_lims(P T[], int inicial, int final)
 {
   int i, j;
-  int aux;
+  P aux;
   for (i = inicial + 1; i < final; i++) {
     j = i;
     while ((T[j] < T[j-1]) && (j > 0)) {
