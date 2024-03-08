@@ -3,7 +3,7 @@
 \documentclass[11pt]{article}
 \input{assets/portada.tex}
 \usepackage{assets/formulas}
-\newcommand{\negrita}[1]{\textbf{#1}}
+\usepackage{float}
 \hbadness=10000 % Suppress Underfull \hbox warnings
 
 %_________________________________________Indice:_______________________________________________%
@@ -45,18 +45,18 @@
 \end{itemize}
 
 \section{Objetivos}
-    En esta práctica, se han implementado los siguientes algoritmos de ordenación: \negrita{quicksort, mergesort, heapsort, inserción, burbuja,}
-    y \negrita{selección}. Además, se han implementado los algoritmos de \negrita{Floyd}, que calcula el costo del camino mínimo entre cada par de nodos 
-    de un grafo dirigido, de \negrita{Fibonacci}, que calcula los números de la sucesión de Fibonacci , y de \negrita{Hanoi}, que resuelve el famoso 
+    En esta práctica, se han implementado los siguientes algoritmos de ordenación: \textbf{quicksort, mergesort, heapsort, inserción, burbuja,}
+    y \textbf{selección}. Además, se han implementado los algoritmos de \textbf{Floyd}, que calcula el costo del camino mínimo entre cada par de nodos 
+    de un grafo dirigido, de \textbf{Fibonacci}, que calcula los números de la sucesión de Fibonacci , y de \textbf{Hanoi}, que resuelve el famoso 
     problema de las torres de Hanoi. Se ha aplicado la siguiente metodología:
     \begin{itemize}
         \item En primer lugar, aunque tenemos la eficiencia teórica de estos algoritmos, se realizarán los calculos necesarios para demostrar
         como se obtiene dicha eficiencia utilizando los distintos métodos estudiados en teoría. \\
         
         \item En segundo lugar, se pasará al estudio empírico de los algoritmos de ordenación de vectores para distintos tipos de datos, es decir, 
-        para datos tipo \negrita{int}, \negrita{float}, \negrita{double} y \negrita{string}. Posteriormente, se creará las gráficas para
+        para datos tipo \textbf{int}, \textbf{float}, \textbf{double} y \textbf{string}. Posteriormente, se creará las gráficas para
         cada algoritmo en las que visualizaremos el tiempo de ejecución en función del tamaño del vector y del tipo de dato. Finalmente 
-        para esta parte, se hara un calculo de \negrita{eficiencia híbrida} que se basa en ajustar la gráfica obtenida a la función de su eficiencia
+        para esta parte, se hara un calculo de \textbf{eficiencia híbrida} que se basa en ajustar la gráfica obtenida a la función de su eficiencia
         teórica por mínimos cuadrados, obteniendo por tanto los literales de dicha función que ajustan la gráfica.\\
         
         \item En tercer lugar, se hará el estudio de los otros tres algoritmos de forma similar, es decir, se estudiará la eficiencia
@@ -93,7 +93,7 @@ de ejecución, junto con las gráficas obtenidas y los ajustes correspondientes.
 en cada caso teoricamente la eficiencia prevista para cada algoritmo.
 
 \subsection{Burbuja}
-\begin{figure}[ht]
+\begin{figure}[H]
     \begin{minipage}{0.5\textwidth}
         \centering
         \includegraphics[width=\linewidth]{assets/Img/burbuja.png}
@@ -108,7 +108,7 @@ en cada caso teoricamente la eficiencia prevista para cada algoritmo.
     \end{minipage}
 \end{figure}
 \subsection{Seleccion}
-\begin{figure}[ht]
+\begin{figure}[H]
     \begin{minipage}{0.5\textwidth}
         \centering
         \includegraphics[width=\linewidth]{assets/Img/seleccion.png}
@@ -124,7 +124,7 @@ en cada caso teoricamente la eficiencia prevista para cada algoritmo.
 \end{figure}
 
 \subsection{Inserción}
-\begin{figure}[ht]
+\begin{figure}[H]
     \begin{minipage}{0.5\textwidth}
         \centering
         \includegraphics[width=\linewidth]{assets/Img/insercion.png}
@@ -137,6 +137,27 @@ en cada caso teoricamente la eficiencia prevista para cada algoritmo.
         \caption{Ejecución algoritmo inserción con string}
         \label{fig:insercionstring}
     \end{minipage}
+\end{figure}
+\subsection{Hanoi}
+\begin{figure}[H]
+    \centering
+        \includegraphics[width=0.5\linewidth]{assets/Img/hanoiint.png}
+        \caption{Ejecución algoritmo Hanoi}
+        \label{fig:hanoi}
+\end{figure}
+\subsection{Fibonacci}
+\begin{figure}[H]
+    \centering
+        \includegraphics[width=0.5\linewidth]{assets/Img/fibonacciint.png}
+        \caption{Ejecución algoritmo Fibonacci}
+        \label{fig:fibonacci}
+\end{figure}
+\subsection{Floyd}
+\begin{figure}[H]
+    \centering
+        \includegraphics[width=0.5\linewidth]{assets/Img/floydint.png}
+        \caption{Ejecución algoritmo Floyd}
+        \label{fig:floyd}
 \end{figure}
 \section{Conclusiones}
 
