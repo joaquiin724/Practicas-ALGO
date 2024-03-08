@@ -2,21 +2,21 @@
 # Este archivo es como el autorun pero sirve para ejecutar un solo archivo, en este
 # caso, el archivo especificado en la siguiente variable:
 
-name="burbuja"
+name="quicksort"
 rm -r Grafica$name
 
 # Crear un directorio para guardar las gráficas
 mkdir Grafica$name
 
 for ((j=1; j<=3 ; j++)) do
-    for ((i=5000; i<=75000 ; i+=5000)) do
+    for ((i=50000; i<=1250000 ; i+=50000)) do
         printf "$i \t" >> Grafica$name/SalidaTest$j$name.txt
         ./Ejecutables/$name $i $j >> Grafica$name/SalidaTest$j$name.txt            
         printf "\n" >> Grafica$name/SalidaTest$j$name.txt
     done
 done
 
-for ((i=12308; i<=202308 ; i+=40000)) do
+for ((i=12308; i<=202308 ; i+=10000)) do
     printf "$i \t" >> Grafica$name/SalidaTest4$name.txt
     ./Ejecutables/$name $i 4 >> Grafica$name/SalidaTest4$name.txt            
     printf "\n" >> Grafica$name/SalidaTest4$name.txt
