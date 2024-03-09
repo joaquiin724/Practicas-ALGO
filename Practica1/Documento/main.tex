@@ -115,6 +115,7 @@
     la estructura seguida para mostrar los resultados consiste en mostrar, para cada algoritmo, los tiempos 
     de ejecución, junto con las gráficas obtenidas y los ajustes correspondientes. Previo a ello, se analizará
     en cada caso teoricamente la eficiencia prevista para cada algoritmo.
+
     \subsection{Estudio teórico}
         En esta sección se calculará la eficiencia teórica de cada algoritmo, es decir, la eficiencia que se espera al hacer el
         estudio empírico de cada algoritmo. Para ello, se utilizarán los métodos estudiados en teoría.
@@ -185,7 +186,8 @@
             = a \cdot \frac{(n-2)(n-1)}{2}=\frac{n^2}{2}a-\frac{3n}{2}a+a 
         \end{equation*}
         Es claro que $\frac{n^2}{2}a-\frac{3}{2}na+a \in O(n^2)$ y por tanto la eficiencia teórica del algoritmo de inserción es $O(n^2)$.
-        \subsection*{Algoritmo de ordenación Inserción}
+        
+        \subsection*{Algoritmo de ordenación Selección}
         Utilizaremos el siguiente fragmento de código para estudiar su eficiencia, pues es el utilizado en la práctica
         \begin{lstlisting}
             void seleccion(int T[], int inicial, int final)
@@ -222,7 +224,64 @@
             & = \frac{n^2}{2}a-\frac{n}{2}a+a
         \end{split}\end{equation*}
         Es claro que $\frac{n^2}{2}a-\frac{n}{2}a+a \in O(n^2)$ y por tanto la eficiencia teórica del algoritmo de inserción es $O(n^2)$.
-\subsection{Burbuja}
+
+        \subsection*{Algoritmo de ordenación Mergesort}
+        Utilizaremos el siguiente fragmento de código para estudiar su eficiencia, pues es el utilizado en la práctica
+        \begin{lstlisting}
+  
+        static void fusion(int T[], int inicial, int final, int U[], int V[])
+        {
+            int j = 0;
+            int k = 0;
+            for (int i = inicial; i < final; i++){
+                if (U[j] < V[k]) {
+                    T[i] = U[j];
+                    j++;
+                } else{
+                    T[i] = V[k];
+                    k++;
+                };
+            };
+        }
+
+        void mergesort(int T[], int inicial, int final)
+        {
+            if (final - inicial < UMBRAL_MS){
+                insercion(T, inicial, final);
+            } else {
+                int k = (final - inicial)/2;
+
+                int * U = new int [k - inicial + 1];
+                assert(U);
+                int l, l2;
+                for (l = 0, l2 = inicial; l < k - inicial; l++, l2++)
+                    U[l] = T[l2];
+                U[l] = INT_MAX;
+
+                P * V = new P [final - k + 1];
+                assert(V);
+                for (l = 0, l2 = k; l < final - k; l++, l2++)
+                    V[l] = T[l2];
+                V[l] = INT_MAX;
+
+                mergesort_lims(U, 0, k - inicial);
+                mergesort_lims(V, 0, final - k);
+                fusion(T, inicial, final, U, V);
+                delete [] U;
+                delete [] V;
+            };
+        }
+            
+        \end{lstlisting}
+        Destacar que tomaremos $final=n \wedge inicial=0$. Es claro que en el caso de que $n=final-incial<\nobreak UMBRAL\_MS$ 
+        la eficiencia del algoritmo es $O(UMBRAL\_MS)$, es decir, constante, por tanto, nos centraremos en el caso en el que $n\geq UMBRAL\_MS$.
+        En este caso, el algoritmo se divide en dos partes, la primera parte es la creación de los vectores $U$ y $V$ y la segunda parte es la
+        llamada recursiva a la función mergesort. \\
+        La primera parte la podemos dividir en dos: la creación del vector $U$ tomando entonces de la línea 22 a la línea
+        29, donde podemos ver que el bucle for de la línea 27 se ejecuta $\frac{n}{2}$ veces; y la creación del vector 
+        $V$ tomando entonces de la línea 31 a la línea 35, donde tenemos el mismo resultado. Tenemos entonces que ambas partes 
+        tienen eficiecia $O(\frac{n}{2})$, es decir, $O(n)$ y aplicando la regla del máximo obtendríamos hasta la línea 35 un
+        orden de $O(n)$. 
 \begin{figure}[H]
     \begin{minipage}{0.5\textwidth}
         \centering
