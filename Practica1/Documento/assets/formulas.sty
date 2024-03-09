@@ -36,6 +36,30 @@ headheight=16pt % Set \headheight to 16pt to avoid fancyhr warnings
 \usepackage{amsthm}     % Teoremas
 \usepackage{cancel}
 \usepackage[utf8]{inputenc}
+\usepackage{xcolor} % Para definir y usar colores
+\usepackage{listings} % Para mostrar código fuente
+\lstset{
+    language=C++,                 % Define el lenguaje del código (C++)
+    basicstyle=\ttfamily\small,   % Estilo de fuente básico
+    keywordstyle=\color{blue},    % Estilo de las palabras clave
+    stringstyle=\color{red},      % Estilo de las cadenas de texto
+    commentstyle=\color{green},   % Estilo de los comentarios
+    morecomment=[l][\color{magenta}]{\#},  % Estilo para preprocesador
+    numbers=left,                 % Muestra números de línea en el margen izquierdo
+    numberstyle=\tiny\color{gray},% Estilo de los números de línea
+    stepnumber=1,                 % Intervalo de los números de línea; cada línea
+    numbersep=10pt,               % Cuánto separar los números de línea del código
+    backgroundcolor=\color{white},% Color de fondo
+    showspaces=false,             % Muestra espacios con subrayados; overrides 'showstringspaces'
+    showstringspaces=false,       % Subraya solo los espacios en cadenas
+    showtabs=false,               % Muestra tabulaciones con subrayados
+    frame=single,                 % Añade un marco alrededor del código
+    tabsize=4,                    % Configura tabulaciones de 4 espacios
+    captionpos=b,                 % Posición de la leyenda del código (bottom)
+    breaklines=true,              % Configura el quiebre automático de líneas
+    breakatwhitespace=false,      % Configura el quiebre de líneas solo en espacios en blanco
+    escapeinside={\%*}{*)},       % Si quieres incorporar LaTeX dentro de tu código
+}
 
 % ------------------------------------------------------------------------------
 % HEADER Seccion y subseccion
