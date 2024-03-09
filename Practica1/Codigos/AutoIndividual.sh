@@ -9,7 +9,7 @@ rm -r Grafica$name
 mkdir Grafica$name
 
 for ((j=1; j<=3 ; j++)) do
-    for ((i=12308; i<=202308 ; i+=10000)) do
+    for ((i=50000; i<=1250000 ; i+=50000)) do
         printf "$i \t" >> Grafica$name/Salida$j$name.txt
         ./Ejecutables/$name $i $j >> Grafica$name/Salida$j$name.txt            
         printf "\n" >> Grafica$name/Salida$j$name.txt
