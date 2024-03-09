@@ -29,7 +29,11 @@
     \end{itemize}
     \item \textbf{Alberto De la Vera Sánchez: } 20\%
     \item \textbf{Manuel Gomez Rubio} 20\%
-    \item \textbf{Pablo Linari Perez:} 20\%
+    \item \textbf{Pablo Linari Pérez:} 20\%
+    \begin{itemize}
+        \item Estudio y comparación de las gráficas
+        \item Diseño del estudio
+    \end{itemize}
 \end{itemize}
 
 \section{Equipo de trabajo}
@@ -65,7 +69,7 @@
     \end{itemize}
 \section{Diseño del estudio}
     % Esta variable indica el algoritmo escogido para el estudio en varios ordenadores
-    \newcommand{\mivar}{ordenación de vectores quicksort}
+
     Los estudios empíricos han sido realizados en el ordenador con las características mencionadas anteriormente.
     Además, hemos realizado el estudio empírico de forma aislada para el algoritmo de ordenación de vectores
     quicksort en los distintos ordenadores de los participantes del grupo para ver como afectan las características
@@ -73,7 +77,27 @@
     En ambos casos se ha hecho uso del sistema operativo Linux, concretamente de Debian, y se ha utilizado el
     compilador gcc para la compilación de los programas  con el flag -Og para la optimización.
     \subsection{Algoritmos de ordenación de vectores}
-    Para la facilitación del estudio empírico de los algoritmos se ha hecho uso de varios scripts, entre ellos:
+    Para los algoritmos de ordenación se han usado entradas de datos de tipo int, float, double y string mientras que para los algoritmos de Hanoi, Floyd  y Fibonnaci solo se han usado entradas de tipo int 
+    ya que no tendría sentido usar entradas de otro tipo. 
+    \begin{itemize}
+        \item En los algoritmos con eficiencia  \(O(n^2)\) como los de Burbuja, Selección e Inserción los saltos usados entre los tipos de datos int, float y double generados aleatoriamente son de 5000 en 5000 empezando con una muestra de 5000 datos y llegando a
+        un máximo de 125000 datos.
+        \item En los lagoritmos con eficiencia \(O (\log(n))\) como el mergesort o el quicksort los saltos usados entre los tipos de datos int, float y double generados aleatoriamente son de 50000 en 50000 empezando con una muestra de 50000 datos y llegando a
+        un máximo de 1250000 datos.
+    \end{itemize}
+
+    \subsection{Otros algoritmos}
+    En los algoritmos restantes se han usado datos de tipo int generados aleatoriamente y proporcionados en la siguiente medida:
+    \begin{itemize}
+        \item Para el algoritmo de Floyd  que es de orden \(O(n^3)\) se han usado enteros aleatorios desde 50 hasta 1250 con saltos de 50 en 50.
+        \item Para el algoritmo de Fibonnaci  que es de orden \(O((\frac{1+\sqrt{5}}{2})^n\)) se han usado enteros aleatorios desde 50 hasta 1250 con saltos de 50 en 50.
+        \item Para el algoritmo de Hanoi que es de orden \(O(2^n)\) se han usado enteros aleatorios desde 3 hasta 33 con saltos de 50 en 50. 
+    \end{itemize}
+
+    Por último para el tipo de dato string se han extraido las muestras del archivo \textit{quijote.txt} para simular una generación aleatoria de palabras, esta entrada de datos no ha sido totalmente aleatoria ya que al usar un lenguaje determinado par el texto  ,en este caso el español, se repiten con mas frecuencia algunas palabras por tanto esto se verá 
+    reflejado en el comportamiento de los  algoritmos. En este caso el Quijote tiene un total de 202308 palabras por lo que se comenzará con una muestra de 12308 palabras con saltos de 
+    10000 en 10000 hasta llegar a 202308 palabras.
+    \subsection{Scripts usados para la ejecución}
     \begin{itemize}
         \item \textbf{[AutoCompile.sh]} Este script se encarga de compilar todos los ficheros en una misma carpeta con las mismas
         opciones de compilación, para garantizar la máxima igualdad posible entre cada algoritmo y organizar la estructura de 
