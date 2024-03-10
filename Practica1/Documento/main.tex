@@ -458,7 +458,8 @@
             T(n)=2^nT(n-n)+2n-1=2^{n}T(0)+2n-1=2^n+2n-1 \Longrightarrow T(n)\in O(2^n)
         \end{equation*}
         Por tanto se comprueba que el algoritmo es $O(2^n)$
-\subsection{Burbuja}
+\subsection{Estudio empírico}
+\subsection*{Burbuja}
 \begin{figure}[H]
     \begin{minipage}{0.5\textwidth}
         \centering
@@ -473,7 +474,30 @@
         \label{fig:burbujastring}
     \end{minipage}
 \end{figure}
-\subsection{Seleccion}
+\begin{figure}[H]
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=3cm, height=5cm]{assets/Img/burbujatabla1.png}
+
+    \end{minipage}%
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=3cm, height=5cm]{assets/Img/burbujatabla2.png}
+
+    \end{minipage}
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=3cm, height=5cm]{assets/Img/burbujatabla3.png}
+
+    \end{minipage}
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=3cm, height=5cm]{assets/Img/burbujatabla4.png}
+    \end{minipage}
+\end{figure}
+
+
+\subsection*{Seleccion}
 \begin{figure}[H]
     \begin{minipage}{0.5\textwidth}
         \centering
@@ -489,7 +513,29 @@
     \end{minipage}
 \end{figure}
 
-\subsection{Inserción}
+\begin{figure}[H]
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=3cm, height=5cm]{assets/Img/selecciontabla1.png}
+
+    \end{minipage}%
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=3cm, height=5cm]{assets/Img/selecciontabla2.png}
+
+    \end{minipage}
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=3cm, height=5cm]{assets/Img/selecciontabla3.png}
+
+    \end{minipage}
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=3cm, height=5cm]{assets/Img/selecciontabla4.png}
+    \end{minipage}
+\end{figure}
+
+\subsection*{Inserción}
 \begin{figure}[H]
     \begin{minipage}{0.5\textwidth}
         \centering
@@ -504,12 +550,115 @@
         \label{fig:insercionstring}
     \end{minipage}
 \end{figure}
-\subsection{Hanoi}
+
 \begin{figure}[H]
-    \centering
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=3cm, height=5cm]{assets/Img/inserciontabla1.png}
+
+    \end{minipage}%
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=3cm, height=5cm]{assets/Img/inserciontabla2.png}
+
+    \end{minipage}
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=3cm, height=5cm]{assets/Img/inserciontabla3.png}
+
+    \end{minipage}
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=3cm, height=5cm]{assets/Img/inserciontabla4.png}
+    \end{minipage}
+\end{figure}
+
+\subsection*{Mergesort}
+\begin{figure}[H]
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{assets/Img/mergesort.png}
+        \caption{Ejecución algoritmo insercion}
+        \label{fig:insercion}
+    \end{minipage}%
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{assets/Img/mergesortstring.png}
+        \caption{Ejecución algoritmo inserción con string}
+        \label{fig:insercionstring}
+    \end{minipage}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=3cm, height=5cm]{assets/Img/mergesorttabla1.png}
+
+    \end{minipage}%
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=3cm, height=5cm]{assets/Img/mergesorttabla2.png}
+
+    \end{minipage}
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=3cm, height=5cm]{assets/Img/mergesorttabla3.png}
+
+    \end{minipage}
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=3cm, height=5cm]{assets/Img/mergesorttabla4.png}
+    \end{minipage}
+\end{figure}
+\subsection*{Quicksort}
+\begin{figure}[H]
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{assets/Img/quicksort.png}
+        \caption{Ejecución algoritmo insercion}
+        \label{fig:insercion}
+    \end{minipage}%
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{assets/Img/quicksortstring.png}
+        \caption{Ejecución algoritmo inserción con string}
+        \label{fig:insercionstring}
+    \end{minipage}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=3cm, height=5cm]{assets/Img/quicksorttabla1.png}
+
+    \end{minipage}%
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=3cm, height=5cm]{assets/Img/quicksorttabla2.png}
+
+    \end{minipage}
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=3cm, height=5cm]{assets/Img/quicksorttabla3.png}
+
+    \end{minipage}
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=3cm, height=5cm]{assets/Img/quicksorttabla4.png}
+    \end{minipage}
+\end{figure}
+
+\subsection*{Hanoi}
+\begin{figure}[H]
+    
+        \centering
         \includegraphics[width=0.5\linewidth]{assets/Img/hanoiint.png}
         \caption{Ejecución algoritmo Hanoi}
-        \label{fig:hanoi}
+        \label{fig:hanoi}       
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=3cm, height=5cm]{assets/Img/hanoitabla.png}
 \end{figure}
 \subsection{Fibonacci}
 \begin{figure}[H]
@@ -518,12 +667,20 @@
         \caption{Ejecución algoritmo Fibonacci}
         \label{fig:fibonacci}
 \end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=3cm, height=5cm]{assets/Img/fibonaccitabla.png}
+\end{figure}
 \subsection{Floyd}
 \begin{figure}[H]
     \centering
         \includegraphics[width=0.5\linewidth]{assets/Img/floydint.png}
         \caption{Ejecución algoritmo Floyd}
         \label{fig:floyd}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=3cm, height=5cm]{assets/Img/floydtabla.png}
 \end{figure}
 \section{Estudio de las gráficas}
     En esta sección se mostrarán las gráficas obtenidas en el estudio empírico de los algoritmos. 
@@ -600,6 +757,12 @@
             \includegraphics[width=\linewidth]{assets/Img/mergesort.png}
             \caption{Ejecución algoritmo mergesort}
             \label{fig:mergesort}
+        \end{minipage}
+        \begin{minipage}{0.5\textwidth}
+            \centering
+            \includegraphics[width=\linewidth]{assets/Img/mergesortstring.png}
+            \caption{Ejecución algoritmo mergesort con string}
+            \label{fig:quicksortstring}
         \end{minipage}
     \end{figure}
 
