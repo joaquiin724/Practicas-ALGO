@@ -1,7 +1,7 @@
 #!/bin/bash
 # Script solo para crear gráficas
 
-name="quicksort"
+name="mergesort"
 # Crear un script de Gnuplot para generar la gráfica, todo lo que hay entre EOF y EOF se escribe en un archivo,
 # en este caso, script_gnuplot.gp
 cat << EOF > script_gnuplot.gp
