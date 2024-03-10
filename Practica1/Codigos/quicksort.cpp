@@ -164,6 +164,10 @@ static void quicksort_lims(P T[], int inicial, int final)
   };
 }
 
+/* El objetivo de este método es modificar pp para que tenga un pivote que es encuentre
+en medio de los elementos de T entre las posiciones inicial y final - 1, donde los elementos
+mayores que el pivote se encuentran a la derecha y los menores e iguales a la izquierda.
+*/
 template<typename P>
 static void dividir_qs(P T[], int inicial, int final, int & pp)
 {

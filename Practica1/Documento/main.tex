@@ -229,7 +229,7 @@
         Utilizaremos el siguiente fragmento de código para estudiar su eficiencia, pues es el utilizado en la práctica
         \begin{lstlisting}
   
-        static void fusion(int T[], int inicial, int final, int U[], int V[])
+        void fusion(int T[], int inicial, int final, int U[], int V[])
         {
             int j = 0;
             int k = 0;
@@ -271,7 +271,6 @@
                 delete [] V;
             };
         }
-            
         \end{lstlisting}
         Destacar que tomaremos $final=n$ e $inicial=0$. Es claro que en el caso de $n=final-incial<\nobreak UMBRAL\_MS$ 
         la eficiencia del algoritmo en el peor caso es $O(UMBRAL\_MS^2)$, es decir, constante, por tanto, nos centraremos en el caso en el que $n\geq UMBRAL\_MS$.
@@ -383,6 +382,17 @@
         \end{equation*}
         Donde se ve que en el peor de los casos el algoritmo es $O(n^2)$ que es lo que ocurre con los string por tener un mayor coste de 
         operación, o con los vectores de números ya ordenados o casi ordenados.
+    
+        \subsection*{Algoritmo de Hanoi}
+        \begin{lstlisting}
+            void hanoi (int M, int i, int j){
+                if (M > 0)
+                    {
+                    hanoi(M-1, i, 6-i-j);
+                    hanoi (M-1, 6-i-j, j);
+                }
+            }
+        \end{lstlisting}
 \subsection{Burbuja}
 \begin{figure}[H]
     \begin{minipage}{0.5\textwidth}

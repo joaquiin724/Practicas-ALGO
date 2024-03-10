@@ -26,7 +26,17 @@ using namespace std::chrono;
 void hanoi (int M, int i, int j);
 
 
-
+/* Vamos a desglosar esta función para entender lo que hace.
+En primer lugar destacar que M es el número de discos que se quieren mover, i es la columna de origen 
+y j es la columna de destino. Además, la columna primera en la que pueden estar los discos sera la 1, 
+la segunda la 2 y la tercera la 3.
+De modo que cada vez que se llama a la función se mueven M discos de la columna i a la columna j.
+Para ello, se llama a la función hanoi con M-1 discos de la columna i a la columna 6-i-j, es decir,
+a la columna que no es ni la de origen ni la de destino, la auxiliar (que intuitivamente podemos
+pensar que suele ser la 2, de ahí que 6-i-j=6-1-3=2). Después se llama a la función hanoi con M-1 discos
+de la columna 6-i-j a la columna j (de la axuliar a la de destino).
+Aqui tenemos un enlace visual para poder entender mejor el algoritmo: https://www.youtube.com/watch?v=YstLjLCGmgg
+*/
 
 void hanoi (int M, int i, int j)
 {
@@ -51,7 +61,7 @@ int main(int argc, char *argv[]) {
 
     //int tipo = atoi(argv[2]); // 1: int
         tantes = high_resolution_clock::now();
-        hanoi(size, 1, 2);
+        hanoi(size, 1, 3);
         tdespues = high_resolution_clock::now();
         transcurrido = duration_cast<duration<double>>(tdespues - tantes);
         cout << transcurrido.count();
