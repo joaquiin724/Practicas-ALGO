@@ -383,6 +383,56 @@
         \end{equation*}
         Donde se ve que en el peor de los casos el algoritmo es $O(n^2)$ que es lo que ocurre con los string por tener un mayor coste de 
         operación, o con los vectores de números ya ordenados o casi ordenados.
+        \subsection*{Algoritmo de Floyd}
+        Para analizar la eficiencia de este algoritmo se ha usado este fragmento del código:
+        \begin{lstlisting}
+        void Floyd(int **M, int dim){
+        for (int k = 0; k < dim; k++)
+            for (int i = 0; i < dim;i++)
+                for (int j = 0; j < dim;j++)
+                {
+                int sum = M[i][k] + M[k][j];    	
+                  M[i][j] = (M[i][j] > sum) ? sum : M[i][j];
+            }
+        }	     	
+        \end{lstlisting}
+        Para el estudio de la eficiencia de este algoritmo es bastante simple ya que a simple vista ya se puede comprobar que es $O(n^3)$ porque hay 
+        tres bucles for anidados y cada uno es $O(n)$ por lo que el algoritmo es $O(n^3)$ como se había mencionado.
+        $$T(n) \in O(n^3)$$
+
+        \subsection*{Algoritmo de Fibonacci}
+        Para el la estudio de la eficiencia de este algoritmo se ha usado el siguiente código:
+        \begin{lstlisting}
+        int fibo(int n){
+            if (n < 2)
+                return 1;
+            else
+                return fibo(n-1) + fibo(n-2);
+        }
+            
+        \end{lstlisting}
+
+        Estudiando este código se pueden observar dos llamadas recursivas con n-1 y n-2 respectivamente, por lo que si obtenemos la ecuación
+        de la eficiencia del algorimo, al ser la condición del if constante, tenemos que:
+        \begin{equation*}
+            T(n)=T(n-1)+T(n-2)+1
+        \end{equation*}
+        tomando $t(n)=x^n$ obtenemos:
+        \begin{equation*}
+        
+            x^n = x^{n-1} + x^{n-2} + 1 \Leftrightarrow x^n - x^{n-1} - x^{n-2} = 1 \Leftrightarrow x^{n-2}(x^2-x-1) = 1 = 1^n n^0
+        
+        \end{equation*}
+        como $x^{n-2}\neq 0$ tenemos que calcular las raíces del polinomio característico:
+        \begin{equation*}
+            p(x) = (x-\frac{1+\sqrt{5}}{2})(x-\frac{1-\sqrt{5}}{2})(x-1)
+        \end{equation*}
+        de donde obtenemos:
+        \begin{equation*}
+            t(n) = c_1 (\frac{1+\sqrt{5}}{2})^n +c_2 (\frac{1-\sqrt{5}}{2})^n +c_3 1^n \Rightarrow T(n) \in O((\frac{1+\sqrt{5}}{2})^n)
+        \end{equation*}
+        Por tanto se comprueba que el algoritmo es $O((\frac{1+\sqrt{5}}{2})^n)$
+
 \subsection{Burbuja}
 \begin{figure}[H]
     \begin{minipage}{0.5\textwidth}
