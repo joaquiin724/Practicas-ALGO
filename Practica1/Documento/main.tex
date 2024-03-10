@@ -281,6 +281,7 @@
         29, donde podemos ver que el bucle for de la línea 27 se ejecuta $\frac{n}{2}$ veces; y la creación del vector 
         $V$ tomando entonces de la línea 31 a la línea 35, donde tenemos el mismo resultado. Tenemos entonces que ambas partes 
         tienen eficiecia $O(\frac{n}{2})$, es decir, $O(n)$ y aplicando la regla del máximo obtendríamos hasta la línea 35 un
+<<<<<<< HEAD
         orden de $O(n)$. \\
         En la segund parte, observamos que la llamada recursiva a la función mergesort se hace dos veces con vectores de tamaño $\frac{n}{2}$.
         Además, viendo la función \textbf{fusion} vemos que el bucle for de la línea 6 se ejecuta $n$ veces, es decir, dicha función
@@ -309,6 +310,93 @@
         \end{equation*}
         donde en ($*$) hemos deshecho el cambio de variable \\
         Aplicando la regla del máximo tenemos $T(n) \in O(n\log(n))$
+
+        \subsection*{Algoritmo de ordenación quicksort}
+        Para el estudio de eficiencia de este algoritmo hemos usado el siguiente código:
+        \begin{lstlisting}
+
+        template<typename P>
+        inline void quicksort(P T[], int num_elem)
+        {
+        quicksort_lims(T, 0, num_elem);
+        }
+
+        template<typename P>
+        static void quicksort_lims(P T[], int inicial, int final)
+        {
+        int k;
+        if (final - inicial < UMBRAL_QS) {
+            insercion_lims(T, inicial, final);
+        } else {
+            dividir_qs(T, inicial, final, k);   <--- O(n)
+
+        //peor caso    
+           0(n-1) ---> quicksort_lims(T, inicial, k);     <--- O(n/2)
+           0(1) ---> quicksort_lims(T, k + 1, final);    <--- O(n/2)
+        };
+        }
+
+        template<typename P>
+        static void dividir_qs(P T[], int inicial, int final, int & pp)
+        {
+        P pivote, aux;
+        int k, l;
+
+        pivote = T[inicial];
+        k = inicial;
+        l = final;
+        do {
+            k++;
+        } while ((T[k] <= pivote) && (k < final-1));   <--- O(n)
+        do {
+            l--;
+        } while (T[l] > pivote);
+        while (k < l) {            <--- O(n)
+            aux = T[k];
+            T[k] = T[l];
+            T[l] = aux;
+            do k++; while (T[k] <= pivote);
+            do l--; while (T[l] > pivote);
+        };
+        aux = T[inicial];
+        T[inicial] = T[l];
+        T[l] = aux;
+        pp = l;
+        };
+        \end{lstlisting}
+        Para el estudio de la eficiencia se ha ido estudiando cada método por separado. El método llamado insercion
+        lims no se tiene en cuenta para la eficiencia ya que solo se usa el método de insercion cuando el problema 
+        es de un tamaño menor a un UMBRAL definido en 50. \\
+        Para los otros métodos, el quicksort como tal únicamente realiza la llamada a la función quicksort\_lims que es 
+        la que realmente hace el trabajo, estudiaremos pues ahora su eficiencia. \\
+        A simple vista es fácil comprobar que el propósito del algoritmo es dividir la ordenación del vector de tamaño
+        original en otros dos de un tamaño más reducido, en el mejor de los casos este será a la mitad si el pivote es 
+        justo la mediana. La parte de la llamada recursiva, es $O(\frac{n}{2})$, y la llamada a dividir\_qs es $O(n)$, por tanto obtenemos
+        la siguiente expresión:
+        \begin{equation*}
+            T(n) = 2 T(\frac{n}{2}) + n
+        \end{equation*}
+        usando el cambio de variable $n=2^k$ obtenemos:
+        \begin{equation*}
+            t_k - 2t_{k-1} = 2^k 
+        \end{equation*}
+        cuyo polinomio característico es: $$p(x)=(x-2)^2 \Rightarrow t_k=c_1 2^k + c_2 2^k k$$
+        Finalmente, desacemos el cambio obteniendo: 
+        \begin{equation*}
+            t_n = c_1 n + c_2 n log_2 n \in O(nlog_2 n)
+        \end{equation*}
+        Donde vemos que el algorimo es $O(nlog n)$
+        En el peor caso, lo que ocurre es que el algoritmo no puede establecer un buen pivote, lo que hace que se obtenga la siguiente
+        ecuación:
+        \begin{equation*}
+            T(n)=T(n-1)+n+1= T(n-2)+2n+2=...=T(n-k)+kn+k
+        \end{equation*}
+        tomando $k=n-1$ para llegar al caso base tenemos que:
+        \begin{equation*}
+            T(n)=T(n-n+1)+(n-1)n+n-1=T(1)+(n-1)n+n-1 \in O(n^2)
+        \end{equation*}
+        Donde se ve que en el peor de los casos el algoritmo es $O(n^2)$ que es lo que ocurre con los string por tener un mayor coste de 
+        operación, o con los vectores de números ya ordenados o casi ordenados.
 \subsection{Burbuja}
 \begin{figure}[H]
     \begin{minipage}{0.5\textwidth}
