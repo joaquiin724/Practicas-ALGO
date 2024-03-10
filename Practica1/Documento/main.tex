@@ -273,15 +273,43 @@
         }
             
         \end{lstlisting}
-        Destacar que tomaremos $final=n \wedge inicial=0$. Es claro que en el caso de que $n=final-incial<\nobreak UMBRAL\_MS$ 
-        la eficiencia del algoritmo es $O(UMBRAL\_MS)$, es decir, constante, por tanto, nos centraremos en el caso en el que $n\geq UMBRAL\_MS$.
+        Destacar que tomaremos $final=n$ e $inicial=0$. Es claro que en el caso de $n=final-incial<\nobreak UMBRAL\_MS$ 
+        la eficiencia del algoritmo en el peor caso es $O(UMBRAL\_MS^2)$, es decir, constante, por tanto, nos centraremos en el caso en el que $n\geq UMBRAL\_MS$.
         En este caso, el algoritmo se divide en dos partes, la primera parte es la creación de los vectores $U$ y $V$ y la segunda parte es la
-        llamada recursiva a la función mergesort. \\
+        llamada recursiva a la función mergesort y el resto de código. \\
         La primera parte la podemos dividir en dos: la creación del vector $U$ tomando entonces de la línea 22 a la línea
         29, donde podemos ver que el bucle for de la línea 27 se ejecuta $\frac{n}{2}$ veces; y la creación del vector 
         $V$ tomando entonces de la línea 31 a la línea 35, donde tenemos el mismo resultado. Tenemos entonces que ambas partes 
         tienen eficiecia $O(\frac{n}{2})$, es decir, $O(n)$ y aplicando la regla del máximo obtendríamos hasta la línea 35 un
-        orden de $O(n)$. 
+        orden de $O(n)$. \\
+        En la segund parte, observamos que la llamada recursiva a la función mergesort se hace dos veces con vectores de tamaño $\frac{n}{2}$.
+        Además, viendo la función \textbf{fusion} vemos que el bucle for de la línea 6 se ejecuta $n$ veces, es decir, dicha función
+        tiene eficiencia $O(n)$. \\
+        Teniendo en cuenta el razonamiento hecho y aplicando la regla de la suma, obtenemos la siguiente ecuación
+        \begin{equation*}
+            T(n)=2T(\frac{n}{2})+n
+        \end{equation*}
+        Pasemos ahora a resolver dicha ecuación de recurrencia. Aplicando el siguiente cambio de variable $n=2^m$ obtenemos
+        \begin{equation*}
+            T(2^m)=2T(2^{m-1})+2^m \Longrightarrow T(2^m)-2T(2^{m-1})=2^m
+        \end{equation*}
+        Resolvamos la parte homógenea de la ecuación, es decir, la ecuación $T(2^m)-2T(2^{m-1})=0$. Obtenemos el polinomio
+        característico de la parte homógenea que es $p_H(x)=x-2$ cuya raíz es $x=2$. \\
+        Obtengamos ahora la parte no homógenea
+        \begin{equation*}
+            2^m=b_1^m q_1(m) \Longrightarrow b_1=2 \wedge q_1(m)=1 \text{ con grado } d_1=0
+        \end{equation*}
+        Tenemos entonces el siguiente polinómio característico
+        \begin{equation*}
+            p(x)=(x-2)(x-b_1)^{d_1+1}=(x-2)^2
+        \end{equation*}
+        Por tanto la solución general es
+        \begin{equation*}
+            t_m=c_{10}2^mm^0+c_{11}2^mm^1  \overset{*}{\Longrightarrow}  t_n=c_{10}n+c_{11}n\log_2(n) \Longrightarrow T(n)=c_{10}n+c_{11}n\log_2(n)
+        \end{equation*}
+        donde en ($*$) hemos deshecho el cambio de variable \\
+        Aplicando la regla del máximo tenemos $T(n) \in O(n\log(n))$
+\subsection{Burbuja}
 \begin{figure}[H]
     \begin{minipage}{0.5\textwidth}
         \centering
