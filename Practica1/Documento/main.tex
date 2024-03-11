@@ -39,7 +39,7 @@
     \item \textbf{Pablo Linari Pérez:} 20\%
     \begin{itemize}
         \item Estudio y comparación de las gráficas
-        \item Diseño del estudio
+        \item Diseño del estudio y tablas
     \end{itemize}
 \end{itemize}
 
@@ -468,7 +468,13 @@
         \end{equation*}
         Por tanto se comprueba que el algoritmo es $O(2^n)$
 \subsection{Estudio empírico}
+A continuación pasamos a estudiar la eficiencia empírica de los algoritmos previamente vistos, el objetivo de este estudio es ver el comportamiento real 
+de los algoritmos al ser ejecutados en un ordenador.Se presentaran los datos en dos formatos grafica y tabla para poder contrastar visualmente los algoritmos.
+
 \subsection*{Burbuja}
+Como se puede observar, el algoritmo de burbuja es \(O(n^2)\) y su eficiencia con datos numéricos es parecida en los tres
+tipos, mientras que con datos de tipo string se observa un mayor costo de tiempo de ejecución.
+
 \begin{figure}[H]
     \begin{minipage}{0.5\textwidth}
         \centering
@@ -521,6 +527,8 @@
 
 
 \subsection*{Seleccion}
+El algoritmo de seleccion es \(O(n^2)\) y su eficiencia con datos numéricos es parecida en los tres
+tipos pero en este caso los datos de tipo int sacan mas ventaja que los tipo float , mientras que con datos de tipo string se observa un mayor costo de tiempo de ejecución.
 \begin{figure}[H]
     \begin{minipage}{0.5\textwidth}
         \centering
@@ -573,6 +581,9 @@
 \end{table}
 
 \subsection*{Inserción}
+El algoritmo de insercion es \(O(n^2)\) y su eficiencia con datos float y double es muy parecida mientras que los datos tipo int 
+siguen sacando ventaja.Por parte de los datos de tipo string se puede observar que al haber repeticiones el algoritmo se ve beneficiado y reduce 
+considerablemente su tiempo de ejecución.
 \begin{figure}[H]
     \begin{minipage}{0.5\textwidth}
         \centering
@@ -625,6 +636,8 @@
 \end{table}
 
 \subsection*{Mergesort}
+El algoritmo mergesort es del tipo $O(n\log(n))$ por tanto su tiempo de ejecución se ve reducido en comparación a los algoritmos 
+anteriormente vistos, lso datos numéricos se coimportan de forma parecida en los tres casos.
 \begin{figure}[H]
     \begin{minipage}{0.5\textwidth}
         \centering
@@ -676,6 +689,9 @@
     \end{tabular}
 \end{table}
 \subsection*{Quicksort}
+El algoritmo quicksort es el último de los algoritmos de ordenación vistos en esta práctica , tiene eficiencia $O(n\log(n))$ y se comporta de 
+forma parecida con los 3 tipos de datos numericos pero  a la hora de orenar strings aumenta su tiempo de ejecución debido a la existencia de datos repetidos 
+en gran cantidad por tanto se comporta mas parecido a un algoritmo de eficiencia cuadrática que a uno de eficiencia logaritmica.
 \begin{figure}[H]
     \begin{minipage}{0.5\textwidth}
         \centering
@@ -728,6 +744,8 @@
 \end{table}
 
 \subsection*{Hanoi}
+Este algoritmo es del orden $O(2^n)$ , se puede observar que a partir de un tamaño superior a 30 el tiempo de ejecución se ve 
+altamente afectado.
 \begin{figure}[H]
     \begin{minipage}{0.5\textwidth}
         \centering
@@ -763,6 +781,8 @@
 \end{figure}
 
 \subsection*{Fibonacci}
+El algoritmo de Fibonnaci es del orden $O((\frac{1+\sqrt{5}}{2})^n)$ y por tanto su compiortamiento es parecido al del algoritmo Hanoi ya que se puede
+observar que a partir de cierto tamaño de entrada , en este caso 42 el tiempo de ejecución comienza a aumentar.
 \begin{figure}[H]
     \begin{minipage}{0.5\textwidth}
         \centering
@@ -795,6 +815,8 @@
 \end{figure}
 
 \subsection*{Floyd}
+El último algoritmo es del orden $O(n^3)$ y su ejecución es parecida a los de orden $O(n^2)$ viendo que a partir de una entrada mayor a 
+600 empieza a aumentar el tiempo de manera considerable.
 \begin{figure}[H]
     \begin{minipage}{0.5\textwidth}
         \centering
