@@ -1,4 +1,5 @@
-#!/bin/bash# Este archivo tiene la finalidad de obtener las graficas de 
+#!/bin/bash
+#Este archivo tiene la finalidad de obtener las graficas de 
 # la eficiencia hibrida de los metodos de floyd,fibonacci y hanoi
 
 rm -r AjusteHibrido/Hibrido_fibonacci_floyd_hanoi
@@ -31,7 +32,7 @@ fit fl(x) "Resultados/Salidafloyd.txt" via a0
 plot "Resultados/Salidafloyd.txt", fl(x) title "Curva ajustada "  
 # Guardar la gráfica en un archivo de imagen, definiendo el formato primero y el nombre del archivo después
 set term png
-set output "./AjusteHibrido/Hibrido_fibonacci_floyd_hanoi/Floyd.png"
+set output "./AjusteHibrido/Hibrido_fibonacci_floyd_hanoi/Floyd_hib.png"
 replot
 
 #Algoritmo Fibonacci
@@ -47,7 +48,7 @@ fit fi(x) "Resultados/Salidafibonacci.txt" via b0
 plot "Resultados/Salidafibonacci.txt", fi(x) title "Curva ajustada "  
 # Guardar la gráfica en un archivo de imagen, definiendo el formato primero y el nombre del archivo después
 set term png
-set output "./AjusteHibrido/Hibrido_fibonacci_floyd_hanoi/Fibonacci.png"
+set output "./AjusteHibrido/Hibrido_fibonacci_floyd_hanoi/Fibonacci_hib.png"
 replot
 
 #Algoritmo Hanoi
@@ -63,7 +64,7 @@ fit h(x) "Resultados/Salidahanoi.txt" via c0
 plot "Resultados/Salidahanoi.txt", h(x) title "Curva ajustada "  
 # Guardar la gráfica en un archivo de imagen, definiendo el formato primero y el nombre del archivo después
 set term png
-set output "./AjusteHibrido/Hibrido_fibonacci_floyd_hanoi/Hanoi.png"
+set output "./AjusteHibrido/Hibrido_fibonacci_floyd_hanoi/Hanoi_hib.png"
 replot
 
 EOF

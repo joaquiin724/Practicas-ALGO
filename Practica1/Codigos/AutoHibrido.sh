@@ -2,7 +2,7 @@
 # Este archivo tiene la finalidad de obtener las graficas de 
 # la eficiencia hibrida de los metodos de burbuja,insercción y selección
 
-name="seleccion"
+name="insercion"
 rm -r AjusteHibrido/Hibrido$name
 
 # Crear un directorio para guardar los archivos
@@ -42,13 +42,13 @@ fit p(x) "Resultados/Salida4$name.txt" via d0,d1,d2
 plot "Resultados/Salida1$name.txt", f(x) title "Curva ajustada int " , "Resultados/Salida2$name.txt", g(x) title "Curva ajustada float" , "Resultados/Salida3$name.txt", h(x) title "Curva ajustada double" 
 # Guardar la gráfica en un archivo de imagen, definiendo el formato primero y el nombre del archivo después
 set term png
-set output "./AjusteHibrido/Hibrido$name/${name}.png"
+set output "./AjusteHibrido/Hibrido$name/${name}_hib.png"
 replot
 
 plot "Resultados/Salida4$name.txt", p(x) title "Curva ajustada string"
 #Guardar la gráfica en un archivo de imagen, definiendo el formato primero y el nombre del archivo después
 set term png
-set output "./AjusteHibrido/Hibrido$name/${name}string.png"
+set output "./AjusteHibrido/Hibrido$name/${name}string_hib.png"
 replot
 EOF
 

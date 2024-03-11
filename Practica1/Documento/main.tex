@@ -769,7 +769,7 @@
         33 & 229485 \\ \hline
     \end{tabular}
 \end{table}
-\subsection{Fibonacci}
+\subsection*{Fibonacci}
 \begin{figure}[H]
     \centering
         \includegraphics[width=0.5\linewidth]{assets/Img/fibonacciint.png}
@@ -810,7 +810,7 @@
         50 & 55,7656 \\ \hline
     \end{tabular}
 \end{table}
-\subsection{Floyd}
+\subsection*{Floyd}
 \begin{figure}[H]
     \centering
         \includegraphics[width=0.5\linewidth]{assets/Img/floydint.png}
@@ -851,6 +851,318 @@
         1250 & 4,50535 \\ \hline
     \end{tabular}
 \end{table}
+\subsection{Estudio híbrido}
+En esta sección, a partir del estudio híbrido, podremos observar como los datos obtenidos de forma \\
+empírica, concuerdan con los resultados que deberiamos obtener de forma teorica.
+\subsection*{Burbuja}
+\begin{figure}[H]
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{assets/AjusteHibrido_latex/Hibridoburbuja/burbuja_hib.png}
+        \caption{Ajuste híbrido algoritmo burbuja}
+        \label{fig:burbuja}
+    \end{minipage}%
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{assets/AjusteHibrido_latex/Hibridoburbuja/burbujastring_hib.png}
+        \caption{Ajuste híbrido algoritmo burbuja con string}
+        \label{fig:burbujastring}
+    \end{minipage}
+\end{figure}
+Tras la interpretación de los datos empíricos en gnuplot y de la formula teorica del métoco, obtenemos que \\
+las constantes ocultas son:
+\begin{equation*}
+    T_{burbujaInt}(n)=1.41315 \cdot 10^{-9}x^{2}-1.3691 \cdot 10^{-5}x+0.127228
+\end{equation*}
+\begin{equation*}
+    T_{burbujaFloat}(n)=1.82299 \cdot 10^{-9}x^{2}-1.98111 \cdot 10^{-5}x+0.134867 
+\end{equation*}
+\begin{equation*}
+    T_{burbujaDouble}(n)=1.82075 \cdot 10^{-9}x^{2}-2.20296 \cdot 10^{-5}x+0.144178 
+\end{equation*}
+\begin{equation*}
+    T_{burbujaString}(n)=1.26281 \cdot 10^{-9}x^{2}-4.03916 \cdot 10^{-5}x+0.0834222 
+\end{equation*}
+
+También podemos ver la varianza en la calidad del ajuste. 
+\begin{equation*}
+    V_{burbujaInt}=0.000944698
+\end{equation*}
+\begin{equation*}
+    V_{burbujaFloat}=0.000528375
+\end{equation*}
+\begin{equation*}
+    V_{burbujaDouble}=0.00199636
+\end{equation*}
+\begin{equation*}
+    V_{burbujaString}=0.00645483
+\end{equation*}
+
+\subsection*{Selección}
+\begin{figure}[H]
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{assets/AjusteHibrido_latex/Hibridoseleccion/seleccion_hib.png}
+        \caption{Ajuste híbrido algoritmo selección}
+        \label{fig:seleccion}
+    \end{minipage}%
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{assets/AjusteHibrido_latex/Hibridoseleccion/seleccionstring_hib.png}
+        \caption{Ajuste híbrido algoritmo seleccion con string}
+        \label{fig:Seleccion}
+    \end{minipage}
+\end{figure}
+Tras la interpretación de los datos empíricos en gnuplot y de la formula teorica del métoco, obtenemos que \\
+las constantes ocultas son:
+\begin{equation*}
+    T_{selecciónInt}(n)=1.2734 \cdot 10^{-10}x^{2}+3.1274 \cdot 10^{-7}x+0.018826
+\end{equation*}
+\begin{equation*}
+    T_{selecciónFloat}(n)=2.31309 \cdot 10^{-9}x^{2}+1.4781 \cdot 10^{-6}x-0.0183413 
+\end{equation*}
+\begin{equation*}
+    T_{selecciónDouble}(n)=1.94045 \cdot 10^{-10}x^{2}-1.00224 \cdot 10^{-7}x+0.00447121 
+\end{equation*}
+\begin{equation*}
+    T_{selecciónString}(n)=1.27216 \cdot 10^{-9}x^{2}-8.8078 \cdot 10^{-6}x+0.233527 
+\end{equation*}
+
+También podemos ver la varianza en la calidad del ajuste. 
+\begin{equation*}
+    V_{selecciónInt}=0.00026937
+\end{equation*}
+\begin{equation*}
+    V_{selecciónFloat}=0.000114947
+\end{equation*}
+\begin{equation*}
+    V_{selecciónDouble}=3.49475 \cdot 10^{-5}
+\end{equation*}
+\begin{equation*}
+    V_{selecciónString}=0.0160175
+\end{equation*}
+
+
+
+\subsection*{Inserción}
+\begin{figure}[H]
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{assets/AjusteHibrido_latex/Hibridoinsercion/insercion_hib.png}
+        \caption{Ajuste híbrido algoritmo inserción}
+        \label{fig:insercion}
+    \end{minipage}%
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{assets/AjusteHibrido_latex/Hibridoinsercion/insercionstring_hib.png}
+        \caption{Ajuste híbrido algoritmo inserción con string}
+        \label{fig:insercion}
+    \end{minipage}
+\end{figure}
+Tras la interpretación de los datos empíricos en gnuplot y de la formula teorica del métoco, obtenemos que \\
+las constantes ocultas son:
+\begin{equation*}
+    T_{inserciónInt}(n)=4.19645 \cdot 10^{-10}x^{2}-8.0708 \cdot 10^{-7}x+0.0346585
+\end{equation*}
+\begin{equation*}
+    T_{inserciónFloat}(n)=4.91154 \cdot 10^{-10}x^{2}-1.81363 \cdot 10^{-6}x-0.0478225 
+\end{equation*}
+\begin{equation*}
+    T_{inserciónDouble}(n)=4.82763 \cdot 10^{-10}x^{2}-1.65187 \cdot 10^{-7}x+0.00477564 
+\end{equation*}
+\begin{equation*}
+    T_{inserciónString}(n)=1.56549 \cdot 10^{-16}x^{2}+2.64624 \cdot 10^{-9}x+2.52872 \cdot 10^{-6}
+\end{equation*}
+
+También podemos ver la varianza en la calidad del ajuste. 
+\begin{equation*}
+    V_{inserciónInt}=0.000177503
+\end{equation*}
+\begin{equation*}
+    V_{inserciónFloat}=0.0000614231
+\end{equation*}
+\begin{equation*}
+    V_{inserciónDouble}=1.92651 \cdot 10^{-5}
+\end{equation*}
+\begin{equation*}
+    V_{inserciónString}=6.94094\cdot 10^{-12}
+\end{equation*}
+
+
+\subsection*{Mergesort}
+\begin{figure}[H]
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{assets/AjusteHibrido_latex/Hibridomergesort/mergesort_hib.png}
+        \caption{Ajuste híbrido algoritmo mergesort}
+        \label{fig:mergesort}
+    \end{minipage}%
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{assets/AjusteHibrido_latex/Hibridomergesort/mergesortstring_hib.png}
+        \caption{Ajuste híbrido algoritmo mergesort con string}
+        \label{fig:mergesort}
+    \end{minipage}
+\end{figure}
+Tras la interpretación de los datos empíricos en gnuplot y de la formula teorica del métoco, obtenemos que \\
+las constantes ocultas son:
+\begin{equation*}
+    T_{mergesortInt}=8.0872\cdot 10^{-9}x log(x)
+\end{equation*}
+\begin{equation*}
+    T_{mergesortFloat}=9.38225\cdot 10^{-9}x log(x)
+\end{equation*}
+\begin{equation*}
+    T_{mergesortDouble}=9.88488\cdot 10^{-9}x log(x)
+\end{equation*}
+\begin{equation*}
+    T_{mergesortrString}=2.72414 \cdot 10^{-13}x^{2}+1.67908 \cdot 10^{-7}x+0.000330868 
+\end{equation*}
+
+También podemos ver la varianza en la calidad del ajuste. 
+\begin{equation*}
+    V_{mergesortInt}=8.73646\cdot 10^{-5}
+\end{equation*}
+\begin{equation*}
+    V_{mergesortFloat}=1.2413\cdot 10^{-5}
+\end{equation*}
+\begin{equation*}
+    V_{mergesortDouble}=8.32396 \cdot 10^{-5}
+\end{equation*}
+\begin{equation*}
+    V_{mergesortrString}=5.46779 \cdot 10^{-7}
+\end{equation*}
+\\
+Aquí, podemos observar como las gráficas para los datos numéricos concuerdan tanto su estudio teórico como 
+empírico. Sin embargo, en el caso de la gráfica del tipo string la función que mejor se ajusta a los datos
+obtenidos de forma empírica es la funcion 
+\begin{equation*}
+    f(x)=a_0 \cdot x{2} + a_1 x + a_0
+\end{equation*}
+
+\subsection*{Quicksort}
+\begin{figure}[H]
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{assets/AjusteHibrido_latex/Hibridoquicksort/quicksort_hib.png}
+        \caption{Ajuste híbrido algoritmo quicksort}
+        \label{fig:quicksort}
+    \end{minipage}%
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{assets/AjusteHibrido_latex/Hibridoquicksort/quicksortstring_hib.png}
+        \caption{Ajuste híbrido algoritmo quicksort con string}
+        \label{fig:quicksort}
+    \end{minipage}
+\end{figure}
+Tras la interpretación de los datos empíricos en gnuplot y de la formula teorica del métoco, obtenemos que \\
+las constantes ocultas son:
+\begin{equation*}
+    T_{quicksortInt}(n)=5.98183\cdot 10^{-9}x log(x)
+\end{equation*}
+\begin{equation*}
+    T_{quicksortFloat}(n)=6.50446\cdot 10^{-9}x log(x)
+\end{equation*}
+\begin{equation*}
+    T_{quicksortDouble}(n)=6.47155\cdot 10^{-9}x log(x)
+\end{equation*}
+\begin{equation*}
+    T_{quicksortrString}(n)=6.21508 \cdot 10^{-10}x^{2}+4.51207 \cdot 10^{-6}x+0.0387326 
+\end{equation*}
+También podemos ver la varianza en la calidad del ajuste. 
+\begin{equation*}
+    V_{quicksortInt}=4.76198\cdot 10^{-5}
+\end{equation*}
+\begin{equation*}
+    V_{quicksortFloat}=5.29642\cdot 10^{-5}
+\end{equation*}
+\begin{equation*}
+    V_{quicksortDouble}=6.13293 \cdot 10^{-5}
+\end{equation*}
+\begin{equation*}
+    V_{quicksortrString}=0.0191243 
+\end{equation*}
+\\
+Como podemos ver, con este método ocurre lo mismo que con el mergesort. De este modo, tenemos que el ajuste híbrido
+para las graficas de tipo numérico, se realiza con la formula obtenida en su estudio teórico. Mientras que en el tipo
+string la fórmula que mejor se ajusta a los datos obtenidos empíricamente es
+\begin{equation*}
+    f(x)=a_0 \cdot x{2} + a_1 x + a_0
+\end{equation*}
+
+\subsection*{Floyd, Fibonacci y Hanoi}
+\begin{figure}[H]
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{assets/AjusteHibrido_latex/Hibrido_fibonacci_floyd_hanoi/Floyd_hib.png}
+        \caption{Ajuste híbrido floyd}
+        \label{fig:floyd}
+    \end{minipage}%
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{assets/AjusteHibrido_latex/Hibrido_fibonacci_floyd_hanoi/Fibonacci_hib.png}
+        \caption{Ajuste híbrido fibonacci}
+        \label{fig:fibonacci}
+    \end{minipage}
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{assets/AjusteHibrido_latex/Hibrido_fibonacci_floyd_hanoi/Hanoi_hib.png}
+        \caption{Ajuste híbrido hanoi}
+        \label{fig:hanoi}
+    \end{minipage}
+\end{figure}
+Tras la interpretación de los datos empíricos en gnuplot y de la formula teorica del métoco, obtenemos que \\
+las constantes ocultas son:
+\begin{equation*}
+    T_{Floyd}(n)=2.32043\cdot 10^{-9}x^{3}
+\end{equation*}
+\begin{equation*}
+    T_{Fibonacci}(n)=1.98321\cdot 10^{-9} \left(\frac{1+\sqrt{5}}{2}\right)^{x}
+\end{equation*}
+\begin{equation*}
+    T_{Hanoi}(n)=2.67509\cdot 10^{-9} \cdot 2^{x}
+\end{equation*}
+
+También podemos ver la varianza en la calidad del ajuste. 
+\begin{equation*}
+    V_{Floyd}=0.000328165
+\end{equation*}
+\begin{equation*}
+    V_{Fibonacci}=0.00121339
+\end{equation*}
+\begin{equation*}
+    V_{Hanoi}=0.000361913
+\end{equation*}
+
+\subsection{Ajustes incorrectos}
+\begin{figure}[H]
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{assets/AjusteIncorrecto/Floyd_hib.png}
+        \caption{Ajuste incorrecto algoritmo floyd}
+        \label{fig:floyd}
+    \end{minipage}%
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{assets/AjusteHibrido_latex/Hibrido_fibonacci_floyd_hanoi/Floyd_hib.png}
+        \caption{Ajuste correcto algoritmo floyd}
+        \label{fig:floyd}
+    \end{minipage}
+\end{figure}
+En la primera gráfica hemos utilizado la funcion $f(x)=a_0 \cdot xlog(x)$ para ajustar el método de 
+Floyd. Como se puede observar,la función que mejor se ajusta al método de Floyd es la obtenida 
+en el estudio teórico. Además, si comparamos sus varianzas podemos encontrar una diferencia de 
+gran importancia
+\begin{equation*}
+    V_{FloydIncorrecto}=0.438352
+\end{equation*}
+\begin{equation*}
+    V_{FloydCorrecto}=0.000328165
+\end{equation*}
+
+
+
+
 \section{Estudio de las gráficas}
     En esta sección se mostrarán las gráficas obtenidas en el estudio empírico de los algoritmos. 
     \subsection{Algoritmos  \(O(n^2)\)}
@@ -973,5 +1285,11 @@
     positiva como al mergesort o el de Inserción que pasa a ser practicamente logaritmico  y otros como el de burbuja o seleccion que se vean perjudicados por estos datos. 
 
 \section{Conclusiones}
+Como conclusión de la realización de esta memoria sobre el estudio de la eficiencia de difrentes algoritmos, podemos decir:
+\begin{enumerate}
+    \item En los algoritmos de ordenación pertenecientes a $O(n^2)$, su eficiencia teórica es muy fiel a los resultados obtenidos empíricamente.
+    Es decir, son algorítmos que nos proporcionan una gran fiabilidad a la hora de tener que suponer un tiempo acorde a su fórmula teórica
+    \item
+\end{enumerate}
 
 \end{document}
