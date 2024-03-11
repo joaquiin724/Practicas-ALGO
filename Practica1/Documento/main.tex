@@ -31,6 +31,10 @@
         \item Diseño del estudio
     \end{itemize}
     \item \textbf{Alberto De la Vera Sánchez: } 20\%
+    \begin{itemize}
+        \item Estudio híbrido 
+        \item Conclusión
+    \end{itemize}
     \item \textbf{Manuel Gomez Rubio} 20\%
     \item \textbf{Pablo Linari Pérez:} 20\%
     \begin{itemize}
@@ -111,6 +115,8 @@
         de cada algoritmo.
         \item \textbf{[AutoIndividual.sh]} Este script es como el descrito previamente pero unicamente ejecuta un script, esto ha sido útil para hacer
         pruebas sin la necesidad de esperar la gran cantidad de tiempo que requiere la ejecución de todos los algoritmos.
+        \item \textbf{[AutoHibrido.sh]} Este script se encarga de generar las gráficas de los ajustes híbridos, así como de guardar en un fichero .log los
+        resultados numéricos de ajustar las gráficas. De dicho fichero obtenemos las constantes ocultas como la varianza de residuos
     \end{itemize}
     
 \section{Algoritmos}
@@ -966,7 +972,7 @@ Aquí, podemos observar como las gráficas para los datos numéricos concuerdan 
 empírico. Sin embargo, en el caso de la gráfica del tipo string la función que mejor se ajusta a los datos
 obtenidos de forma empírica es la funcion 
 \begin{equation*}
-    f(x)=a_0 \cdot x{2} + a_1 x + a_0
+    f(x)=a_0 \cdot x^{2} + a_1 x + a_0
 \end{equation*}
 
 \subsection*{Quicksort}
@@ -1003,7 +1009,7 @@ Como podemos ver, con este método ocurre lo mismo que con el mergesort. De este
 para las graficas de tipo numérico, se realiza con la formula obtenida en su estudio teórico. Mientras que en el tipo
 string la fórmula que mejor se ajusta a los datos obtenidos empíricamente es
 \begin{equation*}
-    f(x)=a_0 \cdot x{2} + a_1 x + a_0
+    f(x)=a_0 \cdot x^{2} + a_1 x + a_0
 \end{equation*}
 
 \subsection*{Floyd, Fibonacci y Hanoi}
@@ -1073,6 +1079,30 @@ gran importancia
 \end{equation*}
 \begin{equation*}
     V_{FloydCorrecto}=0.000328165
+\end{equation*}
+
+\begin{figure}[H]
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{assets/AjusteIncorrecto/Fibonacci_hib.png}
+        \caption{Ajuste incorrecto algoritmo fibonacci}
+        \label{fig:fibonacci}
+    \end{minipage}%
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{assets/AjusteHibrido_latex/Hibrido_fibonacci_floyd_hanoi/Fibonacci_hib.png}
+        \caption{Ajuste correcto algoritmo fibonacci}
+        \label{fig:fibonacci}
+    \end{minipage}
+\end{figure}
+En la primera gráfica hemos utilizado la funcion $f(x)=a_0 \cdot x^{2}$ para ajustar el método de 
+Fibonacci. Como se puede observar,la función que mejor se ajusta al método de Fibonacci es la obtenida 
+en el estudio teórico. Además, si comparamos sus varianzas podemos encontrar una gran diferencia
+\begin{equation*}
+    V_{FibonacciIncorrecto}=95.8388
+\end{equation*}
+\begin{equation*}
+    V_{FibonacciCorrecto}=0.00121339
 \end{equation*}
 
 
@@ -1203,8 +1233,20 @@ gran importancia
 Como conclusión de la realización de esta memoria sobre el estudio de la eficiencia de difrentes algoritmos, podemos decir:
 \begin{enumerate}
     \item En los algoritmos de ordenación pertenecientes a $O(n^2)$, su eficiencia teórica es muy fiel a los resultados obtenidos empíricamente.
-    Es decir, son algorítmos que nos proporcionan una gran fiabilidad a la hora de tener que suponer un tiempo acorde a su fórmula teórica
-    \item
+    Es decir, son algorítmos que nos proporcionan una gran fiabilidad a la hora de tener que suponer un tiempo acorde a su fórmula teórica. Dentro
+    de los cuales, el que mejor se comporta es el algortimo de inserción y el que lo hace peor el algorítmo de burbuja. De este último, podemos decir 
+    que a la hora de ordenar vecotores con muchos datos repetidos, sea el caso del tipo string donde hay palabras que son más usadas, el algoritmo de 
+    inserción toma especial relevancia debido a que su gráfica parece por momentos del tipo $f(x)=x$.En cuanto a los algoritmos de eficiencia $O(nlogn)$ 
+    vemos que son más eficientes que los mencionados anteriormente. Sin embargo, no presentan una gráfica tan regular como los de eficiencia $O(n^{2})$.
+    Por lo cual podrían ser menos fiables a la hora de ofrece un resultado más preciso. Por la parte de los algoritmos de Hanoi, Floyd y Fibonacci, al tener
+    una eficiencia exponencial, puede ocurrir que haya grandes diferencias al introducir un nuevo elemento y aumentar en una unidad el tamaño del vector.
+    \item Por lo que respecta a la parte del estudio híbrido, hemos observado que es una buena forma corroborar los resultados obtenidos en el estudio teórico.
+    De aquí, podemos decir que el estudio teórico de los algoritmos, es una parte de gran relevancia a la hora del desarrollo de un proyecto ya que sus resultados
+    son realmente cercanos a la realidad.
+    \item Finalmente, como se puede observar en el apartado en el que comparamos un mismo método en diferentes ordenadores, vemos que el hardware donde se ejecute 
+    el algoritmo tiene relevancia. Sin embargo, podemos afirmar que el estudio de la eficiencia de los algoritmos nos puede llevar más lejos a la hora de 
+    reducir el tiempo de ejecución, siendo lo idóneo combinar esto junto a un buen hardware. 
+    
 \end{enumerate}
 
 \end{document}
