@@ -856,6 +856,28 @@ El último algoritmo es del orden $O(n^3)$ y su ejecución es parecida a los de 
     \end{minipage}
 \end{figure}
 
+\subsection{Ejecución en distintos ordenadores}
+Finalmente, acabamos mostrando una comparación entre distintos ordenadores para el mismo algoritmo, para mostrar que cuando
+el algoritmo es el mismo, la diferencia entre los tiempos de ejecución en distintos ordenadores será puramente de una constate, 
+y el orden de eficiencia se mantendrá. En este caso, ejecutamos el algoritmo de inserción para los tipos de datos int y double, estos
+fueron los resultados:
+% Dos figuras centradas separadas
+\begin{figure}[H]
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{assets/Img/insercionordenadores.png}
+        \caption{Ejecución algoritmo Inserción con Int}
+        \label{fig:fibonacci}
+    \end{minipage}
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{assets/Img/insercionordenadoresd.png}
+        \caption{Ejecución algoritmo Insercion con Double}
+    \end{minipage}
+\end{figure}
+
+
+
 \subsection{Estudio híbrido}
 En esta sección, a partir del estudio híbrido, podremos observar como los datos obtenidos de forma \\
 empírica, concuerdan con los resultados que deberiamos obtener de forma teorica.
@@ -874,7 +896,7 @@ empírica, concuerdan con los resultados que deberiamos obtener de forma teorica
         \label{fig:burbujastring}
     \end{minipage}
 \end{figure}
-Tras la interpretación de los datos empíricos en gnuplot y de la formula teorica del métoco, obtenemos que \\
+Tras la interpretación de los datos empíricos en gnuplot y de la formula teorica del método, obtenemos que \\
 las constantes ocultas son:
 \begin{align*}
     T_{burbujaInt}(n) &=1.41315 \cdot 10^{-9}x^{2}-1.3691 \cdot 10^{-5}x+0.127228 \\
