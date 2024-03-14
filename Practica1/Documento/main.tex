@@ -160,7 +160,7 @@ Utilizaremos el siguiente fragmento de código para estudiar su eficiencia, pues
         \end{lstlisting}
 El trozo de código dentro del bucle interno, es decir, de la línea 7 a la 12 tiene eficiencia $O(1)$ y por tanto
 tiene un tiempo de ejecución constante que anotaremos como $a$. Además, este trozo de código se ejecuta
-en concreto $(final-1)-(i+1) +1$ veces, es decir, $final-i+1$ veces. Es claro que la ejecución de la línea 3 y 4
+en concreto $(final-1)-(i+1) +1$ veces, es decir, $final-i-1$ veces. Es claro que la ejecución de la línea 3 y 4
 y las comparaciones, inicializaciones y actualizaciones de los bucles tienen eficiencia $O(1)$. Sabiendo esto y que
 el número de veces que se ejecute el bucle interno depende del externo tenemos entonces la siguiente fórmula
 \begin{equation*}
@@ -196,7 +196,7 @@ Utilizaremos el siguiente fragmento de código para estudiar su eficiencia, pues
         \end{lstlisting}
 El trozo de código dentro del bucle interno, es decir, de la línea 8 a la 10 tiene eficiencia $O(1)$ y por tanto
 tiene un tiempo de ejecución constante que anotaremos como $a$. Dicho trozo de código se ejecutará en el peor de los casos
-$i-(0-1)+1=i$ veces, mientras que el bucle while se ejecutará $(final-1)-(inicial+1)+1=final-inicial-1$ veces.
+$i-(0+1)+1=i$ veces, mientras que el bucle while se ejecutará $(final-1)-(inicial+1)+1=final-inicial-1$ veces.
 Sabiendo que la ejecución de la línea 3 y 4 y las comparaciones, inicializaciones y actualizaciones de los bucles tienen eficiencia $O(1)$,
 tenemos la siguiente fórmula
 \begin{equation*}
@@ -204,10 +204,10 @@ tenemos la siguiente fórmula
 \end{equation*}
 Tomaremos $final =  n$ e $inicial = 1$ para simplificar el cálculo y veamos que obtenemos ahora
 \begin{equation*}
-    \sum_{i=2}^{n-1} \sum_{j=1}^{i}a= a \cdot \sum_{i=1}^{n-2} \sum_{j=1}^{i}1= a \cdot \sum_{i=1}^{n-2} i
-    = a \cdot \frac{(n-2)(n-1)}{2}=\frac{n^2}{2}a-\frac{3n}{2}a+a
+    \sum_{i=2}^{n-1} \sum_{j=1}^{i}a= a \cdot \sum_{i=2}^{n-1} \sum_{j=1}^{i}1= a \cdot \sum_{i=2}^{n-1} i= a \cdot \left(\sum_{i=1}^{n-1}i - 1\right)= 
+    a \cdot \left(\frac{(n-1)n}{2}-1\right)= a\cdot \left(\frac{n^2-n}{2}-1\right)
 \end{equation*}
-Es claro que $\frac{n^2}{2}a-\frac{3}{2}na+a \in O(n^2)$ y por tanto la eficiencia teórica del algoritmo de inserción es $O(n^2)$.
+Es claro que $\frac{n^2}{2}a-\frac{1}{2}na-a \in O(n^2)$ y por tanto la eficiencia teórica del algoritmo de inserción es $O(n^2)$.
 
 \section*{Algoritmo de ordenación Selección}
 Utilizaremos el siguiente fragmento de código para estudiar su eficiencia, pues es el utilizado en la práctica
@@ -242,10 +242,10 @@ Tomaremos $final =  n$ e $inicial = 1$ para simplificar el cálculo y veamos que
 \begin{equation*}\begin{split}
         \sum_{i=1}^{n-2} \sum_{j=i}^{n-1}a&= a \cdot \sum_{i=1}^{n-2} \sum_{j=1}^{n-1-(i-1)}1
         = a \cdot \sum_{i=1}^{n-2} \sum_{j=1}^{n-i}1=a \cdot \sum_{i=1}^{n-2} n-i= a \cdot (n\sum_{i=1}^{n-2}1 - \sum_{i=1}^{n-2}i) \\
-        & = a \cdot\left(n(n-2)-\frac{(n-2)(n-1)}{2}\right)= a \cdot \left(n^2-2n-\frac{n^2-3n+2}{2}\right)= a \cdot \left(\frac{n^2}{2}-\frac{n}{2}+1\right) \\
-        & = \frac{n^2}{2}a-\frac{n}{2}a+a
+        & = a \cdot\left(n(n-2)-\frac{(n-2)(n-1)}{2}\right)= a \cdot \left(n^2-2n-\frac{n^2-3n+2}{2}\right)= a \cdot \left(\frac{n^2}{2}-\frac{n}{2}-1\right) \\
+        & = \frac{n^2}{2}a-\frac{n}{2}a-a
     \end{split}\end{equation*}
-Es claro que $\frac{n^2}{2}a-\frac{n}{2}a+a \in O(n^2)$ y por tanto la eficiencia teórica del algoritmo de inserción es $O(n^2)$.
+Es claro que $\frac{n^2}{2}a-\frac{n}{2}a-a \in O(n^2)$ y por tanto la eficiencia teórica del algoritmo de inserción es $O(n^2)$.
 
 \section*{Algoritmo de ordenación Mergesort}
 Utilizaremos el siguiente fragmento de código para estudiar su eficiencia, pues es el utilizado en la práctica
