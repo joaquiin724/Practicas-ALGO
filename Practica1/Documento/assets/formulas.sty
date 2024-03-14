@@ -65,18 +65,14 @@ headheight=16pt % Set \headheight to 16pt to avoid fancyhr warnings
 % HEADER Seccion y subseccion
 % ------------------------------------------------------------------------------
 \usepackage{fancyhdr}
+\usepackage{lipsum} % Paquete para generar texto de ejemplo
+\usepackage[Lenny]{fncychap}
 \pagestyle{fancy}
-%Reducir el espacio entre el tope de la página y el encabezado
 \fancyhf{} % Limpia los encabezados y pies de página existentes
 \fancyhead[L]{\textbf{\nouppercase{\leftmark}}} % Agrega la sección actual a la izquierda del encabezado en negrita
 \fancyhead[R]{\textbf{\thepage}} % Agrega el número de página a la derecha del encabezado en negrita
 \renewcommand{\headrulewidth}{0.4pt} % Agrega una línea debajo del encabezado
-\usepackage{titlesec}
-\titleformat{\section} % No incluir el número de sección en el encabezado
-    {\normalfont\Huge\bfseries\center}{}{0em}{} % Aumenta el tamaño de la tipografía en las se
-\titleformat{\subsection}
-    {\normalfont\Large\bfseries}{\thesubsection.}{1em}{} % Aumenta el tamaño de la tipografía en las subsecciones
-
+    
     
 % ------------------------------------------------------------------------------
 % Dibujos Tikz
