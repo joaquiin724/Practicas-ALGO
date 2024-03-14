@@ -13,12 +13,6 @@ for ((i=2; i<=50 ; i+=2)) do
     printf "\n" >> Grafica$name/Salida$name.txt
 done
 
-# Ejecutar Gnuplot con el script generado
-gnuplot script_gnuplot.gp
-
-# Eliminar el script de Gnuplot
-rm script_gnuplot.gp
-
 # Crear un script de Gnuplot para generar la gráfica, todo lo que hay entre EOF y EOF se escribe en un archivo,
 # en este caso, script_gnuplot.gp
 cat << EOF > script_gnuplot.gp
