@@ -9,7 +9,7 @@
 using namespace std;
 
 const int TAM=10;
-
+// 5 6 -1 1 1 -5 9 1 -5 -2 
 // int SumaMax (int *v, int inicio, int final){
 
 // }
