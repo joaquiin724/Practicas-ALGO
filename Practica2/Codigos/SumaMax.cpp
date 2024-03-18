@@ -71,23 +71,3 @@ int main(int argc, char *argv[]){
 
 
 }
-// int main(){
-//     const int TAM = 10;
-//     int *v = new int[TAM];
-    
-    
-//     srand(time(NULL));
-
-//    for (int i = 0; i < TAM; i++)
-//     {
-//       v[i] = random() % 10 -(random()%10);
-//       cout << v[i] << " ";
-//     };
-
-//     cout << "Nuestro resultado: " << SumaMax(v, 0, TAM).max_sub << "  ";
-//     cout << "Kadane: " << kadane(v,TAM) << endl ;
-//     return 0;
-// }
-
-
-
