@@ -1,4 +1,6 @@
 #include <iostream>
+#include <memory>
+#include <utility>
 #include <vector>
 #include <ctime>
 #include <cmath>
@@ -7,14 +9,11 @@
 #include <climits>
 #include <cassert>
 using namespace std;
-struct pos{
-    int i;
-    int j;
-};
-void resuelve2(vector<vector<int>> & matriz2d , pos p){
+
+void resuelve2(vector<vector<int>> & matriz2d , int i_,int j_){
     for(int i  =0; i< matriz2d.size(); i++){
         for(int j = 0; j< matriz2d.size();j++){
-            if (p.i == i && p.j == j){
+            if (i == i_ && j == j_){
                 matriz2d[i][j] =0;
             }
             else{
@@ -22,6 +21,10 @@ void resuelve2(vector<vector<int>> & matriz2d , pos p){
             }
         }
     }
+}
+pair<int , typename T2>
+void resuelve(vector<vector<int>>&mat ,int i,int j){
+
 }
 void printm(const vector<vector<int>> &mat){
     for (int i = 0; i< mat.size();i++){
@@ -33,12 +36,9 @@ void printm(const vector<vector<int>> &mat){
     }
 }
 int main(int argc ,char *argv[]){
-    int rows = 2,cols =2;
+    int rows = 2,cols =2,i=0,j=0;
     vector<vector<int>> matriz(rows,vector<int>(cols));
-    pos sumidero;
-    sumidero.i = 0;
-    sumidero.j = 0;
-    resuelve2(matriz,sumidero);
+    resuelve2(matriz,i,j);
     printm(matriz);
     return 0;
 }
