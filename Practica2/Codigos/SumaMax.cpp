@@ -7,7 +7,7 @@
 #include <climits>
 #include <cassert>
 using namespace std;
-using namespace std;
+
 
 struct data{
     int  max_izq;
@@ -54,20 +54,18 @@ int kadane(int *a, int size){
     return max_global;
 }
 
-
 int main(int argc, char *argv[]){
-    const int TAM=11;
-    srand (time(NULL));
+    int TAM= atoi(argv[1]);
+    srandom(TAM);
     int *v = new int [TAM];
     for (int i=0; i <TAM; i++){
         v[i] = rand() % 10 - (rand() % 10);
-        cout << v[i] << " ";
     }
     
     int kadaneResult = kadane(v,TAM);
 
 
-    cout << "Nuestro resultado: " << SumaMax(v, 0, TAM).max_sub << "  ";
+    cout << "Nuestro resultado: " << SumaMax(v, 0, TAM-1).max_sub << "  ";
     cout << "Kadane: " << kadaneResult << endl;
 
 

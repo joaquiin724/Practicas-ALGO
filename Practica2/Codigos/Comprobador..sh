@@ -1,9 +1,8 @@
 #!/bin/bash
 
 name="sumaMax"
-nveces=25
-
-for ((i=1; i <= $nveces; i++)); do
-    ./Codigos/Ejecutables/$name >> Codigos/Salida/Prueba.txt
-    sleep 1
+size=1000
+echo "" > Codigos/Salida/Prueba.txt;
+for ((i=10; i <= $size; i+=10)); do
+    ./Codigos/Ejecutables/$name $i >> Codigos/Salida/Prueba.txt
 done
