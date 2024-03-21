@@ -22,9 +22,8 @@ void resuelve2(vector<vector<int>> & matriz2d , int i_,int j_){
         }
     }
 }
-pair<int , typename T2>
 void resuelve(vector<vector<int>>&mat ,int i,int j){
-
+    
 }
 void printm(const vector<vector<int>> &mat){
     for (int i = 0; i< mat.size();i++){
