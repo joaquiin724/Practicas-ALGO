@@ -39,8 +39,8 @@ string getSumidero(int i_sumidero,int j_sumidero,int n){
 }
 
 void resuelve(vector<vector<int>>&mat ,int i_sumidero,int j_sumidero,int inicio_i, int inicio_j ,int final_i ,int final_j ,int & mat_size){
-    string id_sumidero = getSumidero(i_sumidero,j_sumidero,mat.size());
     int n= mat_size;
+    string id_sumidero = getSumidero(i_sumidero,j_sumidero,n);
     if(id_sumidero == "si"){
         resuelve(mat,i_sumidero,j_sumidero,0,0,n/2-1,n/2-1,n);
         resuelve(mat,n/2-1,n/2,0,n/2,n/2-1,n-1,n);
