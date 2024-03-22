@@ -10,19 +10,48 @@
 #include <cassert>
 using namespace std;
 
-void resuelve2(vector<vector<int>> & matriz2d , int i_,int j_){
+void resuelve2(vector<vector<int>> & matriz2d , int i_sumidero,int j_sumidero,int &losas,int &sumideros){
     for(int i  =0; i< matriz2d.size(); i++){
         for(int j = 0; j< matriz2d.size();j++){
-            if (i == i_ && j == j_){
-                matriz2d[i][j] =0;
+            if (i == i_sumidero && j == j_sumidero){
+                matriz2d[i][j] =sumideros;
             }
             else{
-                matriz2d[i][j] =1;
+                matriz2d[i][j] =losas;
             }
         }
     }
 }
-void resuelve(vector<vector<int>>&mat ,int i,int j){
+string getSumidero(int i_sumidero,int j_sumidero,int n){
+    if(i_sumidero < n/2 ){
+        if(j_sumidero < n/2)
+            return  "si";
+        else
+            return "sd";
+
+    }
+    else{
+        if(j_sumidero < n/2)
+            return "ii";
+        else
+            return "id";
+    }
+}
+
+void resuelve(vector<vector<int>>&mat ,int i_sumidero,int j_sumidero,int inicio_i, int inicio_j ,int final_i ,int final_j ,int & mat_size){
+    string id_sumidero = getSumidero(i_sumidero,j_sumidero,mat.size());
+    int n= mat_size;
+    if(id_sumidero == "si"){
+        resuelve(mat,i_sumidero,j_sumidero,0,0,n/2-1,n/2-1,n);
+        resuelve(mat,n/2-1,n/2,0,n/2,n/2-1,n-1,n);
+        resuelve(mat,n/2,n/2 - 1,n/2,0,n-1,n/2-1,n);
+        resuelve(mat,n/2,n/2,n/2,n/2,n-1,n-1,n);
+
+    }
+    else if(id_sumidero == "sd" ){
+        
+    }
+
     
 }
 void printm(const vector<vector<int>> &mat){
@@ -37,7 +66,7 @@ void printm(const vector<vector<int>> &mat){
 int main(int argc ,char *argv[]){
     int rows = 2,cols =2,i=0,j=0;
     vector<vector<int>> matriz(rows,vector<int>(cols));
-    resuelve2(matriz,i,j);
     printm(matriz);
     return 0;
+
 }
