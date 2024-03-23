@@ -1,8 +1,8 @@
 #!/bin/bash
 
 name="sumaMax"
-size=1000
+size=10000
 echo "" > Codigos/Salida/Prueba.txt;
-for ((i=10; i <= $size; i+=10)); do
+for ((i=100; i <= $size; i+=100)); do
     ./Codigos/Ejecutables/$name $i >> Codigos/Salida/Prueba.txt
 done
