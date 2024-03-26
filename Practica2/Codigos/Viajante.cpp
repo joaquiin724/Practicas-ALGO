@@ -1,5 +1,6 @@
 #include <cmath>
 #include <vector>
+#include <limits>
 
 using namespace std;
 
@@ -72,5 +73,74 @@ vector<Point> calculatePath(const vector<Point> &points) {
         return path;
     }
 }
+
+vector<Point> bruteForce(const vector<Point>& points) {
+    double minDistance = numeric_limits<double>;
+    double currentDistance = 0;
+    vector<Point> currentPath;
+    vector<Point> bestPath;
+
+    for (int i = 0; i < points.size(); ++i) {    
+        currentDistance = 0;
+        currentPath.clear();
+        for (int j = i; j < points.size() + i; ++j) {
+           currentDistance += point[j].calculateDistance(points[j+1]);
+           currentPath.emplace_back(point[j]);
+        }
+        if (currentDistance < minDistance) {
+            minDistance = currentDistance;
+            bestPath = currentPath;
+        }
+
+    }
+    return bestPath;
+}
+
+
+double calculateTotalPathDistance(const vector<Point> &path) {
+    double totalDistance = 0;
+
+    for (int i = 0; i < path.size(); ++i) {
+        totalDistance += path[i].calculateDistance(path[i+1]);
+    }
+
+    return totalDistance;
+}
+
+
+int main(int argc, char* argv[]) {
+    const int VEC_SIZE = 100;
+    vector<int> toPath;
+    vector<int> finalPath; 
+    vector<int> approximatePath; 
+
+    for (int i = 0; i < VEC_SIZE; ++i) {
+        toPath.emplace_back(rand % 1000 - 500);
+        approximatePath.emplace_back(srand % 1000 - 500);
+    }
+    
+    finalPath = bruteForce(toPath);
+    approximatePath = calculatePath(toPath);
+   
+    cout << "La mejor solución es: " << calculateTotalPathDistance(finalPath) << endl;
+    cout << "Nuestra aproximación es: " << calculateTotalPathDistance(approximatePath);
+
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
