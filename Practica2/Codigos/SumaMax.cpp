@@ -6,10 +6,12 @@
 #include <cstdlib>
 #include <climits>
 #include <cassert>
+#include <cstring>
+#include <chrono>
 using namespace std;
 
 
-struct data{
+struct SumaData{
     int  max_izq;
     int  max_dch;
     int  sum;
@@ -19,8 +21,8 @@ struct data{
 
 
 // 5 6 -1 1 1 -5 9 1 -5 -2 
-data SumaMax (int *v, int inicio, int final){
-    data result, d1, d2;
+SumaData SumaMax (int *v, int inicio, int final){
+    SumaData result, d1, d2;
     if (inicio==final){
         result.max_izq = v[inicio];
         result.max_dch = v[inicio];
@@ -54,7 +56,7 @@ int kadane(int *a, int size){
     return max_global;
 }
 
-int main(int argc, char *argv[]){
+int main(int argc, char *argv[]) {
     int TAM= atoi(argv[1]);
     srandom(TAM);
     int *v = new int [TAM];
@@ -62,11 +64,25 @@ int main(int argc, char *argv[]){
         v[i] = rand() % 10 - (rand() % 10);
     }
     
+    if (strcmp(argv[2], "1") == 0) { // Time Test
+        auto start = chrono::high_resolution_clock::now();
+        SumaMax(v, 0, TAM-1);
+        auto end = chrono::high_resolution_clock::now();
+        std::cout << chrono::duration_cast<chrono::nanoseconds>(end - start).count();
+    } 
+    else{ // Correctness Test
+        int *kadaneVector = new int[TAM];
+        for (int i = 0; i < TAM; i++) {
+            kadaneVector[i] = v[i];
+        }
+        int res1 = SumaMax(v, 0, TAM-1).max_sub;
+        int res2 = kadane(kadaneVector, TAM);
+        
+        if (res1 != res2) {
+            std::cout << "Error [" << TAM << "]: " << res1 << " != " << res2 << endl;
+        }
+        
+    }
+
     int kadaneResult = kadane(v,TAM);
-
-
-    cout << "Nuestro resultado: " << SumaMax(v, 0, TAM-1).max_sub << "  ";
-    cout << "Kadane: " << kadaneResult << endl;
-
-
 }
