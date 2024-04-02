@@ -23,9 +23,9 @@ done
 #---------------------------|Ejecucion Viajante|-------------------------------#
 
 rm -f Salidas/Viajante.txt
-size2=20
+size2=10
 
-for ((i=5; i <= $size2; i+=10)) do
+for ((i=5; i <= $size2; i+=5)) do
     ./Ejecutables/Viajante $i >> Salidas/Viajante.txt
 done
 
