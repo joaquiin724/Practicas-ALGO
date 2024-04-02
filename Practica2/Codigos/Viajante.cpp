@@ -1,5 +1,6 @@
 #include <cmath>
 #include <vector>
+#include <iostream>
 #include <limits>
 
 using namespace std;
@@ -18,6 +19,19 @@ public:
      */
     double calculateDistance(const Point &p) const {
         return sqrt(pow(p.x - x, 2) + pow(p.y - y, 2));
+    }
+
+    int getX() const {
+        return x;
+    }
+
+    int getY() const {
+        return y;
+    }
+
+    friend ostream &operator<<(ostream &os, const Point &point) {
+        os << "[" << point.x << "," << point.y << "]";
+        return os;
     }
 
 private:
@@ -75,7 +89,7 @@ vector<Point> calculatePath(const vector<Point> &points) {
 }
 
 vector<Point> bruteForce(const vector<Point>& points) {
-    double minDistance = numeric_limits<double>;
+    double minDistance = numeric_limits<double>::max();
     double currentDistance = 0;
     vector<Point> currentPath;
     vector<Point> bestPath;
@@ -84,8 +98,8 @@ vector<Point> bruteForce(const vector<Point>& points) {
         currentDistance = 0;
         currentPath.clear();
         for (int j = i; j < points.size() + i; ++j) {
-           currentDistance += point[j].calculateDistance(points[j+1]);
-           currentPath.emplace_back(point[j]);
+           currentDistance += points[j].calculateDistance(points[j+1]);
+           currentPath.emplace_back(points[j]);
         }
         if (currentDistance < minDistance) {
             minDistance = currentDistance;
@@ -109,21 +123,29 @@ double calculateTotalPathDistance(const vector<Point> &path) {
 
 
 int main(int argc, char* argv[]) {
-    const int VEC_SIZE = 100;
-    vector<int> toPath;
-    vector<int> finalPath; 
-    vector<int> approximatePath; 
+    const int VEC_SIZE = atoi(argv[1]);
+    vector<Point> toPath;
+    vector<Point> finalPath; 
+    vector<Point> approximatePath; 
+    srand(time(NULL));
 
     for (int i = 0; i < VEC_SIZE; ++i) {
-        toPath.emplace_back(rand % 1000 - 500);
-        approximatePath.emplace_back(srand % 1000 - 500);
+        int x = rand() % 100 - 50;
+        int y = rand() % 100 - 50;
+        toPath.emplace_back(Point(x, y));
+        approximatePath.emplace_back(Point(x, y));
+    }
+
+    std::cout << "Points: \n" << std::endl;
+    for (int i = 0; i < VEC_SIZE; ++i) {
+        std::cout << toPath[i] << std::endl;
     }
     
     finalPath = bruteForce(toPath);
     approximatePath = calculatePath(toPath);
    
-    cout << "La mejor solución es: " << calculateTotalPathDistance(finalPath) << endl;
-    cout << "Nuestra aproximación es: " << calculateTotalPathDistance(approximatePath);
+    std::cout << "Brute-Force: " << calculateTotalPathDistance(finalPath) << std::endl;
+    std::cout << "Our Algorithm: " << calculateTotalPathDistance(approximatePath) << std::endl;
 
     return 0;
 }
