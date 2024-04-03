@@ -41,6 +41,8 @@ private:
 };
 
 
+
+
 /**
  * @brief This function calculates the distance of a given closed path.
  * 
@@ -92,9 +94,11 @@ std::vector<Point> divideAndConquerTSP(const std::vector<Point>& points) {
     std::vector<Point> leftTour = divideAndConquerTSP(left);
     std::vector<Point> rightTour = divideAndConquerTSP(right);
 
-    //TODO: Combinar esto
+    std::vector<Point> combinedTour = leftTour;
+    combinedTour.insert(combinedTour.end(), rightTour.begin(), rightTour.end());
 
-    return leftTour; // Replace with combined and optimized tour
+
+    return combinedTour; // Replace with combined and optimized tour
 }
 
 
@@ -151,7 +155,7 @@ int main(int argc, char* argv[]) {
     }
     
     std::cout << "Brute Force: " << bruteForceTSP(randomPoints) << std::endl;
-    //std::cout << "Our Algorithm: " << totalDistance(divideAndConquerTSP(approximatePath)) << std::endl;
+    std::cout << "Our Algorithm: " << totalDistance(divideAndConquerTSP(approximatePath)) << std::endl;
 
     return 0;
 }

@@ -23,9 +23,9 @@ done
 #---------------------------|Ejecucion Viajante|-------------------------------#
 
 rm -f Salidas/Viajante.txt
-size2=10
+size2=500 # Para el caso brute force a partir de 12 no se puede ejecutar
 
-for ((i=5; i <= $size2; i+=5)) do
+for ((i=5; i <= $size2; i+=10)) do
     ./Ejecutables/Viajante $i >> Salidas/Viajante.txt
 done
 
