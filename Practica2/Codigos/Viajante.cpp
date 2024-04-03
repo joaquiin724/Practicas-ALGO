@@ -2,7 +2,9 @@
 #include <vector>
 #include <iostream>
 #include <limits>
+#include <cstring>
 #include <numeric>
+#include <fstream>
 #include <algorithm>
 
 using namespace std;
@@ -58,11 +60,48 @@ double totalDistance(const vector<Point>& points) {
   return distance;
 }
 
+std::vector<Point> optimizeTour(const std::vector<Point>& tour) {
+    std::vector<Point> currentTour = tour; // Make a copy to modify
+    bool improvement = true;
+
+    while (improvement) {
+        improvement = false;
+
+        for (int i = 1; i < currentTour.size() - 2; ++i) {
+            for (int j = i + 2; j < currentTour.size(); ++j) {
+                if (i == 0 && j == currentTour.size() - 1) continue; // Avoid redundant checks
+
+                // Calculate distances for original and swapped edges
+                double originalDistance = currentTour[i - 1].distanceTo(currentTour[i]) +
+                                          currentTour[j - 1].distanceTo(currentTour[j]);
+                double swappedDistance = currentTour[i - 1].distanceTo(currentTour[j - 1]) +
+                                         currentTour[i].distanceTo(currentTour[j]);
+
+                // If swapping improves the tour, update it
+                if (swappedDistance < originalDistance) {
+                    std::reverse(currentTour.begin() + i, currentTour.begin() + j);
+                    improvement = true;
+                }
+            }
+        }
+    }
+
+    return currentTour;
+}
+
+
+/**
+ * @brief Calculates an approximate distance travelled with low precision
+ * but high speed compared to best distance
+ * 
+ * @param points 
+ * @return std::vector<Point> 
+ */
 std::vector<Point> divideAndConquerTSP(const std::vector<Point>& points) {
-    if (points.size() <= 3) {
+    if (points.size() <= 6) {
         std::vector<int> permutation(points.size());
         std::iota(permutation.begin(), permutation.end(), 0);
-        std::vector<int> bestPermutation = permutation;
+        std::vector<int> bestPermutation;
 
         double minDistance = std::numeric_limits<double>::max();
         do {
@@ -98,7 +137,7 @@ std::vector<Point> divideAndConquerTSP(const std::vector<Point>& points) {
     combinedTour.insert(combinedTour.end(), rightTour.begin(), rightTour.end());
 
 
-    return combinedTour; // Replace with combined and optimized tour
+    return optimizeTour(combinedTour); // Replace with combined and optimized tour
 }
 
 
@@ -137,25 +176,48 @@ double bruteForceTSP(const std::vector<Point>& points) {
 
 
 int main(int argc, char* argv[]) {
-    const int VEC_SIZE = atoi(argv[1]);
-    vector<Point> randomPoints;
-    vector<Point> approximatePath; 
-    srand(time(NULL));
+    #include <cstring>
 
-    for (int i = 0; i < VEC_SIZE; ++i) {
-        int x = rand() % 100 - 50;
-        int y = rand() % 100 - 50;
-        randomPoints.emplace_back(Point(x, y));
-        approximatePath.emplace_back(Point(x, y));
-    }
+    if (strcmp(argv[2],"1") == 0) {
+        const int VEC_SIZE = atoi(argv[1]);
+        vector<Point> randomPoints;
+        vector<Point> approximatePath; 
+        srand(time(NULL));
 
-    std::cout << "Points: \n" << std::endl;
-    for (int i = 0; i < VEC_SIZE; ++i) {
-        std::cout << randomPoints[i] << std::endl;
+        for (int i = 0; i < VEC_SIZE; ++i) {
+            int x = rand() % 100 - 50;
+            int y = rand() % 100 - 50;
+            randomPoints.emplace_back(Point(x, y));
+            approximatePath.emplace_back(Point(x, y));
+        }
+
+        std::cout << "\nPoints:" << std::endl;
+        for (int i = 0; i < VEC_SIZE; ++i) {
+            std::cout << randomPoints[i] << std::endl;
+        }
+        
+        // std::cout << "Brute Force: " << bruteForceTSP(randomPoints) << std::endl;
+        std::cout << "Our Algorithm: " << totalDistance(divideAndConquerTSP(approximatePath)) << std::endl;
+    } else{
+        std::string file = argv[1];
+        std::ifstream input(file);
+        std::vector<Point> points;
+        double x, y;
+        int size;
+        int pos;
+        input >> size;
+        points.reserve(size);
+        for (int i = 0; i < size; ++i) {
+            // 1 59766.6667 21366.6667
+            //2 59816.6667 22966.6667
+            //ignore the first number 
+            input >> pos >> x >> y;
+            points.emplace_back(Point(x, y));
+        }
+        input.close();
+        std::cout << "Solution: " << totalDistance(divideAndConquerTSP(points)) << std::endl;
+
     }
-    
-    std::cout << "Brute Force: " << bruteForceTSP(randomPoints) << std::endl;
-    std::cout << "Our Algorithm: " << totalDistance(divideAndConquerTSP(approximatePath)) << std::endl;
 
     return 0;
 }

@@ -23,10 +23,21 @@ done
 #---------------------------|Ejecucion Viajante|-------------------------------#
 
 rm -f Salidas/Viajante.txt
-size2=500 # Para el caso brute force a partir de 12 no se puede ejecutar
+size2=200 # Para el caso brute force a partir de 12 no se puede ejecutar
+opcion2=2 # [1] Random test || [2] Made test 
+files=("finlandTest.txt" "djibouti.txt")
+#Soluciones: finlandTest.txt = 520527, djibouti.txt = 6656
 
-for ((i=5; i <= $size2; i+=10)) do
-    ./Ejecutables/Viajante $i >> Salidas/Viajante.txt
-done
+if [ $opcion2 -eq 1 ]; then
+    for ((i=5; i <= $size2; i+=10)) do
+        ./Ejecutables/Viajante $i $opcion2 >> Salidas/Viajante.txt
+    done
+fi
+if [ $opcion2 -eq 2 ]; then
+    for ((i=0; i < ${#files[@]}; i++)) do
+        filename=${files[$i]} # Arreglar
+        ./Ejecutables/Viajante $filename $opcion2 >> Salidas/Viajante.txt
+    done
+fi
 
 
