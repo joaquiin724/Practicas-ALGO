@@ -176,7 +176,6 @@ double bruteForceTSP(const std::vector<Point>& points) {
 
 
 int main(int argc, char* argv[]) {
-    #include <cstring>
 
     if (strcmp(argv[2],"1") == 0) {
         const int VEC_SIZE = atoi(argv[1]);
@@ -208,14 +207,11 @@ int main(int argc, char* argv[]) {
         input >> size;
         points.reserve(size);
         for (int i = 0; i < size; ++i) {
-            // 1 59766.6667 21366.6667
-            //2 59816.6667 22966.6667
-            //ignore the first number 
             input >> pos >> x >> y;
             points.emplace_back(Point(x, y));
         }
         input.close();
-        std::cout << "Solution: " << totalDistance(divideAndConquerTSP(points)) << std::endl;
+        std::cout << file << ": " << totalDistance(divideAndConquerTSP(points)) << std::endl;
 
     }
 
