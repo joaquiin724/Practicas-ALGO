@@ -37,13 +37,28 @@ done
 #---------------------------|Ejecucion Viajante|-------------------------------#
 
 rm -f Salidas/Viajante.txt
-size2=200 # Para el caso brute force a partir de 12 no se puede ejecutar
+size2=20 # Para el caso brute force a partir de 12 no se puede ejecutar
 opcion2=2 # [1] Random test || [2] Made test 
-files=("Paises/Finland.txt" "Paises/Nicaragua.txt" "Paises/Djibouti.txt" "Paises/Egypt.txt" "Paises/Oman.txt")
-#Solucion: Finland = 520527, Djibouti= 6656, Oman = 86891, Nicaragua = 96132, Egypt = 172387
+files=(
+    "Paises/Finland.txt" 
+    "Paises/Nicaragua.txt" 
+    "Paises/Djibouti.txt" 
+    "Paises/Egypt.txt" 
+    "Paises/Oman.txt"
+    "Paises/Vietnam.txt"
+    "Paises/Uruguay.txt"
+    "Paises/Canada.txt"
+    "Paises/Greece.txt"
+    "Paises/Japan.txt"
+    "Paises/China.txt"
+    "Paises/Burma.txt"
+    )
+#Solucion: Finland = 520527, Djibouti = 6656, Oman = 86891, Nicaragua = 96132, Egypt = 172387
+# Vietnam = 569288  Uruguay = 79114 Canada = 1290319 Greece = 300899 Japan = 491924 China = 4566563
+# Burma = 959304
 
 if [ $opcion2 -eq 1 ]; then
-    for ((i=5; i <= $size2; i+=10)) do
+    for ((i=10; i <= $size2; i+=2)) do
         ./Ejecutables/Viajante $i $opcion2 >> Salidas/Viajante.txt
     done
 fi

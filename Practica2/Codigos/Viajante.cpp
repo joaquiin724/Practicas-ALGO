@@ -4,6 +4,7 @@
 #include <limits>
 #include <cstring>
 #include <numeric>
+#include <iomanip>
 #include <fstream>
 #include <algorithm>
 
@@ -98,7 +99,7 @@ std::vector<Point> optimizeTour(const std::vector<Point>& tour) {
  * @return std::vector<Point> 
  */
 std::vector<Point> divideAndConquerTSP(const std::vector<Point>& points) {
-    if (points.size() <= 6) {
+    if (points.size() <= 8) {
         std::vector<int> permutation(points.size());
         std::iota(permutation.begin(), permutation.end(), 0);
         std::vector<int> bestPermutation;
@@ -195,7 +196,7 @@ int main(int argc, char* argv[]) {
             std::cout << randomPoints[i] << std::endl;
         }
         
-        // std::cout << "Brute Force: " << bruteForceTSP(randomPoints) << std::endl;
+        std::cout << "Brute Force: " << bruteForceTSP(randomPoints) << std::endl;
         std::cout << "Our Algorithm: " << totalDistance(divideAndConquerTSP(approximatePath)) << std::endl;
     } else{
         std::string file = argv[1];
@@ -211,6 +212,8 @@ int main(int argc, char* argv[]) {
             points.emplace_back(Point(x, y));
         }
         input.close();
+        std::cout << std::fixed;
+        std::cout.precision(2);
         std::cout << file << ": " << totalDistance(divideAndConquerTSP(points)) << std::endl;
 
     }

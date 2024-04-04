@@ -71,7 +71,8 @@ int main(int argc, char *argv[]) {
         auto end = chrono::high_resolution_clock::now();
         std::cout << chrono::duration_cast<chrono::nanoseconds>(end - start).count()<<endl;
 
-    } else if (strcmp(argv[2], "2") == 0) { // Time Test DyV
+    } 
+    else if (strcmp(argv[2], "2") == 0) { // Time Test DyV
         auto start = chrono::high_resolution_clock::now();
         SumaMax(v, 0, TAM-1);
         auto end = chrono::high_resolution_clock::now();
@@ -90,6 +91,5 @@ int main(int argc, char *argv[]) {
         }
         
     }
-
-    int kadaneResult = kadane(v,TAM);
+    return 0;
 }
