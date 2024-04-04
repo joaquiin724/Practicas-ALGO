@@ -64,20 +64,27 @@ int main(int argc, char *argv[]) {
         v[i] = rand() % 10 - (rand() % 10);
     }
     
-    if (strcmp(argv[2], "1") == 0) { // Time Test
+    if (strcmp(argv[2], "1") == 0) { // Time Test Kadane
+
+        auto start = chrono::high_resolution_clock::now();
+        kadane(v, TAM);
+        auto end = chrono::high_resolution_clock::now();
+        std::cout << chrono::duration_cast<chrono::nanoseconds>(end - start).count()<<endl;
+
+    } else if (strcmp(argv[2], "2") == 0) { // Time Test DyV
         auto start = chrono::high_resolution_clock::now();
         SumaMax(v, 0, TAM-1);
         auto end = chrono::high_resolution_clock::now();
-        std::cout << chrono::duration_cast<chrono::nanoseconds>(end - start).count();
+        std::cout << chrono::duration_cast<chrono::nanoseconds>(end - start).count()<<endl;
     } 
     else{ // Correctness Test
         int *kadaneVector = new int[TAM];
         for (int i = 0; i < TAM; i++) {
             kadaneVector[i] = v[i];
         }
+
         int res1 = SumaMax(v, 0, TAM-1).max_sub;
         int res2 = kadane(kadaneVector, TAM);
-        
         if (res1 != res2) {
             std::cout << "Error [" << TAM << "]: " << res1 << " != " << res2 << endl;
         }

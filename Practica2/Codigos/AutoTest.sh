@@ -9,15 +9,27 @@ chmod +x AutoCompile.sh
 ./AutoCompile.sh
 
 # --------------------------|Ejecución de SumaMax|-----------------------------#
-rm -f Salidas/SumaMax.txt
-size=10000
-opcion=2 # [1] Time Test || [2] Correctness Test
 
-for ((i=100; i <= $size; i+=100)); do
+size=1000000
+opcion=3 # [1] Time Test Kadane || [2] Time Test DyV || [3] Correctness Test
+if [ $opcion -eq 1 ]; then
+    rm -f Salidas/SumaMaxKadane.txt
+fi
+if [ $opcion -eq 2 ]; then
+    rm -f Salidas/SumaMaxDyV.txt
+fi
+
+
+for ((i=2500; i <= $size; i+=2500)); do
     if [ $opcion -eq 1 ]; then
-        printf "$i " >> Salidas/SumaMax.txt
+        printf "$i " >> Salidas/SumaMaxKadane.txt
+        ./Ejecutables/SumaMax $i $opcion >> Salidas/SumaMaxKadane.txt
     fi
     if [ $opcion -eq 2 ]; then
+        printf "$i " >> Salidas/SumaMaxDyV.txt
+        ./Ejecutables/SumaMax $i $opcion >> Salidas/SumaMaxDyV.txt
+    fi
+    if [ $opcion -eq 3 ]; then
         ./Ejecutables/SumaMax $i $opcion >> Salidas/SumaMax.txt
     fi
 done
