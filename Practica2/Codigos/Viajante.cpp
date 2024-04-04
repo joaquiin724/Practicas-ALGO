@@ -61,8 +61,16 @@ double totalDistance(const vector<Point>& points) {
   return distance;
 }
 
+
+/**
+ * @brief This function optimizes a given tour by swwapping pairs of points
+ * until the tour can't be improved anymore by swapping.
+ * 
+ * @param tour 
+ * @return optimized tour
+ */
 std::vector<Point> optimizeTour(const std::vector<Point>& tour) {
-    std::vector<Point> currentTour = tour; // Make a copy to modify
+    std::vector<Point> currentTour = tour;
     bool improvement = true;
 
     while (improvement) {
@@ -181,7 +189,9 @@ int main(int argc, char* argv[]) {
     if (strcmp(argv[2],"1") == 0) {
         const int VEC_SIZE = atoi(argv[1]);
         vector<Point> randomPoints;
+        randomPoints.reserve(VEC_SIZE);
         vector<Point> approximatePath; 
+        approximatePath.reserve(VEC_SIZE);
         srand(time(NULL));
 
         for (int i = 0; i < VEC_SIZE; ++i) {
@@ -196,7 +206,7 @@ int main(int argc, char* argv[]) {
             std::cout << randomPoints[i] << std::endl;
         }
         
-        std::cout << "Brute Force: " << bruteForceTSP(randomPoints) << std::endl;
+        //std::cout << "Brute Force: " << bruteForceTSP(randomPoints) << std::endl;
         std::cout << "Our Algorithm: " << totalDistance(divideAndConquerTSP(approximatePath)) << std::endl;
     } else{
         std::string file = argv[1];
