@@ -2,11 +2,11 @@ Paises/Finland.txt: 604150.20
 Paises/Nicaragua.txt: 109479.06
 Paises/Djibouti.txt: 9505.58
 Paises/Egypt.txt: 209943.31
-Paises/Oman.txt: 108231.92
+Paises/Oman.txt: 110187.84
 Paises/Vietnam.txt: 661167.31
 Paises/Uruguay.txt: 91946.61
 Paises/Canada.txt: 1481203.20
 Paises/Greece.txt: 358669.26
 Paises/Japan.txt: 588332.01
-Paises/China.txt: 5237901.35
-Paises/Burma.txt: 1118862.93
+Paises/China.txt: 5226082.22
+Paises/Burma.txt: 1117859.23

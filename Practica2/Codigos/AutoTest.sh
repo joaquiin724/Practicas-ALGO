@@ -10,35 +10,33 @@ chmod +x AutoCompile.sh
 
 # --------------------------|Ejecución de SumaMax|-----------------------------#
 
-size=1000000
-opcion=3 # [1] Time Test Kadane || [2] Time Test DyV || [3] Correctness Test
+size=5000000
+opcion=1 # [1] Time Test Kadane - Time Test DyV || [2] Correctness Test
 if [ $opcion -eq 1 ]; then
     rm -f Salidas/SumaMaxKadane.txt
-fi
-if [ $opcion -eq 2 ]; then
     rm -f Salidas/SumaMaxDyV.txt
 fi
+if [ $opcion -eq 2 ]; then
+    rm -f Salidas/SumaMax.txt
+fi
 
 
-for ((i=2500; i <= $size; i+=2500)); do
+for ((i=2500; i <= $size; i+=25000)); do
     if [ $opcion -eq 1 ]; then
         printf "$i " >> Salidas/SumaMaxKadane.txt
         ./Ejecutables/SumaMax $i $opcion >> Salidas/SumaMaxKadane.txt
-    fi
-    if [ $opcion -eq 2 ]; then
         printf "$i " >> Salidas/SumaMaxDyV.txt
         ./Ejecutables/SumaMax $i $opcion >> Salidas/SumaMaxDyV.txt
     fi
-    if [ $opcion -eq 3 ]; then
+    if [ $opcion -eq 2 ]; then
         ./Ejecutables/SumaMax $i $opcion >> Salidas/SumaMax.txt
     fi
 done
 
 #---------------------------|Ejecucion Viajante|-------------------------------#
 
-rm -f Salidas/Viajante.txt
 size2=20 # Para el caso brute force a partir de 12 no se puede ejecutar
-opcion2=2 # [1] Random test || [2] Made test 
+opcion2=3 # [1] Random test || [2] Made test 
 files=(
     "Paises/Finland.txt" 
     "Paises/Nicaragua.txt" 
@@ -58,11 +56,13 @@ files=(
 # Burma = 959304
 
 if [ $opcion2 -eq 1 ]; then
+    rm -f Salidas/Viajante.txt
     for ((i=10; i <= $size2; i+=2)) do
         ./Ejecutables/Viajante $i $opcion2 >> Salidas/Viajante.txt
     done
 fi
 if [ $opcion2 -eq 2 ]; then
+    rm -f Salidas/Viajante.txt
     for ((i=0; i < ${#files[@]}; i++)) do
         ./Ejecutables/Viajante ${files[i]} $opcion2 >> Salidas/Viajante.txt
     done

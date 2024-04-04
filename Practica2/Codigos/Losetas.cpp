@@ -31,10 +31,7 @@ string getSumidero(int i_sumidero,int j_sumidero,int n){
 
     }
     else{
-        if(j_sumidero < n/2)
-            return "ii";
-        else
-            return "id";
+        return (j_sumidero < n/2) ? "ii" : "id";
     }
 }
 
