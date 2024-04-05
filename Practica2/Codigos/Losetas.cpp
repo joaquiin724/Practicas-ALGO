@@ -21,6 +21,8 @@ void resuelve2(vector<vector<int>> & matriz2d , int i_sumidero,int j_sumidero,in
             }
         }
     }
+    losas++;
+    sumideros++;
 }
 string getSumidero(int i_sumidero,int j_sumidero,int n){
     if(i_sumidero < n/2 ){
@@ -35,19 +37,40 @@ string getSumidero(int i_sumidero,int j_sumidero,int n){
     }
 }
 
-void resuelve(vector<vector<int>>&mat ,int i_sumidero,int j_sumidero,int inicio_i, int inicio_j ,int final_i ,int final_j ,int & mat_size){
+void resuelve(vector<vector<int>>&mat ,int i_sumidero,int j_sumidero,int inicio_i, int inicio_j ,int final_i ,int final_j ,int mat_size){
     int n= mat_size;
+    int losas = 1;
+    int sumideros = 0;
     string id_sumidero = getSumidero(i_sumidero,j_sumidero,n);
+    if(n == 2){
+        resuelve2(mat, i_sumidero, j_sumidero, losas,sumideros);
+    }
     if(id_sumidero == "si"){
-        resuelve(mat,i_sumidero,j_sumidero,0,0,n/2-1,n/2-1,n);
-        resuelve(mat,n/2-1,n/2,0,n/2,n/2-1,n-1,n);
-        resuelve(mat,n/2,n/2 - 1,n/2,0,n-1,n/2-1,n);
-        resuelve(mat,n/2,n/2,n/2,n/2,n-1,n-1,n);
+        resuelve(mat,i_sumidero,j_sumidero,0,0,n/2-1,n/2-1,n/2);
+        resuelve(mat,n/2-1,n/2,0,n/2,n/2-1,n-1,n/2);
+        resuelve(mat,n/2,n/2 - 1,n/2,0,n-1,n/2-1,n/2);
+        resuelve(mat,n/2,n/2,n/2,n/2,n-1,n-1,n/2);
 
     }
     else if(id_sumidero == "sd" ){
-        
+        resuelve(mat,n/2 -1,n/2 -1,0,0,n/2-1,n/2 -1,n/2);
+        resuelve(mat,i_sumidero,j_sumidero,0,n/2,n/2-1,n-1,n/2);
+        resuelve(mat,n/2,n/2-1 ,n/2,0,n-1,n/2-1,n/2);
+        resuelve(mat,n/2,n/2,n/2,n/2,n-1,n-1,n/2);
     }
+    else if(id_sumidero == "ii" ){
+        resuelve(mat,n/2 -1,n/2 -1,0,0,n/2-1,n/2 -1,n/2);
+        resuelve(mat,n/2-1,n/2,0,n/2,n/2-1,n-1,n/2);
+        resuelve(mat,i_sumidero, j_sumidero, n/2, 0, n-1,n/2-1 ,n/2);
+        resuelve(mat,n/2,n/2,n/2,n/2,n-1,n-1,n/2);
+    }
+    else{
+        resuelve(mat,n/2 -1,n/2 -1,0,0,n/2-1,n/2 -1,n/2);
+        resuelve(mat,n/2-1,n/2,0,n/2,n/2-1,n-1,n/2);
+        resuelve(mat,n/2,n/2-1 ,n/2,0,n-1,n/2-1,n/2);
+        resuelve(mat,i_sumidero,j_sumidero ,n/2,n/2,n-1,n-1,n/2);
+    }
+
 
     
 }
@@ -61,8 +84,9 @@ void printm(const vector<vector<int>> &mat){
     }
 }
 int main(int argc ,char *argv[]){
-    int rows = 2,cols =2,i=0,j=0;
-    vector<vector<int>> matriz(rows,vector<int>(cols));
+    int n = 2;
+    vector<vector<int>> matriz(n,vector<int>(n));
+    resuelve(matriz,0,0,0,0,n,n,n);
     printm(matriz);
     return 0;
 
