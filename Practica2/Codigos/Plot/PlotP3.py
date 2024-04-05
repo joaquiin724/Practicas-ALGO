@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import csv
-
+import os
 # Read data from CSV file
 initial_points = []
 sorted_points = []
@@ -35,8 +35,9 @@ plt.xlabel("X-Coordinate")
 plt.ylabel("Y-Coordinate")
 plt.title("Visualization of Sorted Points (TSP)")
 plt.legend()
-
 # Show the plot
 plt.grid(True)
-plt.show()
+# Save the plot as a png file
+plt.savefig("Graficas/Grafica10p.png")
+os.remove("tsp_results.csv")
 

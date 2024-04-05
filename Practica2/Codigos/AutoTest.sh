@@ -36,7 +36,7 @@ done
 #---------------------------|Ejecucion Viajante|-------------------------------#
 
 size2=2000 # Para el caso brute force a partir de 12 no se puede ejecutar
-opcion2=2 # [1] Random test || [2] Made test 
+opcion2=1 # [1] Random test || [2] Made test 
 files=(
     "Paises/Finland.txt" 
     "Paises/Nicaragua.txt" 
@@ -56,9 +56,11 @@ files=(
 # Burma = 959304
 
 if [ $opcion2 -eq 1 ]; then
-    rm -f Salidas/Viajante.txt
+    rm -f Salidas/ViajanteRandom.txt
+    
     for ((i=10; i <= $size2; i+=20)) do
-        ./Ejecutables/Viajante $i $opcion2 >> Salidas/Viajante.txt
+        ./Ejecutables/Viajante $i $opcion2 >> Salidas/ViajanteRandom.txt
+        # python3 PlotP3.py
     done
 fi
 if [ $opcion2 -eq 2 ]; then
