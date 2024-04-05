@@ -76,7 +76,31 @@ el siguiente resultado
           \sum_{i=1}^{n-1} a = a \cdot \sum_{i=1}^{n-1} 1= a \cdot n
       \end{split}\end{equation*}
   Es claro que $a \cdot  n \in O(n)$ y por tanto la eficiencia teórica del algoritmo de kadane es $O(n)$.
+  \section*{Estudio empírico}
+  \begin{figure}[h]
+        \begin{minipage}{0.5\textwidth}
+            \centering
+            \includegraphics[width=\linewidth]{../Codigos/Graficas/SumaMaxKadane.png}
+            \caption{Ejecución algoritmo SumaMaxKadane}
+            \label{fig:SumaMaxKadane}
+        \end{minipage}
+  \end{figure}
+  \section*{Estudio híbrido}
+  \begin{figure}[h]
+      \begin{minipage}{0.5\textwidth}
+          \centering
+          \includegraphics[width=\linewidth]{../Codigos/AjusteHibrido/SumaMaxKadane_hib.png}
+          \caption{Ajuste híbrido algoritmo Kadane}
+          \label{fig:mergesort}
+      \end{minipage}
+  \end{figure}
+  Tras la interpretación de los datos empíricos en gnuplot y de la formula teorica del métoco, obtenemos que \\
+  las constantes ocultas son:
+  \begin{equation*}
+      T_{Kadane}=1.64263x + 0.996451
+  \end{equation*}
   
+
 \chapter{Algoritmo Divide y Vencerás}
 En este apartado, estudiaremos la eficiencia teórica, empírica e híbrida de los algoritmos divide y vencerás
 de cada uno de los problemas.
@@ -146,6 +170,22 @@ Por lo que obtenemos como resultado que $T(n) \in O(n)$
           \label{fig:SumaMaxDyV}
       \end{minipage}
 \end{figure}
+\newpage
+\section*{Estudio híbrido}
+  \begin{figure}[h]
+      \begin{minipage}{0.5\textwidth}
+          \centering
+          \includegraphics[width=\linewidth]{../Codigos/AjusteHibrido/SumaMaxDyV_hib.png}
+          \caption{Ajuste híbrido algoritmo SumaMaxDyV}
+          \label{fig:mergesort}
+      \end{minipage}
+  \end{figure}
+  Tras la interpretación de los datos empíricos en gnuplot y de la formula teorica del métoco, obtenemos que \\
+  las constantes ocultas son:
+  \begin{equation*}
+      T_{SumaMaxDyV}=1.65508x + 0.991967
+  \end{equation*}
+  
 
 
 \chapter{Conclusiones}
