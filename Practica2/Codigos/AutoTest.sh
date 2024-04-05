@@ -71,7 +71,7 @@ if [ $opcion2 -eq 2 ]; then
 fi
 
 if [ $opcion2 -eq 3 ]; then
-    for ((i=4; i <= 10; ++i)) do
+    for ((i=4; i <= 9; ++i)) do
         # rm -f Salidas/Viajante$i.txt # Cuidado con borrarlo que tarda 1h en ejecutarse
         for ((j=0; j < ${#files[@]}; j++)) do
             ./Ejecutables/Viajante ${files[j]} $opcion2 $i >> Salidas/Viajante$i.txt
