@@ -195,7 +195,7 @@ int main(int argc, char* argv[]) {
         }
         //-----------------------|Fin graficar resultados|---------------------*/
         
-        //std::cout << "Brute Force: " << bruteForceTSP(randomPoints) << std::endl;
+        //std::cout << "Brute Force: " << totalDistance(bruteForceTSP(randomPoints)) << std::endl;
         // std::cout << "Our Algorithm: " << totalDistance(divideAndConquerTSP(approximatePath)) << std::endl;
     } else{
         std::string file = argv[1];
