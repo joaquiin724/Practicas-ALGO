@@ -11,7 +11,7 @@ chmod +x AutoCompile.sh
 # --------------------------|Ejecución de SumaMax|-----------------------------#
 
 size=5000000
-opcion=1 # [1] Time Test Kadane - Time Test DyV || [2] Correctness Test
+opcion=3 # [1] Time Test Kadane - Time Test DyV || [2] Correctness Test
 if [ $opcion -eq 1 ]; then
     rm -f Salidas/SumaMaxKadane.txt
     rm -f Salidas/SumaMaxDyV.txt
@@ -35,8 +35,8 @@ done
 
 #---------------------------|Ejecucion Viajante|-------------------------------#
 
-size2=20 # Para el caso brute force a partir de 12 no se puede ejecutar
-opcion2=3 # [1] Random test || [2] Made test 
+size2=2000 # Para el caso brute force a partir de 12 no se puede ejecutar
+opcion2=2 # [1] Random test || [2] Made test 
 files=(
     "Paises/Finland.txt" 
     "Paises/Nicaragua.txt" 
@@ -57,7 +57,7 @@ files=(
 
 if [ $opcion2 -eq 1 ]; then
     rm -f Salidas/Viajante.txt
-    for ((i=10; i <= $size2; i+=2)) do
+    for ((i=10; i <= $size2; i+=20)) do
         ./Ejecutables/Viajante $i $opcion2 >> Salidas/Viajante.txt
     done
 fi

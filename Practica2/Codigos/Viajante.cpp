@@ -44,6 +44,45 @@ private:
 };
 
 
+/**
+ * @brief This function calculates the minimum distance required to visit
+ * all the points in the vector once, to do so, it generates all the possible
+ * permutations of the vector and calculates the distance needed to visit all
+ * the points in the order of the permutation.
+ * 
+ * @note Distance from first to last point has to be calculated to make a closed path.
+ * @note iota generates a sequence of numbers from 0 to n.
+ * @note If needed, it can return the permutation that generates the minimum distance.
+ * 
+ * @param points which will be used to calculate the minimum distance
+ * @return minimum distance to visit all the points
+ */
+vector<Point> bruteForceTSP(const std::vector<Point>& points) {
+    std::vector<int> permutation(points.size());
+    std::iota(permutation.begin(), permutation.end(), 0);
+
+    double minDistance = std::numeric_limits<double>::max();
+    std::vector<int> bestPermutation;
+    do {
+        double distance = 0;
+        for (int i = 0; i < permutation.size() - 1; ++i) {
+            distance += points[permutation[i]].distanceTo(points[permutation[i + 1]]);
+        }
+
+        distance += points[permutation.back()].distanceTo(points[permutation.front()]);
+        if (distance < minDistance) {
+            minDistance = distance;
+            bestPermutation = permutation;
+        }
+    } while (std::next_permutation(permutation.begin(), permutation.end()));
+
+    std::vector<Point> bestPath;
+    for (int index : bestPermutation) {
+        bestPath.emplace_back(points[index]);
+    }
+
+    return bestPath;
+}
 
 
 /**
@@ -108,31 +147,7 @@ std::vector<Point> optimizeTour(const std::vector<Point>& tour) {
  */
 std::vector<Point> divideAndConquerTSP(const std::vector<Point>& points) {
     if (points.size() <= 8) {
-        std::vector<int> permutation(points.size());
-        std::iota(permutation.begin(), permutation.end(), 0);
-        std::vector<int> bestPermutation;
-
-        double minDistance = std::numeric_limits<double>::max();
-        do {
-            double distance = 0;
-            for (int i = 0; i < permutation.size() - 1; ++i) {
-                distance += points[permutation[i]].distanceTo(points[permutation[i + 1]]);
-            }
-
-            distance += points[permutation.back()].distanceTo(points[permutation.front()]);
-            if (distance < minDistance) {
-                minDistance = distance;
-                bestPermutation = permutation;
-            }
-
-        } while (std::next_permutation(permutation.begin(), permutation.end()));
-
-        std::vector<Point> bestTour;
-        for (int i = 0; i < bestPermutation.size(); ++i) {
-            bestTour.emplace_back(points[bestPermutation[i]]);
-        }
-
-        return bestTour;
+        return bruteForceTSP(points);
     }
 
     int mid = points.size() / 2;
@@ -150,37 +165,6 @@ std::vector<Point> divideAndConquerTSP(const std::vector<Point>& points) {
 }
 
 
-/**
- * @brief This function calculates the minimum distance required to visit
- * all the points in the vector once, to do so, it generates all the possible
- * permutations of the vector and calculates the distance needed to visit all
- * the points in the order of the permutation.
- * 
- * @note Distance from first to last point has to be calculated to make a closed path.
- * @note iota generates a sequence of numbers from 0 to n.
- * @note If needed, it can return the permutation that generates the minimum distance.
- * 
- * @param points which will be used to calculate the minimum distance
- * @return minimum distance to visit all the points
- */
-double bruteForceTSP(const std::vector<Point>& points) {
-    std::vector<int> permutation(points.size());
-    std::iota(permutation.begin(), permutation.end(), 0);
-
-    double minDistance = std::numeric_limits<double>::max();
-    do {
-        double distance = 0;
-        for (int i = 0; i < permutation.size() - 1; ++i) {
-            distance += points[permutation[i]].distanceTo(points[permutation[i + 1]]);
-        }
-
-        distance += points[permutation.back()].distanceTo(points[permutation.front()]);
-        minDistance = std::min(minDistance, distance);
-
-    } while (std::next_permutation(permutation.begin(), permutation.end()));
-
-    return minDistance;
-}
 
 
 
@@ -201,13 +185,18 @@ int main(int argc, char* argv[]) {
             approximatePath.emplace_back(Point(x, y));
         }
 
-        std::cout << "\nPoints:" << std::endl;
-        for (int i = 0; i < VEC_SIZE; ++i) {
-            std::cout << randomPoints[i] << std::endl;
+        /*------------------------|Para graficar los grafos|------------------*/
+        std::ofstream outputFile("tsp_results.csv");
+        divideAndConquerTSP(approximatePath);
+
+        outputFile << std::endl;
+        for (const Point& point : approximatePath) {
+            outputFile << point.getX() << "," << point.getY() << std::endl;
         }
+        //-----------------------|Fin graficar resultados|---------------------*/
         
         //std::cout << "Brute Force: " << bruteForceTSP(randomPoints) << std::endl;
-        std::cout << "Our Algorithm: " << totalDistance(divideAndConquerTSP(approximatePath)) << std::endl;
+        // std::cout << "Our Algorithm: " << totalDistance(divideAndConquerTSP(approximatePath)) << std::endl;
     } else{
         std::string file = argv[1];
         std::ifstream input(file);
