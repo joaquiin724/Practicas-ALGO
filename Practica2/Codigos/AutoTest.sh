@@ -36,7 +36,7 @@ done
 #---------------------------|Ejecucion Viajante|-------------------------------#
 
 size2=2000 # Para el caso brute force a partir de 12 no se puede ejecutar
-opcion2=1 # [1] Random test || [2] Made test 
+opcion2=3 # [1] Random test || [2] Made test || [3] Get Umbral
 files=(
     "Paises/Finland.txt" 
     "Paises/Nicaragua.txt" 
@@ -70,4 +70,12 @@ if [ $opcion2 -eq 2 ]; then
     done
 fi
 
+if [ $opcion2 -eq 3 ]; then
+    for ((i=4; i <= 10; ++i)) do
+        # rm -f Salidas/Viajante$i.txt # Cuidado con borrarlo que tarda 1h en ejecutarse
+        for ((j=0; j < ${#files[@]}; j++)) do
+            ./Ejecutables/Viajante ${files[j]} $opcion2 $i >> Salidas/Viajante$i.txt
+        done
+    done
+fi
 

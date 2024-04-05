@@ -1,6 +1,7 @@
 #include <cmath>
 #include <vector>
 #include <iostream>
+#include <chrono>
 #include <limits>
 #include <cstring>
 #include <numeric>
@@ -10,6 +11,7 @@
 
 using namespace std;
 
+int UMBRAL = 8;
 
 class Point {
 public:
@@ -146,7 +148,7 @@ std::vector<Point> optimizeTour(const std::vector<Point>& tour) {
  * @return std::vector<Point> 
  */
 std::vector<Point> divideAndConquerTSP(const std::vector<Point>& points) {
-    if (points.size() <= 8) {
+    if (points.size() <= UMBRAL) {
         return bruteForceTSP(points);
     }
 
@@ -170,7 +172,7 @@ std::vector<Point> divideAndConquerTSP(const std::vector<Point>& points) {
 
 int main(int argc, char* argv[]) {
 
-    if (strcmp(argv[2],"1") == 0) {
+    if (strcmp(argv[2],"1") == 0) { // Random or Graph Results
         const int VEC_SIZE = atoi(argv[1]);
         vector<Point> randomPoints;
         randomPoints.reserve(VEC_SIZE);
@@ -197,7 +199,8 @@ int main(int argc, char* argv[]) {
         
         //std::cout << "Brute Force: " << totalDistance(bruteForceTSP(randomPoints)) << std::endl;
         // std::cout << "Our Algorithm: " << totalDistance(divideAndConquerTSP(approximatePath)) << std::endl;
-    } else{
+    } 
+    else if (strcmp(argv[2],"2") == 0){ // Get the distance of Cities
         std::string file = argv[1];
         std::ifstream input(file);
         std::vector<Point> points;
@@ -216,6 +219,33 @@ int main(int argc, char* argv[]) {
         std::cout << file << ": " << totalDistance(divideAndConquerTSP(points)) << std::endl;
 
     }
+    else { // Calculate time
+        std::string file = argv[1];
+        UMBRAL = atoi(argv[3]);
+        std::ifstream input(file);
+        std::vector<Point> points;
+        double x, y;
+        int size;
+        int pos;
+        input >> size;
+        points.reserve(size);
+        for (int i = 0; i < size; ++i) {
+            input >> pos >> x >> y;
+            points.emplace_back(Point(x, y));
+        }
+        input.close();
+        std::cout << std::fixed;
+        std::cout.precision(6);
+        std::cout << size << " ";
+        //Time measurement
+        std::chrono::duration<double> elapsed;
+        auto start = std::chrono::high_resolution_clock::now();
+        divideAndConquerTSP(points);
+        auto end = std::chrono::high_resolution_clock::now();
+        elapsed = std::chrono::duration_cast<std::chrono::duration<double>>(end - start);
+        std::cout << elapsed.count() << "\n";
+    }
+
 
     return 0;
 }
