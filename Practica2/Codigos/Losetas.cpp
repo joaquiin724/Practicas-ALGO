@@ -45,30 +45,33 @@ void resuelve(vector<vector<int>>&mat ,int i_sumidero,int j_sumidero,int inicio_
     if(n == 2){
         resuelve2(mat, i_sumidero, j_sumidero, losas,sumideros);
     }
-    if(id_sumidero == "si"){
-        resuelve(mat,i_sumidero,j_sumidero,0,0,n/2-1,n/2-1,n/2);
-        resuelve(mat,n/2-1,n/2,0,n/2,n/2-1,n-1,n/2);
-        resuelve(mat,n/2,n/2 - 1,n/2,0,n-1,n/2-1,n/2);
-        resuelve(mat,n/2,n/2,n/2,n/2,n-1,n-1,n/2);
-
-    }
-    else if(id_sumidero == "sd" ){
-        resuelve(mat,n/2 -1,n/2 -1,0,0,n/2-1,n/2 -1,n/2);
-        resuelve(mat,i_sumidero,j_sumidero,0,n/2,n/2-1,n-1,n/2);
-        resuelve(mat,n/2,n/2-1 ,n/2,0,n-1,n/2-1,n/2);
-        resuelve(mat,n/2,n/2,n/2,n/2,n-1,n-1,n/2);
-    }
-    else if(id_sumidero == "ii" ){
-        resuelve(mat,n/2 -1,n/2 -1,0,0,n/2-1,n/2 -1,n/2);
-        resuelve(mat,n/2-1,n/2,0,n/2,n/2-1,n-1,n/2);
-        resuelve(mat,i_sumidero, j_sumidero, n/2, 0, n-1,n/2-1 ,n/2);
-        resuelve(mat,n/2,n/2,n/2,n/2,n-1,n-1,n/2);
-    }
     else{
-        resuelve(mat,n/2 -1,n/2 -1,0,0,n/2-1,n/2 -1,n/2);
-        resuelve(mat,n/2-1,n/2,0,n/2,n/2-1,n-1,n/2);
-        resuelve(mat,n/2,n/2-1 ,n/2,0,n-1,n/2-1,n/2);
-        resuelve(mat,i_sumidero,j_sumidero ,n/2,n/2,n-1,n-1,n/2);
+
+        if(id_sumidero == "si"){
+            resuelve(mat,i_sumidero,j_sumidero,0,0,n/2-1,n/2-1,n/2);
+            resuelve(mat,n/2-1,n/2,0,n/2,n/2-1,n-1,n/2);
+            resuelve(mat,n/2,n/2 - 1,n/2,0,n-1,n/2-1,n/2);
+            resuelve(mat,n/2,n/2,n/2,n/2,n-1,n-1,n/2);
+
+        }
+        else if(id_sumidero == "sd" ){
+            resuelve(mat,n/2 -1,n/2 -1,0,0,n/2-1,n/2 -1,n/2);
+            resuelve(mat,i_sumidero,j_sumidero,0,n/2,n/2-1,n-1,n/2);
+            resuelve(mat,n/2,n/2-1 ,n/2,0,n-1,n/2-1,n/2);
+            resuelve(mat,n/2,n/2,n/2,n/2,n-1,n-1,n/2);
+        }
+        else if(id_sumidero == "ii" ){
+            resuelve(mat,n/2 -1,n/2 -1,0,0,n/2-1,n/2 -1,n/2);
+            resuelve(mat,n/2-1,n/2,0,n/2,n/2-1,n-1,n/2);
+            resuelve(mat,i_sumidero, j_sumidero, n/2, 0, n-1,n/2-1 ,n/2);
+            resuelve(mat,n/2,n/2,n/2,n/2,n-1,n-1,n/2);
+        }
+        else{
+            resuelve(mat,n/2 -1,n/2 -1,0,0,n/2-1,n/2 -1,n/2);
+            resuelve(mat,n/2-1,n/2,0,n/2,n/2-1,n-1,n/2);
+            resuelve(mat,n/2,n/2-1 ,n/2,0,n-1,n/2-1,n/2);
+            resuelve(mat,i_sumidero,j_sumidero ,n/2,n/2,n-1,n-1,n/2);
+        }
     }
 
 
