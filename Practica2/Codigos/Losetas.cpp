@@ -14,15 +14,15 @@ int losas = 1;
 int i_sumidero ,j_sumidero;
 
 
-void resuelve2(vector<vector<int>> & matriz2d){
-    for(int i  =0; i< matriz2d.size(); i++){
-        for(int j = 0; j< matriz2d.size();j++){
-            if(matriz2d[i][j] == 0 ){
-                matriz2d[i][j] = losas;
+void resuelve2(int i,int j,int n, vector<vector<int>> & mat){
+        losas++;
+        for(int l = 0; l< n; l++){
+            for(int k = 0; k<n; k++){
+                if(mat[i+l][j+k] == 0){
+                    mat[i+l][j+k] = losas;
+                }
             }
         }
-    }
-    losas++;
     
 }
 void getSumidero(int & x_sumidero , int & y_sumidero , vector<vector<int>> & mat ,int n){
@@ -45,14 +45,7 @@ void enlosar(int i1, int j1,int i2 , int j2 , int i3 , int j3,vector<vector<int>
 
 void resolver(int n,int i,int j,vector<vector<int>> &mat){
     if(n == 2){
-        losas++;
-        for(int l = 0; l< n; l++){
-            for(int k = 0; k<n; k++){
-                if(mat[i+l][j+k] == 0){
-                    mat[i+l][j+k] = losas;
-                }
-            }
-        }
+        resuelve2(i, j, n, mat);
     }
     else{
         int i_sumidero,j_sumidero;

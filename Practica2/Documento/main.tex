@@ -107,7 +107,26 @@ las constantes ocultas son:
 \begin{equation*}
       T_{Kadane}=1.64263x + 0.996451
 \end{equation*}
+\section{Problema 2: Enlosar un espacio }
+Para el segundo problema el algoritmo específico que empleamos para resolver el problema es el siguiente : 
 
+\begin{lstlisting}
+
+      void resuelve2(int i,int j,int n, vector<vector<int>> & mat){
+        losas++;
+        for(int l = 0; l< n; l++){
+            for(int k = 0; k<n; k++){
+                if(mat[i+l][j+k] == 0){
+                    mat[i+l][j+k] = losas;
+                }
+            }
+        }
+    
+}
+\end{lstlisting}
+El código consiste en rellenar las posiciones de una matriz 2x2 con un valor entero en las posiciones donde el valor sea 0.
+Podemos observar que hay dos bucles for anidados los cuales son $O(n)$ y el interior del bucle más profundo es $O(1)$ por tanto la eficiencia 
+de este código es de $O(n^2)$
 
 \chapter{Algoritmo Divide y Vencerás}
 En este apartado, estudiaremos la eficiencia teórica, empírica e híbrida de los algoritmos divide y vencerás
@@ -192,6 +211,9 @@ las constantes ocultas son:
 \begin{equation*}
       T_{SumaMaxDyV}=1.65508x + 0.991967
 \end{equation*}
+
+\section{Problema 2: Enlosar un espacio }
+
 
 \section{Problema 3: Problema del viajante de comercio.}
 Para el tercer problema, nos encontramos ante un problema de complejidad
