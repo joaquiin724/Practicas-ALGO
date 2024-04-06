@@ -34,55 +34,7 @@ void getSumidero(int & x_sumidero , int & y_sumidero , vector<vector<int>> & mat
         }
     }
 }
-/*
 
-void resuelve(vector<vector<int>>&mat ,int i_sumidero,int j_sumidero,int inicio_i, int inicio_j ,int final_i ,int final_j ,int mat_size,int &los){
-    int n= mat_size;
-    int auxi_sumidero;
-    int auxj_sumidero; 
-    int sumideros = 0;
-
-    string id_sumidero = getSumidero(i_sumidero,j_sumidero,n);
-    if(n == 2){
-        resuelve2(mat, i_sumidero, j_sumidero, los,sumideros);
-    }
-    else{
-
-        if(id_sumidero == "si"){
-            resuelve(mat,i_sumidero,j_sumidero,0,0,n/2-1,n/2-1,n/2,los);
-            cout<<los;
-            resuelve(mat,n/2-1,n/2,0,n/2,n/2-1,n-1,n/2,los);
-            cout<<los;
-            resuelve(mat,n/2,n/2 - 1,n/2,0,n-1,n/2-1,n/2,los);
-            cout<<los;
-            resuelve(mat,n/2,n/2,n/2,n/2,n-1,n-1,n/2,los);
-            cout<<los;
-
-        }
-        else if(id_sumidero == "sd" ){
-            resuelve(mat,n/2 -1,n/2 -1,0,0,n/2-1,n/2 -1,n/2,los);
-            resuelve(mat,i_sumidero,j_sumidero,0,n/2,n/2-1,n-1,n/2,los);
-            resuelve(mat,n/2,n/2-1 ,n/2,0,n-1,n/2-1,n/2,los);
-            resuelve(mat,n/2,n/2,n/2,n/2,n-1,n-1,n/2,los);
-        }
-        else if(id_sumidero == "ii" ){
-            resuelve(mat,n/2 -1,n/2 -1,0,0,n/2-1,n/2 -1,n/2,los);
-            resuelve(mat,n/2-1,n/2,0,n/2,n/2-1,n-1,n/2,los);
-            resuelve(mat,i_sumidero, j_sumidero, n/2, 0, n-1,n/2-1 ,n/2,los);
-            resuelve(mat,n/2,n/2,n/2,n/2,n-1,n-1,n/2,los);
-        }
-        else{
-            resuelve(mat,n/2 -1,n/2 -1,0,0,n/2-1,n/2 -1,n/2,los);
-            resuelve(mat,n/2-1,n/2,0,n/2,n/2-1,n-1,n/2,los);
-            resuelve(mat,n/2,n/2-1 ,n/2,0,n-1,n/2-1,n/2,los);
-            resuelve(mat,i_sumidero,j_sumidero ,n/2,n/2,n-1,n-1,n/2,los);
-        }
-    }
-
-
-    
-}
-*/
 void enlosar(int i1, int j1,int i2 , int j2 , int i3 , int j3,vector<vector<int>> &mat){
     mat[i1][j1] = losas;
     mat[i2][j2] = losas;
@@ -103,7 +55,7 @@ void resolver(int n,int i,int j,vector<vector<int>> &mat){
     }
     else{
         int i_sumidero,j_sumidero;
-        getSumidero(i_sumidero, i_sumidero,mat,n);
+        getSumidero(i_sumidero, j_sumidero,mat,n);
         //Superior Izquierda 
         if(i_sumidero < i + n/2  && j_sumidero < j + n/2){
             enlosar(i+n/2-1,j+n/2,i+n/2,j+n/2-1,i+n/2,j+n/2,mat);
