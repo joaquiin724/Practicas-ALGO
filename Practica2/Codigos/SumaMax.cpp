@@ -37,7 +37,7 @@ struct SumaData{
  * @return Suma máxima de la mejor subsecuencia del vector
  * 
 */
-pair<int,int> kadane(int *a, int inicio, int size){
+pair<int, int> kadane(int *a, int inicio, int size){
     int max_global = a[inicio];
     int max_current = a[inicio];
     int indice=inicio;
@@ -50,8 +50,7 @@ pair<int,int> kadane(int *a, int inicio, int size){
         }
     }
 
-    pair <int,int> k={max_global, indice};
-    return k;
+    return pair<int, int>(max_global, indice);
 }
 
 // 5 6 -1 1 1 -5 9 1 -5 -2 
