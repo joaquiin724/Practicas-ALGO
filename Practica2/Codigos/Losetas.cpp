@@ -9,33 +9,32 @@
 #include <climits>
 #include <cassert>
 using namespace std;
+int losas = 1;
+int i_sumidero ,j_sumidero;
 
-void resuelve2(vector<vector<int>> & matriz2d , int i_sumidero,int j_sumidero,int &losas,int &sumideros){
+
+void resuelve2(vector<vector<int>> & matriz2d){
     for(int i  =0; i< matriz2d.size(); i++){
-        losas++;
         for(int j = 0; j< matriz2d.size();j++){
-            if (i == i_sumidero && j == j_sumidero){
-                matriz2d[i][j] =sumideros;
-            }
-            else{
-                matriz2d[i][j] =losas;
+            if(matriz2d[i][j] == 0 ){
+                matriz2d[i][j] = losas;
             }
         }
     }
+    losas++;
     
 }
-string getSumidero(int i_sumidero,int j_sumidero,int n){
-    if(i_sumidero < n/2 ){
-        if(j_sumidero < n/2)
-            return  "si";
-        else
-            return "sd";
-
-    }
-    else{
-        return (j_sumidero < n/2) ? "ii" : "id";
+void getSumidero(int & x_sumidero , int & y_sumidero , vector<vector<int>> & mat ,int n){
+    for(int i = 0; i< n; i++){
+        for(int j = 0; j<n; j++){
+            if(mat[i][j] != 0){
+                x_sumidero = i;
+                y_sumidero = j;
+            }
+        }
     }
 }
+/*
 
 void resuelve(vector<vector<int>>&mat ,int i_sumidero,int j_sumidero,int inicio_i, int inicio_j ,int final_i ,int final_j ,int mat_size,int &los){
     int n= mat_size;
@@ -83,20 +82,73 @@ void resuelve(vector<vector<int>>&mat ,int i_sumidero,int j_sumidero,int inicio_
 
     
 }
+*/
+void enlosar(int i1, int j1,int i2 , int j2 , int i3 , int j3,vector<vector<int>> &mat){
+    mat[i1][j1] = losas;
+    mat[i2][j2] = losas;
+    mat[i3][j3] = losas;
+    losas++;
+}
+
+void resolver(int n,int i,int j,vector<vector<int>> &mat){
+    if(n == 2){
+        losas++;
+        for(int l = 0; l< n; l++){
+            for(int k = 0; k<n; k++){
+                if(mat[i+l][j+k] == 0){
+                    mat[i+l][j+k] = losas;
+                }
+            }
+        }
+    }
+    else{
+        int i_sumidero,j_sumidero;
+        getSumidero(i_sumidero, i_sumidero,mat,n);
+        //Superior Izquierda 
+        if(i_sumidero < i + n/2  && j_sumidero < j + n/2){
+            enlosar(i+n/2-1,j+n/2,i+n/2,j+n/2-1,i+n/2,j+n/2,mat);
+        }
+        //Inferior izqwuierda
+        else if(i_sumidero >= i+n/2 && j_sumidero < j +n/2){ 
+            enlosar(i+n/2-1,j+n/2 -1, i+n/2 -1 , j+n/2 , i+n/2 ,j + n/2 ,mat);
+        }
+        //Superior derecha
+        else if(i_sumidero < i +n/2 && j_sumidero >= n/2 + j){ //Superior izquierda
+            enlosar(i+n/2-1,j+n/2 -1, i+n/2 , j+n/2-1 , i+n/2 ,j + n/2 ,mat);
+        }
+        //Inferior Derecha
+        else{
+            enlosar(i+n/2-1,j+n/2 -1, i+n/2 , j+n/2-1 , i+n/2 -1 ,j + n/2 ,mat);
+        }
+        resolver(n/2,i,j,mat);
+        resolver(n/2,i+n/2,j,mat);
+        resolver(n/2,i,j+n/2,mat);
+        resolver(n/2, i+n/2, j+n/2, mat);
+    }
+
+
+}
+
+
+
+
+
+
 void printm(const vector<vector<int>> &mat){
     for (int i = 0; i< mat.size();i++){
-        cout << " ";
+        cout << "  ";
         for (int j=0; j<mat.size();j++){
-            cout << mat[i][j] << " ";
+            cout << mat[i][j] << "  ";
         }
         cout << endl;
     }
 }
 int main(int argc ,char *argv[]){
-    int n = 4;
-    int losa = 1;
-    vector<vector<int>> matriz(n,vector<int>(n));
-    resuelve(matriz,0,1,0,0,n,n,n,losa);
+    int n = 8;
+    vector<vector<int>> matriz(n,vector<int>(n,0));
+    matriz[0][2] =-1;
+    resolver(n,0,0,matriz);
+    matriz[0][2] =0;
     cout << endl;
     printm(matriz);
     return 0;
