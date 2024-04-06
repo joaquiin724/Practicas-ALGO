@@ -20,7 +20,7 @@ n=1
 # --------------------------|Ejecución de SumaMax|-----------------------------#
 
 if(($n == 1 || $n==4)) then
-    size=1000000
+    size=5000000
     opcion=2 # [1] Time Test Kadane || [2] Time Test DyV || [3] Correctness Test
     if [ $opcion -eq 1 ]; then
         rm -f Salidas/SumaMaxKadane.txt
@@ -51,8 +51,8 @@ fi
 
 if(($n == 3 || $n==4)) then
 
-    size2=2000 # Para el caso brute force a partir de 12 no se puede ejecutar
-    opcion2=3 # [1] Random test || [2] Made test || [3] Get Umbral
+    size2=10000 # Para el caso brute force a partir de 12 no se puede ejecutar
+    opcion2=1 # [1] Random test || [2] Made test || [3] Get Umbral
     files=(
         "Paises/Finland.txt" 
         "Paises/Nicaragua.txt" 
@@ -74,8 +74,8 @@ if(($n == 3 || $n==4)) then
     if [ $opcion2 -eq 1 ]; then
         rm -f Salidas/ViajanteRandom.txt
         
-        for ((i=10; i <= $size2; i+=20)) do
-            ./Ejecutables/Viajante $i $opcion2 >> Salidas/ViajanteRandom.txt
+        for ((i=100; i <= $size2; i+=200)) do
+            ./Ejecutables/Viajante $i 3 >> Salidas/ViajanteRandom.txt
             # python3 PlotP3.py
         done
     fi

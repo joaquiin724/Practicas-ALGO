@@ -20,7 +20,7 @@ using namespace std;
  * @param high end index
  * @return maximum subarray sum
  */
-int kadane(const int const *arr, int low, int high) {
+int kadane(const int * const arr, int low, int high) {
     int max_global = arr[low];
     int max_current = arr[low];
 
@@ -53,7 +53,7 @@ int kadane(const int const *arr, int low, int high) {
  * @param threshold "UMBRAL" to apply Kadane's algorithm
  * @return maximum subarray sum
  */
-int maxSubArray(const int const *arr, int low, int high, int threshold) {
+int maxSubArray(const int * const arr, int low, int high, int threshold) {
     if (high - low + 1 <= threshold) {
         return kadane(arr, low, high);
     }

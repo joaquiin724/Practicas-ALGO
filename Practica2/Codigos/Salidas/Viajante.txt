@@ -1,5 +1,0 @@
-Paises/Finland.txt: 604150.20
-Paises/Nicaragua.txt: 109479.06
-Paises/Djibouti.txt: 9505.58
-Paises/Egypt.txt: 209943.31
-Paises/Oman.txt: 110187.84

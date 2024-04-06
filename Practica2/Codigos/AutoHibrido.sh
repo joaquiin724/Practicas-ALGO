@@ -3,7 +3,7 @@
 script_directory=$(dirname "$0")
 cd $script_directory
 name="SumaMaxKadane"
-rm -r AjusteHibrido/Hibrido$name
+rm -r Graficas/SumaMaxDyV${name}_hib
 
 
 # Crear un script de Gnuplot para generar los archivos, todo lo que hay entre EOF y EOF se escribe en un archivo,
@@ -34,7 +34,7 @@ fit f(x) "Salidas/$name.txt" via a0,a1
 plot "Salidas/$name.txt", f(x) title "Curva ajustada $name"  
 # Guardar la gráfica en un archivo de imagen, definiendo el formato primero y el nombre del archivo después
 set term png
-set output "./AjusteHibrido/${name}_hib.png"
+set output "./Graficas/${name}_hib.png"
 replot
 
 EOF
@@ -47,7 +47,7 @@ gnuplot script_gnuplot.gp
 rm script_gnuplot.gp
 
 name="SumaMaxDyV"
-rm -r AjusteHibrido/Hibrido$name
+rm -r Graficas/SumaMax${name}_hib
 
 
 # Crear un script de Gnuplot para generar los archivos, todo lo que hay entre EOF y EOF se escribe en un archivo,
@@ -78,7 +78,7 @@ fit f(x) "Salidas/$name.txt" via a0,a1
 plot "Salidas/$name.txt", f(x) title "Curva ajustada $name"  
 # Guardar la gráfica en un archivo de imagen, definiendo el formato primero y el nombre del archivo después
 set term png
-set output "./AjusteHibrido/${name}_hib.png"
+set output "./Graficas/${name}_hib.png"
 replot
 
 EOF

@@ -1,6 +1,7 @@
 \documentclass[11pt,openany]{book}
 \input{assets/portada.tex}
 \usepackage{assets/formulas}
+\usepackage{float}
 \hbadness=10000 % Suppress Underfull \hbox warnings
 
 %========================================|Indice|===============================================%
@@ -14,26 +15,33 @@
 %======================================|Documento|==============================================%
 \chapter{Autores}
 \begin{itemize}
-    \item \textbf{Miguel Ángel De la Vega Rodríguez:} 20\%
-          \begin{itemize}
-              \item Plantilla y estructura del documento \LaTeX
-          \end{itemize}
-    \item \textbf{Joaquín Avilés De la Fuente:} 20\%
-          \begin{itemize}
-            \item Tarea
-          \end{itemize}
-    \item \textbf{Alberto De la Vera Sánchez: } 20\%
-          \begin{itemize}
-            \item Tarea
-          \end{itemize}
-    \item \textbf{Manuel Gomez Rubio} 20\%
-          \begin{itemize}
-            \item Tarea
-          \end{itemize}
-    \item \textbf{Pablo Linari Pérez:} 20\%
-          \begin{itemize}
-            \item Tarea
-          \end{itemize}
+      \item \textbf{Miguel Ángel De la Vega Rodríguez:} 20\%
+            \begin{itemize}
+                  \item Plantilla y estructura del documento \LaTeX
+                  \item Programación Viajante
+                  \item Programación SumaMax (DyV)
+                  \item Tests de eficiencia
+            \end{itemize}
+      \item \textbf{Joaquín Avilés De la Fuente:} 20\%
+            \begin{itemize}
+                  \item Programacion SumaMax (DyV)
+                  \item Tests de eficiencia
+            \end{itemize}
+      \item \textbf{Alberto De la Vera Sánchez: } 20\%
+            \begin{itemize}
+                  \item Redacción \LaTeX
+                  \item Graficas y ajustes
+            \end{itemize}
+      \item \textbf{Manuel Gomez Rubio} 20\%
+            \begin{itemize}
+                  \item Programacion SumaMax (Kadane)
+                  \item Programacion Losetas
+            \end{itemize}
+      \item \textbf{Pablo Linari Pérez:} 20\%
+            \begin{itemize}
+                  \item Programacion SumaMax (Kadane)
+                  \item Programacion Losetas
+            \end{itemize}
 \end{itemize}
 
 \chapter{Objetivos}
@@ -41,15 +49,15 @@ En esta práctica, se pretende resolver problemas de forma eficiente aplicando l
 Divide y Vencerás. Para ello, se han planteado varios problemas cuya solución es conocida
 (excepto para el problema del viajante), y se han implementado algoritmos que los resuelven
 mediante el método convencional y mediante la técnica de Divide y Vencerás. Posteriormente, se ha buscado
-un umbral en el cual ambos tengan el mismo tiempo de ejecución, finalmente, se ha buscado el 
-umbral óptimo para cada problema. 
+un umbral en el cual ambos tengan el mismo tiempo de ejecución, finalmente, se ha buscado el
+umbral óptimo para cada problema.
 \chapter{Definicion Problema}
 \chapter{Algoritmo Especifico}
 En este apartado, estudiaremos la eficiencia teórica, empírica e híbrida de los algoritmos especificos
 de cada uno de los problemas.
 \section{Problema 1: Subsecuencia de suma máxima.}
 Para el primer problema, el algoritmo específico que empleamos es el algoritmo de Kadene.
-\section*{Estudio teórico}
+\subsection{Estudio teórico}
 \begin{lstlisting}
       int kadane(int *a, int size){
             int max_global = a[0];
@@ -65,48 +73,48 @@ Para el primer problema, el algoritmo específico que empleamos es el algoritmo 
       }
 \end{lstlisting}
 Como podemos observar la eficiencia del codigo en las líneas 6-8, tienen eficiencia O(1). Por tanto,
-su tiempo de ejecución es constante y notaremos por a. Luego, el bucle for se ejecutará  $(size-1)-i+1 $ 
+su tiempo de ejecución es constante y notaremos por a. Luego, el bucle for se ejecutará  $(size-1)-i+1 $
 veces, es decir, $size-i$ veces. Sabiendo que el resto de líneas del código tienen eficienciaa O(1), tenemos
 el siguiente resultado
 \begin{equation*}
       \sum_{i=inicial}^{size-1} a
-  \end{equation*}
-  Tomaremos $size =  n$ e $inicial = 1$ para simplificar el cálculo y veamos que obtenemos ahora
-  \begin{equation*}
-          \sum_{i=1}^{n-1} a = a \cdot \sum_{i=1}^{n-1} 1= a \cdot (n-1)
-      \end{equation*}
-  Es claro que $a \cdot (n-1) \in O(n)$ y por tanto la eficiencia teórica del algoritmo de kadane es $O(n)$.
-  \section*{Estudio empírico}
-  \begin{figure}[h]
-        \begin{minipage}{0.5\textwidth}
-            \centering
-            % \includegraphics[width=\linewidth]{../Codigos/Graficas/SumaMaxKadane.png}
-            \caption{Ejecución algoritmo SumaMaxKadane}
-            \label{fig:SumaMaxKadane}
-        \end{minipage}
-  \end{figure}
-  \section*{Estudio híbrido}
-  \begin{figure}[h]
-      \begin{minipage}{0.5\textwidth}
-          \centering
-          \includegraphics[width=\linewidth]{../Codigos/AjusteHibrido/SumaMaxKadane_hib.png}
-          \caption{Ajuste híbrido algoritmo Kadane}
-          \label{fig:mergesort}
-      \end{minipage}
-  \end{figure}
-  Tras la interpretación de los datos empíricos en gnuplot y de la formula teorica del métoco, obtenemos que \\
-  las constantes ocultas son:
-  \begin{equation*}
+\end{equation*}
+Tomaremos $size =  n$ e $inicial = 1$ para simplificar el cálculo y veamos que obtenemos ahora
+\begin{equation*}
+      \sum_{i=1}^{n-1} a = a \cdot \sum_{i=1}^{n-1} 1= a \cdot (n-1)
+\end{equation*}
+Es claro que $a \cdot (n-1) \in O(n)$ y por tanto la eficiencia teórica del algoritmo de kadane es $O(n)$.
+\subsection{Estudio empírico}
+\begin{center}
+      \begin{figure}[H]
+                  \centering
+                  \includegraphics[width=0.7\linewidth]{assets/Img/SumaMaxKadane.png}
+                  \caption{Ejecución algoritmo SumaMaxKadane}
+                  \label{fig:SumaMaxKadane}
+      \end{figure}
+\end{center}
+\subsection{Estudio híbrido}
+\begin{center}
+      \begin{figure}[H]
+                  \centering
+                  \includegraphics[width=0.7\linewidth]{assets/Img/SumaMaxKadane_hib.png}
+                  \caption{Ajuste hibrido}
+                  \label{fig:SumaMaxKadanehibrido}
+      \end{figure}
+\end{center}
+Tras la interpretación de los datos empíricos en gnuplot y de la formula teorica del métoco, obtenemos que \\
+las constantes ocultas son:
+\begin{equation*}
       T_{Kadane}=1.64263x + 0.996451
-  \end{equation*}
-  
+\end{equation*}
+
 
 \chapter{Algoritmo Divide y Vencerás}
 En este apartado, estudiaremos la eficiencia teórica, empírica e híbrida de los algoritmos divide y vencerás
 de cada uno de los problemas.
 \section{Problema 1: Subsecuencia de suma máxima.}
-Para el primer problema, el algoritmo específico que empleamos es 
-\section*{Estudio teórico}
+Para el primer problema, el algoritmo específico que empleamos es
+\subsection{Estudio teórico}
 \begin{lstlisting}
    SumaData SumaMax (int *v, int inicio, int final){
          SumaData result, d1, d2;
@@ -131,8 +139,8 @@ Para el primer problema, el algoritmo específico que empleamos es
    }
 \end{lstlisting}
 Este algoritmo devuelve un tipo de dato Suma data, un struct definido por cuatro datos de tipo int. En cuanto
-a la eficiencai teórica, podemos ver una llamada recursiva a la función SumaMax con vectores de tamaño $\frac{n}{2}$. 
-Teniendo en cuenta que el resto de líneas de código son asignaciones, comparaciones y operaciones arimtéticas, que son O(1), obtenemos 
+a la eficiencai teórica, podemos ver una llamada recursiva a la función SumaMax con vectores de tamaño $\frac{n}{2}$.
+Teniendo en cuenta que el resto de líneas de código son asignaciones, comparaciones y operaciones arimtéticas, que son O(1), obtenemos
 la siguiente ecuación
 \begin{equation*}
       T(n)=2T(\frac{n}{2})+1
@@ -152,41 +160,69 @@ En cuanto a la parte no homogénea
 \end{equation*}
 Tenemos entonces el siguiente polinómio característico
 \begin{equation*}
-    p(x)=(x-2)(x-b_1)^{d_1+1}=(x-2)(x-1)
+      p(x)=(x-2)(x-b_1)^{d_1+1}=(x-2)(x-1)
 \end{equation*}
 Por tanto la solución general es
 \begin{equation*}
-    t_m=c_{10}2^mm^0+c_{20}1^mm^0  \overset{*}{\Longrightarrow}  t_n=c_{10}n+c_{20} \Longrightarrow T(n)=c_{10}n+c_{20}
+      t_m=c_{10}2^mm^0+c_{20}1^mm^0  \overset{*}{\Longrightarrow}  t_n=c_{10}n+c_{20} \Longrightarrow T(n)=c_{10}n+c_{20}
 \end{equation*}
 donde en ($*$) hemos deshecho el cambio de variable \\
 Por lo que obtenemos como resultado que $T(n) \in O(n)$
-
-\section*{Estudio empírico}
+\subsection{Estudio empírico}
 \begin{center}
       \begin{figure}[h]
-                \centering
-                % \includegraphics[width=0.8\linewidth]{../Codigos/Graficas/SumaMaxDyV.png}
-                \caption{Ejecución algoritmo SumaMaxDyV}
-                \label{fig:SumaMaxDyV}
+            \centering
+            \includegraphics[width=0.7\linewidth]{assets/Img/SumaMaxDyV.png}
+            \caption{Ejecución algoritmo SumaMaxDyV}
+            \label{fig:SumaMaxDyV}
       \end{figure}
 \end{center}
 \newpage
-\section*{Estudio híbrido}
+\subsection{Estudio híbrido}
 \begin{center}
-      % Text width de 0.8
       \begin{figure}[h]
-              \centering
-              \includegraphics[width=0.8\linewidth]{../Codigos/AjusteHibrido/SumaMaxDyV_hib.png}
-              \caption{Ajuste híbrido algoritmo SumaMaxDyV}
-              \label{fig:sumaMax}
+            \centering
+            \includegraphics[width=0.7\linewidth]{assets/Img/SumaMaxDyV_hib.png}
+            \caption{Ajuste híbrido algoritmo SumaMaxDyV}
+            \label{fig:sumaMax}
       \end{figure}
 \end{center}
-  Tras la interpretación de los datos empíricos en gnuplot y de la formula teorica del métoco, obtenemos que \\
-  las constantes ocultas son:
-  \begin{equation*}
+Tras la interpretación de los datos empíricos en gnuplot y de la formula teorica del métoco, obtenemos que \\
+las constantes ocultas son:
+\begin{equation*}
       T_{SumaMaxDyV}=1.65508x + 0.991967
-  \end{equation*}
-  
+\end{equation*}
+
+\section{Problema 3: Problema del viajante de comercio.}
+Para el tercer problema, nos encontramos ante un problema de complejidad
+NP-duro, por lo que no podemos encontrar una solución exacta en tiempo polinómico.
+Sin embargo, podemos encontrar una solución aproximada aplicando la técnica de Divide y Vencerás.
+Para ello, usamos el algoritmo de fuerza bruta para encontrar la solución exacta para subconjuntos
+del problema total y luego unimos las soluciones parciales para obtener una solución que se optimiza
+para asegurar un cierto mínimo de precision.
+
+\subsection{Estudio Empírico}
+Para determinar el umbral con el que obtenemos la mejor relación entre eficiencia y precisión, hemos
+realizado una serie de pruebas con diferentes valores de umbral, a partir de tamaño 10, el algoritmo de
+fuerza bruta se vuelve completamente inviable, de forma similar, para tamaño menor a 4, el algoritmo
+no nos produce ninguna mejora en cuanto a eficiencia debido a la cantidad de llamadas recursivas que
+saturan la pila, y la precision disminuye de forma considerable. Por ello, hemos decidido realizar
+las pruebas para tamaños de 4 a 10, con distintas ciudades con solución ya conocida, para comparar
+los tiempos de ejecución y la precisión de los resultados obtenidos:
+\subsubsection*{Tiempo de ejecución}
+\begin{center}
+      \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.7\linewidth]{assets/Img/UmbralP3.png}
+            \caption{Ejecución algoritmo Viajante}
+            \label{fig:Viajante}
+      \end{figure}
+\end{center}
+Como se puede apreciar, los mejores resultados se han obtenido con los umbrales {4,8}.
+Para decididir cual de los dos umbrales es el mejor, nos fijamos en la precisión
+que nos proporciona cada uno de ellos:
+\subsubsection*{Precisión}
+
 
 
 \chapter{Conclusiones}

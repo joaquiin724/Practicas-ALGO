@@ -198,7 +198,7 @@ int main(int argc, char* argv[]) {
         //-----------------------|Fin graficar resultados|---------------------*/
         
         //std::cout << "Brute Force: " << totalDistance(bruteForceTSP(randomPoints)) << std::endl;
-        // std::cout << "Our Algorithm: " << totalDistance(divideAndConquerTSP(approximatePath)) << std::endl;
+        // std::cout <<totalDistance(divideAndConquerTSP(approximatePath)) << std::endl;
     } 
     else if (strcmp(argv[2],"2") == 0){ // Get the distance of Cities
         std::string file = argv[1];
@@ -220,27 +220,23 @@ int main(int argc, char* argv[]) {
 
     }
     else { // Calculate time
-        std::string file = argv[1];
-        UMBRAL = atoi(argv[3]);
-        std::ifstream input(file);
-        std::vector<Point> points;
-        double x, y;
-        int size;
-        int pos;
-        input >> size;
-        points.reserve(size);
-        for (int i = 0; i < size; ++i) {
-            input >> pos >> x >> y;
-            points.emplace_back(Point(x, y));
+        const int VEC_SIZE = atoi(argv[1]);
+        vector<Point> randomPoints;
+        randomPoints.reserve(VEC_SIZE);
+        srand(time(NULL));
+
+        for (int i = 0; i < VEC_SIZE; ++i) {
+            int x = rand() % 100 - 50;
+            int y = rand() % 100 - 50;
+            randomPoints.emplace_back(Point(x, y));
         }
-        input.close();
         std::cout << std::fixed;
         std::cout.precision(6);
-        std::cout << size << " ";
+        std::cout << VEC_SIZE << " ";
         //Time measurement
         std::chrono::duration<double> elapsed;
         auto start = std::chrono::high_resolution_clock::now();
-        divideAndConquerTSP(points);
+        divideAndConquerTSP(randomPoints);
         auto end = std::chrono::high_resolution_clock::now();
         elapsed = std::chrono::duration_cast<std::chrono::duration<double>>(end - start);
         std::cout << elapsed.count() << "\n";
