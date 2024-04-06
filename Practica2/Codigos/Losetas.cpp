@@ -8,6 +8,7 @@
 #include <cstdlib>
 #include <climits>
 #include <cassert>
+#include <random>
 using namespace std;
 int losas = 1;
 int i_sumidero ,j_sumidero;
@@ -81,6 +82,17 @@ void resolver(int n,int i,int j,vector<vector<int>> &mat){
 
 }
 
+void generarcasos(int &i_sum, int &j_sum ,int &n){
+    random_device rd;
+    mt19937 gen(rd());
+    uniform_int_distribution<int> distribution(1,8);
+    n = distribution(gen);
+    n= pow(2,n);
+    uniform_int_distribution<int> distribution1(0,n-1);
+    i_sum = distribution1(gen);
+    j_sum = distribution1(gen);
+}
+
 
 
 
@@ -96,13 +108,20 @@ void printm(const vector<vector<int>> &mat){
     }
 }
 int main(int argc ,char *argv[]){
-    int n = 8;
-    vector<vector<int>> matriz(n,vector<int>(n,0));
-    matriz[0][2] =-1;
-    resolver(n,0,0,matriz);
-    matriz[0][2] =0;
-    cout << endl;
-    printm(matriz);
+    int n;
+    int i,j;
+    int casos = 1;
+    
+    for(int l = 0; l< casos; l++){
+        generarcasos(i, j,n);
+        vector<vector<int>> matriz(n,vector<int>(n,0));
+        matriz[i][j] =-1;
+        resolver(n,0,0,matriz);
+        matriz[i][j] =0;
+        cout << endl;
+        printm(matriz);
+    
+    }
     return 0;
 
 }
