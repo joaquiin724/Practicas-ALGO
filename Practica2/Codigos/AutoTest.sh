@@ -20,7 +20,7 @@ n=1
 # --------------------------|Ejecución de SumaMax|-----------------------------#
 
 if(($n == 1 || $n==4)) then
-    size=5000000
+    size=1000000
     opcion=2 # [1] Time Test Kadane || [2] Time Test DyV || [3] Correctness Test
     if [ $opcion -eq 1 ]; then
         rm -f Salidas/SumaMaxKadane.txt
