@@ -72,15 +72,15 @@ el siguiente resultado
       \sum_{i=inicial}^{size-1} a
   \end{equation*}
   Tomaremos $size =  n$ e $inicial = 1$ para simplificar el cálculo y veamos que obtenemos ahora
-  \begin{equation*}\begin{split}
-          \sum_{i=1}^{n-1} a = a \cdot \sum_{i=1}^{n-1} 1= a \cdot n
-      \end{split}\end{equation*}
-  Es claro que $a \cdot  n \in O(n)$ y por tanto la eficiencia teórica del algoritmo de kadane es $O(n)$.
+  \begin{equation*}
+          \sum_{i=1}^{n-1} a = a \cdot \sum_{i=1}^{n-1} 1= a \cdot (n-1)
+      \end{equation*}
+  Es claro que $a \cdot (n-1) \in O(n)$ y por tanto la eficiencia teórica del algoritmo de kadane es $O(n)$.
   \section*{Estudio empírico}
   \begin{figure}[h]
         \begin{minipage}{0.5\textwidth}
             \centering
-            \includegraphics[width=\linewidth]{../Codigos/Graficas/SumaMaxKadane.png}
+            % \includegraphics[width=\linewidth]{../Codigos/Graficas/SumaMaxKadane.png}
             \caption{Ejecución algoritmo SumaMaxKadane}
             \label{fig:SumaMaxKadane}
         \end{minipage}
@@ -165,7 +165,7 @@ Por lo que obtenemos como resultado que $T(n) \in O(n)$
 \begin{center}
       \begin{figure}[h]
                 \centering
-                \includegraphics[width=0.8\linewidth]{../Codigos/Graficas/SumaMaxDyV.png}
+                % \includegraphics[width=0.8\linewidth]{../Codigos/Graficas/SumaMaxDyV.png}
                 \caption{Ejecución algoritmo SumaMaxDyV}
                 \label{fig:SumaMaxDyV}
       \end{figure}
