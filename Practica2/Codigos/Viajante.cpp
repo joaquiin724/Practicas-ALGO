@@ -189,15 +189,15 @@ int main(int argc, char* argv[]) {
             approximatePath.emplace_back(Point(x, y));
         }
 
-        /*------------------------|Para graficar los grafos|------------------*/
-        std::ofstream outputFile("tsp_results.csv");
-        divideAndConquerTSP(approximatePath);
+        // /*------------------------|Para graficar los grafos|------------------*/
+        // std::ofstream outputFile("tsp_results.csv");
+        // divideAndConquerTSP(approximatePath);
 
-        outputFile << std::endl;
-        for (const Point& point : approximatePath) {
-            outputFile << point.getX() << "," << point.getY() << std::endl;
-        }
-        //-----------------------|Fin graficar resultados|---------------------*/
+        // outputFile << std::endl;
+        // for (const Point& point : approximatePath) {
+        //     outputFile << point.getX() << "," << point.getY() << std::endl;
+        // }
+        // //-----------------------|Fin graficar resultados|---------------------*/
         
         //std::cout << "Brute Force: " << totalDistance(bruteForceTSP(randomPoints)) << std::endl;
         // std::cout <<totalDistance(divideAndConquerTSP(approximatePath)) << std::endl;

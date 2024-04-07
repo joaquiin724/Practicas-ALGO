@@ -15,7 +15,7 @@ chmod +x AutoCompile.sh
 # numero=3 indica Viajante
 # numero=4 indica TODOS
 
-n=1
+n=3
 
 # --------------------------|Ejecución de SumaMax|-----------------------------#
 
@@ -51,7 +51,7 @@ fi
 
 if(($n == 3 || $n==4)) then
 
-    size2=10000 # Para el caso brute force a partir de 12 no se puede ejecutar
+    size2=30000 # Para el caso brute force a partir de 12 no se puede ejecutar
     opcion2=1 # [1] Random test || [2] Made test || [3] Get Umbral
     files=(
         "Paises/Finland.txt" 
@@ -74,7 +74,7 @@ if(($n == 3 || $n==4)) then
     if [ $opcion2 -eq 1 ]; then
         rm -f Salidas/ViajanteRandom.txt
         
-        for ((i=100; i <= $size2; i+=200)) do
+        for ((i=50; i <= $size2; i+=1000)) do
             ./Ejecutables/Viajante $i 3 >> Salidas/ViajanteRandom.txt
             # python3 PlotP3.py
         done

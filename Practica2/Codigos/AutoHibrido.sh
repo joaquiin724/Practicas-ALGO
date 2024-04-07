@@ -2,8 +2,7 @@
 # Script solo para crear gráficas de ajuste híbrido
 script_directory=$(dirname "$0")
 cd $script_directory
-name="SumaMaxKadane"
-rm -r Graficas/SumaMaxDyV${name}_hib
+name="Viajante"
 
 
 # Crear un script de Gnuplot para generar los archivos, todo lo que hay entre EOF y EOF se escribe en un archivo,
@@ -23,8 +22,8 @@ cat << EOF >> script_gnuplot.gp
 # Algoritmo $name
 # Da un nombre a la gráfica
 set title "Algoritmo - $name"
-#Definimos unna función para los métodos cuadraticos
-f(x) = a0*x+a1
+#Definimos unna función para los métodos factoriales
+f(x) = a0*
 
 
 #Indicamos al gnuplot que haga la regresión
