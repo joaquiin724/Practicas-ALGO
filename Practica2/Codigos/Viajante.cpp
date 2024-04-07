@@ -61,6 +61,9 @@ private:
  */
 vector<Point> bruteForceTSP(const std::vector<Point>& points) {
     std::vector<int> permutation(points.size());
+
+    // El 0 indica que el primer valor debe ser el 0 y se crea una permutación concreta
+    // desde 0 hasta el tamaño del vector de puntos-1
     std::iota(permutation.begin(), permutation.end(), 0);
 
     double minDistance = std::numeric_limits<double>::max();
@@ -71,15 +74,23 @@ vector<Point> bruteForceTSP(const std::vector<Point>& points) {
             distance += points[permutation[i]].distanceTo(points[permutation[i + 1]]);
         }
 
+        // Distancia del último punto al primero, recordar que es un ciclo
         distance += points[permutation.back()].distanceTo(points[permutation.front()]);
         if (distance < minDistance) {
             minDistance = distance;
             bestPermutation = permutation;
         }
+        // Devueve false si ya no hay más permutaciones, ya que crea todas las posibles
+        // y como esta vez no hace falta que empiece en 0 no se pone
     } while (std::next_permutation(permutation.begin(), permutation.end()));
 
     std::vector<Point> bestPath;
+
+    // Bucle que inicia con index=0 hasta el tamaño de la mejor permutación, es más eficiente
+    // este tipo de declaración de bucle
     for (int index : bestPermutation) {
+
+        // Igual que .push_back pero más eficiente
         bestPath.emplace_back(points[index]);
     }
 

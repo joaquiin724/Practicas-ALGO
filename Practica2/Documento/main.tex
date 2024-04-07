@@ -128,6 +128,64 @@ El código consiste en rellenar las posiciones de una matriz 2x2 con un valor en
 Podemos observar que hay dos bucles for anidados los cuales son $O(n)$ y el interior del bucle más profundo es $O(1)$ por tanto la eficiencia 
 de este código es de $O(n^2)$
 
+\section{Problema 3: Viajante de comercio }
+Para el tercer problema el algoritmo específico que empleamos para resolver el problema es el siguiente : 
+
+\begin{lstlisting}
+
+      vector<Point> bruteForceTSP(const std::vector<Point>& points) {
+            std::vector<int> permutation(points.size());
+      
+            std::iota(permutation.begin(), permutation.end(), 0);
+        
+            double minDistance = std::numeric_limits<double>::max();
+            std::vector<int> bestPermutation;
+            do {
+                double distance = 0;
+                for (int i = 0; i < permutation.size() - 1; ++i) {
+                    distance += points[permutation[i]].distanceTo(points[permutation[i + 1]]);
+                }
+        
+                distance += points[permutation.back()].distanceTo(points[permutation.front()]);
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    bestPermutation = permutation;
+                }
+            } while (std::next_permutation(permutation.begin(), permutation.end()));
+        
+            std::vector<Point> bestPath;
+        
+            for (int index : bestPermutation) {
+                bestPath.emplace_back(points[index]);
+            }
+        
+            return bestPath;
+        }
+\end{lstlisting}
+Destacar que hemos implementado una clase Point que no tiene nada en particular, pues solo se ha implementado
+como método útil el método \textbf{distanceTo(const \&Point p)} que calcula la distnacia entre dos puntos
+mediante la distnacia euclídea, veámoslo:
+\begin{lstlisting}
+      double distanceTo(const Point &p) const {
+            return sqrt(pow(x - p.x, 2) + pow(y - p.y, 2));
+        }
+\end{lstlisting}
+Para estudiar la eficiencia de dicho algoritmo hay que tener claro como funcionan ciertas funciones de las librerías de C++, así como
+su eficiencia teórica. En este caso, la función \textbf{std::iota} tiene eficiencia $O(n)$ y se encarga de rellenar un \textbf{vector<int>}
+con una permutación que se inicia en $0$ (último parámetro dado) y acaba en $n-1$ (tamaño del vector), definido a partir de los puntero al inicio
+y final del vector. \\
+Por otro lado, la función \textbf{std::next\_permutation} tiene eficiencia $O(n)$ y se encarga de generar la siguiente permutación posible, devolviendo
+ false si ya ha devuelto todas las permutaciones posible. Por tanto, el bucle do-while se ejecutará $n!$ veces, donde $n$ es el tamaño del vector de puntos. \\ \\
+
+Por ahora tenemos una eficiencia de $O(n)$ en la llamda a la función \textbf{std::iota}, el bucle \textbf{do-while}, que acontinuación veremos su eficiencia, y el 
+bucle for de la línea 24 que es claro que tiene eficiencia $O(n)$ pues recorre la mejor permutación con $n$ elementos, es decir, tenemos que la eficiencia teórica
+de dicha función es $max\{O(\text{bucle do-while}), O(n)\}$. \\
+Dentro del bucle \textbf{do-while} tenemos un bucle for que recorre la permutación de tamaño $n$ y realiza una operación de eficiencia $O(1)$, por tanto, la eficiencia
+del bucle for es $O(n)$. El resto de operaciones de dicho bucle son de eficiencia $O(1)$, por lo que la eficiencia del bucle \textbf{do-while} es $O(n\cdot n!)$, es decir,
+la eficiencia de la función es $O(n\cdot n!)$.
+
+
+
 \chapter{Algoritmo Divide y Vencerás}
 En este apartado, estudiaremos la eficiencia teórica, empírica e híbrida de los algoritmos divide y vencerás
 de cada uno de los problemas.
@@ -135,58 +193,68 @@ de cada uno de los problemas.
 Para el primer problema, el algoritmo específico que empleamos es
 \subsection{Estudio teórico}
 \begin{lstlisting}
-   SumaData SumaMax (int *v, int inicio, int final){
-         SumaData result, d1, d2;
-         if (inicio==final){
-               result.max_izq = v[inicio];
-               result.max_dch = v[inicio];
-               result.sum = v[inicio];
-               result.max_sub = v[inicio];
-               return (result);
-         }
-
-         int mid = (final+inicio)/2;
-         (d1)=SumaMax(v, inicio, mid);
-         (d2)=SumaMax(v, mid+1, final);
-            
-         result.max_izq = max(d1.max_izq, d1.sum+d2.max_izq);
-         result.max_dch = max(d2.max_dch, d2.sum+d1.max_dch);
-         result.sum = d1.sum + d2.sum;
-         int max_cross = d1.max_dch + d2.max_izq;
-         result.max_sub = max(max(max_cross, d1.max_sub), d2.max_sub);
-         return (result);
-   }
+      int maxSubArray(const int * const arr, int low, int high, int threshold) {
+          if (high - low + 1 <= threshold) {
+              return kadane(arr, low, high);
+          }
+      
+          int mid = low + (high - low) / 2;
+      
+          int leftSum = maxSubArray(arr, low, mid, threshold);
+          int rightSum = maxSubArray(arr, mid + 1, high, threshold);
+      
+          int crossLeftSum = numeric_limits<int>::min();
+          int crossRightSum = numeric_limits<int>::min();
+          int sum = 0;
+      
+          for (int i = mid; i >= low; --i) {
+              sum += arr[i];
+              crossLeftSum = max(crossLeftSum, sum);
+          }
+      
+          sum = 0;
+          for (int i = mid + 1; i <= high; ++i) {
+              sum += arr[i];
+              crossRightSum = max(crossRightSum, sum);
+          }
+      
+          int crossSum = crossLeftSum + crossRightSum;
+      
+          return max(max(leftSum, rightSum), crossSum);
+      }
 \end{lstlisting}
-Este algoritmo devuelve un tipo de dato Suma data, un struct definido por cuatro datos de tipo int. En cuanto
-a la eficiencai teórica, podemos ver una llamada recursiva a la función SumaMax con vectores de tamaño $\frac{n}{2}$.
-Teniendo en cuenta que el resto de líneas de código son asignaciones, comparaciones y operaciones arimtéticas, que son O(1), obtenemos
-la siguiente ecuación
+Este algoritmo hace usa de la técnica de \textbf{Divide y Vencerás} para resolver el problema de la subsecuencia de suma máxima, en el cual se divide el 
+problema en subproblemas más pequeños y se resuelven de forma recursiva. Como se observa se usa el \textbf{algoritmo de Kadane} para resolver el caso base dado como el parámetro
+\textbf{threshold}.\\ \\
+El caso base solo usará cuando lleguemos a tamaños del problema menores o iguales a \textbf{threshold}, por lo que podemos obviar su eficiencia, ya que tardará
+un tiempo constante en resolverlo. Por otro lado, el resto de las operaciones son la mayoría de eficiencia $O(1)$, excepto los bucles for que tienen eficiencia $O(n/2)=O(n)$ y las llamadas
+recursivas al algoritmo con un tamaño $n/2$ (destacar que tomaremos $n=high-low$ como el tamaño del problema). Tomando estas ideas previas y usando la regla
+del máximo, veamos los calculos de la eficiencia teórica:
+
 \begin{equation*}
-      T(n)=2T(\frac{n}{2})+1
+      T(n)=2T(\frac{n}{2})+n
 \end{equation*}
-Al realizar un cambio de variable $n=2^m$(luego $m=log_2(n)$), obtenemos:
-\begin{gather*}
-      T(2^m)=2T(2^{m-1})+1 \\
-      T(2^m)-2T(2^{m-1})=1
-\end{gather*}
-Ahora calculamos por un lado la parte homogénea y por otro la no homogénea. En primer lugar, la homogénea:
+  Pasemos ahora a resolver dicha ecuación de recurrencia. Aplicando el siguiente cambio de variable $n=2^m$ obtenemos
 \begin{equation*}
-      T(2^m)-2T(2^{m-1})=0 \  \Longrightarrow  \ p_H(x)=x-2
+      T(2^m)=2T(2^{m-1})+2^m \Longrightarrow T(2^m)-2T(2^{m-1})=2^m
 \end{equation*}
-En cuanto a la parte no homogénea
+  Resolvamos la parte homógenea de la ecuación, es decir, la ecuación $T(2^m)-2T(2^{m-1})=0$. Obtenemos el polinomio
+  característico de la parte homógenea que es $p_H(x)=x-2$ cuya raíz es $x=2$. \\
+  Obtengamos ahora la parte no homógenea
 \begin{equation*}
-      1=b_1^m q_1(m) \Longrightarrow b_1=1 \wedge q_1(m)=1 \text{ con grado } d_1=0
+      2^m=b_1^m q_1(m) \Longrightarrow b_1=2 \wedge q_1(m)=1 \text{ con grado } d_1=0
 \end{equation*}
-Tenemos entonces el siguiente polinómio característico
+  Tenemos entonces el siguiente polinómio característico
 \begin{equation*}
-      p(x)=(x-2)(x-b_1)^{d_1+1}=(x-2)(x-1)
+      p(x)=(x-2)(x-b_1)^{d_1+1}=(x-2)^2
 \end{equation*}
-Por tanto la solución general es
+  Por tanto la solución general es
 \begin{equation*}
-      t_m=c_{10}2^mm^0+c_{20}1^mm^0  \overset{*}{\Longrightarrow}  t_n=c_{10}n+c_{20} \Longrightarrow T(n)=c_{10}n+c_{20}
+      t_m=c_{10}2^mm^0+c_{11}2^mm^1  \overset{*}{\Longrightarrow}  t_n=c_{10}n+c_{11}n\log_2(n) \Longrightarrow T(n)=c_{10}n+c_{11}n\log_2(n)
 \end{equation*}
-donde en ($*$) hemos deshecho el cambio de variable \\
-Por lo que obtenemos como resultado que $T(n) \in O(n)$
+  donde en ($*$) hemos deshecho el cambio de variable \\
+  Aplicando la regla del máximo tenemos $T(n) \in O(n\log(n))$
+
 \subsection{Estudio empírico}
 \begin{center}
       \begin{figure}[h]
