@@ -363,13 +363,42 @@ Para el tercer problema, el algoritmo DyV que empleamos es el siguiente:
         
             return optimizeTour(combinedTour);
         }
+
+std::vector<Point> optimizeTour(const std::vector<Point>& tour) {
+      std::vector<Point> currentTour = tour;
+      bool improvement = true;
+
+      while (improvement) {
+            improvement = false;
+
+            for (int i = 1; i < currentTour.size() - 2; ++i) {
+                  for (int j = i + 2; j < currentTour.size(); ++j) {
+
+                  double originalDistance = currentTour[i - 1].distanceTo(currentTour[i]) +
+                                                currentTour[j - 1].distanceTo(currentTour[j]);
+                  double swappedDistance = currentTour[i - 1].distanceTo(currentTour[j - 1]) +
+                                          currentTour[i].distanceTo(currentTour[j]);
+
+                  if (swappedDistance < originalDistance) {
+                        std::reverse(currentTour.begin() + i, currentTour.begin() + j);
+                        improvement = true;
+                  }
+                  }
+            }
+      }
+
+      return currentTour;
+}
 \end{lstlisting}
 
 En primer lugar, destacar que obviaremos el caso base, pues su eficiencia es constante y no afecta al cálculo de la eficiencia, por tanto, nos centraremos en el 
 resto del algoritmo. \\
 Como podemos observar, el algoritmo divide el problema en dos subproblemas de tamaño $n/2$ y los resuelve de forma recursiva. A continuación, se define un vector
 de puntos que será la solución y para combinar los resultados simplemente uniremos las soluciones parciales, mediante el \textbf{.insert} de la STL de C++, lo cual
-tiene una eficiencia $O(1)$ porque los insertamos al final. Veamos ahora los calculos para la eficiencia teórica: 
+tiene una eficiencia $O(1)$ porque los insertamos al final.  \\ \\ 
+HAY QUE MIRAR LA EFICIENCIA DE OPTIMIZE\\
+
+Veamos ahora los calculos para la eficiencia teórica: 
 \begin{equation*}
       T(n)=2T(\frac{n}{2})+1
 \end{equation*}
