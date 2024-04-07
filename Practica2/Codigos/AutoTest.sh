@@ -32,7 +32,7 @@ if(($n == 1 || $n==4)) then
         rm -f Salidas/SumaMax.txt
     fi
 
-    for ((i=2500; i <= $size; i+=25000)); do
+    for ((i=25000; i <= $size; i+=25000)); do
         if [ $opcion -eq 1 ]; then
             printf "$i " >> Salidas/SumaMaxKadane.txt
             ./Ejecutables/SumaMax $i $opcion >> Salidas/SumaMaxKadane.txt
@@ -74,7 +74,7 @@ if(($n == 3 || $n==4)) then
     if [ $opcion2 -eq 1 ]; then
         rm -f Salidas/ViajanteRandom.txt
         
-        for ((i=100; i <= $size2; i+=200)) do
+        for ((i=200; i <= $size2; i+=200)) do
             ./Ejecutables/Viajante $i 3 >> Salidas/ViajanteRandom.txt
             # python3 PlotP3.py
         done

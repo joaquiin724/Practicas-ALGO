@@ -25,23 +25,38 @@
       \item \textbf{Joaquín Avilés De la Fuente:} 20\%
             \begin{itemize}
                   \item Programacion SumaMax (DyV)
+                  \item Programación Viajante (DyV)
+                  \item Estudio eficiencia teórica algoritmos específicos y DyV
                   \item Tests de eficiencia
             \end{itemize}
       \item \textbf{Alberto De la Vera Sánchez: } 20\%
             \begin{itemize}
                   \item Redacción \LaTeX
+                  \item Estudio de umbrales teóricos y empíricos de DyV
                   \item Graficas y ajustes
             \end{itemize}
       \item \textbf{Manuel Gomez Rubio} 20\%
             \begin{itemize}
                   \item Programacion SumaMax (Kadane)
-                  \item Programacion Losetas
+                  \item Programacion Losetas 
             \end{itemize}
       \item \textbf{Pablo Linari Pérez:} 20\%
             \begin{itemize}
                   \item Programacion SumaMax (Kadane)
-                  \item Programacion Losetas
+                  \item Programacion Losetas 
             \end{itemize}
+\end{itemize}
+
+\chapter{Equipo de trabajo}
+
+\begin{itemize}
+    \item \textbf{Miguel Ángel De la Vega Rodríguez:} (Ordenador donde se ha realizado el computo)
+          \begin{itemize}
+              \item AMD Ryzen 7 2700X 8-Core
+              \item 16 GB RAM DDR4 3200 MHz
+              \item NVIDIA GeForce GTX 1660 Ti
+              \item 1 TB SSD NvMe
+          \end{itemize}
 \end{itemize}
 
 \chapter{Objetivos}
@@ -52,6 +67,8 @@ mediante el método convencional y mediante la técnica de Divide y Vencerás. P
 un umbral en el cual ambos tengan el mismo tiempo de ejecución, finalmente, se ha buscado el
 umbral óptimo para cada problema.
 \chapter{Definicion Problema}
+Para esta práctica se han planteado tres problemas diferentes, cada uno de ellos con una solución conocida
+y que se ha implementado mediante la técnica de Divide y Vencerás. Los problemas planteados son los siguientes:
 \section{Problema 1: Subsecuencia de suma máxima}
 Dado un vector de enteros, se pide encontrar la subsecuencia de suma máxima, es decir, secuancia de elementos consecutivos
 tanto positivos como negativos cuya suma sea la suma máxima posible. Para ello, se han implementado dos algoritmos, uno
@@ -67,7 +84,7 @@ Dado un conjunto de puntos en un plano, se pide encontrar el camino más corto q
 La representación de este problema viene dada por un viajante que necesita recorrer una serie de ciudades marcadas con puntos en un mapa y debemos
 indicar el camino más corto para recorrerlos todos y volver a su casa. \\
 Para calcular la distancia entre dos puntos usaremos la distancia euclídea, es decir,
-dados los puntos $(x_1,y_1)$ y $(x_2,y_2)$ la distancia entre ellos será 
+dados los puntos $(x_1,y_1)$ y $(x_2,y_2)$ la distancia entre ellos será
 \begin{equation*}
       dist((x_1,y_1), (x_2, y_2))=\sqrt{(x_1-x_2)^2+(y_1-y_2)^2}
 \end{equation*}
@@ -75,7 +92,16 @@ dados los puntos $(x_1,y_1)$ y $(x_2,y_2)$ la distancia entre ellos será
 Para ello, se han implementado dos algoritmos, uno que resuelve el problema
 mediante la técnica de Divide y Vencerás, que divide el problema en subproblemas más pequeños y los resuelve de forma recursiva, y otro 
 algoritmo de fuerza bruta que resuelve el problema de forma exacta, que como veremos más adelante en este documento no puede superar la cantidad de 12 puntos, pues
-al tener una eficiencia de $O(n!)$, para $n>12$ el tiempo de ejecución es inviable.
+al tener una eficiencia de $O(n!)$, para $n>12$ el tiempo de ejecución es inviable. \\ \\
+
+Para la mediciónde tiempos de ejecución, se han usado los siguientes tamaños de problema:
+\begin{itemize}
+      \item \textbf{Problema 1:} Tamaños de problema de 25000 a 5000000 con saltos de 25000
+      \item \textbf{Problema 2:} Tamaños de problema de 4 a 10
+      \item \textbf{Problema 3:} Tamaños de problema de 200 a 10000 con saltos de 200. Destacar que hemos hecho otros tests con tamaños de problema mayores,
+            pero usando archivos de tipo texto donde se identifican ciudades de un país y sus coordenadas.
+\end{itemize}
+
 \chapter{Algoritmo Especifico}
 En este apartado, estudiaremos la eficiencia teórica, empírica e híbrida de los algoritmos especificos
 de cada uno de los problemas.
