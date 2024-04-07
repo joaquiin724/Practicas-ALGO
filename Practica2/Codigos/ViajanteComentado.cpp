@@ -122,24 +122,33 @@ double totalDistance(const vector<Point>& points) {
  * @return optimized tour
  */
 std::vector<Point> optimizeTour(const std::vector<Point>& tour) {
-    std::vector<Point> currentTour = tour;
-    bool improvement = true;
+    std::vector<Point> currentTour = tour; // Se crea una copia del trayecto Por ejemplo (2,3,4,1,5)
+    bool improvement = true; // Para ejecutar el while siempre al menos una vez, (como poner do-while vaya)
 
-    while (improvement) {
-        improvement = false;
+  // Este while sirve para aplicar una metodología que consiste en:
+  // Si no mejora la distancia la intercambiar los puntos -> Podemos suponer que los puntos estan mas o menos ya bien
+  // Si mejora la distancia al intercambiar los puntos -> Como cambiando unos random ha mejorado la distancia, la aproximación
+  // Es mala y se debería seguir ejecutando para mejorarla.
+  // En resumen, lo unico que hace es suponer cuando la aproximacion será buena en el tramo, con el fin de evitar mucho calculo
+    while (improvement) { 
+        improvement = false; // Se presupone que no hay mejora para acabar el bucle si no la hay
 
         for (int i = 1; i < currentTour.size() - 2; ++i) {
             for (int j = i + 2; j < currentTour.size(); ++j) {
-                // Calculate distances for original and swapped edges
+                // Se calcula la distancia que tiene el tramo original para los dos segmentos
+                // Que unen los 4 puntos que se ven afectados y la del tramo cambiado
                 double originalDistance = currentTour[i - 1].distanceTo(currentTour[i]) +
                                           currentTour[j - 1].distanceTo(currentTour[j]);
                 double swappedDistance = currentTour[i - 1].distanceTo(currentTour[j - 1]) +
                                          currentTour[i].distanceTo(currentTour[j]);
 
-                // If swapping improves the tour, update it
+                // Si al cambiar los dos puntos se obtiene una mejora, se le da la vuelta al tramo
+                // Que hace la mejora, por ejemplo:
+                // 3,4,5,1,2,7,6,9 | Supongamos que mejora al intercambiar en el subconjunto [5,1,2,7]
+                // 3,4,7,2,1,5,6,9 | Eso hace el reverse
                 if (swappedDistance < originalDistance) {
                     std::reverse(currentTour.begin() + i, currentTour.begin() + j);
-                    improvement = true;
+                    improvement = true; // Se ha mejorado y termina el bucle
                 }
             }
         }
