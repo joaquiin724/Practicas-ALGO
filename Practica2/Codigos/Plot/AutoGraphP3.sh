@@ -20,13 +20,11 @@ set key outside
     # 1:2 indica que se tomará la primera columna para el eje x y la segunda para el eje y
     # with linespoints indica que se dibujarán líneas uniendo los puntos
     # segundo "" indica el nombre que se le dará a la serie
-plot "Salidas/Viajante4.txt" using 1:2 with linespoints title "Umbral 4", \\
-     "Salidas/Viajante5.txt" using 1:2 with linespoints title "Umbral 5", \\
-     "Salidas/Viajante6.txt" using 1:2 with linespoints title "Umbral 6", \\
-     "Salidas/Viajante7.txt" using 1:2 with linespoints title "Umbral 7", \\
-     "Salidas/Viajante8.txt" using 1:2 with linespoints title "Umbral 8", \\
-     "Salidas/Viajante9.txt" using 1:2 with linespoints title "Umbral 9"
+plot "Salidas/ViajanteDyV.txt" using 1:2 with linespoints title "DyV", \\
+     "Salidas/ViajanteRandom.txt" using 1:2 with linespoints title "Especifico"
 EOF
 
 # Ejecuta gnuplot con el script generado
 gnuplot script_gnuplot.gp
+# Elimina el script generado
+rm script_gnuplot.gp

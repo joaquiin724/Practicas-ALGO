@@ -35,10 +35,11 @@ void getSumidero(int i , int j , vector<vector<int>> & mat ,int n){
 }
 
 void enlosar(int i1, int j1,int i2 , int j2 , int i3 , int j3,vector<vector<int>> &mat){
+    losas++;
     mat[i1][j1] = losas;
     mat[i2][j2] = losas;
     mat[i3][j3] = losas;
-    losas++;
+
 }
 
 void resolver(int n,int i,int j,vector<vector<int>> &mat){
