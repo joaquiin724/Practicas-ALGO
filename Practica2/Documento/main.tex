@@ -52,6 +52,30 @@ mediante el método convencional y mediante la técnica de Divide y Vencerás. P
 un umbral en el cual ambos tengan el mismo tiempo de ejecución, finalmente, se ha buscado el
 umbral óptimo para cada problema.
 \chapter{Definicion Problema}
+\section{Problema 1: Subsecuencia de suma máxima}
+Dado un vector de enteros, se pide encontrar la subsecuencia de suma máxima, es decir, secuancia de elementos consecutivos
+tanto positivos como negativos cuya suma sea la suma máxima posible. Para ello, se han implementado dos algoritmos, uno
+que resuelve el problema mediante la técnica de Divide y Vencerás y otro que lo resuelve mediante el algoritmo de Kadane.
+\section{Problema 2: Enlosar un espacio}
+Dado un espacio de tamaño $n \times n$ (tomaremos una habitación cuadrada), donde $n=2^k \text{para algún } k \geq 1$ y un conjunto de losas en forma de \enquote{ele} , se pide encontrar la forma de enlosar
+dicho espacio con este tipo de losas teniendo en cuanta que debemos dejar un espacio de$2 \times 2$ tamaño $1 \times 1$ sin enlosar que será lo
+que llamaremos en este problema un sumidero. \\
+La posición del sumidero será proporcionada por el problema indicada así por la celda $A[i][j] \text{ tq } 0 \leq i,j \leq n-1$ de 
+nuestra matriz. Para cada baldosa que coloquemos en la matriz le asociaremos un identificador (entero) distinto.
+\section{Problema 3: Viajante de comercio}
+Dado un conjunto de puntos en un plano, se pide encontrar el camino más corto que pase por todos los puntos y vuelva al punto de partida. 
+La representación de este problema viene dada por un viajante que necesita recorrer una serie de ciudades marcadas con puntos en un mapa y debemos
+indicar el camino más corto para recorrerlos todos y volver a su casa. \\
+Para calcular la distancia entre dos puntos usaremos la distancia euclídea, es decir,
+dados los puntos $(x_1,y_1)$ y $(x_2,y_2)$ la distancia entre ellos será 
+\begin{equation*}
+      dist((x_1,y_1), (x_2, y_2))=\sqrt{(x_1-x_2)^2+(y_1-y_2)^2}
+\end{equation*}
+
+Para ello, se han implementado dos algoritmos, uno que resuelve el problema
+mediante la técnica de Divide y Vencerás, que divide el problema en subproblemas más pequeños y los resuelve de forma recursiva, y otro 
+algoritmo de fuerza bruta que resuelve el problema de forma exacta, que como veremos más adelante en este documento no puede superar la cantidad de 12 puntos, pues
+al tener una eficiencia de $O(n!)$, para $n>12$ el tiempo de ejecución es inviable.
 \chapter{Algoritmo Especifico}
 En este apartado, estudiaremos la eficiencia teórica, empírica e híbrida de los algoritmos especificos
 de cada uno de los problemas.
