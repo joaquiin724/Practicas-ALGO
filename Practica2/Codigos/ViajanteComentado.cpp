@@ -11,7 +11,7 @@
 
 using namespace std;
 
-int UMBRAL = 8; // Threshold to apply brute force 
+int UMBRAL = 8;
 
 class Point {
 public:
@@ -61,6 +61,9 @@ private:
  */
 vector<Point> bruteForceTSP(const std::vector<Point>& points) {
     std::vector<int> permutation(points.size());
+
+    // El 0 indica que el primer valor debe ser el 0 y se crea una permutación concreta
+    // desde 0 hasta el tamaño del vector de puntos-1
     std::iota(permutation.begin(), permutation.end(), 0);
 
     double minDistance = std::numeric_limits<double>::max();
@@ -71,15 +74,23 @@ vector<Point> bruteForceTSP(const std::vector<Point>& points) {
             distance += points[permutation[i]].distanceTo(points[permutation[i + 1]]);
         }
 
+        // Distancia del último punto al primero, recordar que es un ciclo
         distance += points[permutation.back()].distanceTo(points[permutation.front()]);
         if (distance < minDistance) {
             minDistance = distance;
             bestPermutation = permutation;
         }
+        // Devueve false si ya no hay más permutaciones, ya que crea todas las posibles
+        // y como esta vez no hace falta que empiece en 0 no se pone
     } while (std::next_permutation(permutation.begin(), permutation.end()));
 
     std::vector<Point> bestPath;
+
+    // Bucle que inicia con index=0 hasta el tamaño de la mejor permutación, es más eficiente
+    // este tipo de declaración de bucle
     for (int index : bestPermutation) {
+
+        // Igual que .push_back pero más eficiente
         bestPath.emplace_back(points[index]);
     }
 
@@ -98,16 +109,16 @@ double totalDistance(const vector<Point>& points) {
   for (int i = 0; i < points.size() - 1; ++i) {
     distance += points[i].distanceTo(points[i + 1]);
   }
-  distance += points.back().distanceTo(points.front());
+  distance += points.back().distanceTo(points.front()); // Return to starting point
   return distance;
 }
 
 
 /**
  * @brief This function optimizes a given tour by swwapping pairs of points
- * until the tour can't be improved anymore by swapping points.
+ * until the tour can't be improved anymore by swapping.
  * 
- * @param tour  to optimize
+ * @param tour 
  * @return optimized tour
  */
 std::vector<Point> optimizeTour(const std::vector<Point>& tour) {
@@ -119,12 +130,13 @@ std::vector<Point> optimizeTour(const std::vector<Point>& tour) {
 
         for (int i = 1; i < currentTour.size() - 2; ++i) {
             for (int j = i + 2; j < currentTour.size(); ++j) {
-
+                // Calculate distances for original and swapped edges
                 double originalDistance = currentTour[i - 1].distanceTo(currentTour[i]) +
                                           currentTour[j - 1].distanceTo(currentTour[j]);
                 double swappedDistance = currentTour[i - 1].distanceTo(currentTour[j - 1]) +
                                          currentTour[i].distanceTo(currentTour[j]);
 
+                // If swapping improves the tour, update it
                 if (swappedDistance < originalDistance) {
                     std::reverse(currentTour.begin() + i, currentTour.begin() + j);
                     improvement = true;
@@ -138,13 +150,8 @@ std::vector<Point> optimizeTour(const std::vector<Point>& tour) {
 
 
 /**
- * @brief Calculates an approximate distance travelled with lower precision
- * but higher speed compared to best distance using the divide and conquer
- * approach.
- * 
- * @note The function uses global variable UMBRAL to determine when to use
- * brute force instead of divide and conquer. UMBRAL is set to 8 by default.
- * where it offers the best performance.
+ * @brief Calculates an approximate distance travelled with low precision
+ * but high speed compared to best distance
  * 
  * @param points 
  * @return std::vector<Point> 
@@ -165,7 +172,7 @@ std::vector<Point> divideAndConquerTSP(const std::vector<Point>& points) {
     combinedTour.insert(combinedTour.end(), rightTour.begin(), rightTour.end());
 
 
-    return optimizeTour(combinedTour);
+    return optimizeTour(combinedTour); // Replace with combined and optimized tour
 }
 
 
@@ -247,3 +254,20 @@ int main(int argc, char* argv[]) {
 
     return 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

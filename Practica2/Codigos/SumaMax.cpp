@@ -80,7 +80,7 @@ int maxSubArray(const int * const arr, int low, int high, int threshold) {
 
     int crossSum = crossLeftSum + crossRightSum;
 
-    return max(max(leftSum, rightSum), crossSum);
+    return max({leftSum, rightSum, crossSum});
 }
 
 
