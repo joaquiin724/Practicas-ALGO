@@ -240,7 +240,7 @@ la eficiencia de la función es $O(n\cdot n!)$.
 En este apartado, estudiaremos la eficiencia teórica, empírica e híbrida de los algoritmos divide y vencerás
 de cada uno de los problemas.
 \section{Problema 1: Subsecuencia de suma máxima.}
-Para el primer problema, el algoritmo específico que empleamos es
+Para el primer problema, el algoritmo DyV que empleamos es el siguiente:
 \subsection{Estudio teórico}
 \begin{lstlisting}
       int maxSubArray(const int * const arr, int low, int high, int threshold) {
@@ -314,6 +314,7 @@ del máximo, veamos los calculos de la eficiencia teórica:
             \label{fig:SumaMaxDyV}
       \end{figure}
 \end{center}
+Como podemos observar en la gráfica, el algoritmo de DyV 
 \newpage
 \subsection{Estudio híbrido}
 \begin{center}
@@ -340,6 +341,59 @@ Sin embargo, podemos encontrar una solución aproximada aplicando la técnica de
 Para ello, usamos el algoritmo de fuerza bruta para encontrar la solución exacta para subconjuntos
 del problema total y luego unimos las soluciones parciales para obtener una solución que se optimiza
 para asegurar un cierto mínimo de precision.
+
+\subsection{Estudio teórico}
+Para el tercer problema, el algoritmo DyV que empleamos es el siguiente:
+\begin{lstlisting}
+      std::vector<Point> divideAndConquerTSP(const std::vector<Point>& points) {
+            if (points.size() <= UMBRAL) {
+                return bruteForceTSP(points);
+            }
+        
+            int mid = points.size() / 2;
+            std::vector<Point> left(points.begin(), points.begin() + mid);
+            std::vector<Point> right(points.begin() + mid, points.end());
+        
+            std::vector<Point> leftTour = divideAndConquerTSP(left);
+            std::vector<Point> rightTour = divideAndConquerTSP(right);
+        
+            std::vector<Point> combinedTour = leftTour;
+            combinedTour.insert(combinedTour.end(), rightTour.begin(), rightTour.end());
+        
+        
+            return optimizeTour(combinedTour);
+        }
+\end{lstlisting}
+
+En primer lugar, destacar que obviaremos el caso base, pues su eficiencia es constante y no afecta al cálculo de la eficiencia, por tanto, nos centraremos en el 
+resto del algoritmo. \\
+Como podemos observar, el algoritmo divide el problema en dos subproblemas de tamaño $n/2$ y los resuelve de forma recursiva. A continuación, se define un vector
+de puntos que será la solución y para combinar los resultados simplemente uniremos las soluciones parciales, mediante el \textbf{.insert} de la STL de C++, lo cual
+tiene una eficiencia $O(1)$ porque los insertamos al final. Veamos ahora los calculos para la eficiencia teórica: 
+\begin{equation*}
+      T(n)=2T(\frac{n}{2})+1
+\end{equation*}
+
+Pasemos ahora a resolver dicha ecuación de recurrencia. Aplicando el siguiente cambio de variable $n=2^m$ obtenemos
+\begin{equation*}
+      T(2^m)=2T(2^{m-1})+1 \Longrightarrow T(2^m)-2T(2^{m-1})=1
+\end{equation*}
+  Resolvamos la parte homógenea de la ecuación, es decir, la ecuación $T(2^m)-2T(2^{m-1})=0$. Obtenemos el polinomio
+  característico de la parte homógenea que es $p_H(x)=x-2$ cuya raíz es $x=2$. \\
+  Obtengamos ahora la parte no homógenea
+\begin{equation*}
+      1=b_1^m q_1(m) \Longrightarrow b_1=1 \wedge q_1(m)=1 \text{ con grado } d_1=0
+\end{equation*}
+  Tenemos entonces el siguiente polinómio característico
+\begin{equation*}
+      p(x)=(x-2)(x-b_1)^{d_1+1}=(x-2)(x-1)
+\end{equation*}
+  Por tanto la solución general es
+\begin{equation*}
+      t_m=c_{10}2^mm^0+c_{20}1^mm^0\overset{*}{\Longrightarrow}  t_n=c_{10}n+c_{20}1^{log_2(n)} \Longrightarrow T(n)=c_{10}n+c_{20}
+\end{equation*}
+  donde en ($*$) hemos deshecho el cambio de variable \\
+  Aplicando la regla del máximo tenemos $T(n) \in O(n)$
 
 \subsection{Estudio Empírico}
 Para determinar el umbral con el que obtenemos la mejor relación entre eficiencia y precisión, hemos

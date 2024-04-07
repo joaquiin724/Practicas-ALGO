@@ -84,11 +84,6 @@ void generarcasos(int &i_sum, int &j_sum ,int &n){
     j_sum = distribution1(gen);
 }
 
-
-
-
-
-
 void printm(const vector<vector<int>> &mat){
     for (int i = 0; i< mat.size();i++){
         cout << "  ";
@@ -98,6 +93,7 @@ void printm(const vector<vector<int>> &mat){
         cout << endl;
     }
 }
+
 int main(int argc ,char *argv[]){
     int n;
     int i,j;
