@@ -25,14 +25,12 @@ void resuelve2(int i,int j,int n, vector<vector<int>> & mat){
         }
     
 }
-void getSumidero(int & x_sumidero , int & y_sumidero , vector<vector<int>> & mat ,int n){
-    for(int i = 0; i< n; i++){
-        for(int j = 0; j<n; j++){
-            if(mat[i][j] != 0){
-                x_sumidero = i;
-                y_sumidero = j;
-            }
-        }
+void getSumidero(int i , int j , vector<vector<int>> & mat ,int n){
+    for (int x = i; x< i + n; x++) {
+            for (int y = j; y < j + n; y++) {
+                if (mat[x][y] != 0)
+                    i_sumidero = x, j_sumidero = y;
+            }   
     }
 }
 
@@ -48,8 +46,7 @@ void resolver(int n,int i,int j,vector<vector<int>> &mat){
         resuelve2(i, j, n, mat);
     }
     else{
-        int i_sumidero,j_sumidero;
-        getSumidero(i_sumidero, j_sumidero,mat,n);
+        getSumidero(i,j,mat,n);
         //Superior Izquierda 
         if(i_sumidero < i + n/2  && j_sumidero < j + n/2){
             enlosar(i+n/2-1,j+n/2,i+n/2,j+n/2-1,i+n/2,j+n/2,mat);
