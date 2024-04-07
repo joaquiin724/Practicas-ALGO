@@ -15,7 +15,7 @@ chmod +x AutoCompile.sh
 # numero=3 indica Viajante
 # numero=4 indica TODOS
 
-n=3
+n=2
 
 # --------------------------|Ejecución de SumaMax|-----------------------------#
 
@@ -46,6 +46,21 @@ if(($n == 1 || $n==4)) then
         fi
     done
 fi
+#--------------------------|Ejecución de Losetas|-----------------------------#
+
+if(($n == 2 || $n==4)) then
+    rm Salidas/Losetas.txt
+    
+
+    for ((i=1; i <= 16; i+=1)); do
+        dim=$((2**$i))
+        printf "$dim " >> Salidas/Losetas.txt
+        ./Ejecutables/Losetas $i  >> Salidas/Losetas.txt
+
+    done
+
+fi
+
 
 #---------------------------|Ejecucion Viajante|-------------------------------#
 

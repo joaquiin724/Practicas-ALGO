@@ -1,14 +1,9 @@
-#include <iostream>
-#include <memory>
-#include <utility>
-#include <vector>
-#include <ctime>
 #include <cmath>
-#include <algorithm>
+#include <iostream>
+#include <vector>
 #include <cstdlib>
-#include <climits>
-#include <cassert>
 #include <random>
+#include<chrono>
 using namespace std;
 int losas = 1;
 int i_sumidero ,j_sumidero;
@@ -73,12 +68,9 @@ void resolver(int n,int i,int j,vector<vector<int>> &mat){
 
 }
 
-void generarcasos(int &i_sum, int &j_sum ,int &n){
+void generarcasos(int &i_sum, int &j_sum ,int n){
     random_device rd;
     mt19937 gen(rd());
-    uniform_int_distribution<int> distribution(1,8);
-    n = distribution(gen);
-    n= pow(2,n);
     uniform_int_distribution<int> distribution1(0,n-1);
     i_sum = distribution1(gen);
     j_sum = distribution1(gen);
@@ -104,13 +96,15 @@ int main(int argc ,char *argv[]){
     int casos = 1;
     
     for(int l = 0; l< casos; l++){
-        generarcasos(i, j,n);
+        generarcasos(i, j,atoi(argv[1]));
+        n = pow(2,atoi(argv[1]));
         vector<vector<int>> matriz(n,vector<int>(n,0));
         matriz[i][j] =-1;
+        auto start = chrono::high_resolution_clock::now();
         resolver(n,0,0,matriz);
-        matriz[i][j] =0;
-        cout << endl;
-        printm(matriz);
+        auto end = chrono::high_resolution_clock::now();
+        std::cout << chrono::duration_cast<chrono::nanoseconds>(end - start).count()<<std::endl;
+        //printm(matriz);
     
     }
     return 0;
