@@ -507,32 +507,32 @@ Como podemos observar, el algoritmo divide el problema en dos subproblemas de ta
 de puntos que será la solución y para combinar los resultados simplemente uniremos las soluciones parciales, mediante el \textbf{.insert} de la STL de C++, lo cual
 tiene una eficiencia $O(1)$ porque los insertamos al final.  \\ \\ 
 HAY QUE MIRAR LA EFICIENCIA DE OPTIMIZE\\
-
-Veamos ahora los calculos para la eficiencia teórica: 
+Finalmente hemos razonado que la eficiencia de la función \textbf{optimizeTour} es $O(n^2)$, veamos ahora los calculos para la eficiencia teórica del algoritmo
+implementado de DyV: 
 \begin{equation*}
-      T(n)=2T(\frac{n}{2})+1
+      T(n)=2T(\frac{n}{2})+n^2
 \end{equation*}
 
 Pasemos ahora a resolver dicha ecuación de recurrencia. Aplicando el siguiente cambio de variable $n=2^m$ obtenemos
 \begin{equation*}
-      T(2^m)=2T(2^{m-1})+1 \Longrightarrow T(2^m)-2T(2^{m-1})=1
+      T(2^m)=2T(2^{m-1})+2^{2m} \Longrightarrow T(2^m)-2T(2^{m-1})=2^{2m}
 \end{equation*}
   Resolvamos la parte homógenea de la ecuación, es decir, la ecuación $T(2^m)-2T(2^{m-1})=0$. Obtenemos el polinomio
   característico de la parte homógenea que es $p_H(x)=x-2$ cuya raíz es $x=2$. \\
   Obtengamos ahora la parte no homógenea
 \begin{equation*}
-      1=b_1^m q_1(m) \Longrightarrow b_1=1 \wedge q_1(m)=1 \text{ con grado } d_1=0
+      2^{2m}=b_1^m q_1(m) \Longrightarrow b_1=2^2=4 \wedge q_1(m)=1 \text{ con grado } d_1=0
 \end{equation*}
   Tenemos entonces el siguiente polinómio característico
 \begin{equation*}
-      p(x)=(x-2)(x-b_1)^{d_1+1}=(x-2)(x-1)
+      p(x)=(x-2)(x-b_1)^{d_1+1}=(x-2)(x-4)
 \end{equation*}
   Por tanto la solución general es
 \begin{equation*}
-      t_m=c_{10}2^mm^0+c_{20}1^mm^0\overset{*}{\Longrightarrow}  t_n=c_{10}n+c_{20}1^{log_2(n)} \Longrightarrow T(n)=c_{10}n+c_{20}
+      t_m=c_{10}2^mm^0+c_{20}4^mm^0\overset{*}{\Longrightarrow}  t_n=c_{10}n+c_{20}n^2 \Longrightarrow T(n)=c_{10}n+c_{20}n^2
 \end{equation*}
   donde en ($*$) hemos deshecho el cambio de variable \\
-  Aplicando la regla del máximo tenemos $T(n) \in O(n)$
+  Aplicando la regla del máximo tenemos $T(n) \in O(n^2)$
 
 \subsection{Estudio Empírico}
 Para determinar el umbral con el que obtenemos la mejor relación entre eficiencia y precisión, hemos
