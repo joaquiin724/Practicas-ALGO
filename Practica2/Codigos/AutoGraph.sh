@@ -4,7 +4,7 @@ script_directory=$(dirname "$0")
 cd $script_directory
 rm -f Graficas/*
 
-name="SumaMaxKadane"
+name="ViajanteFB"
 # Crear un script de Gnuplot para generar la gráfica, todo lo que hay entre EOF y EOF se escribe en un archivo,
 # en este caso, script_gnuplot.gp
 cat << EOF > script_gnuplot.gp
@@ -38,7 +38,7 @@ gnuplot script_gnuplot.gp
 # Eliminar el script de Gnuplot
 rm script_gnuplot.gp
 
-name="SumaMaxDyV"
+name="ViajanteDyV"
 # Crear un script de Gnuplot para generar la gráfica, todo lo que hay entre EOF y EOF se escribe en un archivo,
 # en este caso, script_gnuplot.gp
 cat << EOF > script_gnuplot.gp

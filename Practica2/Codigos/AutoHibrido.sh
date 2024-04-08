@@ -2,7 +2,7 @@
 # Script solo para crear gráficas de ajuste híbrido
 script_directory=$(dirname "$0")
 cd $script_directory
-name="Viajante"
+name="ViajanteFB"
 
 
 # Crear un script de Gnuplot para generar los archivos, todo lo que hay entre EOF y EOF se escribe en un archivo,
@@ -23,11 +23,11 @@ cat << EOF >> script_gnuplot.gp
 # Da un nombre a la gráfica
 set title "Algoritmo - $name"
 #Definimos unna función para los métodos factoriales
-f(x) = a0*
+f(x) = a0*gamma(x+1)+a1*x+a2
 
 
 #Indicamos al gnuplot que haga la regresión
-fit f(x) "Salidas/$name.txt" via a0,a1
+fit f(x) "Salidas/$name.txt" via a0,a1,a2
 
 #Imprimimos las graficas a excepción del tipo string que estará en otra gráfica distinta
 plot "Salidas/$name.txt", f(x) title "Curva ajustada $name"  

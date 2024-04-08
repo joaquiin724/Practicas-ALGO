@@ -181,6 +181,7 @@ de este código es de $O(n^2)$
 \section{Problema 3: Viajante de comercio }
 Para el tercer problema el algoritmo específico que empleamos para resolver el problema es el siguiente : 
 
+\subsection{Estudio teórico}
 \begin{lstlisting}
 
       vector<Point> bruteForceTSP(const std::vector<Point>& points) {
@@ -233,6 +234,30 @@ de dicha función es $max\{O(\text{bucle do-while}), O(n)\}$. \\
 Dentro del bucle \textbf{do-while} tenemos un bucle for que recorre la permutación de tamaño $n$ y realiza una operación de eficiencia $O(1)$, por tanto, la eficiencia
 del bucle for es $O(n)$. El resto de operaciones de dicho bucle son de eficiencia $O(1)$, por lo que la eficiencia del bucle \textbf{do-while} es $O(n\cdot n!)$, es decir,
 la eficiencia de la función es $O(n\cdot n!)$.
+\subsection{Estudio empírico}
+En esta parte el estudio empírico lo hemos realizado hasta el valor n=13 ya que sino el tiempo de ejecución pasaba a ser excesivo
+\begin{center}
+      \begin{figure}[H]
+                  \centering
+                  \includegraphics[width=0.7\linewidth]{assets/Img/ViajanteFB.png}
+                  \caption{Ejecución algoritmo viajante fuerza bruta}
+                  \label{fig:ViajanteFB}
+      \end{figure}
+\end{center}
+\subsection{Estudio híbrido}
+\begin{center}
+      \begin{figure}[H]
+                  \centering
+                  \includegraphics[width=0.7\linewidth]{assets/Img/ViajanteFB_hib.png}
+                  \caption{Ajuste hibrido}
+                  \label{fig:ViajanteFBhibrido}
+      \end{figure}
+\end{center}
+Tras la interpretación de los datos empíricos en gnuplot y de la formula teorica del métoco, obtenemos que \\
+las constantes ocultas son:
+\begin{equation*}
+      T_{ViajanteFB}=2.97582 \cdot 10^{-8}x!+x+1
+\end{equation*}
 
 
 
@@ -330,8 +355,93 @@ las constantes ocultas son:
 \begin{equation*}
       T_{SumaMaxDyV}=1.65508x + 0.991967
 \end{equation*}
+\subsection{Cálculo del umbral teórico}
 
+\newpage
 \section{Problema 2: Enlosar un espacio }
+Para el segundo problema, el algoritmo DyV que empleamos es el siguiente:
+\subsection{Estudio teórico}
+\begin{lstlisting}
+      void resolver(int n,int i,int j,vector<vector<int>> &mat){
+            if(n == 2){
+                  resuelve2(i, j, n, mat);
+            }
+            else{
+                  getSumidero(i,j,mat,n);
+                  if(i_sumidero < i + n/2  && j_sumidero < j + n/2){
+                        enlosar(i+n/2-1,j+n/2,i+n/2,j+n/2-1,i+n/2,j+n/2,mat);
+                  }
+                  else if(i_sumidero >= i+n/2 && j_sumidero < j +n/2){ 
+                        enlosar(i+n/2-1,j+n/2 -1, i+n/2 -1 , j+n/2 , i+n/2 ,j + n/2 ,mat);
+                  }
+                  else if(i_sumidero < i +n/2 && j_sumidero >= n/2 + j){ //Superior izquierda
+                        enlosar(i+n/2-1,j+n/2 -1, i+n/2 , j+n/2-1 , i+n/2 ,j + n/2 ,mat);
+                  }
+                  else{
+                        enlosar(i+n/2-1,j+n/2 -1, i+n/2 , j+n/2-1 , i+n/2 -1 ,j + n/2 ,mat);
+                  }
+                  resolver(n/2,i,j,mat);
+                  resolver(n/2,i+n/2,j,mat);
+                  resolver(n/2,i,j+n/2,mat);
+                  resolver(n/2, i+n/2, j+n/2, mat);
+            }
+
+
+      }
+\end{lstlisting}
+
+Como el código se sustenta de la implementación de if/else anidados, su eficiencia teórica se calculará
+sobre el bloque de sentencias dentro de un if/else con peor eficiencia. Además, vemos que intervienen 
+dos llamadas a funciones dentro del segundo else.
+
+\begin{lstlisting}
+      void getSumidero(int i , int j , vector<vector<int>> & mat ,int n){
+            for (int x = i; x< i + n; x++) {
+                  for (int y = j; y < j + n; y++) {
+                        if (mat[x][y] != 0)
+                              i_sumidero = x, j_sumidero = y;
+                  }   
+            }
+      }
+
+      void enlosar(int i1, int j1,int i2 , int j2 , int i3 , int j3,vector<vector<int>> &mat){
+            losas++;
+            mat[i1][j1] = losas;
+            mat[i2][j2] = losas;
+            mat[i3][j3] = losas;
+
+      }
+\end{lstlisting}
+De aquí, tenemos que la eficiencia de la función getSumidero es claramente $O(n^2)$. Mientras que la llamada
+a función enlosar $O(1)$. A partir de esto, podemos calcular la eficiencia total del codigo resuelve:
+
+\begin{gather*}
+      T(n)= 4T(\frac{n}{2})+n^2
+\end{gather*}
+Pasemos ahora a resolver dicha ecuación de recurrencia. Aplicando el siguiente cambio de variable $n=2^m$ obtenemos
+\begin{equation*}
+      T(2^m)=4T(2^{m-1})+4^m \Longrightarrow T(2^m)-4T(2^{m-1})=4^m
+\end{equation*}
+  Resolvamos la parte homógenea de la ecuación, es decir, la ecuación $T(2^m)-4T(2^{m-1})=0$. Obtenemos el polinomio
+  característico de la parte homógenea que es $p_H(x)=x-4$ cuya raíz es $x=4$. \\
+  Obtengamos ahora la parte no homógenea
+\begin{equation*}
+      4^m=b_1^m q_1(m) \Longrightarrow b_1=4 \wedge q_1(m)=1 \text{ con grado } d_1=0
+\end{equation*}
+  Tenemos entonces el siguiente polinómio característico
+\begin{equation*}
+      p(x)=(x-4)(x-b_1)^{d_1+1}=(x-4)^2
+\end{equation*}
+  Por tanto la solución general es
+\begin{equation*}
+      t_m=c_{10}4^mm^0+c_{11}4^mm^1  {\Longrightarrow}  t_m=c_{10}(2^{m})^2m^0+c_{11}(2^{m})^2m^1  
+\end{equation*}
+Deshacemos el cambio de variable
+\begin{equation*}
+      t_n=c_{10}n^2+c_{11}n^2\log_2(n) \Longrightarrow T(n)=c_{10}n^2+c_{11}n^2\log_2(n)
+\end{equation*}
+
+  Aplicando la regla del máximo tenemos $T(n) \in O(n^2\log(n))$
 
 
 \section{Problema 3: Problema del viajante de comercio.}
