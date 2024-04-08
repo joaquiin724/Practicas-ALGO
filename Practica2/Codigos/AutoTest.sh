@@ -15,7 +15,7 @@ chmod +x AutoCompile.sh
 # numero=3 indica Viajante
 # numero=4 indica TODOS
 
-n=2
+n=3
 
 # --------------------------|Ejecución de SumaMax|-----------------------------#
 
@@ -66,7 +66,7 @@ fi
 
 if(($n == 3 || $n==4)) then
 
-    size2=30000 # Para el caso brute force a partir de 12 no se puede ejecutar
+    size2=50000 # Para el caso brute force a partir de 12 no se puede ejecutar
     opcion2=1 # [1] Random test || [2] Made test || [3] Get Umbral
     files=(
         "Paises/Finland.txt" 

@@ -152,7 +152,7 @@ Es claro que $a \cdot (n-1) \in O(n)$ y por tanto la eficiencia teórica del alg
                   \label{fig:SumaMaxKadanehibrido}
       \end{figure}
 \end{center}
-Tras la interpretación de los datos empíricos en gnuplot y de la formula teorica del métoco, obtenemos que \\
+Tras la interpretación de los datos empíricos en gnuplot y de la formula teorica del método, obtenemos que \\
 las constantes ocultas son:
 \begin{equation*}
       T_{Kadane}=1.64263x + 0.996451
@@ -311,13 +311,13 @@ del máximo, veamos los calculos de la eficiencia teórica:
 \end{equation*}
   Pasemos ahora a resolver dicha ecuación de recurrencia. Aplicando el siguiente cambio de variable $n=2^m$ obtenemos
 \begin{equation*}
-      T(2^m)=2T(2^{m-1})+2^m \Longrightarrow T(2^m)-2T(2^{m-1})=2^m
+      T(2^m)=2T(2^{m-1})+2^m \Rightarrow T(2^m)-2T(2^{m-1})=2^m
 \end{equation*}
   Resolvamos la parte homógenea de la ecuación, es decir, la ecuación $T(2^m)-2T(2^{m-1})=0$. Obtenemos el polinomio
   característico de la parte homógenea que es $p_H(x)=x-2$ cuya raíz es $x=2$. \\
   Obtengamos ahora la parte no homógenea
 \begin{equation*}
-      2^m=b_1^m q_1(m) \Longrightarrow b_1=2 \wedge q_1(m)=1 \text{ con grado } d_1=0
+      2^m=b_1^m q_1(m) \Rightarrow b_1=2 \wedge q_1(m)=1 \text{ con grado } d_1=0
 \end{equation*}
   Tenemos entonces el siguiente polinómio característico
 \begin{equation*}
@@ -325,7 +325,7 @@ del máximo, veamos los calculos de la eficiencia teórica:
 \end{equation*}
   Por tanto la solución general es
 \begin{equation*}
-      t_m=c_{10}2^mm^0+c_{11}2^mm^1  \overset{*}{\Longrightarrow}  t_n=c_{10}n+c_{11}n\log_2(n) \Longrightarrow T(n)=c_{10}n+c_{11}n\log_2(n)
+      t_m=c_{10}2^mm^0+c_{11}2^mm^1  \overset{*}{\Rightarrow}  t_n=c_{10}n+c_{11}n\log_2(n) \Rightarrow T(n)=c_{10}n+c_{11}n\log_2(n)
 \end{equation*}
   donde en ($*$) hemos deshecho el cambio de variable \\
   Aplicando la regla del máximo tenemos $T(n) \in O(n\log(n))$
@@ -350,7 +350,7 @@ Como podemos observar en la gráfica, el algoritmo de DyV
             \label{fig:sumaMax}
       \end{figure}
 \end{center}
-Tras la interpretación de los datos empíricos en gnuplot y de la formula teorica del métoco, obtenemos que \\
+Tras la interpretación de los datos empíricos en gnuplot y de la formula teorica del método, obtenemos que \\
 las constantes ocultas son:
 \begin{equation*}
       T_{SumaMaxDyV}=1.65508x + 0.991967
@@ -420,13 +420,13 @@ a función enlosar $O(1)$. A partir de esto, podemos calcular la eficiencia tota
 \end{gather*}
 Pasemos ahora a resolver dicha ecuación de recurrencia. Aplicando el siguiente cambio de variable $n=2^m$ obtenemos
 \begin{equation*}
-      T(2^m)=4T(2^{m-1})+4^m \Longrightarrow T(2^m)-4T(2^{m-1})=4^m
+      T(2^m)=4T(2^{m-1})+4^m \Rightarrow T(2^m)-4T(2^{m-1})=4^m
 \end{equation*}
   Resolvamos la parte homógenea de la ecuación, es decir, la ecuación $T(2^m)-4T(2^{m-1})=0$. Obtenemos el polinomio
   característico de la parte homógenea que es $p_H(x)=x-4$ cuya raíz es $x=4$. \\
   Obtengamos ahora la parte no homógenea
 \begin{equation*}
-      4^m=b_1^m q_1(m) \Longrightarrow b_1=4 \wedge q_1(m)=1 \text{ con grado } d_1=0
+      4^m=b_1^m q_1(m) \Rightarrow b_1=4 \wedge q_1(m)=1 \text{ con grado } d_1=0
 \end{equation*}
   Tenemos entonces el siguiente polinómio característico
 \begin{equation*}
@@ -434,11 +434,11 @@ Pasemos ahora a resolver dicha ecuación de recurrencia. Aplicando el siguiente 
 \end{equation*}
   Por tanto la solución general es
 \begin{equation*}
-      t_m=c_{10}4^mm^0+c_{11}4^mm^1  {\Longrightarrow}  t_m=c_{10}(2^{m})^2m^0+c_{11}(2^{m})^2m^1  
+      t_m=c_{10}4^mm^0+c_{11}4^mm^1  {\Rightarrow}  t_m=c_{10}(2^{m})^2m^0+c_{11}(2^{m})^2m^1  
 \end{equation*}
 Deshacemos el cambio de variable
 \begin{equation*}
-      t_n=c_{10}n^2+c_{11}n^2\log_2(n) \Longrightarrow T(n)=c_{10}n^2+c_{11}n^2\log_2(n)
+      t_n=c_{10}n^2+c_{11}n^2\log_2(n) \Rightarrow T(n)=c_{10}n^2+c_{11}n^2\log_2(n)
 \end{equation*}
 
   Aplicando la regla del máximo tenemos $T(n) \in O(n^2\log(n))$
@@ -506,22 +506,24 @@ resto del algoritmo. \\
 Como podemos observar, el algoritmo divide el problema en dos subproblemas de tamaño $n/2$ y los resuelve de forma recursiva. A continuación, se define un vector
 de puntos que será la solución y para combinar los resultados simplemente uniremos las soluciones parciales, mediante el \textbf{.insert} de la STL de C++, lo cual
 tiene una eficiencia $O(1)$ porque los insertamos al final.  \\ \\ 
-HAY QUE MIRAR LA EFICIENCIA DE OPTIMIZE\\
-Finalmente hemos razonado que la eficiencia de la función \textbf{optimizeTour} es $O(n^2)$, veamos ahora los calculos para la eficiencia teórica del algoritmo
+En cuanto a la función \textbf{optimizeTour}, resulta claro que se ejecuta
+$n-2$ veces el primer bucle y $n-1$ veces el segundo, estos nos da una eficiencia en el peor caso de 
+$O(n^2)$, esta situación se da cuando en cada iteración del bucle, el cambio propuesto nos proporciona
+una mejora, por lo que el bucle \textit{while} se ejecuta mientras lo hagan los bucles \textit{for}. Veamos ahora los calculos para la eficiencia teórica del algoritmo
 implementado de DyV: 
 \begin{equation*}
-      T(n)=2T(\frac{n}{2})+n^2
+      T(n)=2T\left(\frac{n}{2}\right)+n^2
 \end{equation*}
 
 Pasemos ahora a resolver dicha ecuación de recurrencia. Aplicando el siguiente cambio de variable $n=2^m$ obtenemos
 \begin{equation*}
-      T(2^m)=2T(2^{m-1})+2^{2m} \Longrightarrow T(2^m)-2T(2^{m-1})=2^{2m}
+      T(2^m)=2T(2^{m-1})+2^{2m} \Rightarrow T(2^m)-2T(2^{m-1})=2^{2m}
 \end{equation*}
   Resolvamos la parte homógenea de la ecuación, es decir, la ecuación $T(2^m)-2T(2^{m-1})=0$. Obtenemos el polinomio
   característico de la parte homógenea que es $p_H(x)=x-2$ cuya raíz es $x=2$. \\
   Obtengamos ahora la parte no homógenea
 \begin{equation*}
-      2^{2m}=b_1^m q_1(m) \Longrightarrow b_1=2^2=4 \wedge q_1(m)=1 \text{ con grado } d_1=0
+      2^{2m}=b_1^m q_1(m) \Rightarrow b_1=2^2=4 \wedge q_1(m)=1 \text{ con grado } d_1=0
 \end{equation*}
   Tenemos entonces el siguiente polinómio característico
 \begin{equation*}
@@ -529,7 +531,7 @@ Pasemos ahora a resolver dicha ecuación de recurrencia. Aplicando el siguiente 
 \end{equation*}
   Por tanto la solución general es
 \begin{equation*}
-      t_m=c_{10}2^mm^0+c_{20}4^mm^0\overset{*}{\Longrightarrow}  t_n=c_{10}n+c_{20}n^2 \Longrightarrow T(n)=c_{10}n+c_{20}n^2
+      t_m=c_{10}2^mm^0+c_{20}4^mm^0\overset{*}{\Rightarrow}  t_n=c_{10}n+c_{20}n^2 \Rightarrow T(n)=c_{10}n+c_{20}n^2
 \end{equation*}
   donde en ($*$) hemos deshecho el cambio de variable \\
   Aplicando la regla del máximo tenemos $T(n) \in O(n^2)$
@@ -551,7 +553,7 @@ los tiempos de ejecución y la precisión de los resultados obtenidos:
             \label{fig:Viajante}
       \end{figure}
 \end{center}
-Como se puede apreciar, los mejores resultados se han obtenido con los umbrales {4,8}.
+Como se puede apreciar, los mejores resultados se han obtenido con los umbrales $\{4,8\}$.
 Para decididir cual de los dos umbrales es el mejor, nos fijamos en la precisión
 que nos proporciona cada uno de ellos:
 \subsubsection*{Precisión}
