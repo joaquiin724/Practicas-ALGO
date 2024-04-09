@@ -552,7 +552,7 @@ los tiempos de ejecución y la precisión de los resultados obtenidos:
             \caption{Ejecución algoritmo Viajante}
             \label{fig:Viajante}
       \end{figure}
-\end{center}
+\end{center}muchos
 Como se puede apreciar, los mejores resultados se han obtenido con los umbrales $\{4,8\}$.
 Para decididir cual de los dos umbrales es el mejor, nos fijamos en la precisión
 que nos proporciona cada uno de ellos:
@@ -561,4 +561,19 @@ que nos proporciona cada uno de ellos:
 
 
 \chapter{Conclusiones}
+
+Tras haber resuelto los problemas propuestos en la práctica hemos podido observar la eficacia
+de usar una técnica como la de divide y vencerás la cual hace que de un problema aparentemente 
+extenso y con una gran variedad de casos se pueda resolver dividiendolo  en subproblemas hasta llegar 
+a un caso base (umbral) donde resolvamos el problema con un algoritmo sencillo como es el caso de 
+el problema 2 en el cual el caso base es tan simple com rellenar una matriz 2x2 . En otros casos como 
+el problema de la suma máxima o  el viajero  el algoritmo base es más complejo pero esto hace que se pueda ver la esencia del 
+divide y vencerás que con saber resolver un caso base , los demás casos son solo una ampliación de este por tanto podemos conseguir una
+eficiencia considerablemente buena con grandes cantidades de datos  aún usando algoritmos no tan eficientes con esa cantidad de  datos en el caso base.
+
+También se ve reflejada la importancia de los umbrales los cuales pueden hacer que el problema sea mas o menos eficiente 
+dependiendo de lo preciso que sea el umbral y la distinción entre casos que se hayan  hecho ya que una mala elección 
+del umbral en el que se usa el algoritmo del caso base puede llevar a un gran lastre en la eficiencia de nuestro algoritmo 
+ya que estaremos sometiendo al algoritmo  base a más datos de los necesarios para que sea eficiente .
+
 \end{document}
