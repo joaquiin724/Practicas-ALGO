@@ -86,6 +86,7 @@ int maxSubArray(const int * const arr, int low, int high, int threshold) {
 
 int main(int argc, char *argv[]) {
     int TAM= atoi(argv[1]);
+    int UMBRAL=atoi(argv[3]);
     srandom(TAM);
     int *v = new int [TAM];
     for (int i=0; i <TAM; i++){
@@ -102,7 +103,7 @@ int main(int argc, char *argv[]) {
     } 
     else if (strcmp(argv[2], "2") == 0) { // Time Test DyV
         auto start = chrono::high_resolution_clock::now();
-        maxSubArray(v, 0, TAM-1,3);
+        maxSubArray(v, 0, TAM-1,UMBRAL);
         auto end = chrono::high_resolution_clock::now();
         std::cout << chrono::duration_cast<chrono::nanoseconds>(end - start).count()<<endl;
     } 
@@ -112,7 +113,7 @@ int main(int argc, char *argv[]) {
             kadaneVector[i] = v[i];
         }
 
-        int res1 = maxSubArray(v, 0, TAM-1, 3);
+        int res1 = maxSubArray(v, 0, TAM-1, UMBRAL);
         int res2 = kadane(kadaneVector, 0, TAM-1);
         if (res1 != res2) {
             std::cout << "Error [" << TAM << "]: " << res1 << " != " << res2 << endl;
