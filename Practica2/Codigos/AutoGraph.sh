@@ -2,9 +2,8 @@
 # Script solo para crear gráficas
 script_directory=$(dirname "$0")
 cd $script_directory
-rm -f Graficas/*
 
-name="ViajanteFB"
+name="Losetas"
 # Crear un script de Gnuplot para generar la gráfica, todo lo que hay entre EOF y EOF se escribe en un archivo,
 # en este caso, script_gnuplot.gp
 cat << EOF > script_gnuplot.gp
@@ -13,7 +12,8 @@ set xlabel "Tamaño de entrada"
 set ylabel "Tiempo de ejecución"
 
 EOF
-
+También se ve reflejada la importancia de los umbrales los cuales pueden hacer que el problema sea mas o menos eficiente 
+dependiendo de lo preciso que sea el umbral y la distinción entre casos que se hayan  hecho .
 # Bucle para generar gráficos para cada algoritmo y tipo de dato
 cat << EOF >> script_gnuplot.gp
 
