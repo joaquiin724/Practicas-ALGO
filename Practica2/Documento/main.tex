@@ -602,20 +602,27 @@ las constantes ocultas son:
 \subsection{Cálculo del umbral teórico}
 
 
-\subsubsection*{Tiempo de ejecución}
-\begin{center}
-      \begin{figure}[H]
-            \centering
-            \includegraphics[width=0.7\linewidth]{assets/Img/UmbralP3.png}
-            \caption{Ejecución algoritmo Viajante}
-            \label{fig:Viajante}
-      \end{figure}
-\end{center}muchos
-Como se puede apreciar, los mejores resultados se han obtenido con los umbrales $\{4,8\}$.
-Para decididir cual de los dos umbrales es el mejor, nos fijamos en la precisión
-que nos proporciona cada uno de ellos:
-\subsubsection*{Precisión}
+\subsubsection*{Tiempo de ejecución y precisión}
+% Dos imagenes en una fila
+\begin{figure}[H]
+      \centering
+      \begin{minipage}[b]{0.45\textwidth}
+          \includegraphics[width=1.1\textwidth]{assets/Img/UmbralP3.png}
+          \caption{Ejecución algoritmo ViajanteDyV}
+          \label{fig:ViajanteDyV}
+      \end{minipage}
+      \hfill
+      \begin{minipage}[b]{0.45\textwidth}
+          \includegraphics[width=1\textwidth]{assets/Img/Precision.png}
+          \caption{Precisión algoritmo ViajanteDyV}
+          \label{fig:ViajanteDyVPrecision}
+      \end{minipage}
+\end{figure}
 
+Como se puede apreciar, los mejores resultados se han obtenido con los umbrales $\{4,8\}$.
+Para decidir cual de los dos umbrales es el mejor, nos fijamos en la precisión
+que nos proporciona cada uno de ellos, obtenemos ligeramente mejor precision en el umbral 4, por lo que
+decidimos que el umbral óptimo es 4.
 
 
 \chapter{Conclusiones}

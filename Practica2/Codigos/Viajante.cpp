@@ -11,7 +11,7 @@
 
 using namespace std;
 
-int UMBRAL = 8; // Threshold to apply brute force 
+int UMBRAL = 4; // Threshold to apply brute force 
 
 class Point {
 public:

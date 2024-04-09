@@ -11,7 +11,7 @@
 
 using namespace std;
 
-int UMBRAL = 8;
+int UMBRAL = 4;
 
 class Point {
 public:
