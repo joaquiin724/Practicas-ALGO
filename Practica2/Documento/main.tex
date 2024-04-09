@@ -343,7 +343,7 @@ Como podemos observar en la gráfica, el algoritmo de DyV
 \newpage
 \subsection{Estudio híbrido}
 \begin{center}
-      \begin{figure}[h]
+      \begin{figure}[H]
             \centering
             \includegraphics[width=0.7\linewidth]{assets/Img/SumaMaxDyV_hib.png}
             \caption{Ajuste híbrido algoritmo SumaMaxDyV}
@@ -353,7 +353,7 @@ Como podemos observar en la gráfica, el algoritmo de DyV
 Tras la interpretación de los datos empíricos en gnuplot y de la formula teorica del método, obtenemos que \\
 las constantes ocultas son:
 \begin{equation*}
-      T_{SumaMaxDyV}=1.65508x + 0.991967
+      T_{SumaMaxDyV}=7.48578x log(x)
 \end{equation*}
 \subsection{Cálculo del umbral teórico}
 
@@ -444,9 +444,9 @@ Deshacemos el cambio de variable
   Aplicando la regla del máximo tenemos $T(n) \in O(n^2\log(n))$
 \subsection{Estudio empírico}
 
-A continuación  vemos la gráfica del algoritmo del problema 3 con una entrada de datos de matrices de dimensión $2^n$ con $2<=|n<=|17$ y con 
+A continuación  vemos la gráfica del algoritmo del problema 2 con una entrada de datos de matrices de dimensión $2^n$ con $2<=|n<=|17$ y con 
 los sumideros colocados de forma aleatoria.
-\begin{center}^
+\begin{center}
       \begin{figure}[H]
             \centering
             \includegraphics[width=0.7\linewidth]{assets/Img/Losetas.png}
@@ -454,6 +454,23 @@ los sumideros colocados de forma aleatoria.
             \label{fig:Viajante}
       \end{figure}
 \end{center}
+
+\subsection{Estudio híbrido}
+\begin{center}
+      \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.7\linewidth]{assets/Img/Losetas_hib.png}
+            \caption{Ajuste híbrido algoritmo Losetas}
+            \label{fig:Losetas}
+      \end{figure}
+\end{center}
+Tras la interpretación de los datos empíricos en gnuplot y de la formula teorica del método, obtenemos que \\
+las constantes ocultas son:
+\begin{equation*}
+      T_{Losetas}=0.549786x^2log(x)
+\end{equation*}
+\subsection{Cálculo del umbral teórico}
+
 
 \section{Problema 3: Problema del viajante de comercio.}
 Para el tercer problema, nos encontramos ante un problema de complejidad
@@ -555,6 +572,23 @@ no nos produce ninguna mejora en cuanto a eficiencia debido a la cantidad de lla
 saturan la pila, y la precision disminuye de forma considerable. Por ello, hemos decidido realizar
 las pruebas para tamaños de 4 a 10, con distintas ciudades con solución ya conocida, para comparar
 los tiempos de ejecución y la precisión de los resultados obtenidos:
+\subsection{Estudio híbrido}
+\begin{center}
+      \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.7\linewidth]{assets/Img/ViajanteRandom_hib.png}
+            \caption{Ajuste híbrido algoritmo ViajanteDyV}
+            \label{fig:ViajanteDyV}
+      \end{figure}
+\end{center}
+Tras la interpretación de los datos empíricos en gnuplot y de la formula teorica del método, obtenemos que \\
+las constantes ocultas son:
+\begin{equation*}
+      T_{ViajanteDyV}=6.42578 \cdot 10^{-8} x^2 +0.0000154978 x-0.730506 
+\end{equation*}
+\subsection{Cálculo del umbral teórico}
+
+
 \subsubsection*{Tiempo de ejecución}
 \begin{center}
       \begin{figure}[H]
