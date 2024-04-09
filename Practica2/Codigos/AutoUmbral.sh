@@ -82,8 +82,7 @@ set style line 2 lt 1 lc rgb "red"
     # 1:2 indica que se tomará la primera columna para el eje x y la segunda para el eje y
     # with linespoints indica que se dibujarán líneas uniendo los puntos
     # segundo "" indica el nombre que se le dará a la serie
-plot "Salidas/SumaMaxKadane.txt" using 1:2 with linespoints linestyle 1 title "Kadane"
-plot "Salidas/SumaMaxDyV.txt" using 1:2 with linespoints linestyle 2 title "DyV"
+plot "Salidas/SumaMaxKadane.txt" using 1:2 with linespoints linestyle 1 title "Kadane", "Salidas/SumaMaxDyV.txt" using 1:2 with linespoints linestyle 2 title "DyV"
 
 
 # Guardar la gráfica en un archivo de imagen, definiendo el formato primero y el nombre del archivo después
