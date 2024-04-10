@@ -23,11 +23,11 @@ cat << EOF >> script_gnuplot.gp
 # Da un nombre a la gráfica
 set title "Algoritmo - $name"
 #Definimos unna función para los métodos factoriales
-f(x) = a0*x*x
+f(x) = a0*x*x+a1*x+a2
 
 
 #Indicamos al gnuplot que haga la regresión
-fit f(x) "Salidas/$name.txt" via a0
+fit f(x) "Salidas/$name.txt" via a0,a1,a2
 
 #Imprimimos las graficas a excepción del tipo string que estará en otra gráfica distinta
 plot "Salidas/$name.txt", f(x) title "Curva ajustada $name"  
