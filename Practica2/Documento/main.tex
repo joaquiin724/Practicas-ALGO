@@ -263,7 +263,6 @@ Tras la interpretación de los datos empíricos en gnuplot y de la formula teori
 las constantes ocultas son:
 \begin{equation*}
       T_{ViajanteFB}=2.47543 \cdot 10^{-9}x!x
-      T_{ViajanteFB}=2.47543 \cdot 10^{-9} \cdot x \cdot x!
 \end{equation*}
 
 
@@ -384,8 +383,7 @@ deduciendo así que el umbral teórico se aleja de forma indefinida, es decir, e
             \label{fig:Umbral}
       \end{figure}
 \end{center}
-Esto, como era de esperar, nos indica que el algoritmo de Kadane es más eficiente
-y por tanto el umbral teórico tiende a $\infty$.
+
 \section{Problema 2: Enlosar un espacio }
 Para el segundo problema, el algoritmo DyV que empleamos es el siguiente:
 \subsection{Estudio teórico}
@@ -613,9 +611,9 @@ los tiempos de ejecución y la precisión de los resultados obtenidos:
 
 Como se puede apreciar, los mejores resultados se han obtenido con los umbrales $\{4,8\}$.
 Para decidir cual de los dos umbrales es el mejor, nos fijamos en la precisión
-que nos proporciona cada uno de ellos, obtenemos ligeramente mejor precision en el umbral 8, por lo que
-, como la diferencia de precision es mínima y la eficiencia es ligeramente mejor en el umbral 4, decidimos
-que el umbral 4 es el mejor para este problema.
+que nos proporciona cada uno de ellos, obtenemos ligeramente mejor precision en el umbral 8,
+como el tiempo de ejecución es similar, y lo que más nos interesa en este punto es 
+una mayor precisión, decidimos quedarnos con el umbral 8. 
 
 \subsection{Estudio híbrido}
 \begin{center}
@@ -632,8 +630,21 @@ las constantes ocultas son:
       T_{ViajanteDyV}=6.42578 \cdot 10^{-8} x^2 +0.000154978 x-0.730506
 \end{equation*}
 \subsection{Cálculo del umbral teórico}
-
-
+En cuanto al umbral teórico, hemos visto que las dos funciones se intersecan 
+para valores complejos y negativos, por lo que no tiene sentido lógico, esto se explica
+ya que gnuplot aproxima el ajuste de las funciones, esto junto con la gran diferencia entre
+el tamaño de ejecución de ambos algoritmos, hace que al graficar la función, para valores
+pequeños (los que trabaja el algoritmo de fuerza bruta) se ajuste de forma incorrecta, por lo que
+no se puede obtener de forma directa un umbral teórico.
+\\ \\
+La solución en este caso es ver la ejecución específica de cada algoritmo en 
+el rango sobre el que puede trabajar el algoritmo de fuerza bruta, ya que es claro
+que el umbral estará en ese rango, observando la gráfica de la ejecución de ambos algoritmos
+en dicho rango, podemos ver claramente que a partir del umbral establecido, el algoritmo 
+de DyV supera de forma drástica al algoritmo de fuerza bruta, por lo que podemos afirmar
+que el umbral teórico estará comprendido en dicho rango, una vez acotado el rango, nos fijamos
+en la ejecución anterior de los posibles umbrales, y vemos que el umbral 8 es el que nos proporciona
+mejores resultados, por lo que podemos afirmar que el umbral teórico es 8.
 
 
 \chapter{Conclusiones}
@@ -656,5 +667,17 @@ También se ve reflejada la importancia de los umbrales los cuales pueden hacer 
 dependiendo de lo preciso que sea el umbral y la distinción entre casos que se hayan  hecho ya que una mala elección
 del umbral en el que se usa el algoritmo del caso base puede llevar a un gran lastre en la eficiencia de nuestro algoritmo
 ya que estaremos sometiendo al algoritmo  base a más datos de los necesarios para que sea eficiente .
+\\ \\
+Respecto a los umbrales calculados, hemos encontrado resultados sorprendentes al intentar
+calcular el umbral teórico, ya que en el caso del primer y tercer problema, el algoritmo
+de DyV ha quedado rápidamente por encima y por debajo respectivamente en cuanto al
+tiempo de ejecución, lo que nos ha llevado a no obtener un valor de umbral acorde al tamaño
+de los datos.
+\\ \\ 
+En resumen, hemos podido observar la potencia de la técnica DyV, asi como la importancia
+de estudiar cada caso particular para obtener los mejores resultados posibles, obteniendo
+para problemas distintos, que, en ocasiones, aplicar DyV nos proporcionará grandes beneficios,
+mientras que en otros casos, no será la mejor opción, y que, cuando se aplique, es necesario
+estudiar el umbral para obtener los mejores resultados posibles adecuados a cada problema.
 
 \end{document}
