@@ -2,7 +2,7 @@
 # Script solo para crear gráficas de ajuste híbrido
 script_directory=$(dirname "$0")
 cd $script_directory
-name="ViajanteRandom"
+name="ViajanteFB"
 
 
 # Crear un script de Gnuplot para generar los archivos, todo lo que hay entre EOF y EOF se escribe en un archivo,
@@ -23,7 +23,7 @@ cat << EOF >> script_gnuplot.gp
 # Da un nombre a la gráfica
 set title "Algoritmo - $name"
 #Definimos unna función para los métodos factoriales
-f(x) = a0*x*x
+f(x) = a0*gamma(x+1)*x # para poner x! se pone gamma(x+1)
 
 
 #Indicamos al gnuplot que haga la regresión

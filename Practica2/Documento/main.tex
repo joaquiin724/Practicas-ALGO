@@ -143,6 +143,8 @@ Es claro que $a \cdot (n-1) \in O(n)$ y por tanto la eficiencia teórica del alg
                   \label{fig:SumaMaxKadane}
       \end{figure}
 \end{center}
+Podemos observar como la gráfica se asemeja mucho a una linea recta, es decir, a la función y=x, ya que efectivamente la eficiencia
+del algoritmo de Kadane es de $O(n)$
 \subsection{Estudio híbrido}
 \begin{center}
       \begin{figure}[H]
@@ -256,7 +258,7 @@ En esta parte el estudio empírico lo hemos realizado hasta el valor n=13 ya que
 Tras la interpretación de los datos empíricos en gnuplot y de la formula teorica del métoco, obtenemos que \\
 las constantes ocultas son:
 \begin{equation*}
-      T_{ViajanteFB}=2.97582 \cdot 10^{-8}x!+x+1
+      T_{ViajanteFB}=2.47543 \cdot 10^{-9}x!x
 \end{equation*}
 
 
@@ -357,11 +359,15 @@ las constantes ocultas son:
 \end{equation*}
 \subsection{Cálculo del umbral teórico}
 Para el cálculo del umbral teórico tenemos que igualando las funciones obtenidas del ajuste híbrido obtenemos 
-una intersecció tal que
+una intersección tal que dicho punto de corte es el umbral teórico buscado, veámoslo
 \begin{equation*}
       1.64263x+0.996451=7.48578xlog x \Leftrightarrow x \approx 1.941
 \end{equation*}
-Esto se puede observar gráficamente con
+
+Es cierto que se cortan en dicho punto, pero como podemos observar en la siguiente gráfica que muestra el algoritmo de Kadane y el que hace uso
+del DyV, el punto de corte se encuentra muy al inicio de los valores lo que surge de un problema de precisión al ajustar las gráficas, por lo que a excepción
+de dicho error (totalmente lógico al tratar con datos grandes y tener que hacer comparación con el ajuste híbrido), observamos que no se corta en ningún otro momento,
+deduciendo así que el umbral teórico se aleja de forma indefinida, es decir, el umbral teórico es $\infty$
 \begin{center}
       \begin{figure}[H]
             \centering
