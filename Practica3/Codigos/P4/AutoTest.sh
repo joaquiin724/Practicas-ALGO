@@ -4,7 +4,7 @@
 
 script_directory=$(dirname "$0")
 cd $script_directory
-gcc -O2 Viajante.cpp -o Viajante -lstdc++ -lm
+gcc -O2 ViajanteNNA.cpp -o Ejecutables/ViajanteNNA -lstdc++ -lm
 
 # ----------------------------|Variables de Test|------------------------------#
 
@@ -14,6 +14,7 @@ files=(
     "Paises/Djibouti.txt" 
     "Paises/Uruguay.txt"
     "Paises/Oman.txt"
+    "Paises/Canada.txt"
     "Paises/Nicaragua.txt" 
     "Paises/Egypt.txt" 
     "Paises/Greece.txt"
@@ -21,7 +22,6 @@ files=(
     "Paises/Finland.txt" 
     "Paises/Vietnam.txt"
     "Paises/Burma.txt"
-    "Paises/Canada.txt"
     "Paises/China.txt"
     )
 
@@ -46,14 +46,14 @@ if [ $opcion -eq 1 ]; then
     rm -f Instancias/EjecucionRandom.txt
     
     for ((i=50; i <= $size2; i+=1000)) do
-        ./Viajante $i 1 >> Instancias/EjecucionRandom.txt
+        ./Ejecutables/Viajante $i 1 >> Instancias/EjecucionRandom.txt
     done
 fi
 if [ $opcion -eq 2 ]; then
     rm -f Instancias/EjecucionPaises.txt
 
     for ((i=0; i < ${#files[@]}; i++)) do
-        ./Viajante ${files[i]} 2 >> Instancias/EjecucionPaises.txt
+        ./Ejecutables/Viajante ${files[i]} 2 >> Instancias/EjecucionPaises.txt
     done
 fi
 

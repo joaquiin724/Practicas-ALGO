@@ -42,78 +42,6 @@ private:
 };
 
 
-/**
- * @brief This function calculates the minimum distance required to visit
- * all the points in the vector once, to do so, it generates all the possible
- * permutations of the vector and calculates the distance needed to visit all
- * the points in the order of the permutation.
- * 
- * @note Distance from first to last point has to be calculated to make a closed path.
- * @note iota generates a sequence of numbers from 0 to n.
- * @note If needed, it can return the permutation that generates the minimum distance.
- * 
- * @param points which will be used to calculate the minimum distance
- * @return minimum distance to visit all the points
- */
-std::vector<Point> bruteForceTSP(const std::vector<Point>& points) {
-    std::vector<int> permutation(points.size());
-    std::iota(permutation.begin(), permutation.end(), 0);
-
-    double minDistance = std::numeric_limits<double>::max();
-    std::vector<int> bestPermutation;
-    do {
-        double distance = 0;
-        for (int i = 0; i < permutation.size() - 1; ++i) {
-            distance += points[permutation[i]].distanceTo(points[permutation[i + 1]]);
-        }
-
-        distance += points[permutation.back()].distanceTo(points[permutation.front()]);
-        if (distance < minDistance) {
-            minDistance = distance;
-            bestPermutation = permutation;
-        }
-    } while (std::next_permutation(permutation.begin(), permutation.end()));
-
-    std::vector<Point> bestPath;
-    for (int index : bestPermutation) {
-        bestPath.emplace_back(points[index]);
-    }
-
-    return bestPath;
-}
-
-/**
- * @brief This function optimizes a given tour by swwapping pairs of points
- * until the tour can't be improved anymore by swapping points.
- * 
- * @param tour  to optimize
- * @return optimized tour
- */
-std::vector<Point> optimizeTour(const std::vector<Point>& tour) {
-    std::vector<Point> currentTour = tour;
-    bool improvement = true;
-
-    while (improvement) {
-        improvement = false;
-
-        for (int i = 1; i < currentTour.size() - 2; ++i) {
-            for (int j = i + 2; j < currentTour.size(); ++j) {
-
-                double originalDistance = currentTour[i - 1].distanceTo(currentTour[i]) +
-                                          currentTour[j - 1].distanceTo(currentTour[j]);
-                double swappedDistance = currentTour[i - 1].distanceTo(currentTour[j - 1]) +
-                                         currentTour[i].distanceTo(currentTour[j]);
-
-                if (swappedDistance < originalDistance) {
-                    std::reverse(currentTour.begin() + i, currentTour.begin() + j);
-                    improvement = true;
-                }
-            }
-        }
-    }
-
-    return currentTour;
-}
 
 /**
  * @brief Greedy algorithm that approximates the shortest path to visit all the 
@@ -146,7 +74,7 @@ std::vector<Point> nearestNeighborTSP(const std::vector<Point>& points) {
         visited[nearestNeighbor] = true;
     }
 
-    return optimizeTour(path);
+    return path;
 }
 
 /**
