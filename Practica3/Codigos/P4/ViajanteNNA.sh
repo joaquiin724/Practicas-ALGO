@@ -43,17 +43,17 @@ files=(
 #---------------------------|Ejecucion Viajante|-------------------------------#
 
 if [ $opcion -eq 1 ]; then
-    rm -f Instancias/EjecucionRandom.txt
+    rm -f Instancias/EjecucionRandomNNA.txt
     
     for ((i=50; i <= $size2; i+=1000)) do
-        ./Ejecutables/Viajante $i 1 >> Instancias/EjecucionRandom.txt
+        ./Ejecutables/ViajanteNNA $i 1 >> Instancias/EjecucionRandomNNA.txt
     done
 fi
 if [ $opcion -eq 2 ]; then
-    rm -f Instancias/EjecucionPaises.txt
+    rm -f Instancias/EjecucionPaisesNNA.txt
 
     for ((i=0; i < ${#files[@]}; i++)) do
-        ./Ejecutables/Viajante ${files[i]} 2 >> Instancias/EjecucionPaises.txt
+        ./Ejecutables/ViajanteNNA ${files[i]} 2 >> Instancias/EjecucionPaisesNNA.txt
     done
 fi
 
