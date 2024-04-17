@@ -4,18 +4,18 @@
 
 script_directory=$(dirname "$0")
 cd $script_directory
-gcc -O2 ViajanteNNA.cpp -o Ejecutables/ViajanteNNA -lstdc++ -lm
+gcc -O2 ViajanteCirc.cpp -o Ejecutables/ViajanteCirc -lstdc++ -lm
 
 # ----------------------------|Variables de Test|------------------------------#
 
-opcion=2 # [1] Random test || [2] Made test
+opcion=1 # [1] Random test || [2] Made test
 size2=50000 
 files=(
     "Paises/Djibouti.txt" 
     "Paises/Uruguay.txt"
     "Paises/Oman.txt"
-    "Paises/Nicaragua.txt" 
     "Paises/Canada.txt"
+    "Paises/Nicaragua.txt" 
     "Paises/Egypt.txt" 
     "Paises/Greece.txt"
     "Paises/Japan.txt"
@@ -43,17 +43,15 @@ files=(
 #---------------------------|Ejecucion Viajante|-------------------------------#
 
 if [ $opcion -eq 1 ]; then
-    rm -f Instancias/EjecucionRandomNNA.txt
+    rm -f Instancias/EjecucionRandomCirc.txt
     
-    for ((i=50; i <= $size2; i+=1000)) do
-        ./Ejecutables/ViajanteNNA $i 1 >> Instancias/EjecucionRandomNNA.txt
-    done
+        ./Ejecutables/ViajanteCirc 10 1 >> Instancias/EjecucionRandomCirc.txt
 fi
 if [ $opcion -eq 2 ]; then
-    rm -f Instancias/EjecucionPaisesNNA.txt
+    rm -f Instancias/EjecucionPaisesCirc.txt
 
     for ((i=0; i < ${#files[@]}; i++)) do
-        ./Ejecutables/ViajanteNNA ${files[i]} 2 >> Instancias/EjecucionPaisesNNA.txt
+        ./Ejecutables/ViajanteCirc ${files[i]} 2 >> Instancias/EjecucionPaisesCirc.txt
     done
 fi
 

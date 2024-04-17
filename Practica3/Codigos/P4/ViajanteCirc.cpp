@@ -33,7 +33,7 @@ public:
     }
 
     bool operator<(const Point &p) const {
-        if (fabs(x - p.x) < 10){
+        if (x  ==p.x){
             return y < p.y;
         }
         else{
@@ -66,11 +66,21 @@ private:
  * @param points 
  * @return std::vector<Point> 
  */
-std::vector<Point> orderedTSP(const std::vector<Point>& points) {
+std::vector<Point> CircTSP(const std::vector<Point>& points) {
+    std::vector<Point> sortedTour;
     std::vector<Point> tour;
+    sortedTour.reserve(points.size());
     tour.reserve(points.size());
-    std::copy(points.begin(), points.end(), std::back_inserter(tour));
-    std::sort(tour.begin(), tour.end());
+    std::copy(points.begin(), points.end(), std::back_inserter(sortedTour));
+    std::sort(sortedTour.begin(), sortedTour.end());
+    int corte = points.size() % 2 == 0 ? points.size() : points.size() - 1;
+
+    for (int i = 0; i <= corte; i+=2) {
+        tour.emplace_back(sortedTour[i]);
+    }   
+    for (int i = corte; i >= 1; i-=2) {
+        tour.emplace_back(sortedTour[i]);
+    }
 
     return tour;
 }
@@ -95,18 +105,25 @@ double totalDistance(const std::vector<Point>& points) {
 int main(int argc, char* argv[]) {
     if (strcmp(argv[2],"1") == 0) { // Random or Graph Results
         const int VEC_SIZE = atoi(argv[1]);
-        std::vector<Point> randomPoints;
-        randomPoints.reserve(VEC_SIZE);
-
+        std::vector<Point> approximatePath; 
+        approximatePath.reserve(VEC_SIZE);
         srand(time(NULL));
 
         for (int i = 0; i < VEC_SIZE; ++i) {
             int x = rand() % 100 - 50;
             int y = rand() % 100 - 50;
-            randomPoints.emplace_back(Point(x, y));
+            approximatePath.emplace_back(Point(x, y));
         }
 
-        std::cout << VEC_SIZE << " " << totalDistance(orderedTSP(randomPoints)) << std::endl;
+        /*------------------------|Para graficar los grafos|------------------*/
+        std::ofstream outputFile("tsp_results.csv");
+        CircTSP(approximatePath);
+
+        outputFile << std::endl;
+        for (const Point& point : approximatePath) {
+            outputFile << point.getX() << "," << point.getY() << std::endl;
+        }
+        //-----------------------|Fin graficar resultados|---------------------*/
     } 
     else if (strcmp(argv[2],"2") == 0){ // Get the distance of Cities
         std::string file = argv[1];
@@ -124,7 +141,7 @@ int main(int argc, char* argv[]) {
         input.close();
         std::cout << std::fixed;
         std::cout.precision(2);
-        std::cout << size << " " << totalDistance(orderedTSP(points)) << std::endl;
+        std::cout << size << " " << totalDistance(CircTSP(points)) << std::endl;
     }
 
 

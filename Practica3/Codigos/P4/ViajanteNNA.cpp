@@ -84,12 +84,12 @@ std::vector<Point> nearestNeighborTSP(const std::vector<Point>& points) {
  * @return total distance to visit all the points
  */
 double totalDistance(const std::vector<Point>& points) {
-  double distance = 0;
-  for (int i = 0; i < points.size() - 1; ++i) {
-    distance += points[i].distanceTo(points[i + 1]);
-  }
-  distance += points.back().distanceTo(points.front());
-  return distance;
+    double distance = 0;
+    for (int i = 0; i < points.size() - 1; ++i) {
+        distance += points[i].distanceTo(points[i + 1]);
+    }
+    distance += points.back().distanceTo(points.front());
+    return distance;
 }
 
 
