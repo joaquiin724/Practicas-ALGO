@@ -33,7 +33,7 @@ public:
     }
 
     bool operator<(const Point &p) const {
-        if (x  ==p.x){
+        if (x == p.x){
             return y < p.y;
         }
         else{
@@ -67,31 +67,35 @@ private:
  * @return std::vector<Point> 
  */
 std::vector<Point> CircTSP(const std::vector<Point>& points) {
-    std::vector<Point> sortedTour;
     std::vector<Point> tour;
-    sortedTour.reserve(points.size());
+    std::vector<Point> circularTour;
     tour.reserve(points.size());
-    std::copy(points.begin(), points.end(), std::back_inserter(sortedTour));
-    std::sort(sortedTour.begin(), sortedTour.end()); // TODO:
+    circularTour.reserve(points.size());
+    tour = points;
+    std::sort(tour.begin(), tour.end());
     
-    std::min_element(points.begin(),points.end()); // Hacer esto 
-    std::max_element(points.begin(),points.end()); // En el sort
-    double mid = (std::max_element(points.begin(),points.end()) -
-                 std::min_element(points.begin(),points.end()))/2;
+    int min = std::numeric_limits<int>::max();
+    int max = std::numeric_limits<int>::min();
 
     for (int i = 0; i < points.size(); ++i) {
-        if (sortedTour[i].getY() <= mid) {
-            tour.emplace_back(sortedTour[i]);
+        min = std::min(min, points[i].getY());
+        max = std::max(max, points[i].getY());
+    }
+    double mid = (max + min )/2;
+
+    for (int i = 0; i < points.size(); ++i) {
+        if (tour[i].getY() <= mid) {
+            circularTour.emplace_back(tour[i]);
         }
     }
 
     for (int i = points.size(); i >= 0; --i) {
-        if (sortedTour[i].getY() > mid) {
-            tour.emplace_back(sortedTour[i]);
+        if (tour[i].getY() > mid) {
+            circularTour.emplace_back(tour[i]);
         }
     }
 
-    return sortedTour;
+    return circularTour;
 }
 
 /**
@@ -130,12 +134,13 @@ int main(int argc, char* argv[]) {
 
         /*------------------------|Para graficar los grafos|------------------*/
         std::ofstream outputFile("tsp_results.csv");
-        CircTSP(approximatePath);
+        path = CircTSP(approximatePath);
 
         outputFile << std::endl;
         for (const Point& point : path) {
             outputFile << point.getX() << "," << point.getY() << std::endl;
         }
+
         //-----------------------|Fin graficar resultados|---------------------*/
     } 
     else if (strcmp(argv[2],"2") == 0){ // Get the distance of Cities
