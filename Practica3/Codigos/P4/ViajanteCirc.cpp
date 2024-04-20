@@ -72,17 +72,26 @@ std::vector<Point> CircTSP(const std::vector<Point>& points) {
     sortedTour.reserve(points.size());
     tour.reserve(points.size());
     std::copy(points.begin(), points.end(), std::back_inserter(sortedTour));
-    std::sort(sortedTour.begin(), sortedTour.end());
-    int corte = points.size() % 2 == 0 ? points.size() : points.size() - 1;
+    std::sort(sortedTour.begin(), sortedTour.end()); // TODO:
+    
+    std::min_element(points.begin(),points.end()); // Hacer esto 
+    std::max_element(points.begin(),points.end()); // En el sort
+    double mid = (std::max_element(points.begin(),points.end()) -
+                 std::min_element(points.begin(),points.end()))/2;
 
-    for (int i = 0; i <= corte; i+=2) {
-        tour.emplace_back(sortedTour[i]);
-    }   
-    for (int i = corte; i >= 1; i-=2) {
-        tour.emplace_back(sortedTour[i]);
+    for (int i = 0; i < points.size(); ++i) {
+        if (sortedTour[i].getY() <= mid) {
+            tour.emplace_back(sortedTour[i]);
+        }
     }
 
-    return tour;
+    for (int i = points.size(); i >= 0; --i) {
+        if (sortedTour[i].getY() > mid) {
+            tour.emplace_back(sortedTour[i]);
+        }
+    }
+
+    return sortedTour;
 }
 
 /**
@@ -106,13 +115,17 @@ int main(int argc, char* argv[]) {
     if (strcmp(argv[2],"1") == 0) { // Random or Graph Results
         const int VEC_SIZE = atoi(argv[1]);
         std::vector<Point> approximatePath; 
+        std::vector<Point> path;
         approximatePath.reserve(VEC_SIZE);
+        path.reserve(VEC_SIZE);
+        
         srand(time(NULL));
 
         for (int i = 0; i < VEC_SIZE; ++i) {
             int x = rand() % 100 - 50;
             int y = rand() % 100 - 50;
             approximatePath.emplace_back(Point(x, y));
+            path.emplace_back(Point(x, y));
         }
 
         /*------------------------|Para graficar los grafos|------------------*/
@@ -120,7 +133,7 @@ int main(int argc, char* argv[]) {
         CircTSP(approximatePath);
 
         outputFile << std::endl;
-        for (const Point& point : approximatePath) {
+        for (const Point& point : path) {
             outputFile << point.getX() << "," << point.getY() << std::endl;
         }
         //-----------------------|Fin graficar resultados|---------------------*/

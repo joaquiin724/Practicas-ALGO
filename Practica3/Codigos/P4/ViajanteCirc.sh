@@ -45,7 +45,7 @@ files=(
 if [ $opcion -eq 1 ]; then
     rm -f Instancias/EjecucionRandomCirc.txt
     
-        ./Ejecutables/ViajanteCirc 10 1 >> Instancias/EjecucionRandomCirc.txt
+        ./Ejecutables/ViajanteCirc 7 1 >> Instancias/EjecucionRandomCirc.txt
 fi
 if [ $opcion -eq 2 ]; then
     rm -f Instancias/EjecucionPaisesCirc.txt
