@@ -151,5 +151,128 @@ y la distancia de cierre, podemos intentar minimizarlos, de donde surge el sigui
 algoritmo.
 
 \section{Algoritmo \textit{Circular}}
+Para solucionar el problema anterior, se propone una alternativa que se basa en la misma
+idea de ordenar por la coordenada x, sin embargo, en este caso la coordenada y solo se tiene 
+en cuenta tras ordenar, lo que se hace es guardar el la coordenada y de los puntos máximo
+y mínimo y se calcula el punto medio entre ambos, esto se hace para recorrer los puntos
+de forma circular como el nombre indica, de modo que los puntos que se quedan en la parte 
+de abajo del plano, se recorren en sentido horario y los puntos que se quedan en la parte
+de arriba del plano, se recorren en sentido antihorario. De esta forma, se consigue minimizar
+la cantidad de saltos en el eje y y la distancia de cierre, resulta sugerente pensar que este 
+proceso de división en dos partes, se puede hacer de forma recursiva, sin embargo, en la 
+práctica, esto supone una complejidad superior a la hora de implementar mas bucles, y no
+supone una mejora significativa en términos de precisión, por lo que se ha optado por
+dejarlo de esta forma. 
+\\ \\
+El problema que presenta esta implementación es que dependiendo de la forma que tenga
+el conjunto de puntos que se le pase, se obtendrán resultados muy distintos, sin embargo
+esto ocurre en todos los algoritmos, por lo que no se considera un problema en si mismo, 
+ya que es inherente al problema. A continuación se muestra la implementación del algoritmo:
+\begin{lstlisting}[language=C++]
+vector<Point> CircTSP(const vector<Point>& points) {
+    vector<Point> tour;
+    vector<Point> circularTour;
+    tour.reserve(points.size());
+    circularTour.reserve(points.size());
+    tour = points;
+    sort(tour.begin(), tour.end());
+    
+    int min = numeric_limits<int>::max();
+    int max = numeric_limits<int>::min();
+
+    for (int i = 0; i < points.size(); ++i) {
+        min = min(min, points[i].getY());
+        max = max(max, points[i].getY());
+    }
+    
+    double mid = (max + min )/2;
+
+    for (int i = 0; i < points.size(); ++i) {
+        if (tour[i].getY() <= mid) {
+            circularTour.emplace_back(tour[i]);
+        }
+    }
+
+    for (int i = points.size(); i >= 0; --i) {
+        if (tour[i].getY() > mid) {
+            circularTour.emplace_back(tour[i]);
+        }
+    }
+
+    return circularTour;
+}
+\end{lstlisting}
+
+Una vez mas, podemos apreciar que se puede aumentar la eficiencia del algoritmo
+optimizando bucles y la ordenación de manera que el máximo y el mínimo se calculen
+mientras se ordenan los puntos, sin embargo, esto no supone una mejora en cuanto
+al orden de eficiencia y si supone una mayor complejidad del codigo, por lo tanto,
+como el compilador se encarga de optimizar esos detalles que no afectan al orden
+de eficiencia, se ha optado por dejarlo de esta forma para facilitar la lectura, 
+en una implementación real, se recomendaría la optimización manual de estos detalles, ya que,
+aunque bueno, el compilador no es perfecto y no siempre optimiza de la mejor forma.
+\section{Conclusiones}
+Una vez presentados los tres algoritmos, nos disponemos a obtener conclusiones acerca
+de ellos así como a compararlos para determinar cual es el mejor, o cómo podríamos
+mejorar la precisión de los mismos. Comenzamos mostrando visualmente los resultados
+de ejecución de cada uno de ellos, con el objetivo de que el lector pueda apreciar 
+de forma sencilla la idea que se ha querido transmitir con cada uno de los algoritmos.
+\subsection{Graficas}
+% Dos graficas en una fila y una debajo
+\begin{figure}[H]
+      \centering
+      \begin{minipage}{.48\textwidth}
+            \centering
+            \includegraphics[width=1.1\linewidth]{assets/Img/NearestVisual.png}
+            \caption{Nearest Neighbour}
+            \label{fig:nearest}
+      \end{minipage}%
+      \begin{minipage}{.48\textwidth}
+            \centering
+            \includegraphics[width=1.1\linewidth]{assets/Img/OrdVisual.png}
+            \caption{Ordenación}
+            \label{fig:ordered}
+      \end{minipage}
+\end{figure}
+\begin{figure}[H]
+      \centering
+      \includegraphics[width=0.6\linewidth]{assets/Img/CircVisual.png}
+      \caption{Circular}
+      \label{fig:circular}
+\end{figure}
+Una vez graficadas, podemos ver los problemas principales de cada uno de los algoritmos,
+en el caso de \textit{Nearest Neighbour}, se puede apreciar que la distancia de cierre
+es muy grande, sin embargo, aparenta un camino parecido al óptimo, en el caso de 
+\textit{Ordenación}, se puede apreciar que, mientras los puntos x están cerca, los saltos
+en y son muy grandes, y además la distancia de cierre es máxima, en el caso de \textit{Circular},
+se puede apreciar que los saltos en y son más pequeños y la distancia de cierre es menor.
+\\ \\ 
+De este análisis visual, podemos deducir que el algoritmo \textit{Nearest Neighbour} es el
+que mejor resultado proporciona, le sigue \textit{Circular} y por último \textit{Ordenación}.
+Podríamos dejar el estudio aquí, sin embargo, se proponen maneras de mejorar los algoritmos.
+\subsection{Mejoras}
+Para mejorar y comparar los algoritmos, comenzamos notando que en el caso de 
+\textit{Nearest Neighbour}, la elección del punto de partida nos proporciona un camino
+distinto, por lo que, para mejorar la precisión del algoritmo, se puede ejecutar
+el algoritmo con distintos puntos de partida y quedarnos con el mejor resultado.
+En los casos de \textit{Ordenación} y \textit{Circular}, esto no tendría mucho sentido, 
+sin embargo podríamos jugar con la ordenación respecto de un eje u otro, o con la
+división en dos partes, respectivamente, para mejorar la precisión de los mismos.
+\\ \\
+Este tipo de mejoras, son sencillas y no suponen un gran aumento en cuanto al tiempo
+de ejecución, sin embargo, tampoco suponen una mejora significativa en cuanto a la
+precisión. Su mejor virtud es que nos proporcionan una velocidad de ejecución muy
+rápida y una precisión aceptable, por lo que, en la práctica, se recomienda su uso,
+sin embargo, habrá aplicaciones en las que se necesite una precisión mayor, en cuyo 
+caso se recomienda el uso de algoritmos más complejos como $\lambda$-opt o genéticos.
+\subsection{Precisión y Tiempos}
+En esta sección se proporcionan los tiempos de ejecución de los algoritmos y se comparan
+con la precisión de los mismos, para ello, se han ejecutado los algoritmos sobre un entorno
+cuya solución óptima se conoce, de esta forma, se puede comparar la solución obtenida
+con la solución óptima, el entorno en cuestión es un conjunto de Paises del mundo
+que se han dividido en pueblos y ciudades de interés. A continuación mostramos 
+los resultados que hemos obtenido:
+
+
 
 \end{document}

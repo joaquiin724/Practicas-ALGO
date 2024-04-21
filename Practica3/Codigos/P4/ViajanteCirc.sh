@@ -8,8 +8,8 @@ gcc ViajanteCirc.cpp -o Ejecutables/ViajanteCirc -lstdc++ -lm
 
 # ----------------------------|Variables de Test|------------------------------#
 
-opcion=2 # [1] Random test || [2] Made test
-size2=50
+opcion=1 # [1] Random test || [2] Made test
+size2=100
 files=(
     "Paises/Djibouti.txt" 
     "Paises/Uruguay.txt"

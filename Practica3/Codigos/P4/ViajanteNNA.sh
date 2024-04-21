@@ -8,8 +8,8 @@ gcc -O2 ViajanteNNA.cpp -o Ejecutables/ViajanteNNA -lstdc++ -lm
 
 # ----------------------------|Variables de Test|------------------------------#
 
-opcion=2 # [1] Random test || [2] Made test
-size2=50000 
+opcion=1 # [1] Random test || [2] Made test
+size2=50 
 files=(
     "Paises/Djibouti.txt" 
     "Paises/Uruguay.txt"
@@ -44,10 +44,8 @@ files=(
 
 if [ $opcion -eq 1 ]; then
     rm -f Instancias/EjecucionRandomNNA.txt
-    
-    for ((i=50; i <= $size2; i+=1000)) do
-        ./Ejecutables/ViajanteNNA $i 1 >> Instancias/EjecucionRandomNNA.txt
-    done
+    ./Ejecutables/ViajanteNNA $size2 1 >> Instancias/EjecucionRandomNNA.txt
+
 fi
 if [ $opcion -eq 2 ]; then
     rm -f Instancias/EjecucionPaisesNNA.txt
