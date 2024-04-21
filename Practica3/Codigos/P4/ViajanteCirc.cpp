@@ -81,6 +81,7 @@ std::vector<Point> CircTSP(const std::vector<Point>& points) {
         min = std::min(min, points[i].getY());
         max = std::max(max, points[i].getY());
     }
+    
     double mid = (max + min )/2;
 
     for (int i = 0; i < points.size(); ++i) {
