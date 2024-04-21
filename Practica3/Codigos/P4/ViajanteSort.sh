@@ -8,7 +8,7 @@ gcc -O2 ViajanteSort.cpp -o Ejecutables/ViajanteSort -lstdc++ -lm
 
 # ----------------------------|Variables de Test|------------------------------#
 
-opcion=1 # [1] Random test || [2] Made test
+opcion=2 # [1] Random test || [2] Made test
 size2=50
 files=(
     "Paises/Djibouti.txt" 

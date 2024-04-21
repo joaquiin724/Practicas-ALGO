@@ -8,7 +8,7 @@ gcc -O2 ViajanteNNA.cpp -o Ejecutables/ViajanteNNA -lstdc++ -lm
 
 # ----------------------------|Variables de Test|------------------------------#
 
-opcion=1 # [1] Random test || [2] Made test
+opcion=2 # [1] Random test || [2] Made test
 size2=50 
 files=(
     "Paises/Djibouti.txt" 
@@ -31,13 +31,13 @@ files=(
 # Uruguay =     79114 
 # Oman =        86891
 # Nicaragua =   96132
+# Canada =      1290319 
 # Egypt =       172387
 # Greece =      300899 
 # Japan =       491924 
 # Finland =     520527
 # Vietnam =     569288  
 # Burma =       959304
-# Canada =      1290319 
 # China =       4566563
 
 #---------------------------|Ejecucion Viajante|-------------------------------#
