@@ -279,18 +279,62 @@ Comenzamos exponiendo los resultados que arrojan los algoritmos sin mejoras:
       \centering
       \begin{minipage}{.48\textwidth}
             \centering
-            \includegraphics[width=1\linewidth]{assets/Img/EjecuciónPaisesNNA.png}
-            \caption{Nearest Neighbour}
+            \includegraphics[width=1\linewidth]{assets/Img/Tiempos.png}
+            \caption{Tiempos completos}
             \label{fig:nearest}
       \end{minipage}%
       \begin{minipage}{.48\textwidth}
             \centering
-            \includegraphics[width=1\linewidth]{assets/Img/OrdVisual.png}
-            \caption{Ordenación}
+            \includegraphics[width=1\linewidth]{assets/Img/TiemposCircSort.png}
+            \caption{Tiempos Circ y Sort}
             \label{fig:ordered}
       \end{minipage}
 \end{figure}
+Como se puede ver, el algoritmo \textit{Nearest Neighbour} es el más lento,
+esto era de esperar debido a que, como veremos ahora, es el que mejor precisión
+ofrece. El mismo razonamiento se puede aplicar a los algoritmos \textit{Ordenación}
+y \textit{Circular}.
+Si nos fijamos ahora en los tiempos de ejecución de los algoritmos tras las mejoras,
 
-
+\begin{figure}[H]
+      \centering
+      \begin{minipage}{.48\textwidth}
+            \centering
+            \includegraphics[width=1\linewidth]{assets/Img/TiemposMejora.png}
+            \caption{Tiempos completos}
+            \label{fig:nearest}
+      \end{minipage}%
+      \begin{minipage}{.48\textwidth}
+            \centering
+            \includegraphics[width=1\linewidth]{assets/Img/TiemposMejoraChico.png}
+            \caption{Tiempos menor Tamaño}
+            \label{fig:ordered}
+      \end{minipage}
+\end{figure}
+Podemos ver como hay un gran aumento en el tiempo, sin embargo, son tiempos
+similares entre ellos, por lo que nos interesa quedarnos con el que mejor precisión
+ofrece:
+\begin{figure}[H]
+      \centering
+      \begin{minipage}{.48\textwidth}
+            \centering
+            \includegraphics[width=1\linewidth]{assets/Img/Precision.png}
+            \caption{Precisión sin mejoras}
+            \label{fig:nearest}
+      \end{minipage}%
+      \begin{minipage}{.48\textwidth}
+            \centering
+            \includegraphics[width=1\linewidth]{assets/Img/PrecisionMejora.png}
+            \caption{Precisión tras mejora}
+            \label{fig:ordered}
+      \end{minipage}
+\end{figure}
+Como se puede ver, todos los algoritmos con mejora, se quedan muy cerca
+de la solución óptima, sin embargo, el algoritmo \textit{Nearest Neighbour}
+es el que mejor precisión ofrece, tanto en el caso de mejora como 
+en el caso sin mejora, por lo que, en la práctica, se recomienda su uso. Para 
+aplicaciones donde la precisión sea un factor crítico, se recomienda el uso
+combinado de distintas mejoras como la elección de distintos puntos de partida
+o el uso de algoritmos más complejos como $\lambda$-opt o genéticos.
 
 \end{document}

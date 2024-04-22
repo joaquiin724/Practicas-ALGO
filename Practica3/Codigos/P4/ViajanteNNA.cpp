@@ -42,7 +42,23 @@ private:
 };
 
 
-
+void improve2Opt(std::vector<Point>& path) {
+    bool improvement = true;
+    while (improvement) {
+        improvement = false;
+        int n = path.size();
+        for (int i = 0; i <= n - 2; ++i) {
+            for (int j = i + 1; j < n; ++j) {
+                double oldDistance = path[i].distanceTo(path[(i + 1) % n]) + path[j].distanceTo(path[(j + 1) % n]);
+                double newDistance = path[i].distanceTo(path[j]) + path[(i + 1) % n].distanceTo(path[(j + 1) % n]);
+                if (newDistance < oldDistance) {
+                    std::reverse(path.begin() + i + 1, path.begin() + j + 1);
+                    improvement = true;
+                }
+            }
+        }
+    }
+}
 /**
  * @brief Greedy algorithm that approximates the shortest path to visit all the 
  * points in a given tour. The metodology is to start at the beginning and 
@@ -74,6 +90,7 @@ std::vector<Point> nearestNeighborTSP(const std::vector<Point>& points) {
         visited[nearestNeighbor] = true;
     }
 
+    improve2Opt(path);
     return path;
 }
 

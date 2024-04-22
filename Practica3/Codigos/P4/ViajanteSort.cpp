@@ -51,7 +51,23 @@ private:
 };
 
 
-
+void improve2Opt(std::vector<Point>& path) {
+    bool improvement = true;
+    while (improvement) {
+        improvement = false;
+        int n = path.size();
+        for (int i = 0; i <= n - 2; ++i) {
+            for (int j = i + 1; j < n; ++j) {
+                double oldDistance = path[i].distanceTo(path[(i + 1) % n]) + path[j].distanceTo(path[(j + 1) % n]);
+                double newDistance = path[i].distanceTo(path[j]) + path[(i + 1) % n].distanceTo(path[(j + 1) % n]);
+                if (newDistance < oldDistance) {
+                    std::reverse(path.begin() + i + 1, path.begin() + j + 1);
+                    improvement = true;
+                }
+            }
+        }
+    }
+}
 
 /**
  * @brief Greedy algorithm that approximates the shortest path to visit all the 
@@ -72,6 +88,7 @@ std::vector<Point> orderedTSP(const std::vector<Point>& points) {
     std::copy(points.begin(), points.end(), std::back_inserter(tour));
     std::sort(tour.begin(), tour.end());
 
+    improve2Opt(tour);
     return tour;
 }
 

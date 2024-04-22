@@ -4,7 +4,7 @@
 
 script_directory=$(dirname "$0")
 cd $script_directory
-gcc ViajanteCirc.cpp -o Ejecutables/ViajanteCirc -lstdc++ -lm
+gcc -O2 ViajanteCirc.cpp -o Ejecutables/ViajanteCirc -lstdc++ -lm
 
 # ----------------------------|Variables de Test|------------------------------#
 
