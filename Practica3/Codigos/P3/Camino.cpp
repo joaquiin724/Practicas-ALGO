@@ -9,8 +9,7 @@
 #include <fstream>
 #include <algorithm>
 #include <list>
-#include <vector>
-#include <random>
+
 
 
 using namespace std;
