@@ -1,73 +1,127 @@
 #include <iostream>
-#include <climits>
+#include <limits>
+#include <vector>
+#include <stack>
+#include <fstream>
+#include <sstream>
 
 using namespace std;
 
 // Número máximo de vértices en el grafo
-#define V 6
+
+const double INF = numeric_limits<double>::max();
 
 // Función auxiliar para encontrar el vértice con la distancia mínima
-int minDistance(int dist[], bool visited[]) {
-    int min = INT_MAX, min_index;
+int minDistance(const vector<double>& dist, const vector<bool>& visited) {
+    double min = INF;
+    int min_index = -1; // Inicializado a -1 para detectar errores si no se encuentra ninguno
   
-    for (int v = 0; v < V; v++)
-        if (visited[v] == false && dist[v] <= min)
-            min = dist[v], min_index = v;
-  
+    for (int v = 0; v < dist.size(); v++) {
+        if (!visited[v] && dist[v] <= min) {
+            min = dist[v];
+            min_index = v;
+        }
+    }
     return min_index;
 }
 
-// Función para imprimir el arreglo de distancias
-void printSolution(int dist[]) {
-    cout << "Distancias mínimas desde el vértice origen:\n";
-    for (int i = 0; i < V; i++)
-        cout << i << " -> " << dist[i] << endl;
+// Función para imprimir el camino recorrido
+void printPath(const vector<int>& parent, int src, int dst) {
+    stack<int> path;
+    int current = dst;
+    while (current != src) {
+        path.push(current);
+        current = parent[current];
+    }
+    path.push(src);
+
+    cout << "Camino desde el nodo " << src << " al nodo " << dst << ": ";
+    while (!path.empty()) {
+        cout << path.top() << " ";
+        path.pop();
+    }
+    cout << endl;
 }
 
-// Función para implementar el algoritmo de Dijkstra
-void dijkstra(int graph[V][V], int src) {
-    int dist[V]; // Arreglo para almacenar la distancia mínima desde el vértice origen
-    bool visited[V]; // Arreglo para marcar los vértices visitados
+// Función para implementar el algoritmo de Dijkstra desde inicio hasta un nodo destino w
+void dijkstra(const vector<vector<double>>& graph, int inicio, int final) {
+    int V = graph.size();
+    vector<double> dist(V, INF); // Distancias mínimas
+    vector<bool> visited(V, false); // Nodos visitados
+    vector<int> parent(V, -1); // Para rastrear el camino
+
+    // Inicializar la distancia del nodo inicial a sí mismo como 0
+    dist[inicio] = 0;
   
-    // Inicializar todas las distancias como infinito y ninguno visitado
-    for (int i = 0; i < V; i++)
-        dist[i] = INT_MAX, visited[i] = false;
-  
-    // La distancia del vértice origen a sí mismo siempre es 0
-    dist[src] = 0;
-  
-    // Encontrar las distancias mínimas para todos los vértices
     for (int count = 0; count < V - 1; count++) {
-        // Encontrar el vértice con la distancia mínima
         int u = minDistance(dist, visited);
-  
-        // Marcar el vértice como visitado
         visited[u] = true;
   
-        // Actualizar la distancia de los vértices adyacentes al vértice seleccionado
-        for (int v = 0; v < V; v++)
-			// la condición grapf[u][v] es para comprobar que es distinto de 0 (true), es decir,
-			// hay conexión entre ambos puntos
-            if (!visited[v] && graph[u][v] && dist[u] + graph[u][v] < dist[v])
+        // Si el nodo seleccionado es el nodo destino, terminar el algoritmo
+        if (u == final)
+            break;
+  
+        for (int v = 0; v < V; v++) {
+            if (!visited[v] && graph[u][v] != 0 && dist[u] != INF && dist[u] + graph[u][v] < dist[v]) {
                 dist[v] = dist[u] + graph[u][v];
+                parent[v] = u; // Registrar el nodo padre para rastrear el camino
+            }
+        }
     }
   
-    // Imprimir las distancias mínimas
-    printSolution(dist);
+    // Imprimir la distancia mínima
+    cout << "Distancia mínima desde el nodo " << inicio << " al nodo " << final << ": " << dist[final] << endl;
+
+    // Imprimir el camino recorrido
+    printPath(parent, inicio, final);
+}
+ 
+
+// Función para leer la matriz desde un archivo
+void lecturaMatriz(ifstream &leer, vector<vector<double>>& matrix) {
+    string line;
+    while (getline(leer, line)) {
+        vector<double> row;
+        stringstream ss(line);
+        string val_str;
+        while (ss >> val_str) {
+            if (val_str == "INF") {
+                row.push_back(numeric_limits<double>::max());
+            } else {
+                row.push_back(stod(val_str));
+            }
+        }
+        matrix.push_back(row);
+    }
 }
 
-int main() {
-    // Ejemplo de grafo representado como matriz de adyacencia
-    int graph[V][V] = {
-        {0, 2, 0, 1, 0, 0},
-        {2, 0, 3, 2, 0, 0},
-        {0, 3, 0, 0, 1, 0},
-        {1, 2, 0, 0, 3, 2},
-        {0, 0, 1, 3, 0, 1},
-        {0, 0, 0, 2, 1, 0}
-    };
-  
-    dijkstra(graph, 0); // Llamada a la función Dijkstra con el vértice origen 0
-  
+
+
+int main(int argc, char *argv[]) {
+    if (argc != 4) {
+        cerr << "Uso: " << argv[0] << " <archivo_matriz> <nodo_inicial> <nodo_final>" << endl;
+        return 1;
+    }
+
+    ifstream lectura(argv[1]);
+
+    if(!lectura.is_open()){
+        cout << "Error al abrir el archivo" << endl;
+        return 1;
+    }
+
+    int inicio = stoi(argv[2]);
+    int final = stoi(argv[3]);
+
+    vector<vector<double>> graph;
+    lecturaMatriz(lectura, graph);
+
+    if (graph.empty()) {
+        cerr << "No se pudo leer la matriz desde el archivo." << endl;
+        return 1;
+    }
+
+    dijkstra(graph, inicio, final);
+
     return 0;
 }

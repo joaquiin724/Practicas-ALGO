@@ -6,7 +6,8 @@
 #include <random>
 #include <cstdlib>
 #include <ctime>
-#include <iomanip> // Para std::fixed y std::setprecision
+#include <iomanip> // Para std::setw
+#include <limits>
 
 using namespace std;
 
@@ -75,6 +76,7 @@ void creacionGrafos(const vector<Point>&vec, vector<vector<double>> &matriz){
 
     for(int i=0; i<size; i++){
         matriz[p_inicio][i]=vec[p_inicio].distanceTo(vec[i]);
+        matriz[i][i]=0;
     }
 
 }
@@ -99,8 +101,11 @@ void mostrarMatriz(std::ofstream &salida, const std::vector<std::vector<double>>
     for (const auto& fila : matriz) {
         // Iterar sobre cada elemento de la fila y mostrarlo
         for (double elemento : fila) {
-            // Asegurar que todos los números se alineen correctamente usando setw
-            salida << std::setw(5) << elemento << "\t"; // Separador de columnas
+            if(elemento==numeric_limits<double>::max())
+                salida << std::setw(5) << "INF" << "\t";
+            else
+                // Asegurar que todos los números se alineen correctamente usando setw
+                salida << std::setw(5) << elemento << "\t"; // Separador de columnas
         }
         salida << std::endl; // Nueva línea para la siguiente fila
     }
@@ -139,7 +144,7 @@ int main (int argc, char *argv[]) {
     }
 
     int dimension=puntos.size();
-    vector<vector<double>> matriz(dimension, vector<double>(dimension, 0));
+    vector<vector<double>> matriz(dimension, vector<double>(dimension, numeric_limits<double>::max()));
     
     creacionGrafos(puntos, matriz);
     mostrarMatriz(escritura, matriz);

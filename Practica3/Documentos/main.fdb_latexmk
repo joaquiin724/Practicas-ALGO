@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1714302819 "/home/joaquiin_724/Documentos/ALGO/Practica3/Documentos/main.tex" "main.pdf" "main" 1714302820 2
+["pdflatex"] 1714329709 "/home/joaquiin_724/Documentos/ALGO/Practica3/Documentos/main.tex" "main.pdf" "main" 1714329711 2
   "/etc/texmf/web2c/texmf.cnf" 1711202720 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/home/joaquiin_724/Documentos/ALGO/Practica3/Documentos/main.tex" 1714302819 21245 2780bb56e567b39bf1e30a9b36b59b28 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
@@ -298,10 +298,10 @@
   "assets/Img/TiemposMejoraChico.png" 1714120740 7597 133a9f35e24d957ad766a474bfeba441 ""
   "assets/Img/UGR-Logo.png" 1712834866 100175 469b2bb2c064265498acf5d5b632766b ""
   "assets/formulas.sty" 1714120740 6317 8145caee088b4ca07f07664a2092df90 ""
-  "assets/portada.tex" 1714120740 1632 53ce5f5b443d2d206a3e3f15adeabe56 ""
-  "main.aux" 1714302820 7845 a3a869e4ffba5e0b72a7570d583cbbaa "pdflatex"
+  "assets/portada.tex" 1714329708 1636 e995632463c3d2f87e1c4d67aa785c0a ""
+  "main.aux" 1714329711 7845 a3a869e4ffba5e0b72a7570d583cbbaa "pdflatex"
   "main.tex" 1714302819 21245 2780bb56e567b39bf1e30a9b36b59b28 ""
-  "main.toc" 1714302820 1136 dc01b17f6499f60fda6bd9d1925f5966 "pdflatex"
+  "main.toc" 1714329711 1136 dc01b17f6499f60fda6bd9d1925f5966 "pdflatex"
   (generated)
   "main.aux"
   "main.log"

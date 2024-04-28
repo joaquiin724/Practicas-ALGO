@@ -1,24 +1,8 @@
 #!/bin/bash
 
-# Obtener la ruta completa del script actual
-script_directory=$(dirname "$0")
-cd $script_directory
 
-# Todo LO QUE SE CAMBIE AQUI SE CAMBIA TAMBIÉN EN AutoTest.sh
-# ---------------------------------------------------------
-# Número de ejecuciones
-num_puntos=5
 num_archivos_puntos=5
 num_grafos=2 # Número de grafos por archivo de puntos
-
-rango_max_puntos=20 # Rango máximo de puntos en el plano
-
-# ---------------------------------------------------------
-
-rm -r Ciudades/
-rm -r Instancias/
-mkdir Ciudades
-mkdir Instancias 
 
 # Ejecutar CreacionPuntos.cpp varias veces
 for ((i=1; i <=$num_archivos_puntos; i++)); do
@@ -38,4 +22,3 @@ for ((i=1; i <=$num_archivos_puntos; i++)); do
     done
 done
 
-echo "Proceso completado."
