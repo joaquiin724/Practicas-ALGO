@@ -95,7 +95,7 @@ bool sesolapan(examen e1,examen e2){
     return e1.final.hora > e2.inicio.hora;
 }
 
-int minAulas(vector<examen> & v){
+int minAulas(const vector<examen> & v){
 
     // Conjunto de candidatos v
 
@@ -103,7 +103,7 @@ int minAulas(vector<examen> & v){
     vector<queue<examen>> horario;
     //Conjunto de seleccionados horario (vector de colas , cada cola es un aula)
     
-    horario.push_back(queue<examen>());
+    horario.emplace_back(queue<examen>());
     horario[0].push(v[0]);
     int i;
     //
@@ -113,7 +113,7 @@ int minAulas(vector<examen> & v){
         while(i<horario.size() && (sesolapan(horario[i].back(),v[nex]))){i++;}
         //Funcion de factibilidad
         if(i==horario.size()){
-            horario.push_back(queue<examen>());
+            horario.emplace_back(queue<examen>());
             horario[i].push(v[nex]);
             naulas++;
         }
