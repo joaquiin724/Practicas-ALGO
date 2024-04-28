@@ -17,14 +17,14 @@
 \begin{itemize}
       \item \textbf{Miguel Ángel De la Vega Rodríguez:} 20\%
             \begin{itemize}
-                  \item Algoritmos del Viajante
+                  \item Algoritmos Greedy del Viajante
                   \item Redacción memoria sección Viajante
             \end{itemize}
       \item \textbf{Joaquín Avilés De la Fuente:} 20\%
             \begin{itemize}
-                  \item Programacion SumaMax (DyV)
-                  \item Estudio eficiencia teórica algoritmos específicos y DyV
-                  \item Tests de eficiencia
+                  \item Programacion Dijkstra
+                  \item Programación creación de grafos (casos de prueba)
+                  \item Redacción memoria sección Dijkstra
             \end{itemize}
       \item \textbf{Alberto De la Vera Sánchez: } 20\%
             \begin{itemize}
@@ -83,7 +83,7 @@ Para representar los horarios de los exámenes hemos usado la siguiente estructu
       };
       struct examen{
             tiempo inicio; // Hora de inicio
-            tiempo final; // Hora de finalización
+            tiempo final; // Hora de finalizacion
             examen(tiempo t , tiempo t1) : inicio(t), final(t1){}
       };
         
@@ -164,6 +164,172 @@ las aulas actuales se crea una nueva aula y se añade el examen a esa aula.
 
 En este apartado vamos a analizar el algoritmo identificando los componentes que lo hacen un algoritmo greedy 
 y demostrando que siempre llega a la solución óptima. 
+
+
+\chapter{Camino mínimo} % Manuel y Joaquin
+En esta sección se analiza todo lo relacionado con el tercer problema propuesto, el problema del camino mínimo entre dos ciudades. 
+Comentaremos el algoritmo usado, es decir, el \textbf{algoritmo de Dijkstra}, y su implementación en C++, así como la justificación de su uso mediante
+la demostración de que dicho algoritmo Greedy calcula la solución óptima.  \\
+Destacar también que mostraremos la gestión que hemos hecho para la creación de los posibles casos (\textbf{grafos}), así como la 
+ejecución de los mismos y la obtención de los resultados.
+
+\section{Algoritmo de Dijkstra (DEMOSTRACION)}
+A continuación, veremos las distintas propiedades usadas para la demostración como bien pueden ser la función de selección, así como
+la forma en que se seleccionan los nodos, y finalmente la demostración mediante inducción. 
+
+\section{Estructura de datos y grafos}
+Para la implementación del algoritmo de Dijkstra, hemos usado una estructura de datos que nos permita representar un grafo, en este caso,
+hemos usado una matriz de adyacencia. Por tanto, a continación se explicara de forma detallada la creación de dichos grafos así como la forma de 
+representarlos en archivos de texto, ya que al ser la primera vez que se trabaja con grafos es útil tener
+claro como se ha hehco. \\ \\
+Para la creación de los grafos se ha hecho uso de un programa en C++ que nos permite generar grafos aleatorios, a partir
+de un vector que tenga los distintos puntos. Destacar en primer lugar, que para la creación de los puntos de forma aletoria hemos usado 
+de este trozo de código:
+\begin{lstlisting}[language=C++]
+// Inicializar el generador de numeros aleatorios
+srand(time(NULL));
+
+// Generar puntos aleatorios y escribirlos en el archivo
+for (int i = 0; i < numPuntos; i++) {
+      int coordX = rand() % (rangoMax + 1); // Generar coordenada x
+      int coordY = rand() % (rangoMax + 1); // Generar coordenada y
+      file << coordX << " " << coordY << endl; // Escribir coordenadas al archivo
+}
+\end{lstlisting}
+donde file es el archivo donde se escriben los puntos, numPuntos es el número de puntos que se quieren generar y rangoMax es el rango
+máximo de las coordenadas. \\
+Tenemos ahora archivos con distintos puntos aleatorios, y para la creación de los grafos, hemos usado el siguiente código:
+\begin{lstlisting}[language=C++]
+// Debe estar la matriz inicializada a 0
+void creacionGrafos(const vector<Point>&vec, vector<vector<double>> &matriz){
+      int size=vec.size();
+
+      srand(time(NULL));
+
+      for (int i=0; i<size; i++){
+            // Num nodos que conectaremos con el nodo i
+            int conexiones=rand()%(size-1)+1;
+            for(int j=0; j<conexiones; j++){
+            // Nodo a conectar con el nodo i
+            int nodo_conectar;
+            do{
+                  nodo_conectar=rand()%size;
+            } while(nodo_conectar==i);
+            // Aniadimos su distancia a la matriz
+            matriz[i][nodo_conectar]=vec[i].distanceTo(vec[nodo_conectar]);
+            }
+      }
+      
+      int p_inicio=rand()%size;
+
+      for(int i=0; i<size; i++){
+            matriz[p_inicio][i]=vec[p_inicio].distanceTo(vec[i]);
+            matriz[i][i]=0;
+      }
+
+}
+\end{lstlisting}
+donde la matriz pasada por referencia será la llamada \textbf{matriz de adyacencia} que representa el grafo, y \textbf{vec} es el vector de puntos
+leido del archivo. \\ \\
+Las matrices de adyacencia que hemos obtenido, las hemos guardado en archivos de texto, para poder leerlas posteriormente y ejecutar
+el algoritmo de Dijkstra sobre ellas, por lo que para ello hemos creado funciones que permitan leer y guardar dichas matrices, pues hay que recordar que 
+los puntos que no tengan conexión directa, tendrán un valor de infinito en la matriz. Tenemos así estas dos funciones, una para 
+escribir la matriz en un archivo de texto y otra para leerla:
+\begin{lstlisting}
+// Funcion para mostrar una matriz en un archivo
+void mostrarMatriz(std::ofstream &salida, const std::vector<std::vector<double>>& matriz) {
+      // Configurar la salida para mostrar numeros con tres decimales
+      salida << std::fixed << std::setprecision(3);
+
+      // Iterar sobre cada fila de la matriz
+      for (const auto& fila : matriz) {
+            // Iterar sobre cada elemento de la fila y mostrarlo
+            for (double elemento : fila) {
+            if(elemento==numeric_limits<double>::max())
+                  salida << std::setw(5) << "INF" << "\t";
+            else
+                  // Asegurar que todos los numeros se alineen correctamente usando setw
+                  salida << std::setw(5) << elemento << "\t"; // Separador de columnas
+            }
+            salida << std::endl; // Nueva linea para la siguiente fila
+      }
+}
+
+// Funcion para leer la matriz desde un archivo
+void lecturaMatriz(ifstream &leer, vector<vector<double>>& matrix) {
+      string line;
+      while (getline(leer, line)) {
+            vector<double> row;
+            stringstream ss(line);
+            string val_str;
+            while (ss >> val_str) {
+            if (val_str == "INF") {
+                  row.push_back(numeric_limits<double>::max());
+            } else {
+                  row.push_back(stod(val_str));
+            }
+            }
+            matrix.push_back(row);
+      }
+}
+\end{lstlisting}
+donde \textbf{numeric\_limits<double>::max()} es el valor que hemos usado para representar la ausencia de conexión entre dos nodos, que
+en la matriz escrita y leida se mostrará como \textbf{INF} de infinito.\\ \\
+Finalmente, para la ejecución del algoritmo de Dijkstra, hemos usado el siguiente código:
+\begin{lstlisting}
+// Funcion auxiliar para encontrar el vertice con la distancia minima
+int minDistance(const vector<double>& dist, const vector<bool>& visited) {
+      double min = INF;
+      int min_index = -1; // Inicializado a -1 para detectar errores si no se encuentra ninguno
+
+      for (int v = 0; v < dist.size(); v++) {
+            if (!visited[v] && dist[v] <= min) {
+                  min = dist[v];
+                  min_index = v;
+            }
+      }
+      return min_index;
+}
+// Funcion para implementar el algoritmo de Dijkstra desde inicio hasta un nodo destino w
+void dijkstra(const vector<vector<double>>& graph, int inicio, int final) {
+      int V = graph.size();
+      vector<double> dist(V, INF); // Distancias minimas
+      vector<bool> visited(V, false); // Nodos visitados
+      vector<int> parent(V, -1); // Para rastrear el camino
+
+      // Inicializar la distancia del nodo inicial a si mismo como 0
+      dist[inicio] = 0;
+      
+      for (int count = 0; count < V - 1; count++) {
+            int u = minDistance(dist, visited);
+            visited[u] = true;
+      
+            // Si el nodo seleccionado es el nodo destino, terminar el algoritmo
+            if (u == final)
+            break;
+      
+            for (int v = 0; v < V; v++) {
+            if (!visited[v] && graph[u][v] != 0 && dist[u] != INF && dist[u] + graph[u][v] < dist[v]) {
+                  dist[v] = dist[u] + graph[u][v];
+                  parent[v] = u; // Registrar el nodo padre para rastrear el camino
+            }
+            }
+      }
+      
+      // Imprimir la distancia minima
+      cout << "Distancia minima desde el nodo " << inicio << " al nodo " << final << ": " << dist[final] << endl;
+
+      // Imprimir el camino recorrido
+      printPath(parent, inicio, final);
+}
+       
+\end{lstlisting}
+donde hemos definido \textbf{const double INF = numeric\_limits<double>::max()} para representar la ausencia de conexión entre dos nodos.
+La función \textbf{minDistance} nos permite encontrar el nodo con la distancia mínima, y la función \textbf{dijkstra} nos permite ejecutar
+el algoritmo de Dijkstra desde un nodo inicial hasta un nodo final, mostrando la distancia mínima y el camino recorrido, haciendo uso
+de la función \textbf{printPath} que se muestra a continuación:
+MOSTRARLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+% //TODO: Añadir la función printPath
 
 
 % Viajante es el apartado 6, incluir capitulos antes

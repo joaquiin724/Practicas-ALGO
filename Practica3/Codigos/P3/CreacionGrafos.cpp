@@ -92,7 +92,7 @@ void mostrarVector(const std::vector<Point>& vec) {
     std::cout << "]" << std::endl;
 }
 
-// Función para mostrar una matriz en la consola
+// Función para mostrar una matriz en un archivo
 void mostrarMatriz(std::ofstream &salida, const std::vector<std::vector<double>>& matriz) {
     // Configurar la salida para mostrar números con tres decimales
     salida << std::fixed << std::setprecision(3);
