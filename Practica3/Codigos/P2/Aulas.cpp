@@ -5,8 +5,12 @@
 #include <cstdlib>
 #include <ctime>
 #include <queue>
+#include <chrono>
 
 using namespace std;
+
+
+//-----------Estructura de datos--------------------
 
 struct tiempo{
     int hora;
@@ -31,6 +35,9 @@ struct compare{
     }
 };
 
+
+//---------Generador de casos---------------------
+
 /**
  * @brief generador de examenes 
  * 
@@ -39,18 +46,29 @@ struct compare{
  * @param dm limite de duracion de minutos del examen
  * @param v vector de examenes
  */
-void generadorExamen(int n,int dh,int dm,vector<examen> & v){
+void generadorExamen(int n,int dm,vector<examen> & v){
     srand(time(nullptr));
     for(int i =0; i<n; i++) {
-        int h = rand()%dh;
-        int m = rand()%dm;
+        int h_inicio = rand()%24;
+        int m_inicio = rand()%60;
+        int duracion = rand()%181; // Duración en minutos. No más de 3 horas (3*60 = 180 minutos)
 
-       v.push_back(examen(tiempo(rand()%24,rand()%60),tiempo((h + rand()%dh)%24,rand()%dm)));
+        int h_final = h_inicio + duracion / 60;
+        int m_final = m_inicio + duracion % 60;
 
+        // Ajustar si los minutos son más de 60
+        if (m_final >= 60) {
+            h_final++;
+            m_final -= 60;
+        }
+
+        // Ajustar si las horas son más de 24
+        h_final %= 24;
+
+        v.push_back(examen(tiempo(h_inicio, m_inicio), tiempo(h_final, m_final)));
     }
-    
 }
-
+//------------------- Imprimir vector de examenes para comprobar-----------------------
 void printv(const vector<examen>&v){
     for(int i = 0; i< v.size(); i++){
         cout<<v[i].inicio.hora << ":" << v[i].inicio.min << " - "<< v[i].final.hora << ":" << v[i].final.min << " \n";
@@ -68,22 +86,32 @@ void imprimirCola(queue<examen> cola) {
     }
     cout << endl;
 }
+
+//--------------Solucion del problema------------------
 bool sesolapan(examen e1,examen e2){
     if(e1.final.hora == e2.inicio.hora){
         return e1.final.min >e2.inicio.min;
     }
-        return e1.final.hora > e2.inicio.hora;
+    return e1.final.hora > e2.inicio.hora;
 }
+
 int minAulas(vector<examen> & v){
+
+    // Conjunto de candidatos v
+
     int naulas = 1;
     vector<queue<examen>> horario;
+    //Conjunto de seleccionados horario (vector de colas , cada cola es un aula)
+    
     horario.push_back(queue<examen>());
     horario[0].push(v[0]);
     int i;
-    for(int nex = 0;nex < v.size();nex++){
+    //
+    for(int nex = 1;nex < v.size();nex++){
         i=0;
+        //Funcion de seleccion
         while(i<horario.size() && (sesolapan(horario[i].back(),v[nex]))){i++;}
-        
+        //Funcion de factibilidad
         if(i==horario.size()){
             horario.push_back(queue<examen>());
             horario[i].push(v[nex]);
@@ -93,28 +121,29 @@ int minAulas(vector<examen> & v){
             horario[i].push(v[nex]);
         }
     }
+    /*
    for(int i = 0; i<horario.size();i++){
         cout <<i<< endl;
         imprimirCola(horario[i]);
     }
-    return naulas;
+    */
+    return naulas; //Funcion objetivo 
 }
 
 int main(int argc, char* argv[]) {
-    vector<examen> horarios;
-    horarios.push_back(examen(tiempo(10,0),tiempo(12,0)));
-    horarios.push_back(examen(tiempo(11,30),tiempo(12,0)));
-    horarios.push_back(examen(tiempo(12,0),tiempo(13,30)));
-    horarios.push_back(examen(tiempo(12,15),tiempo(13,0)));
-    horarios.push_back(examen(tiempo(13,0),tiempo(15,0)));
-    horarios.push_back(examen(tiempo(13,27),tiempo(13,52)));
-    horarios.push_back(examen(tiempo(14,0),tiempo(17,0)));
 
+    vector<examen> horarios;
+    generadorExamen(atoi(argv[1]),atoi(argv[2]), horarios);
     sort(horarios.begin(),horarios.end(),compare());
-    printv(horarios);
-    cout << "=========================================="<<endl;
-   int n = minAulas(horarios);
-   cout << "numero de aulas : "<<n<<endl;
+    //printv(horarios);
+    //cout << "=========================================="<<endl;
+    int n;
+    auto start = chrono::high_resolution_clock::now();
+    n = minAulas(horarios);
+    auto end = chrono::high_resolution_clock::now();
+    cout << chrono::duration_cast<chrono::nanoseconds>(end - start).count()<<std::endl;
+   
+    //cout << "numero de aulas : "<<n<<endl;
 
     return 0;
 }
