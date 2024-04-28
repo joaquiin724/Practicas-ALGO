@@ -1,3 +1,0 @@
-/home/joaquiin_724/Documentos/ALGO/Practica3/Codigos/P3/cmake-build-debug/CMakeFiles/P3.dir
-/home/joaquiin_724/Documentos/ALGO/Practica3/Codigos/P3/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/joaquiin_724/Documentos/ALGO/Practica3/Codigos/P3/cmake-build-debug/CMakeFiles/rebuild_cache.dir
