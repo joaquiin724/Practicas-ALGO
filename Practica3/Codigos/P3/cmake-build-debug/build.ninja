@@ -55,6 +55,12 @@ build CMakeFiles/P3.dir/CreacionCasos.cpp.o: CXX_COMPILER__P3_unscanned_Debug /h
   OBJECT_DIR = CMakeFiles/P3.dir
   OBJECT_FILE_DIR = CMakeFiles/P3.dir
 
+build CMakeFiles/P3.dir/CreacionPuntos.cpp.o: CXX_COMPILER__P3_unscanned_Debug /home/joaquiin_724/Documentos/ALGO/Practica3/Codigos/P3/CreacionPuntos.cpp || cmake_object_order_depends_target_P3
+  DEP_FILE = CMakeFiles/P3.dir/CreacionPuntos.cpp.o.d
+  FLAGS = -g -std=gnu++14 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles/P3.dir
+  OBJECT_FILE_DIR = CMakeFiles/P3.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target P3
@@ -63,7 +69,7 @@ build CMakeFiles/P3.dir/CreacionCasos.cpp.o: CXX_COMPILER__P3_unscanned_Debug /h
 #############################################
 # Link the executable P3
 
-build P3: CXX_EXECUTABLE_LINKER__P3_Debug CMakeFiles/P3.dir/CreacionCasos.cpp.o
+build P3: CXX_EXECUTABLE_LINKER__P3_Debug CMakeFiles/P3.dir/CreacionCasos.cpp.o CMakeFiles/P3.dir/CreacionPuntos.cpp.o
   FLAGS = -g
   OBJECT_DIR = CMakeFiles/P3.dir
   POST_BUILD = :

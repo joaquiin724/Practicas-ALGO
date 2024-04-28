@@ -6,5 +6,6 @@ set(CMAKE_CXX_STANDARD 14)
 add_executable(P3
         Ciudades/Archivo1.txt
         CreacionCasos.cpp
+        CreacionPuntos.cpp
         # Dijkstra.cpp
 )

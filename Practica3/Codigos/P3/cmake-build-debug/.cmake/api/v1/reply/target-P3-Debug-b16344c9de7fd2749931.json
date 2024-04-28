@@ -49,7 +49,8 @@
 			},
 			"sourceIndexes" : 
 			[
-				1
+				1,
+				2
 			]
 		}
 	],
@@ -89,7 +90,8 @@
 			"name" : "Source Files",
 			"sourceIndexes" : 
 			[
-				1
+				1,
+				2
 			]
 		}
 	],
@@ -104,6 +106,12 @@
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
 			"path" : "CreacionCasos.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "CreacionPuntos.cpp",
 			"sourceGroupIndex" : 1
 		}
 	],

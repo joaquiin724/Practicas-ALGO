@@ -6,6 +6,7 @@
 #include <random>
 #include <cstdlib>
 #include <ctime>
+#include <iomanip> // Para std::fixed y std::setprecision
 
 using namespace std;
 
@@ -51,7 +52,7 @@ public:
 };
 
 // Debe estar la matriz inicializada a 0
-void creacionGrafos(const vector<Point>&vec, vector<vector<int>> &matriz){
+void creacionGrafos(const vector<Point>&vec, vector<vector<double>> &matriz){
     int size=vec.size();
 
     srand(time(NULL));
@@ -90,28 +91,32 @@ void mostrarVector(const std::vector<Point>& vec) {
 }
 
 // Función para mostrar una matriz en la consola
-void mostrarMatriz(const std::vector<std::vector<int>>& matriz) {
+void mostrarMatriz(std::ofstream &salida, const std::vector<std::vector<double>>& matriz) {
+    // Configurar la salida para mostrar números con tres decimales
+    salida << std::fixed << std::setprecision(3);
+
     // Iterar sobre cada fila de la matriz
     for (const auto& fila : matriz) {
         // Iterar sobre cada elemento de la fila y mostrarlo
-        for (int elemento : fila) {
-            std::cout << elemento << "\t"; // Separador de columnas
+        for (double elemento : fila) {
+            // Asegurar que todos los números se alineen correctamente usando setw
+            salida << std::setw(5) << elemento << "\t"; // Separador de columnas
         }
-        std::cout << std::endl; // Nueva línea para la siguiente fila
+        salida << std::endl; // Nueva línea para la siguiente fila
     }
 }
 
 
 int main (int argc, char *argv[]) {
 
-    if (argc != 2){
-        cout << "Error en los argumentos" << endl;
+    if (argc != 3){
+        cout << "Uso: " << argv[0] << " <nombreArchivoEntrada> <nombreArchivoSalida>" << endl;
         return 1;
     }
     
-    ifstream archivo((string)argv[1]);
+    ifstream lectura((string)argv[1]);
 
-    if (!archivo.is_open()){
+    if (!lectura.is_open()){
         cout << "Error al abrir el archivo" << endl;
         return 1;
     }
@@ -120,19 +125,26 @@ int main (int argc, char *argv[]) {
     Point point;
     vector<Point> puntos;
 
-    while(archivo >> point){
-        puntos.push_back(point);
+    while(lectura >> point){
+        puntos.emplace_back(point);
     }
 
-    archivo.close();
-    mostrarVector(puntos);
+    lectura.close();
+
+    ofstream escritura((string)argv[2]);
+
+    if (!escritura.is_open()){
+        cout << "Error al abrir el archivo" << endl;
+        return 1;
+    }
+
     int dimension=puntos.size();
-    vector<vector<int>> matriz(dimension, vector<int>(dimension, 0));
+    vector<vector<double>> matriz(dimension, vector<double>(dimension, 0));
+    
     creacionGrafos(puntos, matriz);
-    mostrarMatriz(matriz);
+    mostrarMatriz(escritura, matriz);
 
-
-
+    escritura.close();
 
     return 0;
 }

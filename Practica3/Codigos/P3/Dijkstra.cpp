@@ -46,7 +46,9 @@ void dijkstra(int graph[V][V], int src) {
   
         // Actualizar la distancia de los vértices adyacentes al vértice seleccionado
         for (int v = 0; v < V; v++)
-            if (!visited[v] && graph[u][v]  && dist[u] + graph[u][v] < dist[v])
+			// la condición grapf[u][v] es para comprobar que es distinto de 0 (true), es decir,
+			// hay conexión entre ambos puntos
+            if (!visited[v] && graph[u][v] && dist[u] + graph[u][v] < dist[v])
                 dist[v] = dist[u] + graph[u][v];
     }
   
