@@ -55,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/home/joaquiin_724/Documentos/ALGO/Practica3/cmake-build-debug"
+			"value" : "/home/joaquiin_724/Documentos/ALGO/Practica3/Codigos/P3/cmake-build-debug"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -543,7 +543,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/joaquiin_724/Documentos/ALGO/Practica3/cmake-build-debug/CMakeFiles/pkgRedirects"
+			"value" : "/home/joaquiin_724/Documentos/ALGO/Practica3/Codigos/P3/cmake-build-debug/CMakeFiles/pkgRedirects"
 		},
 		{
 			"name" : "CMAKE_GENERATOR",
@@ -603,7 +603,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/home/joaquiin_724/Documentos/ALGO/Practica3"
+			"value" : "/home/joaquiin_724/Documentos/ALGO/Practica3/Codigos/P3"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
@@ -843,7 +843,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "Practica3"
+			"value" : "P3"
 		},
 		{
 			"name" : "CMAKE_RANLIB",
@@ -1142,7 +1142,7 @@
 			"value" : "FALSE"
 		},
 		{
-			"name" : "Practica3_BINARY_DIR",
+			"name" : "P3_BINARY_DIR",
 			"properties" : 
 			[
 				{
@@ -1151,10 +1151,10 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/joaquiin_724/Documentos/ALGO/Practica3/cmake-build-debug"
+			"value" : "/home/joaquiin_724/Documentos/ALGO/Practica3/Codigos/P3/cmake-build-debug"
 		},
 		{
-			"name" : "Practica3_IS_TOP_LEVEL",
+			"name" : "P3_IS_TOP_LEVEL",
 			"properties" : 
 			[
 				{
@@ -1166,7 +1166,7 @@
 			"value" : "ON"
 		},
 		{
-			"name" : "Practica3_SOURCE_DIR",
+			"name" : "P3_SOURCE_DIR",
 			"properties" : 
 			[
 				{
@@ -1175,7 +1175,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/joaquiin_724/Documentos/ALGO/Practica3"
+			"value" : "/home/joaquiin_724/Documentos/ALGO/Practica3/Codigos/P3"
 		},
 		{
 			"name" : "_CMAKE_LINKER_PUSHPOP_STATE_SUPPORTED",

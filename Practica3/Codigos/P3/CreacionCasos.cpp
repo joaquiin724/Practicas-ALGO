@@ -55,11 +55,6 @@ void creacionGrafos(const vector<Point>&vec, vector<vector<int>> &matriz){
     int size=vec.size();
 
     srand(time(NULL));
-    int p_inicio=rand()%size;
-
-    for(int i=0; i<size; i++){
-        matriz[p_inicio][i]=vec[p_inicio].distanceTo(vec[i]);
-    }
 
     for (int i=0; i<size; i++){
         // Num nodos que conectaremos con el nodo i
@@ -74,6 +69,13 @@ void creacionGrafos(const vector<Point>&vec, vector<vector<int>> &matriz){
             matriz[i][nodo_conectar]=vec[i].distanceTo(vec[nodo_conectar]);
         }
     }
+    
+    int p_inicio=rand()%size;
+
+    for(int i=0; i<size; i++){
+        matriz[p_inicio][i]=vec[p_inicio].distanceTo(vec[i]);
+    }
+
 }
 
 void mostrarVector(const std::vector<Point>& vec) {
