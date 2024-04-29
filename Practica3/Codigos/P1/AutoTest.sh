@@ -1,6 +1,8 @@
 #!/bin/bash
 
 num_bienes=100000
+rm -r Salidas/Resultados/
+rm -r Salidas/Tiempos/
 
 for ((i=1000; i < $num_bienes; i+=1000)); do
 
