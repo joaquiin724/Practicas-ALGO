@@ -1,6 +1,8 @@
 \documentclass[11pt,openany]{book}
 \input{assets/portada.tex}
 \usepackage{assets/formulas}
+\usepackage[mathscr]{euscript}
+\usepackage{bm}
 \usepackage{float}
 \hbadness=10000 % Suppress Underfull \hbox warnings
 
@@ -174,14 +176,65 @@ Destacar también que mostraremos la gestión que hemos hecho para la creación 
 ejecución de los mismos y la obtención de los resultados.
 
 \section{Algoritmo de Dijkstra (DEMOSTRACION)}
-A continuación, veremos las distintas propiedades usadas para la demostración como bien pueden ser la función de selección, así como
-la forma en que se seleccionan los nodos, y finalmente la demostración mediante inducción. 
+A continuación, veremos las distintas partes usadas para la demostración como bien pueden ser la función de selección, así como
+la forma en que se seleccionan los nodos, y finalmente la demostración mediante inducción. \\
+Definiremos pues cada parte del algoritmo: \\
+\begin{itemize}
+      \item Candidatos a seleccionar:\\
+            En este problema los candidatos a seleccionar son los diferentes vértices del grafo que no hayan sido \\
+            seleccionados previamente.
+      \item Candidatos seleccionados:
+            Llamaremos $\mathscr{S}$ al conjunto de los vértices seleccionados. \\
+            En nuestro problema siempre partiremos de un vértice, por lo que, como mínimo siempre habrá un vértice en $\mathscr{S}$ que será el origen 
+            desde donde partiremos a considerar los nuevos vértices.
+
+            Una vez definido $\mathscr{S}$ hay que definir también $\mathscr{V}\setminus\mathscr{S}$ que será el conjunto de vértices candidatos a ser seleccionados,
+            siendo por tanto, $\mathscr{V}$ el total de vértices del grafo.
+
+      \item Función Solución:\\
+            La solución se obtendrá cuando el nodo origen y el destino estén en $\mathscr{S}$, siendo el ndo destino el último seleccionado, teniendo así el camino mínimo $\mathscr{M}(o,v)$
+
+      \item Función de Selección:\\ 
+            La función de selección en este algoritmo es siempre tomar el camino de menor distancia posible entre los nodos que estén conectados con el origen, actualizando los nuevos posibles candidatos 
+            tras una elección
+
+      \item Función de factibilidad:\\
+            Un vértice es seleccionable en el caso enel que su distancia respecto al origen no sea infinito, esto quiere decir que debe haber vérices dentro de los seleccionados que nos permitan, mediante
+            caminos directos, alcanzar el vértice sobre el que nos preguntamos si es factible
+
+      \item Funcion objetivo: \\
+            El problema tendrá siempre tamaño $\mathscr{V}$, es decir, el número de vértice del grafo. (Se puede considerar el tamaño real como $\mathscr{V}-1$ ya que el nodo de origen siempre es el primero en seleccionarse sin
+            tener en cuenta ningún criterio)
+\end{itemize}
+Una vez definidas las funciones, conjuntos de candidatos... pasaremos a realizar la demostración del algortimo greedy.
+
+\begin{itemize}
+      \item Demostración Greedy: \\
+            Para la demostración, usaremos inducción y reducción al absurdo.
+      \item El caso base será cuando \#$\mathscr{S}=1$ o bien es igual a 2.\\
+            En ambos casos el algorimo nos dará una solución trivial, ya que, en el caso \#$\mathscr{S}=1$ la distancia mínima entre un vértice consigo mismo es 0.
+            En el caso de que \#$\mathscr{S}=2$, tenemos que la distancia mínima entre los dos nodos será la que los conecte con menor distancia, puesto que el grafo es conexo y no pueden no estar conectados.
+      \item Paso de inducción:
+            Sea $v$ el nuevo vértice que ha sido seleccionado por el algoritmo, y por tanto $v\in \mathscr{S}$.\\
+            Ahora usaremos reducción al absurdo y tomaremos que la distancia $d(v)$ (que representa algún camino de $o$ a $v$, con $o$ como el nodo de origen) no es la longitud mínima.\\
+            Tomaremos entonces, $\mathscr{L}$ como la distancia mínima de $o$ a $v$. Y tenemos en cuenta que en $\mathscr{L}$ hay un camino que parte de un nodo x, ($c(x,y)$ camino de x a y), siendo x el último nodo en $\mathscr{S}$\\
+            Con todo esto tenemos:
+            \begin{equation*}
+                  \mathbf{d(v)}\bm{>}\mathscr{M}(o,v)=\mathscr{M}(o,x)+c(x,y)+\mathscr{M}(y,v) > \mathscr{M}(o,x)+c(x,y)= d(x)+c(x,y)=\mathbf{d(y)}
+            \end{equation*}
+            Donde hemos usado que $\mathscr{L}$ es el camino mínimo y está formado por la primera igualdad.\\
+            En la primera desigualdad, usamos la hipótesis de inducción, puesto que suponíamos que $d(v)>\mathscr{L}$.
+            Por último, nos falta explicar la contradicción que hemos obtenido, que está marcada en negrita.
+            Esta contradicción nos indica que al ser la distancia de y menor que la de v, nuestro algoritmo debería haber elegido al vétice $y$ en vez de a $v$\\
+            Luego, hemos probado la optimalidad de nuestro algoritmo.
+
+\end{itemize}
 
 \section{Estructura de datos y grafos}
 Para la implementación del algoritmo de Dijkstra, hemos usado una estructura de datos que nos permita representar un grafo, en este caso,
 hemos usado una matriz de adyacencia. Por tanto, a continación se explicara de forma detallada la creación de dichos grafos así como la forma de 
 representarlos en archivos de texto, ya que al ser la primera vez que se trabaja con grafos es útil tener
-claro como se ha hehco. \\ \\
+claro como se ha hecho. \\ \\
 Para la creación de los grafos se ha hecho uso de un programa en C++ que nos permite generar grafos aleatorios, a partir
 de un vector que tenga los distintos puntos. Destacar en primer lugar, que para la creación de los puntos de forma aletoria hemos usado 
 de este trozo de código:
