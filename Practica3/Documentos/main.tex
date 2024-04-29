@@ -44,6 +44,7 @@
             \begin{itemize}
                   \item Programacion Aulas
                   \item Redacción Aulas
+                  \item Redacción objetivos
             \end{itemize}
 \end{itemize}
 
@@ -60,7 +61,48 @@
                   \item Compilador GCC 12.2.0
             \end{itemize}
 \end{itemize}
-\chapter{Diseño de la práctica}
+
+\chapter{Objetivos}
+
+El objetivo de esta práctica es implementar la solución para cuatro problemas 
+usando algoritmos Greedy. Los problemas a resolver son los siguientes: 
+\begin{itemize}
+
+      \item Hijo predilecto 
+            Un individuo desea repartir sus N bienes entre sus dos hijos. Para cada bien se conoce el
+            valor (positivo) del mismo. Previo al fallecimiento del individuo, el juzgado, de una forma ciega,
+            determina un valor k, que nos indica el número de bienes que se le deben asignar a un hijo al
+            otro se le asignan N - k. Conocido estos datos, el individuo desea distribuir los bienes entre
+            sus hijos de forma que uno de ellos salga lo mas beneficiado posible. El beneficio obtenido por
+            cada hijo se define como la suma de los beneficios de los bienes que se les lega.
+      \item Asignación de aulas
+            Se deben programar N exámenes en un dı́a determinado, y para cada examen, el profesorado ha especificado el tiempo
+            requerido para su realización y la hora de inicio ideal.
+            El centro cuenta con m aulas disponibles, donde m es mayor que N , lo que garantiza la
+            viabilidad de programar los exámenes. Sin embargo, cada vez que se utiliza un aula, el centro
+            debe asegurar su vigilancia, lo que implica contratar a un vigilante distinto para cada aula
+            utilizada.
+      \item Problema del camino mínimo
+            Tenemos un conjunto de n ciudades (puntos en un plano), cada una definida por las coor-
+            denadas en el mapa $(x_i , y_i )$, con $i = 1, . . . , n$. Cada ciudad se puede conectar por carretera con
+            un subconjunto de ciudades, asegurando que la red de vı́as que se genere crea un grafo conexo.
+            Dada una ciudad de origen, x, y una ciudad de destino, y, se pide encontrar el camino de
+            costo mı́nimo que permita viajar de x a y.
+      \item problema del viajante de comercio
+            Tenemos un conjunto de n ciudades (puntos en un plano), cada una definida por las coor-
+            denadas en el mapa $(x_i , y_i )$, con $i = 1, . . . , n$. La distancia entre dos ciudades viene dada por la
+            distancia euclı́dea entre sus coordenadas.El problema de viajante de comercio consiste en encontrar el orden en el que un viajante,
+            partiendo de la ciudad de origen (por ejemplo $(x_1 , y_1 )$) pase por todas y cada una de las ciudades
+            una única vez, para volver a la ciudad de partida, formando un ciclo.
+
+\end{itemize}
+Para cada uno de los problemas se ha de implementar
+un algoritmoque de una solución óptima o aproximada dependiendo del problema. 
+En todos los problemas se identificarán los componentes de un algoritmo Greedy y se demostrará que el algoritmo
+greedy da la solución óptima en el caso de que el problema sea de optimización . 
+
+Con esta práctica se pretende trabajar y comprender los algoritmos greedy y  reconocer las situaciones para las cuales puede 
+ser beneficioso y usar esta técnica.
 \chapter{Asignación de aulas}
 En esta sección se estudia lo referente al algoritmo usado para resolver el segundo 
 problema el cual nos pide lo siguiente :
