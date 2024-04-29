@@ -175,8 +175,8 @@ la demostración de que dicho algoritmo Greedy calcula la solución óptima.  \\
 Destacar también que mostraremos la gestión que hemos hecho para la creación de los posibles casos (\textbf{grafos}), así como la 
 ejecución de los mismos y la obtención de los resultados.
 
-\section{Algoritmo de Dijkstra (DEMOSTRACION)}
-A continuación, veremos las distintas partes usadas para la demostración como bien pueden ser la función de selección, así como
+\section{Algoritmo de Dijkstra}
+A continuación, veremos las distintas partes usadas para la demostración como bien pueden ser la función de selección o
 la forma en que se seleccionan los nodos, y finalmente la demostración mediante inducción. \\
 Definiremos pues cada parte del algoritmo: \\
 \begin{itemize}
@@ -192,25 +192,25 @@ Definiremos pues cada parte del algoritmo: \\
             siendo por tanto, $\mathscr{V}$ el total de vértices del grafo.
 
       \item Función Solución:\\
-            La solución se obtendrá cuando el nodo origen y el destino estén en $\mathscr{S}$, siendo el ndo destino el último seleccionado, teniendo así el camino mínimo $\mathscr{M}(o,v)$
+            La solución se obtendrá cuando el nodo origen y el destino estén en $\mathscr{S}$, siendo el nodo destino el último seleccionado, teniendo así el camino mínimo $\mathscr{M}(o,v)$
 
       \item Función de Selección:\\ 
             La función de selección en este algoritmo es siempre tomar el camino de menor distancia posible entre los nodos que estén conectados con el origen, actualizando los nuevos posibles candidatos 
             tras una elección
 
       \item Función de factibilidad:\\
-            Un vértice es seleccionable en el caso enel que su distancia respecto al origen no sea infinito, esto quiere decir que debe haber vérices dentro de los seleccionados que nos permitan, mediante
+            Un vértice es seleccionable en el caso en el que su distancia respecto al origen no sea infinito, esto quiere decir que debe haber vérices dentro de los seleccionados que nos permitan, mediante
             caminos directos, alcanzar el vértice sobre el que nos preguntamos si es factible
 
       \item Funcion objetivo: \\
             El problema tendrá siempre tamaño $\mathscr{V}$, es decir, el número de vértice del grafo. (Se puede considerar el tamaño real como $\mathscr{V}-1$ ya que el nodo de origen siempre es el primero en seleccionarse sin
             tener en cuenta ningún criterio)
 \end{itemize}
-Una vez definidas las funciones, conjuntos de candidatos... pasaremos a realizar la demostración del algortimo greedy.
+Una vez definidas las funciones, conjuntos de candidatos, etc,  pasaremos a realizar la demostración del algortimo greedy.
 
+\subsection{Demostracion de la optimalidad del algoritmo de Dijkstra}
+Para la demostración, usaremos inducción y reducción al absurdo, veámoslo paso a paso:
 \begin{itemize}
-      \item Demostración Greedy: \\
-            Para la demostración, usaremos inducción y reducción al absurdo.
       \item El caso base será cuando \#$\mathscr{S}=1$ o bien es igual a 2.\\
             En ambos casos el algorimo nos dará una solución trivial, ya que, en el caso \#$\mathscr{S}=1$ la distancia mínima entre un vértice consigo mismo es 0.
             En el caso de que \#$\mathscr{S}=2$, tenemos que la distancia mínima entre los dos nodos será la que los conecte con menor distancia, puesto que el grafo es conexo y no pueden no estar conectados.
@@ -220,10 +220,11 @@ Una vez definidas las funciones, conjuntos de candidatos... pasaremos a realizar
             Tomaremos entonces, $\mathscr{L}$ como la distancia mínima de $o$ a $v$. Y tenemos en cuenta que en $\mathscr{L}$ hay un camino que parte de un nodo x, ($c(x,y)$ camino de x a y), siendo x el último nodo en $\mathscr{S}$\\
             Con todo esto tenemos:
             \begin{equation*}
-                  \mathbf{d(v)}\bm{>}\mathscr{M}(o,v)=\mathscr{M}(o,x)+c(x,y)+\mathscr{M}(y,v) > \mathscr{M}(o,x)+c(x,y)= d(x)+c(x,y)=\mathbf{d(y)}
+                  \mathbf{d(v)}\bm{>}\mathscr{M}(o,v)=\mathscr{M}(o,x)+c(x,y)+\mathscr{M}(y,v) > \mathscr{M}(o,x)+c(x,y)= d(x)+c(x,y)\geq\mathbf{d(y)}
             \end{equation*}
             Donde hemos usado que $\mathscr{L}$ es el camino mínimo y está formado por la primera igualdad.\\
-            En la primera desigualdad, usamos la hipótesis de inducción, puesto que suponíamos que $d(v)>\mathscr{L}$.
+            En la primera desigualdad, usamos la hipótesis, puesto que suponíamos que $d(v)>\mathscr{L}$, mientras que en la última igualdad
+            se usa la hipótesis de inducción, pues $d(x)=\mathscr{M}(o,x)$ es la distancia mínima de $o$ a $x$, ya que es un punto escogido con anterioridad, y por tanto, $x\in \mathscr{S}$\\
             Por último, nos falta explicar la contradicción que hemos obtenido, que está marcada en negrita.
             Esta contradicción nos indica que al ser la distancia de y menor que la de v, nuestro algoritmo debería haber elegido al vétice $y$ en vez de a $v$\\
             Luego, hemos probado la optimalidad de nuestro algoritmo.
@@ -253,61 +254,84 @@ donde file es el archivo donde se escriben los puntos, numPuntos es el número d
 máximo de las coordenadas. \\
 Tenemos ahora archivos con distintos puntos aleatorios, y para la creación de los grafos, hemos usado el siguiente código:
 \begin{lstlisting}[language=C++]
-// Debe estar la matriz inicializada a 0
-void creacionGrafos(const vector<Point>&vec, vector<vector<double>> &matriz){
-      int size=vec.size();
-
-      srand(time(NULL));
-
-      for (int i=0; i<size; i++){
+// Funcion para la creacion de grafos a partir de un vector de puntos en 2D
+void creacionGrafos(const vector<Point>& vec, vector<vector<double>>& matriz) {
+      int size = vec.size();
+      
+      // Inicializacion de srand con resolucion mas alta
+      unsigned seed = chrono::high_resolution_clock::now().time_since_epoch().count();
+      srand(seed);
+      
+      for (int i = 0; i < size; i++) {
             // Num nodos que conectaremos con el nodo i
-            int conexiones=rand()%(size-1)+1;
-            for(int j=0; j<conexiones; j++){
-            // Nodo a conectar con el nodo i
-            int nodo_conectar;
-            do{
-                  nodo_conectar=rand()%size;
-            } while(nodo_conectar==i);
-            // Aniadimos su distancia a la matriz
-            matriz[i][nodo_conectar]=vec[i].distanceTo(vec[nodo_conectar]);
+            int conexiones = rand() % (size/3 - 1) + 1; // Asegura al menos una conexion por nodo
+            for (int j = 0; j < conexiones; j++) {
+                  int nodo_conectar;
+                  do {
+                  nodo_conectar = rand() % size;
+                  } while (nodo_conectar == i); // Asegura no conectarse a si mismo
+      
+                  // Aniadimos su distancia a la matriz de forma simetrica
+                  double distancia = vec[i].distanceTo(vec[nodo_conectar]);
+                  matriz[i][nodo_conectar] = distancia;
+                  matriz[nodo_conectar][i] = distancia; // Simetria
             }
       }
       
-      int p_inicio=rand()%size;
-
-      for(int i=0; i<size; i++){
-            matriz[p_inicio][i]=vec[p_inicio].distanceTo(vec[i]);
-            matriz[i][i]=0;
+      // Garantizar que al menos un nodo (p_inicio) este conectado a todos los demas
+      int p_inicio = rand() % size;
+      for (int i = 0; i < size; i++) {
+            if (i != p_inicio) {
+                  double distancia = vec[p_inicio].distanceTo(vec[i]);
+                  matriz[p_inicio][i] = distancia;
+                  matriz[i][p_inicio] = distancia; // Simetria
+            }
+            matriz[i][i] = 0; // Distancia a si mismo es cero
       }
-
 }
 \end{lstlisting}
 donde la matriz pasada por referencia será la llamada \textbf{matriz de adyacencia} que representa el grafo, y \textbf{vec} es el vector de puntos
-leido del archivo. \\ \\
+leido del archivo. Importante recalcar las líneas donde se implementan las distancias de forma simétrica en la matriz.\\ \\
 Las matrices de adyacencia que hemos obtenido, las hemos guardado en archivos de texto, para poder leerlas posteriormente y ejecutar
 el algoritmo de Dijkstra sobre ellas, por lo que para ello hemos creado funciones que permitan leer y guardar dichas matrices, pues hay que recordar que 
 los puntos que no tengan conexión directa, tendrán un valor de infinito en la matriz. Tenemos así estas dos funciones, una para 
 escribir la matriz en un archivo de texto y otra para leerla:
 \begin{lstlisting}
-// Funcion para mostrar una matriz en un archivo
+
+// Funcion para mostrar una matriz en un archivo de salida
 void mostrarMatriz(std::ofstream &salida, const std::vector<std::vector<double>>& matriz) {
-      // Configurar la salida para mostrar numeros con tres decimales
+      int anchoMaximo = 0; // Variable para almacenar el ancho máximo encontrado en toda la matriz
+      const std::string infStr = "INF";
+
+      // Primero, vamos a calcular el ancho maximo para los numeros y "INF"
+      for (const auto& fila : matriz) {
+            for (double elemento : fila) {
+            std::ostringstream ss;
+            if (elemento != std::numeric_limits<double>::max()) {
+                  ss << std::fixed << std::setprecision(3) << elemento; // Convertir el numero a string con 3 decimales
+            } else {
+                  ss << infStr; // Si es infinito, usamos "INF"
+            }
+            anchoMaximo = std::max(anchoMaximo, static_cast<int>(ss.str().length())); // Actualizar el ancho maximo
+            }
+      }
+
+      // Configuracion de la salida con el ancho encontrado
       salida << std::fixed << std::setprecision(3);
 
-      // Iterar sobre cada fila de la matriz
+      // Mostrar la matriz con el ancho maximo
       for (const auto& fila : matriz) {
-            // Iterar sobre cada elemento de la fila y mostrarlo
             for (double elemento : fila) {
-            if(elemento==numeric_limits<double>::max())
-                  salida << std::setw(5) << "INF" << "\t";
-            else
-                  // Asegurar que todos los numeros se alineen correctamente usando setw
-                  salida << std::setw(5) << elemento << "\t"; // Separador de columnas
+            if (elemento == std::numeric_limits<double>::max()) {
+                  salida << std::right << std::setw(anchoMaximo) << infStr << "\t";
+            } else {
+                  salida << std::right << std::setw(anchoMaximo) << elemento << "\t";
             }
-            salida << std::endl; // Nueva linea para la siguiente fila
+            }
+            salida << std::endl;
       }
 }
-
+      
 // Funcion para leer la matriz desde un archivo
 void lecturaMatriz(ifstream &leer, vector<vector<double>>& matrix) {
       string line;
@@ -381,10 +405,67 @@ donde hemos definido \textbf{const double INF = numeric\_limits<double>::max()} 
 La función \textbf{minDistance} nos permite encontrar el nodo con la distancia mínima, y la función \textbf{dijkstra} nos permite ejecutar
 el algoritmo de Dijkstra desde un nodo inicial hasta un nodo final, mostrando la distancia mínima y el camino recorrido, haciendo uso
 de la función \textbf{printPath} que se muestra a continuación:
-MOSTRARLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-% //TODO: Añadir la función printPath
+\begin{lstlisting}
+// Funcion para imprimir el camino recorrido
+void printPath(const vector<int>& parent, int src, int dst) {
+      stack<int> path;
+      int current = dst;
+      while (current != src) {
+            path.push(current);
+            current = parent[current];
+      }
+      path.push(src);
 
+      cout << "Camino desde el nodo " << src << " al nodo " << dst << ": ";
+      while (!path.empty()) {
+            cout << path.top() << " ";
+            path.pop();
+      }
+      cout << endl;
+}
+\end{lstlisting}
 
+\section{Representaciones gráficas}
+Finalmente, mostraremos varios ejemplos de la ejecución del algoritmo de Dijkstra sobre distintos grafos, y la representación gráfica de los mismos
+ donde se pueden observar los posibles caminos y el mínimo escogido por dicho algoritmo.\\ \\
+Veamos a continuación un ejemplo en el que se han graficado 7 puntos con distintas conexiones y se ha elegido un camino:
+\begin{figure}[H]
+      \centering
+      \includegraphics[width=0.8\textwidth]{assets/Img/GraficaCaminoMinimo-1-1.png}
+      \caption{Grafo con 7 puntos y conexiones}
+\end{figure}
+Mostremos a continuación otro gráfico con los mismos puntos y distintas conexinoes y veamos como cambia el camino
+mínimo escogido:
+\begin{figure}[H]
+      \centering
+      \includegraphics[width=0.8\textwidth]{assets/Img/GraficaCaminoMinimo-1-2.png}
+      \caption{Grafo con 7 puntos y conexiones}
+\end{figure}
+Destacar que en ambos casos se busca el camino mínimo entre el nodo 1 y 5.\\ \\
+También podemos observar casos donde si exite un camino directo entre los nodos inicial y final, el algoritmo escogerá dicho
+camino mínimo como es de esperar, veámoslo
+% Se muestran dos gráficos en paralelo
+\begin{figure}[H]
+      \centering
+      \begin{minipage}{0.49\textwidth}
+            \centering
+            \includegraphics[width=1.1\textwidth]{assets/Img/GraficaCaminoMinimo-2-2.png}
+            \caption{Grafo con 7 puntos y conexiones}
+      \end{minipage}
+      \hfill
+      \begin{minipage}{0.49\textwidth}
+            \centering
+            \includegraphics[width=1.1\textwidth]{assets/Img/GraficaCaminoMinimo-3-2.png}
+            \caption{Grafo con 7 puntos y conexiones}
+      \end{minipage}
+\end{figure}
+En ambos casos se busca el camino mínimo entre el nodo 1 y 5.\\ \\
+Por ultimo pondremos un ejemplo con 25 puntos en el que se busca el camino mínimo entre el nodo 4 y 11:
+\begin{figure}[H]
+      \centering
+      \includegraphics[width=0.8\textwidth]{assets/Img/GraficaCaminoMinimo-9-1.png}
+      \caption{Grafo con 25 puntos y conexiones}
+\end{figure}
 % Viajante es el apartado 6, incluir capitulos antes
 \chapter{Viajante} % Migue
 En esta sección se analiza todo aquello referente al cuarto problema propuesto,

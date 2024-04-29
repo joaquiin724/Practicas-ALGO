@@ -1,2 +1,0 @@
-Distancia mínima desde el nodo 1 al nodo 5: 91.548
-Camino desde el nodo 1 al nodo 5: 1 5 

@@ -53,6 +53,7 @@ public:
     }
 };
 
+// Función para la creación de grafos a partir de un vector de puntos en 2D
 void creacionGrafos(const vector<Point>& vec, vector<vector<double>>& matriz) {
     int size = vec.size();
 
@@ -62,7 +63,7 @@ void creacionGrafos(const vector<Point>& vec, vector<vector<double>>& matriz) {
 
     for (int i = 0; i < size; i++) {
         // Num nodos que conectaremos con el nodo i
-        int conexiones = rand() % (size/3 - 1) + 1; // Asegura al menos una conexión por nodo
+        int conexiones = rand() % (size/5 - 1) + 1; // Asegura al menos una conexión por nodo
         for (int j = 0; j < conexiones; j++) {
             int nodo_conectar;
             do {
@@ -99,7 +100,7 @@ void mostrarVector(const std::vector<Point>& vec) {
     std::cout << "]" << std::endl;
 }
 
-
+// Función para mostrar una matriz en un archivo de salida
 void mostrarMatriz(std::ofstream &salida, const std::vector<std::vector<double>>& matriz) {
     int anchoMaximo = 0; // Variable para almacenar el ancho máximo encontrado en toda la matriz
     const std::string infStr = "INF";

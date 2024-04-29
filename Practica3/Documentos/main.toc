@@ -6,13 +6,15 @@
 \contentsline {section}{\numberline {3.2}Algoritmo}{6}{section.3.2}%
 \contentsline {section}{\numberline {3.3}Justificación Greedy}{7}{section.3.3}%
 \contentsline {chapter}{\numberline {4}Camino mínimo}{8}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Algoritmo de Dijkstra (DEMOSTRACION)}{8}{section.4.1}%
+\contentsline {section}{\numberline {4.1}Algoritmo de Dijkstra}{8}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Demostracion de la optimalidad del algoritmo de Dijkstra}{9}{subsection.4.1.1}%
 \contentsline {section}{\numberline {4.2}Estructura de datos y grafos}{9}{section.4.2}%
-\contentsline {chapter}{\numberline {5}Viajante}{13}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Algoritmo \textit {Nearest Neighbour}}{13}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Algoritmo \textit {Ordenación}}{14}{section.5.2}%
-\contentsline {section}{\numberline {5.3}Algoritmo \textit {Circular}}{14}{section.5.3}%
-\contentsline {section}{\numberline {5.4}Conclusiones}{16}{section.5.4}%
-\contentsline {subsection}{\numberline {5.4.1}Graficas}{16}{subsection.5.4.1}%
-\contentsline {subsection}{\numberline {5.4.2}Mejoras}{17}{subsection.5.4.2}%
-\contentsline {subsection}{\numberline {5.4.3}Precisión y Tiempos}{17}{subsection.5.4.3}%
+\contentsline {section}{\numberline {4.3}Representaciones gráficas}{13}{section.4.3}%
+\contentsline {chapter}{\numberline {5}Viajante}{17}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Algoritmo \textit {Nearest Neighbour}}{17}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Algoritmo \textit {Ordenación}}{18}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Algoritmo \textit {Circular}}{18}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Conclusiones}{20}{section.5.4}%
+\contentsline {subsection}{\numberline {5.4.1}Graficas}{20}{subsection.5.4.1}%
+\contentsline {subsection}{\numberline {5.4.2}Mejoras}{21}{subsection.5.4.2}%
+\contentsline {subsection}{\numberline {5.4.3}Precisión y Tiempos}{21}{subsection.5.4.3}%

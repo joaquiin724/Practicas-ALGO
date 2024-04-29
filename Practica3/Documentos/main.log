@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Debian) (preloaded format=pdflatex 2024.3.22)  29 APR 2024 12:41
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Debian) (preloaded format=pdflatex 2024.3.23)  29 APR 2024 17:58
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**/home/astralisx/Desktop/ALGO/Practica3/Documentos/main.tex
-(/home/astralisx/Desktop/ALGO/Practica3/Documentos/main.tex
+**/home/joaquiin_724/Documentos/ALGO/Practica3/Documentos/main.tex
+(/home/joaquiin_724/Documentos/ALGO/Practica3/Documentos/main.tex
 LaTeX2e <2022-11-01> patch level 1
 L3 programming layer <2023-01-16> (/usr/share/texlive/texmf-dist/tex/latex/base/book.cls
 Document Class: book 2022/07/02 v1.4n Standard LaTeX document class
@@ -960,29 +960,7 @@ Package csquotes Info: Checking for multilingual support...
 Package csquotes Info: ... found 'babel' package.
 Package csquotes Info: Adjusting default style.
 Package csquotes Info: Redefining alias 'default' -> 'spanish'.
- (./main.aux
-LaTeX Info: Redefining \. on input line 20.
-LaTeX Info: Redefining \% on input line 20.
-
-
-LaTeX Warning: Label `fig:nearest' multiply defined.
-
-
-LaTeX Warning: Label `fig:ordered' multiply defined.
-
-
-LaTeX Warning: Label `fig:nearest' multiply defined.
-
-
-LaTeX Warning: Label `fig:ordered' multiply defined.
-
-
-LaTeX Warning: Label `fig:nearest' multiply defined.
-
-
-LaTeX Warning: Label `fig:ordered' multiply defined.
-
-)
+ (./main.aux)
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 11.
@@ -1166,78 +1144,12 @@ LaTeX Font Info:    Font shape `OMX/mdbch/b/n' will be
  [1
 
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./assets/Img/UGR-Logo.png>] (./main.toc
-LaTeX Info: Redefining \. on input line 1.
-LaTeX Info: Redefining \% on input line 1.
-LaTeX Font Info:    Font shape `OT1/mdbch/m/n' will be
-(Font)              scaled to size 7.68005pt on input line 5.
-LaTeX Font Info:    Font shape `OT1/mdbch/m/n' will be
-(Font)              scaled to size 5.76004pt on input line 5.
-LaTeX Font Info:    Font shape `OML/mdbch/m/it' will be
-(Font)              scaled to size 10.51207pt on input line 5.
-LaTeX Font Info:    Font shape `OML/mdbch/m/it' will be
-(Font)              scaled to size 7.68005pt on input line 5.
-LaTeX Font Info:    Font shape `OML/mdbch/m/it' will be
-(Font)              scaled to size 5.76004pt on input line 5.
-LaTeX Font Info:    Font shape `OMS/mdbch/m/n' will be
-(Font)              scaled to size 10.51207pt on input line 5.
-LaTeX Font Info:    Font shape `OMS/mdbch/m/n' will be
-(Font)              scaled to size 7.68005pt on input line 5.
-LaTeX Font Info:    Font shape `OMS/mdbch/m/n' will be
-(Font)              scaled to size 5.76004pt on input line 5.
-LaTeX Font Info:    Font shape `OMX/mdbch/m/n' will be
-(Font)              scaled to size 10.51207pt on input line 5.
-LaTeX Font Info:    Font shape `OMX/mdbch/m/n' will be
-(Font)              scaled to size 7.68005pt on input line 5.
-LaTeX Font Info:    Font shape `OMX/mdbch/m/n' will be
-(Font)              scaled to size 5.76004pt on input line 5.
-LaTeX Font Info:    Font shape `OML/mdbch/m/n' will be
-(Font)              scaled to size 10.51207pt on input line 5.
-LaTeX Font Info:    Font shape `OML/mdbch/m/n' will be
-(Font)              scaled to size 7.68005pt on input line 5.
-LaTeX Font Info:    Font shape `OML/mdbch/m/n' will be
-(Font)              scaled to size 5.76004pt on input line 5.
-LaTeX Font Info:    Font shape `MDA/mdbch/m/n' will be
-(Font)              scaled to size 10.51207pt on input line 5.
-LaTeX Font Info:    Font shape `MDA/mdbch/m/n' will be
-(Font)              scaled to size 7.68005pt on input line 5.
-LaTeX Font Info:    Font shape `MDA/mdbch/m/n' will be
-(Font)              scaled to size 5.76004pt on input line 5.
-LaTeX Font Info:    Font shape `MDB/mdbch/m/n' will be
-(Font)              scaled to size 10.51207pt on input line 5.
-LaTeX Font Info:    Font shape `MDB/mdbch/m/n' will be
-(Font)              scaled to size 7.68005pt on input line 5.
-LaTeX Font Info:    Font shape `MDB/mdbch/m/n' will be
-(Font)              scaled to size 5.76004pt on input line 5.
-LaTeX Font Info:    Font shape `OT1/mdbch/b/n' will be
-(Font)              scaled to size 10.51207pt on input line 5.
-LaTeX Font Info:    Font shape `OT1/mdbch/b/n' will be
-(Font)              scaled to size 7.68005pt on input line 5.
-LaTeX Font Info:    Font shape `OT1/mdbch/b/n' will be
-(Font)              scaled to size 5.76004pt on input line 5.
-LaTeX Font Info:    Font shape `OML/mdbch/b/it' will be
-(Font)              scaled to size 10.51207pt on input line 5.
-LaTeX Font Info:    Font shape `OML/mdbch/b/it' will be
-(Font)              scaled to size 7.68005pt on input line 5.
-LaTeX Font Info:    Font shape `OML/mdbch/b/it' will be
-(Font)              scaled to size 5.76004pt on input line 5.
-LaTeX Font Info:    Font shape `OMS/mdbch/b/n' will be
-(Font)              scaled to size 10.51207pt on input line 5.
-LaTeX Font Info:    Font shape `OMS/mdbch/b/n' will be
-(Font)              scaled to size 7.68005pt on input line 5.
-LaTeX Font Info:    Font shape `OMS/mdbch/b/n' will be
-(Font)              scaled to size 5.76004pt on input line 5.
-LaTeX Font Info:    Font shape `OMX/mdbch/b/n' will be
-(Font)              scaled to size 10.51207pt on input line 5.
-LaTeX Font Info:    Font shape `OMX/mdbch/b/n' will be
-(Font)              scaled to size 7.68005pt on input line 5.
-LaTeX Font Info:    Font shape `OMX/mdbch/b/n' will be
-(Font)              scaled to size 5.76004pt on input line 5.
-)
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./assets/Img/UGR-Logo.png>]
+No file main.toc.
 \tf@toc=\write4
 \openout4 = `main.toc'.
 
- [2
+[2
 
 ]
 Apartado 1.
@@ -1250,7 +1162,72 @@ File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 LaTeX Font Info:    Trying to load font information for TS1+qtm on input line 20.
  (/usr/share/texmf/tex/latex/tex-gyre/ts1qtm.fd
 File: ts1qtm.fd 2009/09/25 v1.2 font definition file for TS1/qtm
-) [3
+)
+LaTeX Font Info:    Font shape `OT1/mdbch/m/n' will be
+(Font)              scaled to size 7.68005pt on input line 33.
+LaTeX Font Info:    Font shape `OT1/mdbch/m/n' will be
+(Font)              scaled to size 5.76004pt on input line 33.
+LaTeX Font Info:    Font shape `OML/mdbch/m/it' will be
+(Font)              scaled to size 10.51207pt on input line 33.
+LaTeX Font Info:    Font shape `OML/mdbch/m/it' will be
+(Font)              scaled to size 7.68005pt on input line 33.
+LaTeX Font Info:    Font shape `OML/mdbch/m/it' will be
+(Font)              scaled to size 5.76004pt on input line 33.
+LaTeX Font Info:    Font shape `OMS/mdbch/m/n' will be
+(Font)              scaled to size 10.51207pt on input line 33.
+LaTeX Font Info:    Font shape `OMS/mdbch/m/n' will be
+(Font)              scaled to size 7.68005pt on input line 33.
+LaTeX Font Info:    Font shape `OMS/mdbch/m/n' will be
+(Font)              scaled to size 5.76004pt on input line 33.
+LaTeX Font Info:    Font shape `OMX/mdbch/m/n' will be
+(Font)              scaled to size 10.51207pt on input line 33.
+LaTeX Font Info:    Font shape `OMX/mdbch/m/n' will be
+(Font)              scaled to size 7.68005pt on input line 33.
+LaTeX Font Info:    Font shape `OMX/mdbch/m/n' will be
+(Font)              scaled to size 5.76004pt on input line 33.
+LaTeX Font Info:    Font shape `OML/mdbch/m/n' will be
+(Font)              scaled to size 10.51207pt on input line 33.
+LaTeX Font Info:    Font shape `OML/mdbch/m/n' will be
+(Font)              scaled to size 7.68005pt on input line 33.
+LaTeX Font Info:    Font shape `OML/mdbch/m/n' will be
+(Font)              scaled to size 5.76004pt on input line 33.
+LaTeX Font Info:    Font shape `MDA/mdbch/m/n' will be
+(Font)              scaled to size 10.51207pt on input line 33.
+LaTeX Font Info:    Font shape `MDA/mdbch/m/n' will be
+(Font)              scaled to size 7.68005pt on input line 33.
+LaTeX Font Info:    Font shape `MDA/mdbch/m/n' will be
+(Font)              scaled to size 5.76004pt on input line 33.
+LaTeX Font Info:    Font shape `MDB/mdbch/m/n' will be
+(Font)              scaled to size 10.51207pt on input line 33.
+LaTeX Font Info:    Font shape `MDB/mdbch/m/n' will be
+(Font)              scaled to size 7.68005pt on input line 33.
+LaTeX Font Info:    Font shape `MDB/mdbch/m/n' will be
+(Font)              scaled to size 5.76004pt on input line 33.
+LaTeX Font Info:    Font shape `OT1/mdbch/b/n' will be
+(Font)              scaled to size 10.51207pt on input line 33.
+LaTeX Font Info:    Font shape `OT1/mdbch/b/n' will be
+(Font)              scaled to size 7.68005pt on input line 33.
+LaTeX Font Info:    Font shape `OT1/mdbch/b/n' will be
+(Font)              scaled to size 5.76004pt on input line 33.
+LaTeX Font Info:    Font shape `OML/mdbch/b/it' will be
+(Font)              scaled to size 10.51207pt on input line 33.
+LaTeX Font Info:    Font shape `OML/mdbch/b/it' will be
+(Font)              scaled to size 7.68005pt on input line 33.
+LaTeX Font Info:    Font shape `OML/mdbch/b/it' will be
+(Font)              scaled to size 5.76004pt on input line 33.
+LaTeX Font Info:    Font shape `OMS/mdbch/b/n' will be
+(Font)              scaled to size 10.51207pt on input line 33.
+LaTeX Font Info:    Font shape `OMS/mdbch/b/n' will be
+(Font)              scaled to size 7.68005pt on input line 33.
+LaTeX Font Info:    Font shape `OMS/mdbch/b/n' will be
+(Font)              scaled to size 5.76004pt on input line 33.
+LaTeX Font Info:    Font shape `OMX/mdbch/b/n' will be
+(Font)              scaled to size 10.51207pt on input line 33.
+LaTeX Font Info:    Font shape `OMX/mdbch/b/n' will be
+(Font)              scaled to size 7.68005pt on input line 33.
+LaTeX Font Info:    Font shape `OMX/mdbch/b/n' will be
+(Font)              scaled to size 5.76004pt on input line 33.
+ [3
 
 ]
 Apartado 2.
@@ -1308,172 +1285,286 @@ LaTeX Font Info:    Undo math alphabet allocation in version normal on input lin
 LaTeX Font Info:    Undo math alphabet allocation in version normal on input line 224.
 LaTeX Font Info:    Undo math alphabet allocation in version normal on input line 225.
 LaTeX Font Info:    Undo math alphabet allocation in version normal on input line 226.
-LaTeX Font Info:    No math alphabet change to frozen version normal on input line 228.
-LaTeX Font Info:    No math alphabet change to frozen version normal on input line 228.
-LaTeX Info: Redefining \. on input line 252.
-LaTeX Info: Redefining \% on input line 252.
+LaTeX Font Info:    Undo math alphabet allocation in version normal on input line 227.
+LaTeX Font Info:    No math alphabet change to frozen version normal on input line 227.
+LaTeX Font Info:    No math alphabet change to frozen version normal on input line 227.
+LaTeX Font Info:    Undo math alphabet allocation in version normal on input line 227.
+LaTeX Font Info:    No math alphabet change to frozen version normal on input line 229.
+LaTeX Font Info:    No math alphabet change to frozen version normal on input line 229.
+LaTeX Info: Redefining \. on input line 250.
+LaTeX Info: Redefining \% on input line 250.
  [9]
 LaTeX Info: Redefining \. on input line 299.
 LaTeX Info: Redefining \% on input line 299.
  [10]
-LaTeX Info: Redefining \. on input line 348.
-LaTeX Info: Redefining \% on input line 348.
- [11]
-LaTeX Info: Redefining \. on input line 389.
-LaTeX Info: Redefining \% on input line 389.
+
+/home/joaquiin_724/Documentos/ALGO/Practica3/Documentos/main.tex:303: LaTeX Error: Invalid UTF-8 byte sequence (�\expandafter).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.303 ...Variable para almacenar el ancho máximo 
+                                                  encontrado en toda la matriz
+The document does not appear to be in UTF-8 encoding.
+Try adding \UseRawInputEncoding as the first line of the file
+or specify an encoding such as \usepackage [latin1]{inputenc}
+in the document preamble.
+Alternatively, save the file in UTF-8 using your editor or another tool
+
+
+/home/joaquiin_724/Documentos/ALGO/Practica3/Documentos/main.tex:303: LaTeX Error: Invalid UTF-8 byte "A1.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.303 ...Variable para almacenar el ancho máximo 
+                                                  encontrado en toda la matriz
+The document does not appear to be in UTF-8 encoding.
+Try adding \UseRawInputEncoding as the first line of the file
+or specify an encoding such as \usepackage [latin1]{inputenc}
+in the document preamble.
+Alternatively, save the file in UTF-8 using your editor or another tool
+
+LaTeX Info: Redefining \. on input line 340.
+LaTeX Info: Redefining \% on input line 340.
+[11]
+LaTeX Info: Redefining \. on input line 390.
+LaTeX Info: Redefining \% on input line 390.
  [12]
+<assets/Img/GraficaCaminoMinimo-1-1.png, id=277, 578.16pt x 433.62pt>
+File: assets/Img/GraficaCaminoMinimo-1-1.png Graphic file (type png)
+<use assets/Img/GraficaCaminoMinimo-1-1.png>
+Package pdftex.def Info: assets/Img/GraficaCaminoMinimo-1-1.png  used on input line 434.
+(pdftex.def)             Requested size: 386.95897pt x 290.21953pt.
+
+Underfull \vbox (badness 1748) has occurred while \output is active []
+
+LaTeX Info: Redefining \. on input line 437.
+LaTeX Info: Redefining \% on input line 437.
+ [13]
+<assets/Img/GraficaCaminoMinimo-1-2.png, id=315, 578.16pt x 433.62pt>
+File: assets/Img/GraficaCaminoMinimo-1-2.png Graphic file (type png)
+<use assets/Img/GraficaCaminoMinimo-1-2.png>
+Package pdftex.def Info: assets/Img/GraficaCaminoMinimo-1-2.png  used on input line 441.
+(pdftex.def)             Requested size: 386.95897pt x 290.21953pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+LaTeX Info: Redefining \. on input line 444.
+LaTeX Info: Redefining \% on input line 444.
+ [14
+pdfTeX warning (ext4): destination with the same identifier (name{figure.4.1}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.444 D
+       estacar que en ambos casos se busca el camino mínimo entre el nodo 1... <./assets/Img/GraficaCaminoMinimo-1-1.png>]
+<assets/Img/GraficaCaminoMinimo-2-2.png, id=322, 578.16pt x 433.62pt>
+File: assets/Img/GraficaCaminoMinimo-2-2.png Graphic file (type png)
+<use assets/Img/GraficaCaminoMinimo-2-2.png>
+Package pdftex.def Info: assets/Img/GraficaCaminoMinimo-2-2.png  used on input line 452.
+(pdftex.def)             Requested size: 260.71696pt x 195.53741pt.
+
+Overfull \hbox (23.70285pt too wide) in paragraph at lines 452--453
+ [][] 
+ []
+
+LaTeX Font Info:    No math alphabet change to frozen version normal on input line 454.
+<assets/Img/GraficaCaminoMinimo-3-2.png, id=323, 578.16pt x 433.62pt>
+File: assets/Img/GraficaCaminoMinimo-3-2.png Graphic file (type png)
+<use assets/Img/GraficaCaminoMinimo-3-2.png>
+Package pdftex.def Info: assets/Img/GraficaCaminoMinimo-3-2.png  used on input line 458.
+(pdftex.def)             Requested size: 260.71696pt x 195.53741pt.
+
+Overfull \hbox (23.70285pt too wide) in paragraph at lines 458--459
+ [][] 
+ []
+
+LaTeX Font Info:    No math alphabet change to frozen version normal on input line 460.
+<assets/Img/GraficaCaminoMinimo-9-1.png, id=324, 578.16pt x 433.62pt>
+File: assets/Img/GraficaCaminoMinimo-9-1.png Graphic file (type png)
+<use assets/Img/GraficaCaminoMinimo-9-1.png>
+Package pdftex.def Info: assets/Img/GraficaCaminoMinimo-9-1.png  used on input line 466.
+(pdftex.def)             Requested size: 386.95897pt x 290.21953pt.
+LaTeX Info: Redefining \. on input line 468.
+LaTeX Info: Redefining \% on input line 468.
+[15
+pdfTeX warning (ext4): destination with the same identifier (name{figure.4.2}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.468 \end{figure}
+                  
+pdfTeX warning (ext4): destination with the same identifier (name{figure.4.3}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.468 \end{figure}
+                  
+pdfTeX warning (ext4): destination with the same identifier (name{figure.4.4}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.468 \end{figure}
+                   <./assets/Img/GraficaCaminoMinimo-1-2.png> <./assets/Img/GraficaCaminoMinimo-2-2.png> <./assets/Img/GraficaCaminoMinimo-3-2.png>]
+LaTeX Info: Redefining \. on input line 470.
+LaTeX Info: Redefining \% on input line 470.
+ [16
+pdfTeX warning (ext4): destination with the same identifier (name{figure.4.5}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.470 \chapter
+              {Viajante} % Migue <./assets/Img/GraficaCaminoMinimo-9-1.png>]
 Apartado 5.
-LaTeX Font Info:    No math alphabet change to frozen version normal on input line 398.
-[13
+LaTeX Font Info:    No math alphabet change to frozen version normal on input line 479.
+[17
 
 ]
-LaTeX Info: Redefining \. on input line 499.
-LaTeX Info: Redefining \% on input line 499.
- [14]
+LaTeX Info: Redefining \. on input line 580.
+LaTeX Info: Redefining \% on input line 580.
+ [18]
 Underfull \vbox (badness 1275) has occurred while \output is active []
 
-LaTeX Info: Redefining \. on input line 548.
-LaTeX Info: Redefining \% on input line 548.
- [15]
-<assets/Img/NearestVisual.png, id=375, 462.528pt x 346.896pt>
+LaTeX Info: Redefining \. on input line 629.
+LaTeX Info: Redefining \% on input line 629.
+ [19]
+<assets/Img/NearestVisual.png, id=428, 462.528pt x 346.896pt>
 File: assets/Img/NearestVisual.png Graphic file (type png)
 <use assets/Img/NearestVisual.png>
-Package pdftex.def Info: assets/Img/NearestVisual.png  used on input line 554.
+Package pdftex.def Info: assets/Img/NearestVisual.png  used on input line 635.
 (pdftex.def)             Requested size: 255.39108pt x 191.54501pt.
 
-Overfull \hbox (23.21866pt too wide) in paragraph at lines 554--555
+Overfull \hbox (23.21866pt too wide) in paragraph at lines 635--636
  [][] 
  []
 
-LaTeX Font Info:    No math alphabet change to frozen version normal on input line 557.
-<assets/Img/OrdVisual.png, id=376, 462.528pt x 346.896pt>
+LaTeX Font Info:    No math alphabet change to frozen version normal on input line 638.
+<assets/Img/OrdVisual.png, id=429, 462.528pt x 346.896pt>
 File: assets/Img/OrdVisual.png Graphic file (type png)
 <use assets/Img/OrdVisual.png>
-Package pdftex.def Info: assets/Img/OrdVisual.png  used on input line 560.
+Package pdftex.def Info: assets/Img/OrdVisual.png  used on input line 641.
 (pdftex.def)             Requested size: 255.39108pt x 191.54501pt.
 
-Overfull \hbox (23.21866pt too wide) in paragraph at lines 560--561
+Overfull \hbox (23.21866pt too wide) in paragraph at lines 641--642
  [][] 
  []
 
-LaTeX Font Info:    No math alphabet change to frozen version normal on input line 563.
-<assets/Img/CircVisual.png, id=377, 462.528pt x 346.896pt>
+LaTeX Font Info:    No math alphabet change to frozen version normal on input line 644.
+<assets/Img/CircVisual.png, id=430, 462.528pt x 346.896pt>
 File: assets/Img/CircVisual.png Graphic file (type png)
 <use assets/Img/CircVisual.png>
-Package pdftex.def Info: assets/Img/CircVisual.png  used on input line 567.
+Package pdftex.def Info: assets/Img/CircVisual.png  used on input line 648.
 (pdftex.def)             Requested size: 290.22107pt x 217.67754pt.
-LaTeX Info: Redefining \. on input line 581.
-LaTeX Info: Redefining \% on input line 581.
-[16
+LaTeX Info: Redefining \. on input line 662.
+LaTeX Info: Redefining \% on input line 662.
+[20
 pdfTeX warning (ext4): destination with the same identifier (name{figure.5.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.581 \subsection
+l.662 \subsection
                  {Mejoras}
 pdfTeX warning (ext4): destination with the same identifier (name{figure.5.2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.581 \subsection
+l.662 \subsection
                  {Mejoras}
 pdfTeX warning (ext4): destination with the same identifier (name{figure.5.3}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.581 \subsection
+l.662 \subsection
                  {Mejoras} <./assets/Img/NearestVisual.png> <./assets/Img/OrdVisual.png> <./assets/Img/CircVisual.png>]
-LaTeX Font Info:    No math alphabet change to frozen version normal on input line 595.
-<assets/Img/Tiempos.png, id=388, 481.8pt x 361.35pt>
+LaTeX Font Info:    No math alphabet change to frozen version normal on input line 676.
+<assets/Img/Tiempos.png, id=444, 481.8pt x 361.35pt>
 File: assets/Img/Tiempos.png Graphic file (type png)
 <use assets/Img/Tiempos.png>
-Package pdftex.def Info: assets/Img/Tiempos.png  used on input line 610.
+Package pdftex.def Info: assets/Img/Tiempos.png  used on input line 691.
 (pdftex.def)             Requested size: 232.17242pt x 174.12973pt.
-LaTeX Font Info:    No math alphabet change to frozen version normal on input line 613.
-<assets/Img/TiemposCircSort.png, id=389, 481.8pt x 361.35pt>
+LaTeX Font Info:    No math alphabet change to frozen version normal on input line 694.
+<assets/Img/TiemposCircSort.png, id=445, 481.8pt x 361.35pt>
 File: assets/Img/TiemposCircSort.png Graphic file (type png)
 <use assets/Img/TiemposCircSort.png>
-Package pdftex.def Info: assets/Img/TiemposCircSort.png  used on input line 616.
+Package pdftex.def Info: assets/Img/TiemposCircSort.png  used on input line 697.
 (pdftex.def)             Requested size: 232.17242pt x 174.12973pt.
-LaTeX Font Info:    No math alphabet change to frozen version normal on input line 619.
-LaTeX Info: Redefining \. on input line 626.
-LaTeX Info: Redefining \% on input line 626.
- [17
+LaTeX Font Info:    No math alphabet change to frozen version normal on input line 700.
+LaTeX Info: Redefining \. on input line 707.
+LaTeX Info: Redefining \% on input line 707.
+ [21
 pdfTeX warning (ext4): destination with the same identifier (name{figure.5.4}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.626 
+l.707 
       
 pdfTeX warning (ext4): destination with the same identifier (name{figure.5.5}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.626 
+l.707 
        <./assets/Img/Tiempos.png> <./assets/Img/TiemposCircSort.png>]
-<assets/Img/TiemposMejora.png, id=398, 481.8pt x 361.35pt>
+<assets/Img/TiemposMejora.png, id=456, 481.8pt x 361.35pt>
 File: assets/Img/TiemposMejora.png Graphic file (type png)
 <use assets/Img/TiemposMejora.png>
-Package pdftex.def Info: assets/Img/TiemposMejora.png  used on input line 631.
+Package pdftex.def Info: assets/Img/TiemposMejora.png  used on input line 712.
 (pdftex.def)             Requested size: 232.17242pt x 174.12973pt.
-LaTeX Font Info:    No math alphabet change to frozen version normal on input line 634.
-<assets/Img/TiemposMejoraChico.png, id=399, 481.8pt x 361.35pt>
+LaTeX Font Info:    No math alphabet change to frozen version normal on input line 715.
+<assets/Img/TiemposMejoraChico.png, id=457, 481.8pt x 361.35pt>
 File: assets/Img/TiemposMejoraChico.png Graphic file (type png)
 <use assets/Img/TiemposMejoraChico.png>
-Package pdftex.def Info: assets/Img/TiemposMejoraChico.png  used on input line 637.
+Package pdftex.def Info: assets/Img/TiemposMejoraChico.png  used on input line 718.
 (pdftex.def)             Requested size: 232.17242pt x 174.12973pt.
-LaTeX Font Info:    No math alphabet change to frozen version normal on input line 640.
-<assets/Img/Precision.png, id=400, 481.8pt x 361.35pt>
+LaTeX Font Info:    No math alphabet change to frozen version normal on input line 721.
+<assets/Img/Precision.png, id=458, 481.8pt x 361.35pt>
 File: assets/Img/Precision.png Graphic file (type png)
 <use assets/Img/Precision.png>
-Package pdftex.def Info: assets/Img/Precision.png  used on input line 649.
+Package pdftex.def Info: assets/Img/Precision.png  used on input line 730.
 (pdftex.def)             Requested size: 232.17242pt x 174.12973pt.
-LaTeX Font Info:    No math alphabet change to frozen version normal on input line 652.
-<assets/Img/PrecisionMejora.png, id=401, 481.8pt x 361.35pt>
+LaTeX Font Info:    No math alphabet change to frozen version normal on input line 733.
+<assets/Img/PrecisionMejora.png, id=459, 481.8pt x 361.35pt>
 File: assets/Img/PrecisionMejora.png Graphic file (type png)
 <use assets/Img/PrecisionMejora.png>
-Package pdftex.def Info: assets/Img/PrecisionMejora.png  used on input line 655.
+Package pdftex.def Info: assets/Img/PrecisionMejora.png  used on input line 736.
 (pdftex.def)             Requested size: 232.17242pt x 174.12973pt.
-LaTeX Font Info:    No math alphabet change to frozen version normal on input line 658.
-LaTeX Font Info:    No math alphabet change to frozen version normal on input line 666.
-LaTeX Info: Redefining \. on input line 668.
-LaTeX Info: Redefining \% on input line 668.
- [18
+LaTeX Font Info:    No math alphabet change to frozen version normal on input line 739.
+LaTeX Font Info:    No math alphabet change to frozen version normal on input line 747.
+LaTeX Info: Redefining \. on input line 749.
+LaTeX Info: Redefining \% on input line 749.
+ [22
 pdfTeX warning (ext4): destination with the same identifier (name{figure.5.6}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.668 \end{document}
+l.749 \end{document}
                     
 pdfTeX warning (ext4): destination with the same identifier (name{figure.5.7}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.668 \end{document}
+l.749 \end{document}
                     
 pdfTeX warning (ext4): destination with the same identifier (name{figure.5.8}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.668 \end{document}
+l.749 \end{document}
                     
 pdfTeX warning (ext4): destination with the same identifier (name{figure.5.9}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.668 \end{document}
+l.749 \end{document}
                      <./assets/Img/TiemposMejora.png> <./assets/Img/TiemposMejoraChico.png> <./assets/Img/Precision.png> <./assets/Img/PrecisionMejora.png>] (./main.aux
 LaTeX Info: Redefining \. on input line 20.
 LaTeX Info: Redefining \% on input line 20.
 )
 
-LaTeX Warning: There were multiply-defined labels.
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
  ) 
 Here is how much of TeX's memory you used:
- 36874 strings out of 476091
- 739891 string characters out of 5794081
- 2203330 words of memory out of 5000000
- 56189 multiletter control sequences out of 15000+600000
+ 37002 strings out of 476091
+ 742576 string characters out of 5794081
+ 2225330 words of memory out of 5000000
+ 56262 multiletter control sequences out of 15000+600000
  596572 words of font info for 140 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 104i,12n,111p,1295b,2141s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 104i,12n,111p,1301b,2143s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {/usr/share/texmf/fonts/enc/dvips/tex-gyre/q-ec.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/ly1/texnansi.enc}{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t1.enc}{/usr/share/texmf/fonts/enc/dvips/tex-gyre/q-ts1.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texlive/texmf-dist/fonts/type1/bitstrea/charter/bchb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/bitstrea/charter/bchr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/bitstrea/charter/bchri8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/euler/eusm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/mathdesign/mdbch/md-chbi7m.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/mathdesign/mdbch/md-chr7t.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/mathdesign/mdbch/md-chr7y.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/mathdesign/mdbch/md-chri7m.pfb></usr/share/texmf/fonts/type1/public/tex-gyre/qtmb.pfb></usr/share/texmf/fonts/type1/public/tex-gyre/qtmbi.pfb></usr/share/texmf/fonts/type1/public/tex-gyre/qtmr.pfb></usr/share/texmf/fonts/type1/public/tex-gyre/qtmri.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt1000.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb>
-Output written on main.pdf (18 pages, 509035 bytes).
+Output written on main.pdf (22 pages, 802875 bytes).
 PDF statistics:
- 600 PDF objects out of 1000 (max. 8388607)
- 523 compressed objects within 6 object streams
- 294 named destinations out of 1000 (max. 500000)
- 199 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 674 PDF objects out of 1000 (max. 8388607)
+ 583 compressed objects within 6 object streams
+ 346 named destinations out of 1000 (max. 500000)
+ 240 words of extra memory for PDF output out of 10000 (max. 10000000)
 

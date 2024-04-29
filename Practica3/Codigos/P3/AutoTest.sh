@@ -4,15 +4,15 @@
 script_directory=$(dirname "$0")
 cd $script_directory
 
-initial_point=1 # Punto inicial
-final_point=5 # Punto final
+initial_point=4 # Punto inicial
+final_point=11 # Punto final
 
 # Todo LO QUE SE CAMBIE AQUI SE CAMBIA TAMBIÉN EN CreacionCasos.sh
 # ---------------------------------------------------------
 # Número de ejecuciones
-num_puntos=7
-num_archivos_puntos=5
-num_grafos=2 # Número de grafos por archivo de puntos
+num_puntos=15
+num_archivos_puntos=10
+num_grafos=1 # Número de grafos por archivo de puntos
 
 # ---------------------------------------------------------
 
