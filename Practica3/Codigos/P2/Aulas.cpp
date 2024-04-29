@@ -121,12 +121,12 @@ int minAulas(const vector<examen> & v){
             horario[i].push(v[nex]);
         }
     }
-    /*
+    
    for(int i = 0; i<horario.size();i++){
         cout <<i<< endl;
         imprimirCola(horario[i]);
     }
-    */
+    
     return naulas; //Funcion objetivo 
 }
 
@@ -135,15 +135,15 @@ int main(int argc, char* argv[]) {
     vector<examen> horarios;
     generadorExamen(atoi(argv[1]),atoi(argv[2]), horarios);
     sort(horarios.begin(),horarios.end(),compare());
-    //printv(horarios);
-    //cout << "=========================================="<<endl;
+    printv(horarios);
+    cout << "=========================================="<<endl;
     int n;
     auto start = chrono::high_resolution_clock::now();
     n = minAulas(horarios);
     auto end = chrono::high_resolution_clock::now();
-    cout << chrono::duration_cast<chrono::nanoseconds>(end - start).count()<<std::endl;
+    //cout << chrono::duration_cast<chrono::nanoseconds>(end - start).count()<<std::endl;
    
-    //cout << "numero de aulas : "<<n<<endl;
+    cout << "numero de aulas : "<<n<<endl;
 
     return 0;
 }

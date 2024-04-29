@@ -165,7 +165,128 @@ las aulas actuales se crea una nueva aula y se añade el examen a esa aula.
 \section{Justificación Greedy}
 
 En este apartado vamos a analizar el algoritmo identificando los componentes que lo hacen un algoritmo greedy 
-y demostrando que siempre llega a la solución óptima. 
+y demostrando que siempre llega a la solución óptima.
+\section{Componentes}
+\begin{itemize}
+      \item Candidatos a seleccionar:\\
+            En este problema los candidatos a seleccionar son los exámenes 
+            los cuales se tendrán que distribuir entre aulas.
+      \item Candidatos seleccionados:
+            Los candidatos seleccionados en este caso son el conjunto aula-exámenes
+            del cual nos interesa para la solución el número de aulas en el que se distribuyen los exámenes.
+
+      \item Función Solución:
+            La función silución en este caso es el for de la linea 20
+            ya que la solución se alcanza cuando el vector de 
+            exámenes se ha conseguido recorrer entero , lo que significará que 
+            todos los exámenes han sido asignados a un aula.
+            Esto siempre se conseguirá dada la condición del problema.
+            
+
+      \item Función de Selección:\\ 
+            La función de selección en este algoritmo se encuentra
+            en las líneas 21 a 24 donde el bucle while recorre las 
+            posibles aulas para seleccionar la primera en la que haya 
+            un hueco para el posible candidato .
+
+      \item Función de factibilidad:\\
+            La función de factibilidad se encuentra entre las líneas 24 y 32 
+            la cual consiste de una estructura if-else que comprueba si se necesita 
+            crear una aula nueva o se puede añadir a un aula ya existente.
+            
+            En este caso siempre es posible completar un conjunto de candidatos para 
+            dar la solución al problema ya que el numero de aulas es mayor que el de exámenes.
+
+
+      \item Funcion objetivo: \\
+            La función objetivo es la línea 34 en la cual se devuelve la cantidad de aulas usadas.
+
+\end{itemize}
+
+\subsection{optimalidad}
+Una vez definidas las funciones, conjuntos de candidatos, etc,  pasaremos a realizar la demostración del algortimo greedy.
+Para la demostración se usará el método de inducción en el cual definiremos dos casos base uno para 1 exámen y otro para 2 
+exámenes para que sea más facil la  demostración.
+
+\begin{itemize}
+      \item Caso base n=1:
+            En el caso base se tiene un solo examen y por tanto solo se necesita un aula para realizarlo.Por lo que se 
+            asigna el aula y el examen sin problema
+      \item Caso base n=2:
+            En el caso base n=2 se tienen dos exámenes y caben 2 posibilidades, que los exámenes se solapen por tanto 
+            se necesitarán 2 aulas o que no se solapen y por tanto se necesitará solo un aula.
+
+      \item Hipótesis de inducción:
+            Supongamos que el algoritmo es óptimo para n exámenes y veamos que también lo es par n+1 exámenes.
+      \item Paso de inducción:
+            Supongamos que para n exámenes tenemos una solución óptima de k aulas . Veamos que ocurre para n+1 
+            donde caben dos opciones :
+            \begin{itemize}
+                  \item Que el exámen n+1 se solape con alguno de los n exámenes anteriores  que se están realizando en una 
+                        de las k aulas por tanto se necesitará una nueva aula para el examen n+1 por lo que el número de aulas aumentará a 
+                        k+1 y como la solución para n exámenes era óptima la solución para n+1 exámenes también lo será ya que el único cambio
+                        es el de aniñdir un aula. 
+                  \item Que el examen n+1 no se solape con ninguno de los n exámenes anteriores , en este caso se podrá 
+                        añadir a un aula ya existente en la que no se esté haciendo ningún exámen 
+                        por lo que el número de aulas necesarias será k y como para n exámenes k era la solución óptima y este último 
+                        exámen no ha modificado el valor de k la solución para n+1 exámenes también será óptima.
+            \end{itemize}
+      \item Conclusión:
+            Dado que se ha demostrado que existe solución óptima para n+1 exámenes concluimos 
+            la demostración por inducción.
+
+\end{itemize}
+\section{Ejecución del Algoritmo}
+Para ejecutar el programa se usan los siguientes parámetros:
+./Aulas <número de exámenes> <duración máxima del examen>
+
+0:37 - 2:16 
+0:51 - 1:56 
+2:44 - 5:11 
+8:32 - 10:2 
+10:47 - 11:17 
+13:12 - 16:12 
+13:45 - 13:56 
+15:51 - 17:10 
+17:51 - 20:46 
+18:30 - 18:30 
+19:24 - 19:43 
+19:51 - 22:34 
+21:51 - 23:57 
+22:18 - 23:36 
+
+------------------------------
+
+0
+0:37 - 2:16               
+2:44 - 5:11 
+8:32 - 10:2 
+10:47 - 11:17 
+13:12 - 16:12 
+17:51 - 20:46 
+21:51 - 23:57 
+
+1
+0:51 - 1:56 
+13:45 - 13:56 
+15:51 - 17:10 
+18:30 - 18:30 
+19:24 - 19:43 
+19:51 - 22:34 
+
+2 
+22:18 - 23:36 
+
+numero de aulas : 3
+
+
+\section{Graficas}
+
+\begin{figure}[H]
+      \centering
+      \includegraphics[width=0.8\textwidth]{assets/Img/Aulas.png}
+      \caption{Ejecución de 5000 a 125000 examenes de maximo 3 horas}
+\end{figure}
 
 
 \chapter{Camino mínimo} % Manuel y Joaquin
