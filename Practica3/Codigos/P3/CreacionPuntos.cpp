@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <string>
+#include <chrono>
 
 using namespace std;
 
@@ -32,8 +33,9 @@ int main(int argc, char * argv[]) {
         return 1;
     }
 
-    // Inicializar el generador de números aleatorios
-    srand(time(NULL));
+    // Inicialización de srand con resolución más alta
+    unsigned seed = chrono::high_resolution_clock::now().time_since_epoch().count();
+    srand(seed);
 
     // Generar puntos aleatorios y escribirlos en el archivo
     for (int i = 0; i < numPuntos; i++) {

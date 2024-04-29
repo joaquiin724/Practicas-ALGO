@@ -8,6 +8,7 @@
 #include <ctime>
 #include <iomanip> // Para std::setw
 #include <limits>
+#include <chrono>
 
 using namespace std;
 
@@ -52,33 +53,39 @@ public:
     }
 };
 
-// Debe estar la matriz inicializada a 0
-void creacionGrafos(const vector<Point>&vec, vector<vector<double>> &matriz){
-    int size=vec.size();
+void creacionGrafos(const vector<Point>& vec, vector<vector<double>>& matriz) {
+    int size = vec.size();
 
-    srand(time(NULL));
+    // Inicialización de srand con resolución más alta
+    unsigned seed = chrono::high_resolution_clock::now().time_since_epoch().count();
+    srand(seed);
 
-    for (int i=0; i<size; i++){
+    for (int i = 0; i < size; i++) {
         // Num nodos que conectaremos con el nodo i
-        int conexiones=rand()%(size-1)+1;
-        for(int j=0; j<conexiones; j++){
-            // Nodo a conectar con el nodo i
+        int conexiones = rand() % (size/3 - 1) + 1; // Asegura al menos una conexión por nodo
+        for (int j = 0; j < conexiones; j++) {
             int nodo_conectar;
-            do{
-                nodo_conectar=rand()%size;
-            } while(nodo_conectar==i);
-            // Añadimos su distancia a la matriz
-            matriz[i][nodo_conectar]=vec[i].distanceTo(vec[nodo_conectar]);
+            do {
+                nodo_conectar = rand() % size;
+            } while (nodo_conectar == i); // Asegura no conectarse a sí mismo
+
+            // Añadimos su distancia a la matriz de forma simétrica
+            double distancia = vec[i].distanceTo(vec[nodo_conectar]);
+            matriz[i][nodo_conectar] = distancia;
+            matriz[nodo_conectar][i] = distancia; // Simetría
         }
     }
-    
-    int p_inicio=rand()%size;
 
-    for(int i=0; i<size; i++){
-        matriz[p_inicio][i]=vec[p_inicio].distanceTo(vec[i]);
-        matriz[i][i]=0;
+    // Garantizar que al menos un nodo (p_inicio) esté conectado a todos los demás
+    int p_inicio = rand() % size;
+    for (int i = 0; i < size; i++) {
+        if (i != p_inicio) {
+            double distancia = vec[p_inicio].distanceTo(vec[i]);
+            matriz[p_inicio][i] = distancia;
+            matriz[i][p_inicio] = distancia; // Simetría
+        }
+        matriz[i][i] = 0; // Distancia a sí mismo es cero
     }
-
 }
 
 void mostrarVector(const std::vector<Point>& vec) {
@@ -92,25 +99,39 @@ void mostrarVector(const std::vector<Point>& vec) {
     std::cout << "]" << std::endl;
 }
 
-// Función para mostrar una matriz en un archivo
+
 void mostrarMatriz(std::ofstream &salida, const std::vector<std::vector<double>>& matriz) {
-    // Configurar la salida para mostrar números con tres decimales
+    int anchoMaximo = 0; // Variable para almacenar el ancho máximo encontrado en toda la matriz
+    const std::string infStr = "INF";
+
+    // Primero, vamos a calcular el ancho máximo para los números y "INF"
+    for (const auto& fila : matriz) {
+        for (double elemento : fila) {
+            std::ostringstream ss;
+            if (elemento != std::numeric_limits<double>::max()) {
+                ss << std::fixed << std::setprecision(3) << elemento; // Convertir el número a string con 3 decimales
+            } else {
+                ss << infStr; // Si es infinito, usamos "INF"
+            }
+            anchoMaximo = std::max(anchoMaximo, static_cast<int>(ss.str().length())); // Actualizar el ancho máximo
+        }
+    }
+
+    // Configuración de la salida con el ancho encontrado
     salida << std::fixed << std::setprecision(3);
 
-    // Iterar sobre cada fila de la matriz
+    // Mostrar la matriz con el ancho máximo
     for (const auto& fila : matriz) {
-        // Iterar sobre cada elemento de la fila y mostrarlo
         for (double elemento : fila) {
-            if(elemento==numeric_limits<double>::max())
-                salida << std::setw(5) << "INF" << "\t";
-            else
-                // Asegurar que todos los números se alineen correctamente usando setw
-                salida << std::setw(5) << elemento << "\t"; // Separador de columnas
+            if (elemento == std::numeric_limits<double>::max()) {
+                salida << std::right << std::setw(anchoMaximo) << infStr << "\t";
+            } else {
+                salida << std::right << std::setw(anchoMaximo) << elemento << "\t";
+            }
         }
-        salida << std::endl; // Nueva línea para la siguiente fila
+        salida << std::endl;
     }
 }
-
 
 int main (int argc, char *argv[]) {
 
