@@ -33,7 +33,7 @@ plt.plot([sorted_x[0], sorted_x[-1]], [sorted_y[0], sorted_y[-1]], color="gray",
 # Add labels and title
 plt.xlabel("X-Coordinate")
 plt.ylabel("Y-Coordinate")
-plt.title("Visualization of Ordered (TSP)")
+plt.title("Visualization of Shortest Distance (TSP)")
 plt.legend()
 # Show the plot
 plt.grid(True)

@@ -411,7 +411,7 @@ Para ejecutar el programa se usan los siguientes parámetros:
 2 \\
 22:18 - 23:36 
 
-\\numero de aulas : 3
+numero de aulas : 3
 
 \section{Análisis Teórico}
 Comenzamos mirando el interior del bucle for donde la eficiencia entre 
@@ -620,36 +620,36 @@ escribir la matriz en un archivo de texto y otra para leerla:
 \begin{lstlisting}
 
 // Funcion para mostrar una matriz en un archivo de salida
-void mostrarMatriz(std::ofstream &salida, const std::vector<std::vector<double>>& matriz) {
+void mostrarMatriz(ofstream &salida, const vector<vector<double>>& matriz) {
       int anchoMaximo = 0;
-      const std::string infStr = "INF";
+      const string infStr = "INF";
 
       // Primero, vamos a calcular el ancho maximo para los numeros y "INF"
       for (const auto& fila : matriz) {
             for (double elemento : fila) {
-            std::ostringstream ss;
-            if (elemento != std::numeric_limits<double>::max()) {
-                  ss << std::fixed << std::setprecision(3) << elemento; // Convertir el numero a string con 3 decimales
+            ostringstream ss;
+            if (elemento != numeric_limits<double>::max()) {
+                  ss << fixed << setprecision(3) << elemento; // Convertir el numero a string con 3 decimales
             } else {
                   ss << infStr; // Si es infinito, usamos "INF"
             }
-            anchoMaximo = std::max(anchoMaximo, static_cast<int>(ss.str().length())); // Actualizar el ancho maximo
+            anchoMaximo = max(anchoMaximo, static_cast<int>(ss.str().length())); // Actualizar el ancho maximo
             }
       }
 
       // Configuracion de la salida con el ancho encontrado
-      salida << std::fixed << std::setprecision(3);
+      salida << fixed << setprecision(3);
 
       // Mostrar la matriz con el ancho maximo
       for (const auto& fila : matriz) {
             for (double elemento : fila) {
-            if (elemento == std::numeric_limits<double>::max()) {
-                  salida << std::right << std::setw(anchoMaximo) << infStr << "\t";
+            if (elemento == numeric_limits<double>::max()) {
+                  salida << right << setw(anchoMaximo) << infStr << "\t";
             } else {
-                  salida << std::right << std::setw(anchoMaximo) << elemento << "\t";
+                  salida << right << setw(anchoMaximo) << elemento << "\t";
             }
             }
-            salida << std::endl;
+            salida << endl;
       }
 }
       
@@ -863,7 +863,10 @@ vector<Point> nearestNeighborTSP(const vector<Point>& points) {
 \end{lstlisting}
 Como se puede apreciar, se ha hecho uso de un vector de puntos visitados (Programación 
 dinámica) para evitar visitar un punto más de una vez, esto no supone una complejidad
-notable, sin embargo, si que supone una gran mejora en términos de eficiencia.
+notable, sin embargo, si que supone una gran mejora en términos de eficiencia. Hemos obviado
+un análisis detallado de la eficiencia en este tipo de algoritmos, ya que, en general, resulta
+trivial la obtención de la misma, en este caso, claramente estamos ante una eficiencia de
+$O(n^2)$.
 
 \section{Algoritmo \textit{Ordenación}}
 Como el nombre indica, este algoritmo consiste en ordenar los puntos de partida de
@@ -893,7 +896,7 @@ pueden ser muy grandes, lo que hace que el camino total sea mucho mayor de lo es
 además para cerrar el camino, la distancia es la máxima posible en cuanto a x. Para mejorar
 esto, podemos observar que si nuestro problema son los saltos en la coordenada y 
 y la distancia de cierre, podemos intentar minimizarlos, de donde surge el siguiente
-algoritmo.
+algoritmo. Una vez más, recalcamos que la eficiencia de este algoritmo es $O(n \cdot log(n))$.
 
 \section{Algoritmo \textit{Circular}}
 Para solucionar el problema anterior, se propone una alternativa que se basa en la misma
@@ -947,7 +950,6 @@ vector<Point> CircTSP(const vector<Point>& points) {
     return circularTour;
 }
 \end{lstlisting}
-
 Una vez mas, podemos apreciar que se puede aumentar la eficiencia del algoritmo
 optimizando bucles y la ordenación de manera que el máximo y el mínimo se calculen
 mientras se ordenan los puntos, sin embargo, esto no supone una mejora en cuanto
@@ -956,6 +958,54 @@ como el compilador se encarga de optimizar esos detalles que no afectan al orden
 de eficiencia, se ha optado por dejarlo de esta forma para facilitar la lectura, 
 en una implementación real, se recomendaría la optimización manual de estos detalles, ya que,
 aunque bueno, el compilador no es perfecto y no siempre optimiza de la mejor forma.
+Claramente la eficiencia vuelve a ser $O(n \cdot log(n))$.
+
+\section{Algoritmo \textit{SDA}}
+El anterior algoritmo, implementa un tipo de solución que quizás podríamos clasificar
+más que como \textit{Greedy}, como \textit{Heurística}, por ello, se ha implementado 
+un cuarto algoritmo basado en \textit{Greedy}, que aunque no proporciona una solución 
+con una idea muy innovadora, entra dentro del tipo de algoritmo requerido. Este algoritmo
+es muy parecido a \textit{Nearest Neighbour}, sin embargo, en vez de elegir el punto más
+cercano, elige el punto cuya adición al camino total suponga la menor distancia, de primeras
+pudiera parecer que estamos haciendo lo mismo, sin embargo, y como confirmaremos más adelante,
+esto no es así, ya que el factor distancia de cierre no se tenia en cuenta en el algoritmo
+\textit{Nearest Neighbour}. A continuación se muestra la implementación del algoritmo:
+\begin{lstlisting}[language=C++]
+vector<Point> shortestDistanceTSP(const vector<Point>& points) {
+    vector<Point> path;
+    vector<bool> visited(points.size(), false);
+    path.reserve(points.size());
+    path.emplace_back(points[0]);
+    visited[0] = true;
+
+    for (int i = 0; i < points.size() - 1; ++i) {
+        double minDistance = numeric_limits<double>::max();
+        int nearestNeighbor = -1;
+        for (int j = 0; j < points.size(); ++j) {
+            if (!visited[j]) {
+                double distance = path[i].distanceTo(points[j]) + points[j].distanceTo(points[0]);
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    nearestNeighbor = j;
+                }
+            }
+        }
+        path.emplace_back(points[nearestNeighbor]);
+        visited[nearestNeighbor] = true;
+    }
+
+    return path;
+}
+\end{lstlisting}
+Como se puede apreciar, la implementación es muy parecida a la de \textit{Nearest Neighbour},
+también, como en todos, la eficiencia se puede mejorar, sin embargo, no supone una mejora
+significativa, por lo que se ha optado por dejarlo de esta forma. Para este algoritmo, solo
+veremos una parte de la comparativa, ya que, como se ha mencionado, es muy parecido a
+\textit{Nearest Neighbour}, y se ha añadido para proporcionar una mayor variedad de algoritmos
+y cumplir con el requisito de implementar algoritmos puramente \textit{Greedy}.
+Como no podía ser de otra forma, la eficiencia de este algoritmo es $O(n^2)$.
+
+
 \section{Conclusiones}
 Una vez presentados los tres algoritmos, nos disponemos a obtener conclusiones acerca
 de ellos así como a compararlos para determinar cual es el mejor, o cómo podríamos
@@ -981,9 +1031,18 @@ de forma sencilla la idea que se ha querido transmitir con cada uno de los algor
 \end{figure}
 \begin{figure}[H]
       \centering
-      \includegraphics[width=0.6\linewidth]{assets/Img/CircVisual.png}
-      \caption{Circular}
-      \label{fig:circular}
+      \begin{minipage}{.48\textwidth}
+            \centering
+            \includegraphics[width=1.1\linewidth]{assets/Img/CircVisual.png}
+            \caption{Circular}
+            \label{fig:nearest}
+      \end{minipage}%
+      \begin{minipage}{.48\textwidth}
+            \centering
+            \includegraphics[width=1.1\linewidth]{assets/Img/ShortestVisual.png}
+            \caption{Shortest}
+            \label{fig:ordered}
+      \end{minipage}
 \end{figure}
 Una vez graficadas, podemos ver los problemas principales de cada uno de los algoritmos,
 en el caso de \textit{Nearest Neighbour}, se puede apreciar que la distancia de cierre
@@ -991,9 +1050,13 @@ es muy grande, sin embargo, aparenta un camino parecido al óptimo, en el caso d
 \textit{Ordenación}, se puede apreciar que, mientras los puntos x están cerca, los saltos
 en y son muy grandes, y además la distancia de cierre es máxima, en el caso de \textit{Circular},
 se puede apreciar que los saltos en y son más pequeños y la distancia de cierre es menor.
+Por último, en el caso de \textit{Shortest}, se puede apreciar el mismo problema que en 
+\textit{Nearest Neighbour}, sin embargo, se puede ver que la distancia de cierre tiende a ser
+menor.
 \\ \\ 
 De este análisis visual, podemos deducir que el algoritmo \textit{Nearest Neighbour} es el
-que mejor resultado proporciona, le sigue \textit{Circular} y por último \textit{Ordenación}.
+que mejor resultado proporciona, obviamente \textit{Shortest Distance} queda muy parecido, a veces
+por arriba y otras por abajo, le sigue \textit{Circular} y por último \textit{Ordenación}.
 Podríamos dejar el estudio aquí, sin embargo, se proponen maneras de mejorar los algoritmos.
 \subsection{Mejoras}
 Para mejorar y comparar los algoritmos, comenzamos notando que en el caso de 
@@ -1003,6 +1066,8 @@ el algoritmo con distintos puntos de partida y quedarnos con el mejor resultado.
 En los casos de \textit{Ordenación} y \textit{Circular}, esto no tendría mucho sentido, 
 sin embargo podríamos jugar con la ordenación respecto de un eje u otro, o con la
 división en dos partes, respectivamente, para mejorar la precisión de los mismos.
+En el caso de \textit{Shortest Distance}, se podría intentar combinar con \textit{Nearest Neighbour}
+para obtener un mejor resultado, ya que, como se ha mencionado, es muy parecido a este.
 \\ \\
 Este tipo de mejoras, son sencillas y no suponen un gran aumento en cuanto al tiempo
 de ejecución, sin embargo, tampoco suponen una mejora significativa en cuanto a la
