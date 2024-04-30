@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Debian) (preloaded format=pdflatex 2024.3.22)  30 APR 2024 18:06
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Debian) (preloaded format=pdflatex 2024.3.22)  30 APR 2024 18:08
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1271,401 +1271,401 @@ Apartado 3.
 ]
 Apartado 4.
 LaTeX Font Info:    Font shape `T1/cmtt/m/n' will be
-(Font)              scaled to size 11.73846pt on input line 131.
+(Font)              scaled to size 11.73846pt on input line 133.
 LaTeX Font Info:    Font shape `T1/cmtt/m/n' will be
-(Font)              scaled to size 10.72006pt on input line 131.
+(Font)              scaled to size 10.72006pt on input line 133.
 [7
 
 ]
-LaTeX Info: Redefining \. on input line 197.
-LaTeX Info: Redefining \% on input line 197.
+LaTeX Info: Redefining \. on input line 199.
+LaTeX Info: Redefining \% on input line 199.
  [8]
 <assets/Img/Herencia.png, id=163, 481.8pt x 361.35pt>
 File: assets/Img/Herencia.png Graphic file (type png)
 <use assets/Img/Herencia.png>
-Package pdftex.def Info: assets/Img/Herencia.png  used on input line 200.
+Package pdftex.def Info: assets/Img/Herencia.png  used on input line 202.
 (pdftex.def)             Requested size: 290.22107pt x 217.67181pt.
-LaTeX Info: Redefining \. on input line 205.
-LaTeX Info: Redefining \% on input line 205.
+LaTeX Info: Redefining \. on input line 207.
+LaTeX Info: Redefining \% on input line 207.
  [9
 pdfTeX warning (ext4): destination with the same identifier (name{figure.4.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.205 \chapter
+l.207 \chapter
               {Asignación de aulas} <./assets/Img/Herencia.png>]
 Apartado 5.
 [10
 
 ]
-LaTeX Info: Redefining \. on input line 311.
-LaTeX Info: Redefining \% on input line 311.
+LaTeX Info: Redefining \. on input line 313.
+LaTeX Info: Redefining \% on input line 313.
  [11]
-LaTeX Info: Redefining \. on input line 379.
-LaTeX Info: Redefining \% on input line 379.
+LaTeX Info: Redefining \. on input line 381.
+LaTeX Info: Redefining \% on input line 381.
  [12]
-LaTeX Info: Redefining \. on input line 444.
-LaTeX Info: Redefining \% on input line 444.
+LaTeX Info: Redefining \. on input line 446.
+LaTeX Info: Redefining \% on input line 446.
  [13]
 <assets/Img/Aulas.png, id=246, 481.8pt x 361.35pt>
 File: assets/Img/Aulas.png Graphic file (type png)
 <use assets/Img/Aulas.png>
-Package pdftex.def Info: assets/Img/Aulas.png  used on input line 456.
+Package pdftex.def Info: assets/Img/Aulas.png  used on input line 458.
 (pdftex.def)             Requested size: 386.95897pt x 290.22725pt.
-LaTeX Info: Redefining \. on input line 461.
-LaTeX Info: Redefining \% on input line 461.
+LaTeX Info: Redefining \. on input line 463.
+LaTeX Info: Redefining \% on input line 463.
  [14
 pdfTeX warning (ext4): destination with the same identifier (name{figure.5.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.461 \chapter
+l.463 \chapter
               {Camino mínimo} % Manuel y Joaquin <./assets/Img/Aulas.png>]
 Apartado 6.
 LaTeX Font Info:    Freeze math alphabet allocation in version normal.
-(Font)              Allocated math groups: 14 (local: 2) on input line 477.
-LaTeX Font Info:    Trying to load font information for U+eus on input line 477.
+(Font)              Allocated math groups: 14 (local: 2) on input line 479.
+LaTeX Font Info:    Trying to load font information for U+eus on input line 479.
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/ueus.fd
 File: ueus.fd 2013/01/14 v3.01 Euler Script
 )
-LaTeX Font Info:    Undo math alphabet allocation in version normal on input line 477.
-LaTeX Font Info:    Undo math alphabet allocation in version normal on input line 478.
-LaTeX Font Info:    Undo math alphabet allocation in version normal on input line 481.
-LaTeX Font Info:    Undo math alphabet allocation in version normal on input line 481.
-LaTeX Font Info:    Undo math alphabet allocation in version normal on input line 482.
-LaTeX Font Info:    Undo math alphabet allocation in version normal on input line 485.
-LaTeX Font Info:    Undo math alphabet allocation in version normal on input line 485.
-LaTeX Font Info:    Undo math alphabet allocation in version normal on input line 496.
-LaTeX Font Info:    Undo math alphabet allocation in version normal on input line 496.
+LaTeX Font Info:    Undo math alphabet allocation in version normal on input line 479.
+LaTeX Font Info:    Undo math alphabet allocation in version normal on input line 480.
+LaTeX Font Info:    Undo math alphabet allocation in version normal on input line 483.
+LaTeX Font Info:    Undo math alphabet allocation in version normal on input line 483.
+LaTeX Font Info:    Undo math alphabet allocation in version normal on input line 484.
+LaTeX Font Info:    Undo math alphabet allocation in version normal on input line 487.
+LaTeX Font Info:    Undo math alphabet allocation in version normal on input line 487.
+LaTeX Font Info:    Undo math alphabet allocation in version normal on input line 498.
+LaTeX Font Info:    Undo math alphabet allocation in version normal on input line 498.
  [15
 
 ]
-LaTeX Font Info:    Undo math alphabet allocation in version normal on input line 504.
-LaTeX Font Info:    Undo math alphabet allocation in version normal on input line 505.
 LaTeX Font Info:    Undo math alphabet allocation in version normal on input line 506.
-LaTeX Font Info:    No math alphabet change to frozen version normal on input line 508.
+LaTeX Font Info:    Undo math alphabet allocation in version normal on input line 507.
 LaTeX Font Info:    Undo math alphabet allocation in version normal on input line 508.
-LaTeX Font Info:    No math alphabet change to frozen version normal on input line 509.
-LaTeX Font Info:    No math alphabet change to frozen version normal on input line 509.
-LaTeX Font Info:    No math alphabet change to frozen version normal on input line 509.
-LaTeX Font Info:    No math alphabet change to frozen version normal on input line 509.
-LaTeX Font Info:    Undo math alphabet allocation in version normal on input line 510.
-LaTeX Font Info:    No math alphabet change to frozen version normal on input line 510.
 LaTeX Font Info:    No math alphabet change to frozen version normal on input line 510.
 LaTeX Font Info:    Undo math alphabet allocation in version normal on input line 510.
-LaTeX Font Info:    No math alphabet change to frozen version normal on input line 510.
-LaTeX Font Info:    Undo math alphabet allocation in version normal on input line 510.
-LaTeX Font Info:    Undo math alphabet allocation in version normal on input line 514.
-LaTeX Font Info:    Undo math alphabet allocation in version normal on input line 515.
+LaTeX Font Info:    No math alphabet change to frozen version normal on input line 511.
+LaTeX Font Info:    No math alphabet change to frozen version normal on input line 511.
+LaTeX Font Info:    No math alphabet change to frozen version normal on input line 511.
+LaTeX Font Info:    No math alphabet change to frozen version normal on input line 511.
+LaTeX Font Info:    Undo math alphabet allocation in version normal on input line 512.
+LaTeX Font Info:    No math alphabet change to frozen version normal on input line 512.
+LaTeX Font Info:    No math alphabet change to frozen version normal on input line 512.
+LaTeX Font Info:    Undo math alphabet allocation in version normal on input line 512.
+LaTeX Font Info:    No math alphabet change to frozen version normal on input line 512.
+LaTeX Font Info:    Undo math alphabet allocation in version normal on input line 512.
 LaTeX Font Info:    Undo math alphabet allocation in version normal on input line 516.
 LaTeX Font Info:    Undo math alphabet allocation in version normal on input line 517.
-LaTeX Font Info:    No math alphabet change to frozen version normal on input line 517.
-LaTeX Font Info:    No math alphabet change to frozen version normal on input line 517.
-LaTeX Font Info:    Undo math alphabet allocation in version normal on input line 517.
+LaTeX Font Info:    Undo math alphabet allocation in version normal on input line 518.
+LaTeX Font Info:    Undo math alphabet allocation in version normal on input line 519.
 LaTeX Font Info:    No math alphabet change to frozen version normal on input line 519.
 LaTeX Font Info:    No math alphabet change to frozen version normal on input line 519.
-LaTeX Info: Redefining \. on input line 540.
-LaTeX Info: Redefining \% on input line 540.
+LaTeX Font Info:    Undo math alphabet allocation in version normal on input line 519.
+LaTeX Font Info:    No math alphabet change to frozen version normal on input line 521.
+LaTeX Font Info:    No math alphabet change to frozen version normal on input line 521.
+LaTeX Info: Redefining \. on input line 542.
+LaTeX Info: Redefining \% on input line 542.
  [16]
-LaTeX Info: Redefining \. on input line 584.
-LaTeX Info: Redefining \% on input line 584.
+LaTeX Info: Redefining \. on input line 586.
+LaTeX Info: Redefining \% on input line 586.
  [17]
-LaTeX Info: Redefining \. on input line 632.
-LaTeX Info: Redefining \% on input line 632.
+LaTeX Info: Redefining \. on input line 634.
+LaTeX Info: Redefining \% on input line 634.
  [18]
-LaTeX Info: Redefining \. on input line 680.
-LaTeX Info: Redefining \% on input line 680.
+LaTeX Info: Redefining \. on input line 682.
+LaTeX Info: Redefining \% on input line 682.
  [19]
-LaTeX Info: Redefining \. on input line 725.
-LaTeX Info: Redefining \% on input line 725.
+LaTeX Info: Redefining \. on input line 727.
+LaTeX Info: Redefining \% on input line 727.
  [20]
-LaTeX Font Info:    No math alphabet change to frozen version normal on input line 762.
-LaTeX Font Info:    No math alphabet change to frozen version normal on input line 762.
-LaTeX Font Info:    No math alphabet change to frozen version normal on input line 762.
-LaTeX Font Info:    No math alphabet change to frozen version normal on input line 763.
+LaTeX Font Info:    No math alphabet change to frozen version normal on input line 764.
+LaTeX Font Info:    No math alphabet change to frozen version normal on input line 764.
+LaTeX Font Info:    No math alphabet change to frozen version normal on input line 764.
 LaTeX Font Info:    No math alphabet change to frozen version normal on input line 765.
-LaTeX Font Info:    No math alphabet change to frozen version normal on input line 765.
-LaTeX Font Info:    No math alphabet change to frozen version normal on input line 766.
-LaTeX Font Info:    No math alphabet change to frozen version normal on input line 766.
 LaTeX Font Info:    No math alphabet change to frozen version normal on input line 767.
 LaTeX Font Info:    No math alphabet change to frozen version normal on input line 767.
 LaTeX Font Info:    No math alphabet change to frozen version normal on input line 768.
+LaTeX Font Info:    No math alphabet change to frozen version normal on input line 768.
+LaTeX Font Info:    No math alphabet change to frozen version normal on input line 769.
 LaTeX Font Info:    No math alphabet change to frozen version normal on input line 769.
 LaTeX Font Info:    No math alphabet change to frozen version normal on input line 770.
-LaTeX Font Info:    No math alphabet change to frozen version normal on input line 770.
 LaTeX Font Info:    No math alphabet change to frozen version normal on input line 771.
-LaTeX Font Info:    No math alphabet change to frozen version normal on input line 771.
+LaTeX Font Info:    No math alphabet change to frozen version normal on input line 772.
+LaTeX Font Info:    No math alphabet change to frozen version normal on input line 772.
+LaTeX Font Info:    No math alphabet change to frozen version normal on input line 773.
+LaTeX Font Info:    No math alphabet change to frozen version normal on input line 773.
 <assets/Img/gnu.png, id=457, 481.8pt x 361.35pt>
 File: assets/Img/gnu.png Graphic file (type png)
 <use assets/Img/gnu.png>
-Package pdftex.def Info: assets/Img/gnu.png  used on input line 774.
+Package pdftex.def Info: assets/Img/gnu.png  used on input line 776.
 (pdftex.def)             Requested size: 386.95897pt x 290.22725pt.
-LaTeX Info: Redefining \. on input line 777.
-LaTeX Info: Redefining \% on input line 777.
+LaTeX Info: Redefining \. on input line 779.
+LaTeX Info: Redefining \% on input line 779.
  [21]
 <assets/Img/GraficaCaminoMinimo-1-1.png, id=493, 578.16pt x 433.62pt>
 File: assets/Img/GraficaCaminoMinimo-1-1.png Graphic file (type png)
 <use assets/Img/GraficaCaminoMinimo-1-1.png>
-Package pdftex.def Info: assets/Img/GraficaCaminoMinimo-1-1.png  used on input line 790.
+Package pdftex.def Info: assets/Img/GraficaCaminoMinimo-1-1.png  used on input line 792.
 (pdftex.def)             Requested size: 386.95897pt x 290.21953pt.
-LaTeX Info: Redefining \. on input line 793.
-LaTeX Info: Redefining \% on input line 793.
+LaTeX Info: Redefining \. on input line 795.
+LaTeX Info: Redefining \% on input line 795.
  [22
 pdfTeX warning (ext4): destination with the same identifier (name{figure.6.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.793 M
+l.795 M
        ostremos a continuación otro gráfico con los mismos puntos y distin... <./assets/Img/gnu.png>]
 <assets/Img/GraficaCaminoMinimo-1-2.png, id=500, 578.16pt x 433.62pt>
 File: assets/Img/GraficaCaminoMinimo-1-2.png Graphic file (type png)
 <use assets/Img/GraficaCaminoMinimo-1-2.png>
-Package pdftex.def Info: assets/Img/GraficaCaminoMinimo-1-2.png  used on input line 797.
+Package pdftex.def Info: assets/Img/GraficaCaminoMinimo-1-2.png  used on input line 799.
 (pdftex.def)             Requested size: 386.95897pt x 290.21953pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-LaTeX Info: Redefining \. on input line 800.
-LaTeX Info: Redefining \% on input line 800.
+LaTeX Info: Redefining \. on input line 802.
+LaTeX Info: Redefining \% on input line 802.
  [23
 pdfTeX warning (ext4): destination with the same identifier (name{figure.6.2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.800 D
+l.802 D
        estacar que en ambos casos se busca el camino mínimo entre el nodo 1... <./assets/Img/GraficaCaminoMinimo-1-1.png>]
 <assets/Img/GraficaCaminoMinimo-2-2.png, id=507, 578.16pt x 433.62pt>
 File: assets/Img/GraficaCaminoMinimo-2-2.png Graphic file (type png)
 <use assets/Img/GraficaCaminoMinimo-2-2.png>
-Package pdftex.def Info: assets/Img/GraficaCaminoMinimo-2-2.png  used on input line 808.
+Package pdftex.def Info: assets/Img/GraficaCaminoMinimo-2-2.png  used on input line 810.
 (pdftex.def)             Requested size: 260.71696pt x 195.53741pt.
 
-Overfull \hbox (23.70285pt too wide) in paragraph at lines 808--809
+Overfull \hbox (23.70285pt too wide) in paragraph at lines 810--811
  [][] 
  []
 
-LaTeX Font Info:    No math alphabet change to frozen version normal on input line 810.
+LaTeX Font Info:    No math alphabet change to frozen version normal on input line 812.
 <assets/Img/GraficaCaminoMinimo-3-2.png, id=508, 578.16pt x 433.62pt>
 File: assets/Img/GraficaCaminoMinimo-3-2.png Graphic file (type png)
 <use assets/Img/GraficaCaminoMinimo-3-2.png>
-Package pdftex.def Info: assets/Img/GraficaCaminoMinimo-3-2.png  used on input line 814.
+Package pdftex.def Info: assets/Img/GraficaCaminoMinimo-3-2.png  used on input line 816.
 (pdftex.def)             Requested size: 260.71696pt x 195.53741pt.
 
-Overfull \hbox (23.70285pt too wide) in paragraph at lines 814--815
+Overfull \hbox (23.70285pt too wide) in paragraph at lines 816--817
  [][] 
  []
 
-LaTeX Font Info:    No math alphabet change to frozen version normal on input line 816.
+LaTeX Font Info:    No math alphabet change to frozen version normal on input line 818.
 <assets/Img/GraficaCaminoMinimo-7-1.png, id=509, 578.16pt x 433.62pt>
 File: assets/Img/GraficaCaminoMinimo-7-1.png Graphic file (type png)
 <use assets/Img/GraficaCaminoMinimo-7-1.png>
-Package pdftex.def Info: assets/Img/GraficaCaminoMinimo-7-1.png  used on input line 822.
+Package pdftex.def Info: assets/Img/GraficaCaminoMinimo-7-1.png  used on input line 824.
 (pdftex.def)             Requested size: 314.40001pt x 235.79881pt.
 <assets/Img/GraficaCaminoMinimo-5-1.png, id=510, 578.16pt x 433.62pt>
 File: assets/Img/GraficaCaminoMinimo-5-1.png Graphic file (type png)
 <use assets/Img/GraficaCaminoMinimo-5-1.png>
-Package pdftex.def Info: assets/Img/GraficaCaminoMinimo-5-1.png  used on input line 825.
+Package pdftex.def Info: assets/Img/GraficaCaminoMinimo-5-1.png  used on input line 827.
 (pdftex.def)             Requested size: 314.40001pt x 235.79881pt.
-LaTeX Info: Redefining \. on input line 827.
-LaTeX Info: Redefining \% on input line 827.
+LaTeX Info: Redefining \. on input line 829.
+LaTeX Info: Redefining \% on input line 829.
 [24
 pdfTeX warning (ext4): destination with the same identifier (name{figure.6.3}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.827 \end{figure}
+l.829 \end{figure}
                   
 pdfTeX warning (ext4): destination with the same identifier (name{figure.6.4}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.827 \end{figure}
+l.829 \end{figure}
                   
 pdfTeX warning (ext4): destination with the same identifier (name{figure.6.5}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.827 \end{figure}
+l.829 \end{figure}
                    <./assets/Img/GraficaCaminoMinimo-1-2.png> <./assets/Img/GraficaCaminoMinimo-2-2.png> <./assets/Img/GraficaCaminoMinimo-3-2.png>]
-LaTeX Info: Redefining \. on input line 830.
-LaTeX Info: Redefining \% on input line 830.
+LaTeX Info: Redefining \. on input line 832.
+LaTeX Info: Redefining \% on input line 832.
  [25
 pdfTeX warning (ext4): destination with the same identifier (name{figure.6.6}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.830 \chapter
+l.832 \chapter
               {Viajante} % Migue
 pdfTeX warning (ext4): destination with the same identifier (name{figure.6.7}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.830 \chapter
+l.832 \chapter
               {Viajante} % Migue <./assets/Img/GraficaCaminoMinimo-7-1.png> <./assets/Img/GraficaCaminoMinimo-5-1.png>]
 Apartado 7.
-LaTeX Font Info:    No math alphabet change to frozen version normal on input line 839.
+LaTeX Font Info:    No math alphabet change to frozen version normal on input line 841.
 [26
 
 ]
-LaTeX Font Info:    No math alphabet change to frozen version normal on input line 893.
-LaTeX Font Info:    No math alphabet change to frozen version normal on input line 923.
+LaTeX Font Info:    No math alphabet change to frozen version normal on input line 895.
+LaTeX Font Info:    No math alphabet change to frozen version normal on input line 925.
 
 Underfull \vbox (badness 2790) has occurred while \output is active []
 
-LaTeX Info: Redefining \. on input line 943.
-LaTeX Info: Redefining \% on input line 943.
+LaTeX Info: Redefining \. on input line 945.
+LaTeX Info: Redefining \% on input line 945.
  [27]
-LaTeX Font Info:    No math alphabet change to frozen version normal on input line 985.
-LaTeX Info: Redefining \. on input line 986.
-LaTeX Info: Redefining \% on input line 986.
+LaTeX Font Info:    No math alphabet change to frozen version normal on input line 987.
+LaTeX Info: Redefining \. on input line 988.
+LaTeX Info: Redefining \% on input line 988.
  [28]
-LaTeX Font Info:    No math alphabet change to frozen version normal on input line 1030.
+LaTeX Font Info:    No math alphabet change to frozen version normal on input line 1032.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-LaTeX Info: Redefining \. on input line 1039.
-LaTeX Info: Redefining \% on input line 1039.
+LaTeX Info: Redefining \. on input line 1041.
+LaTeX Info: Redefining \% on input line 1041.
  [29]
 <assets/Img/NearestVisual.png, id=642, 462.528pt x 346.896pt>
 File: assets/Img/NearestVisual.png Graphic file (type png)
 <use assets/Img/NearestVisual.png>
-Package pdftex.def Info: assets/Img/NearestVisual.png  used on input line 1045.
+Package pdftex.def Info: assets/Img/NearestVisual.png  used on input line 1047.
 (pdftex.def)             Requested size: 255.39108pt x 191.54501pt.
 
-Overfull \hbox (23.21866pt too wide) in paragraph at lines 1045--1046
+Overfull \hbox (23.21866pt too wide) in paragraph at lines 1047--1048
  [][] 
  []
 
-LaTeX Font Info:    No math alphabet change to frozen version normal on input line 1048.
+LaTeX Font Info:    No math alphabet change to frozen version normal on input line 1050.
 <assets/Img/OrdVisual.png, id=643, 462.528pt x 346.896pt>
 File: assets/Img/OrdVisual.png Graphic file (type png)
 <use assets/Img/OrdVisual.png>
-Package pdftex.def Info: assets/Img/OrdVisual.png  used on input line 1051.
+Package pdftex.def Info: assets/Img/OrdVisual.png  used on input line 1053.
 (pdftex.def)             Requested size: 255.39108pt x 191.54501pt.
 
-Overfull \hbox (23.21866pt too wide) in paragraph at lines 1051--1052
+Overfull \hbox (23.21866pt too wide) in paragraph at lines 1053--1054
  [][] 
  []
 
-LaTeX Font Info:    No math alphabet change to frozen version normal on input line 1054.
+LaTeX Font Info:    No math alphabet change to frozen version normal on input line 1056.
 <assets/Img/CircVisual.png, id=644, 462.528pt x 346.896pt>
 File: assets/Img/CircVisual.png Graphic file (type png)
 <use assets/Img/CircVisual.png>
-Package pdftex.def Info: assets/Img/CircVisual.png  used on input line 1060.
+Package pdftex.def Info: assets/Img/CircVisual.png  used on input line 1062.
 (pdftex.def)             Requested size: 255.39108pt x 191.54501pt.
 
-Overfull \hbox (23.21866pt too wide) in paragraph at lines 1060--1061
+Overfull \hbox (23.21866pt too wide) in paragraph at lines 1062--1063
  [][] 
  []
 
-LaTeX Font Info:    No math alphabet change to frozen version normal on input line 1063.
+LaTeX Font Info:    No math alphabet change to frozen version normal on input line 1065.
 <assets/Img/ShortestVisual.png, id=645, 462.528pt x 346.896pt>
 File: assets/Img/ShortestVisual.png Graphic file (type png)
 <use assets/Img/ShortestVisual.png>
-Package pdftex.def Info: assets/Img/ShortestVisual.png  used on input line 1066.
+Package pdftex.def Info: assets/Img/ShortestVisual.png  used on input line 1068.
 (pdftex.def)             Requested size: 255.39108pt x 191.54501pt.
 
-Overfull \hbox (23.21866pt too wide) in paragraph at lines 1066--1067
+Overfull \hbox (23.21866pt too wide) in paragraph at lines 1068--1069
  [][] 
  []
 
-LaTeX Font Info:    No math alphabet change to frozen version normal on input line 1069.
-LaTeX Info: Redefining \. on input line 1085.
-LaTeX Info: Redefining \% on input line 1085.
+LaTeX Font Info:    No math alphabet change to frozen version normal on input line 1071.
+LaTeX Info: Redefining \. on input line 1087.
+LaTeX Info: Redefining \% on input line 1087.
 [30
 pdfTeX warning (ext4): destination with the same identifier (name{figure.7.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1085 \subsection
+l.1087 \subsection
                   {Mejoras}
 pdfTeX warning (ext4): destination with the same identifier (name{figure.7.2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1085 \subsection
+l.1087 \subsection
                   {Mejoras}
 pdfTeX warning (ext4): destination with the same identifier (name{figure.7.3}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1085 \subsection
+l.1087 \subsection
                   {Mejoras}
 pdfTeX warning (ext4): destination with the same identifier (name{figure.7.4}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1085 \subsection
+l.1087 \subsection
                   {Mejoras} <./assets/Img/NearestVisual.png> <./assets/Img/OrdVisual.png> <./assets/Img/CircVisual.png> <./assets/Img/ShortestVisual.png>]
-LaTeX Font Info:    No math alphabet change to frozen version normal on input line 1101.
+LaTeX Font Info:    No math alphabet change to frozen version normal on input line 1103.
 <assets/Img/Tiempos.png, id=658, 481.8pt x 361.35pt>
 File: assets/Img/Tiempos.png Graphic file (type png)
 <use assets/Img/Tiempos.png>
-Package pdftex.def Info: assets/Img/Tiempos.png  used on input line 1116.
+Package pdftex.def Info: assets/Img/Tiempos.png  used on input line 1118.
 (pdftex.def)             Requested size: 232.17242pt x 174.12973pt.
-LaTeX Font Info:    No math alphabet change to frozen version normal on input line 1119.
+LaTeX Font Info:    No math alphabet change to frozen version normal on input line 1121.
 <assets/Img/TiemposCircSort.png, id=659, 481.8pt x 361.35pt>
 File: assets/Img/TiemposCircSort.png Graphic file (type png)
 <use assets/Img/TiemposCircSort.png>
-Package pdftex.def Info: assets/Img/TiemposCircSort.png  used on input line 1122.
+Package pdftex.def Info: assets/Img/TiemposCircSort.png  used on input line 1124.
 (pdftex.def)             Requested size: 232.17242pt x 174.12973pt.
-LaTeX Font Info:    No math alphabet change to frozen version normal on input line 1125.
+LaTeX Font Info:    No math alphabet change to frozen version normal on input line 1127.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-LaTeX Info: Redefining \. on input line 1127.
-LaTeX Info: Redefining \% on input line 1127.
+LaTeX Info: Redefining \. on input line 1129.
+LaTeX Info: Redefining \% on input line 1129.
  [31]
 <assets/Img/TiemposMejora.png, id=665, 481.8pt x 361.35pt>
 File: assets/Img/TiemposMejora.png Graphic file (type png)
 <use assets/Img/TiemposMejora.png>
-Package pdftex.def Info: assets/Img/TiemposMejora.png  used on input line 1137.
+Package pdftex.def Info: assets/Img/TiemposMejora.png  used on input line 1139.
 (pdftex.def)             Requested size: 232.17242pt x 174.12973pt.
-LaTeX Font Info:    No math alphabet change to frozen version normal on input line 1140.
+LaTeX Font Info:    No math alphabet change to frozen version normal on input line 1142.
 <assets/Img/TiemposMejoraChico.png, id=666, 481.8pt x 361.35pt>
 File: assets/Img/TiemposMejoraChico.png Graphic file (type png)
 <use assets/Img/TiemposMejoraChico.png>
-Package pdftex.def Info: assets/Img/TiemposMejoraChico.png  used on input line 1143.
+Package pdftex.def Info: assets/Img/TiemposMejoraChico.png  used on input line 1145.
 (pdftex.def)             Requested size: 232.17242pt x 174.12973pt.
-LaTeX Font Info:    No math alphabet change to frozen version normal on input line 1146.
+LaTeX Font Info:    No math alphabet change to frozen version normal on input line 1148.
 <assets/Img/Precision.png, id=667, 481.8pt x 361.35pt>
 File: assets/Img/Precision.png Graphic file (type png)
 <use assets/Img/Precision.png>
-Package pdftex.def Info: assets/Img/Precision.png  used on input line 1155.
+Package pdftex.def Info: assets/Img/Precision.png  used on input line 1157.
 (pdftex.def)             Requested size: 232.17242pt x 174.12973pt.
-LaTeX Font Info:    No math alphabet change to frozen version normal on input line 1158.
+LaTeX Font Info:    No math alphabet change to frozen version normal on input line 1160.
 <assets/Img/PrecisionMejora.png, id=668, 481.8pt x 361.35pt>
 File: assets/Img/PrecisionMejora.png Graphic file (type png)
 <use assets/Img/PrecisionMejora.png>
-Package pdftex.def Info: assets/Img/PrecisionMejora.png  used on input line 1161.
+Package pdftex.def Info: assets/Img/PrecisionMejora.png  used on input line 1163.
 (pdftex.def)             Requested size: 232.17242pt x 174.12973pt.
-LaTeX Font Info:    No math alphabet change to frozen version normal on input line 1164.
+LaTeX Font Info:    No math alphabet change to frozen version normal on input line 1166.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-LaTeX Info: Redefining \. on input line 1166.
-LaTeX Info: Redefining \% on input line 1166.
+LaTeX Info: Redefining \. on input line 1168.
+LaTeX Info: Redefining \% on input line 1168.
  [32
 pdfTeX warning (ext4): destination with the same identifier (name{figure.7.5}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1166 C
+l.1168 C
         omo se puede ver, todos los algoritmos con mejora, se quedan muy cerca
 pdfTeX warning (ext4): destination with the same identifier (name{figure.7.6}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1166 C
+l.1168 C
         omo se puede ver, todos los algoritmos con mejora, se quedan muy cerca
 pdfTeX warning (ext4): destination with the same identifier (name{figure.7.7}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1166 C
+l.1168 C
         omo se puede ver, todos los algoritmos con mejora, se quedan muy cerca
 pdfTeX warning (ext4): destination with the same identifier (name{figure.7.8}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1166 C
+l.1168 C
         omo se puede ver, todos los algoritmos con mejora, se quedan muy cerca <./assets/Img/Tiempos.png> <./assets/Img/TiemposCircSort.png> <./assets/Img/TiemposMejora.png> <./assets/Img/TiemposMejoraChico.png>]
-LaTeX Font Info:    No math alphabet change to frozen version normal on input line 1172.
-LaTeX Info: Redefining \. on input line 1174.
-LaTeX Info: Redefining \% on input line 1174.
+LaTeX Font Info:    No math alphabet change to frozen version normal on input line 1174.
+LaTeX Info: Redefining \. on input line 1176.
+LaTeX Info: Redefining \% on input line 1176.
  [33
 pdfTeX warning (ext4): destination with the same identifier (name{figure.7.9}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1174 \end{document}
+l.1176 \end{document}
                      
 pdfTeX warning (ext4): destination with the same identifier (name{figure.7.10}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1174 \end{document}
+l.1176 \end{document}
                       <./assets/Img/Precision.png> <./assets/Img/PrecisionMejora.png>] (./main.aux
 LaTeX Info: Redefining \. on input line 20.
 LaTeX Info: Redefining \% on input line 20.
@@ -1683,7 +1683,7 @@ Here is how much of TeX's memory you used:
  1141 hyphenation exceptions out of 8191
  104i,12n,111p,1295b,2149s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {/usr/share/texmf/fonts/enc/dvips/tex-gyre/q-ec.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/ly1/texnansi.enc}{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t1.enc}{/usr/share/texmf/fonts/enc/dvips/tex-gyre/q-ts1.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texlive/texmf-dist/fonts/type1/bitstrea/charter/bchb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/bitstrea/charter/bchr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/bitstrea/charter/bchri8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/euler/eusm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/mathdesign/mdbch/md-chbi7m.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/mathdesign/mdbch/md-chr7t.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/mathdesign/mdbch/md-chr7v.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/mathdesign/mdbch/md-chr7y.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/mathdesign/mdbch/md-chri7m.pfb></usr/share/texmf/fonts/type1/public/tex-gyre/qtmb.pfb></usr/share/texmf/fonts/type1/public/tex-gyre/qtmbi.pfb></usr/share/texmf/fonts/type1/public/tex-gyre/qtmr.pfb></usr/share/texmf/fonts/type1/public/tex-gyre/qtmri.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt1000.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb>
-Output written on main.pdf (33 pages, 980261 bytes).
+Output written on main.pdf (33 pages, 980301 bytes).
 PDF statistics:
  963 PDF objects out of 1000 (max. 8388607)
  846 compressed objects within 9 object streams

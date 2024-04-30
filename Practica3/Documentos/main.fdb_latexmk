@@ -1,7 +1,7 @@
 # Fdb version 4
-["pdflatex"] 1714493181 "/home/astralisx/Desktop/ALGO/Practica3/Documentos/main.tex" "main.pdf" "main" 1714493183 0
+["pdflatex"] 1714493297 "/home/astralisx/Desktop/ALGO/Practica3/Documentos/main.tex" "main.pdf" "main" 1714493299 0
   "/etc/texmf/web2c/texmf.cnf" 1711114646 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/astralisx/Desktop/ALGO/Practica3/Documentos/main.tex" 1714493179 60427 916decbbdc51c8bd199cf5c452af0b73 ""
+  "/home/astralisx/Desktop/ALGO/Practica3/Documentos/main.tex" 1714493294 60587 e114e106495882db9e4538b767260a23 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/ly1/texnansi.enc" 1276641224 6938 5135be6a8802f13a7faf296d1959a1ab ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -339,9 +339,9 @@
   "assets/Img/gnu.png" 1714492608 7165 69b66eb413873dcc33da3a622f110851 ""
   "assets/formulas.sty" 1714474954 6317 8145caee088b4ca07f07664a2092df90 ""
   "assets/portada.tex" 1714474954 1636 e995632463c3d2f87e1c4d67aa785c0a ""
-  "main.aux" 1714493183 17399 88f3d4dec26393a809b0c601517f1d50 "pdflatex"
-  "main.tex" 1714493179 60427 916decbbdc51c8bd199cf5c452af0b73 ""
-  "main.toc" 1714493183 2643 60beece40041ea466be711801c603ced "pdflatex"
+  "main.aux" 1714493299 17399 9acd10081def071f38fcba4fd1ce0e27 "pdflatex"
+  "main.tex" 1714493294 60587 e114e106495882db9e4538b767260a23 ""
+  "main.toc" 1714493299 2643 60beece40041ea466be711801c603ced "pdflatex"
   (generated)
   "main.aux"
   "main.log"
