@@ -89,6 +89,48 @@ void creacionGrafos(const vector<Point>& vec, vector<vector<double>>& matriz) {
     }
 }
 
+
+// Función para la creación de grafos a partir de un vector de puntos en 2D
+void creacionGrafos2(const vector<Point>& vec, vector<vector<double>>& matriz) {
+    int size = vec.size();
+    vector<Point> conectados(size);
+    vector<Point> noConectados=vec;
+
+    // Inicialización de srand con resolución más alta
+    unsigned seed = chrono::high_resolution_clock::now().time_since_epoch().count();
+    srand(seed);
+
+    int nodo_inicial=rand()%noConectados.size();
+    conectados[0]=noConectados[nodo_inicial];
+    // Eliminados dicho nodo
+    noConectados.erase(noConectados.begin()+nodo_inicial);
+
+    for(int i=1; i<size; i++){
+        int nodo_conectar=rand()%noConectados.size();
+        int nodo_conectado= rand()%conectados.size();
+        matriz[nodo_conectado][nodo_conectar]=vec[nodo_conectado].distanceTo(vec[nodo_conectar]);
+        matriz[nodo_conectar][nodo_conectado]=vec[nodo_conectado].distanceTo(vec[nodo_conectar]); // Parte simétrica
+        conectados[i]=noConectados[nodo_conectar];
+        noConectados.erase(noConectados.begin()+nodo_conectar);
+    }
+
+    for (int i = 0; i < size; i++) {
+        // Num nodos que conectaremos con el nodo i
+        int conexiones = rand() % (size/20 - 1) + 1; // Asegura al menos una conexión por nodo
+        for (int j = 0; j < conexiones; j++) {
+            int nodo_conectar;
+            do {
+                nodo_conectar = rand() % size;
+            } while (nodo_conectar == i); // Asegura no conectarse a sí mismo
+
+            // Añadimos su distancia a la matriz de forma simétrica
+            double distancia = vec[i].distanceTo(vec[nodo_conectar]);
+            matriz[i][nodo_conectar] = distancia;
+            matriz[nodo_conectar][i] = distancia; // Simetría
+        }
+    }
+}
+
 void mostrarVector(const std::vector<Point>& vec) {
     std::cout << "[";
     for (size_t i = 0; i < vec.size(); ++i) {
@@ -168,7 +210,7 @@ int main (int argc, char *argv[]) {
     int dimension=puntos.size();
     vector<vector<double>> matriz(dimension, vector<double>(dimension, numeric_limits<double>::max()));
     
-    creacionGrafos(puntos, matriz);
+    creacionGrafos2(puntos, matriz);
     mostrarMatriz(escritura, matriz);
 
     escritura.close();

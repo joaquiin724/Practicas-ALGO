@@ -452,7 +452,7 @@ for (int i = 0; i < numPuntos; i++) {
 \end{lstlisting}
 donde file es el archivo donde se escriben los puntos, numPuntos es el número de puntos que se quieren generar y rangoMax es el rango
 máximo de las coordenadas. \\
-Tenemos ahora archivos con distintos puntos aleatorios, y para la creación de los grafos, hemos usado el siguiente código:
+Tenemos ahora archivos con distintos puntos aleatorios, y para la creación de los grafos, hemos usado las siguientes dos funciones:
 \begin{lstlisting}[language=C++]
 // Funcion para la creacion de grafos a partir de un vector de puntos en 2D
 void creacionGrafos(const vector<Point>& vec, vector<vector<double>>& matriz) {
@@ -489,9 +489,52 @@ void creacionGrafos(const vector<Point>& vec, vector<vector<double>>& matriz) {
             matriz[i][i] = 0; // Distancia a si mismo es cero
       }
 }
+
+// Funcion para la creacion de grafos a partir de un vector de puntos en 2D
+void creacionGrafos2(const vector<Point>& vec, vector<vector<double>>& matriz) {
+    int size = vec.size();
+    vector<Point> conectados(size);
+    vector<Point> noConectados=vec;
+
+    // Inicializacion de srand con resolucion mas alta
+    unsigned seed = chrono::high_resolution_clock::now().time_since_epoch().count();
+    srand(seed);
+
+    int nodo_inicial=rand()%noConectados.size();
+    conectados[0]=noConectados[nodo_inicial];
+    // Eliminados dicho nodo
+    noConectados.erase(noConectados.begin()+nodo_inicial);
+
+    for(int i=1; i<size; i++){
+        int nodo_conectar=rand()%noConectados.size();
+        int nodo_conectado= rand()%conectados.size();
+        matriz[nodo_conectado][nodo_conectar]=vec[nodo_conectado].distanceTo(vec[nodo_conectar]);
+        matriz[nodo_conectar][nodo_conectado]=vec[nodo_conectado].distanceTo(vec[nodo_conectar]); // Parte simetrica
+        conectados[i]=noConectados[nodo_conectar];
+        noConectados.erase(noConectados.begin()+nodo_conectar);
+    }
+
+    for (int i = 0; i < size; i++) {
+        // Num nodos que conectaremos con el nodo i
+        int conexiones = rand() % (size/20 - 1) + 1; // Asegura al menos una conexion por nodo
+        for (int j = 0; j < conexiones; j++) {
+            int nodo_conectar;
+            do {
+                nodo_conectar = rand() % size;
+            } while (nodo_conectar == i); // Asegura no conectarse a si mismo
+
+            // Aniadimos su distancia a la matriz de forma simetrica
+            double distancia = vec[i].distanceTo(vec[nodo_conectar]);
+            matriz[i][nodo_conectar] = distancia;
+            matriz[nodo_conectar][i] = distancia; // Simetria
+        }
+    }
+}
 \end{lstlisting}
 donde la matriz pasada por referencia será la llamada \textbf{matriz de adyacencia} que representa el grafo, y \textbf{vec} es el vector de puntos
-leido del archivo. Importante recalcar las líneas donde se implementan las distancias de forma simétrica en la matriz.\\ \\
+leido del archivo. Importante recalcar las líneas donde se implementan las distancias de forma simétrica en la matriz.\\ 
+Hemos usado dos funciones para la creación de los grafos, una que conecta un nodo con todos los demás (\textbf{creacinoGrafos}) y otra que conecta los nodos de forma aleatoria 
+(\textbf{creacionGrafos2}).\\ \\
 Las matrices de adyacencia que hemos obtenido, las hemos guardado en archivos de texto, para poder leerlas posteriormente y ejecutar
 el algoritmo de Dijkstra sobre ellas, por lo que para ello hemos creado funciones que permitan leer y guardar dichas matrices, pues hay que recordar que 
 los puntos que no tengan conexión directa, tendrán un valor de infinito en la matriz. Tenemos así estas dos funciones, una para 
@@ -671,10 +714,13 @@ camino mínimo como es de esperar, veámoslo
       \end{minipage}
 \end{figure}
 En ambos casos se busca el camino mínimo entre el nodo 1 y 5.\\ \\
-Por ultimo pondremos un ejemplo con 25 puntos en el que se busca el camino mínimo entre el nodo 4 y 11:
+Por ultimo expondremos dos ejemplos con 25 puntos en el que se busca el camino mínimo entre el nodo 4 y 11:
 \begin{figure}[H]
       \centering
-      \includegraphics[width=0.8\textwidth]{assets/Img/GraficaCaminoMinimo-9-1.png}
+      \includegraphics[width=0.65\textwidth]{assets/Img/GraficaCaminoMinimo-7-1.png}
+      \caption{Grafo con 25 puntos y conexiones}
+      \centering
+      \includegraphics[width=0.65\textwidth]{assets/Img/GraficaCaminoMinimo-5-1.png}
       \caption{Grafo con 25 puntos y conexiones}
 \end{figure}
 \section{Estudio eficiencia empírica}
