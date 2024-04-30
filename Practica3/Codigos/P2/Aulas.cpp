@@ -50,7 +50,7 @@ void generadorExamen(int n,int dm,vector<examen> & v){
     for(int i =0; i<n; i++) {
         int h_inicio = rand()%24;
         int m_inicio = rand()%60;
-        int duracion = rand()%181; // Duración en minutos. No más de 3 horas (3*60 = 180 minutos)
+        int duracion = rand()%dm; // Duración en minutos. No más de 3 horas (3*60 = 180 minutos)
 
         int h_final = h_inicio + duracion / 60;
         int m_final = m_inicio + duracion % 60;
@@ -61,9 +61,15 @@ void generadorExamen(int n,int dm,vector<examen> & v){
             m_final -= 60;
         }
 
+
+
+        // Si la hora final es 24, ajustar a 23:59
+        if (h_final == 24) {
+            h_final = 23;
+            m_final = 59;
+        }
         // Ajustar si las horas son más de 24
         h_final %= 24;
-
         v.push_back(examen(tiempo(h_inicio, m_inicio), tiempo(h_final, m_final)));
     }
 }
