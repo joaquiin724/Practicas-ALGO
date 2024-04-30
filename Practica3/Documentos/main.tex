@@ -520,7 +520,8 @@ void lecturaMatriz(ifstream &leer, vector<vector<double>>& matrix) {
 \end{lstlisting}
 donde \textbf{numeric\_limits<double>::max()} es el valor que hemos usado para representar la ausencia de conexión entre dos nodos, que
 en la matriz escrita y leida se mostrará como \textbf{INF} de infinito.\\ \\
-Finalmente, para la ejecución del algoritmo de Dijkstra, hemos usado el siguiente código:
+\section{Estudio eficiencia teórica}
+En esta sección estudiaremos la eficiencia teórica de dicho algorimto, para ello veamos primero el código usado:
 \begin{lstlisting}
 // Funcion auxiliar para encontrar el vertice con la distancia minima
 int minDistance(const vector<double>& dist, const vector<bool>& visited) {
@@ -548,16 +549,16 @@ void dijkstra(const vector<vector<double>>& graph, int inicio, int final) {
       for (int count = 0; count < V - 1; count++) {
             int u = minDistance(dist, visited);
             visited[u] = true;
-      
+
             // Si el nodo seleccionado es el nodo destino, terminar el algoritmo
             if (u == final)
             break;
-      
+
             for (int v = 0; v < V; v++) {
-            if (!visited[v] && graph[u][v] != 0 && dist[u] != INF && dist[u] + graph[u][v] < dist[v]) {
-                  dist[v] = dist[u] + graph[u][v];
-                  parent[v] = u; // Registrar el nodo padre para rastrear el camino
-            }
+                  if (!visited[v] && graph[u][v] != 0 && dist[u] != INF && dist[u] + graph[u][v] < dist[v]) {
+                        dist[v] = dist[u] + graph[u][v];
+                        parent[v] = u; // Registrar el nodo padre para rastrear el camino
+                  }
             }
       }
       
@@ -592,7 +593,17 @@ void printPath(const vector<int>& parent, int src, int dst) {
       cout << endl;
 }
 \end{lstlisting}
-
+Visto el código, pasamos a analizar la eficiencia teórica del algoritmo de Dijkstra.\\ \\
+Para ello, primero veamos que la función \textbf{minDistance} tiene una eficiencia de $O(V)$, donde $V$ es el número de vértices del grafo, es decir, tomando $V=n$
+como el tamaño del problema, tenemos por tanto que la eficiencia de dicha función es $O(n)$. \\ \\
+Por otro lado, en la función \textbf{dijkstra} desde la línea 16 hasta la línea 19 se inicializan varios vectores con valores
+predeterminados y con tamaño $V=n$ (número de filas, es decir, la cantidad de puntos), por lo que la eficiencia de esta parte es $O(n)$. Es importante recalcar que aunque se tome 
+$V=graph.size()$, en realidad, $V$ es el número de vértices del grafo, ya que para cada fila de la matriz de adyacencia tenemos las distintas distancias con el resto de nodos. \\
+A continuación, encontramos un bucle que se ejecuta $V-1$ veces, y en cada iteración se llama a la función \textbf{minDistance}, por lo que la eficiencia de este bucle es $O(n^2)$. De hecho
+en cada iteración del bucle de la línea 24 se hace otro bucle que se ejecuta $V$ veces (línea 32), para actualizar las distancias a los nuevos nodos, por lo que tomando la función suma, tenemos que la eficiencia de este bucle
+es $O(n^2)$.\\
+Por último, la llamada a la función \textbf{printPath} tiene una eficiencia de $O(n)$, ya que se recorre (imprimiento) el camino recorrido, que como mucho tendrá $n$ nodos.\\ \\
+Por tanto, la eficiencia teórica del algoritmo Dijkstra implementado es $O(n^2)$, donde $n$ es el número de nodos del grafo.\\ \\
 \section{Representaciones gráficas}
 Finalmente, mostraremos varios ejemplos de la ejecución del algoritmo de Dijkstra sobre distintos grafos, y la representación gráfica de los mismos
  donde se pueden observar los posibles caminos y el mínimo escogido por dicho algoritmo.\\ \\
@@ -634,6 +645,7 @@ Por ultimo pondremos un ejemplo con 25 puntos en el que se busca el camino míni
       \includegraphics[width=0.8\textwidth]{assets/Img/GraficaCaminoMinimo-9-1.png}
       \caption{Grafo con 25 puntos y conexiones}
 \end{figure}
+\section{Estudio eficiencia empírica}
 % Viajante es el apartado 6, incluir capitulos antes
 \chapter{Viajante} % Migue
 En esta sección se analiza todo aquello referente al cuarto problema propuesto,
