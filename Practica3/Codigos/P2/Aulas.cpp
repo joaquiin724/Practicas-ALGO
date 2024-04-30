@@ -41,8 +41,7 @@ struct compare{
 /**
  * @brief generador de examenes 
  * 
- * @param n numero de examenes que se quieren
- * @param dh limite de duracion de horas  del examen 
+ * @param n numero de examenes que se quieren 
  * @param dm limite de duracion de minutos del examen
  * @param v vector de examenes
  */
