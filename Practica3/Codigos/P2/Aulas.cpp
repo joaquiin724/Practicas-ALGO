@@ -50,7 +50,7 @@ void generadorExamen(int n,int dm,vector<examen> & v){
     for(int i =0; i<n; i++) {
         int h_inicio = rand()%24;
         int m_inicio = rand()%60;
-        int duracion = rand()%dm; // Duración en minutos. No más de 3 horas (3*60 = 180 minutos)
+        int duracion = rand()%dm; 
 
         int h_final = h_inicio + duracion / 60;
         int m_final = m_inicio + duracion % 60;
