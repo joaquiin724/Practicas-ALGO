@@ -1,4 +1,6 @@
 #include <iostream>
+#include <chrono>
+using namespace std::chrono;   
 #include <limits>
 #include <vector>
 #include <stack>
@@ -98,11 +100,11 @@ void lecturaMatriz(ifstream &leer, vector<vector<double>>& matrix) {
 
 
 int main(int argc, char *argv[]) {
-    if (argc != 4) {
+    if (argc != 4 && argc != 5) {
         cerr << "Uso: " << argv[0] << " <archivo_matriz> <nodo_inicial> <nodo_final>" << endl;
         return 1;
     }
-
+    high_resolution_clock::time_point tantes, tdespues;
     ifstream lectura(argv[1]);
 
     if(!lectura.is_open()){
@@ -120,8 +122,22 @@ int main(int argc, char *argv[]) {
         cerr << "No se pudo leer la matriz desde el archivo." << endl;
         return 1;
     }
-
+    
+    tantes = high_resolution_clock::now();
     dijkstra(graph, inicio, final);
+    tdespues = high_resolution_clock::now();
+    duration<double> transcurrido = duration_cast<duration<double>>(tdespues - tantes);
+    if (argc==5){
+        ofstream os(argv[4]);
+        if (!os.is_open()){
+            cout << "Error al abrir el archivo" << endl;
+            return 1;
+        }
+        else{
+            os << graph.size() << " " << transcurrido.count() << "\n";
 
+
+        }
+    }
     return 0;
 }
