@@ -128,7 +128,7 @@ int main(int argc, char *argv[]) {
     tdespues = high_resolution_clock::now();
     duration<double> transcurrido = duration_cast<duration<double>>(tdespues - tantes);
     if (argc==5){
-        ofstream os(argv[4]);
+        ofstream os(argv[4], ios::app);
         if (!os.is_open()){
             cout << "Error al abrir el archivo" << endl;
             return 1;
