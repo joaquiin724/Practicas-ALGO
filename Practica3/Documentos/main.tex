@@ -172,7 +172,7 @@ Proposiciones:
       \item Diremos que un conjunto A de bienes es mejor solución que otro conjunto B cuando
       |A| = |B| y $p(A) \geq p(B)$ es solución
 \end{enumerate}
-Llamemos A al conjunto de los bienes de la herencia del padre y sea $B \subset A$ la herencia obtenida por el hijo
+Llamemos T al conjunto de los bienes de la herencia del padre y sea $B \subset T$ la herencia obtenida por el hijo
 1(el que mejor beneficio va a obtener), generada por nuestro algorimo Greedy. B tendrá las 
 siguientes propiedades:
 \begin{equation*}
@@ -180,8 +180,8 @@ siguientes propiedades:
 \end{equation*}
 Ahora para demostrar que B es una solución óptima vamos a proceder con reducción al absurdo.
 Supongamos que B no es óptimo, entonces existe B' con |B'|=|B| y con $p(B') \geq p(B)$.
-Elegimos $q \in \overline{B}$ con $ p(q) = max\ \ p(q') $  tal que $ q' \in \overline{B} $
-y $s \in B$ con $ p(s) = min\ \ p(s') $ tal que $ s' \in B $ y los intercambiamos. Como B' es
+Elegimos $q \in \overline{B}$ con $ p(q) = max\ \ p(q')_{q' \in \overline{B}} $ 
+y $s \in B$ con $ p(s) = min\ \ p(s')_{s' \in B } $ tal que  y los intercambiamos. Como B' es
 una solución óptima, entonces, o todos los terminos de B' son mayores que los de B, o a partir de un 
 número r en adelante $p(b')_{b'\in B'} > p(b)_{b \in B}$. Entonces al B no ser un solución óptima, al
 haber intercambiado los elementos mencionados anteriormente, tendriamos que tener que $p(b')_{b'\in B'} > p(b)_{b \in B}$
@@ -189,6 +189,18 @@ a partir de un número r+1. Esto se debe a que, como trabajamo siempre con los m
 al intercmbiarlos para llegar a la solución optima debe de estar en el conjunto B', demostrando que
 B' es la solución óptima. Sin embargo, este resultado es una contradicción ya que al inercambiar los 
 elementos de B y $\overline{B}$ como $p(b_i) \geq p(\overline{b_j})$, lo demostrado anteriormente es falso.
+\section{Estudio teórico y empírico}
+En cuanto al estudio teórico podemos ver a simple vista que el codigo tiene una eficiencia O(n), debido al bucle
+for de las líneas 17-28. A continuación mostraremos como el estudio empírico verifica dichos datos. Para el estudio 
+empírico hemos usado vectores iniciales, es decir, la herencia del padre, iniciando con tamaño 1000 hasta 100000 
+incrementando en 1000 el tamaño del vector en cada ciclo.
+
+\begin{figure}[H]
+      \centering
+      \includegraphics[width=0.6\linewidth]{assets/Img/Herencia.png}
+      \caption{Herencia}
+      \label{fig:Herencia}
+\end{figure}
 
 \chapter{Asignación de aulas}
 En esta sección se estudia lo referente al algoritmo usado para resolver el segundo 
