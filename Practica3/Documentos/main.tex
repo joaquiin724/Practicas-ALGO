@@ -103,6 +103,93 @@ greedy da la solución óptima en el caso de que el problema sea de optimizació
 
 Con esta práctica se pretende trabajar y comprender los algoritmos greedy y  reconocer las situaciones para las cuales puede 
 ser beneficioso y usar esta técnica.
+
+\chapter{Hijo predilecto}
+En esta sección se abordará la resolución del primer problema a través de los algoritmos Greedy, siendo 
+el enunciado del problema:
+
+Un individuo desea repartir sus N bienes entre sus dos hijos. Para cada bien se conoce el
+valor (positivo) del mismo. Previo al fallecimiento del individuo, el juzgado, de una forma ciega,
+determina un valor k, que nos indica el número de bienes que se le deben asignar a un hijo (al
+otro se le asignan N - k). Conocido estos datos, el individuo desea distribuir los bienes entre
+sus hijos de forma que uno de ellos salga lo mas beneficiado posible. El beneficio obtenido por
+cada hijo se define como la suma de los beneficios de los bienes que se les lega.
+
+\section{Estructura de los datos}
+\begin{enumerate}
+      \item \textbf{Conjunto de candidatos}: El número de bienes del padre
+      \item \textbf{Conjunto de seleccionados}:El vector del hijo1 (ya que hemos decidido
+      que sea este hijo el que salga lo mas beneficiado posible)
+      \item \textbf{Función solución}: Bucle for que recorre el vector padre, ya que hasta que no 
+      se recorra el vector entero no se pueden haber reaprtido todos los bienes. 
+      \item \textbf{Función de factibilidad}: En este caso siempre hay soluciones posibles
+      \item \textbf{Función selección}:El conficional if/else que se encuentra dentro del primer bucle for que reparte
+      la herencia entre el hijo1 y el hijo 2.
+      \item \textbf{Función objetivo}: El hijo 1 que devuelve el return, ya que hemos decidido que
+      que sea él el que obtenga el máximo beneficio posible
+\end{enumerate}
+\begin{lstlisting}
+
+  pair<double,vector<double>> inheritance(vector<double> & father, vector<double> & son1, vector <double> & son2){
+      //Conjunto candidato father
+      //Conjunto de seleccionados son1
+      int size=father.size();
+  
+      sort(father.begin(),father.end());
+  
+      srand(time(NULL));
+      int partition=rand() % size;
+  
+      
+      int range=(partition > (size-partition))? partition : (size-partition);
+  
+      int sum1=0;
+      //Funcion solucion
+      for (int i = 0; i<size;++i){
+          
+          //Funcion de seleccion
+          if(i<range){
+              son1.push_back(father.back());
+              sum1+=father.back();
+          }else{
+              son2.push_back(father.back());
+          }
+          father.pop_back();
+          
+      }
+      //Funcion objetivo
+      return {sum1,son1};
+  }
+\end{lstlisting}
+
+\section{Justificación}
+Proposiciones:
+\begin{enumerate}
+      \item Definimos p(a) como el beneficio del bien a y $p(A)=\sum_{a \in A} p(a) $
+      donde A es la herencia de un hijo
+      \item Diremos que un conjunto A es solución cuando $p(A) \geq p(\overline{A})$ 
+      siendo $p(\overline{A})$ la herencia del otro hijo 
+      \item Diremos que un conjunto A de bienes es mejor solución que otro conjunto B cuando
+      |A| = |B| y $p(A) \geq p(B)$ es solución
+\end{enumerate}
+Llamemos A al conjunto de los bienes de la herencia del padre y sea $B \subset A$ la herencia obtenida por el hijo
+1(el que mejor beneficio va a obtener), generada por nuestro algorimo Greedy. B tendrá las 
+siguientes propiedades:
+\begin{equation*}
+      p(B) \geq p(\overline{B}) \ \  \ \ \ \ , p(b_i) \geq p(\overline{b_j})  \  \ \ \ \ \ \ \forall i \in \{0,...,k\} \ \ \ \ \ \ \  \forall j \in \{k+1,n\}
+\end{equation*}
+Ahora para demostrar que B es una solución óptima vamos a proceder con reducción al absurdo.
+Supongamos que B no es óptimo, entonces existe B' con |B'|=|B| y con $p(B') \geq p(B)$.
+Elegimos $q \in \overline{B}$ con $ p(q) = max\ \ p(q') $  tal que $ q' \in \overline{B} $
+y $s \in B$ con $ p(s) = min\ \ p(s') $ tal que $ s' \in B $ y los intercambiamos. Como B' es
+una solución óptima, entonces, o todos los terminos de B' son mayores que los de B, o a partir de un 
+número r en adelante $p(b')_{b'\in B'} > p(b)_{b \in B}$. Entonces al B no ser un solución óptima, al
+haber intercambiado los elementos mencionados anteriormente, tendriamos que tener que $p(b')_{b'\in B'} > p(b)_{b \in B}$
+a partir de un número r+1. Esto se debe a que, como trabajamo siempre con los mismos elementos,
+al intercmbiarlos para llegar a la solución optima debe de estar en el conjunto B', demostrando que
+B' es la solución óptima. Sin embargo, este resultado es una contradicción ya que al inercambiar los 
+elementos de B y $\overline{B}$ como $p(b_i) \geq p(\overline{b_j})$, lo demostrado anteriormente es falso.
+
 \chapter{Asignación de aulas}
 En esta sección se estudia lo referente al algoritmo usado para resolver el segundo 
 problema el cual nos pide lo siguiente :
@@ -516,7 +603,7 @@ void creacionGrafos2(const vector<Point>& vec, vector<vector<double>>& matriz) {
 
     for (int i = 0; i < size; i++) {
         // Num nodos que conectaremos con el nodo i
-        int conexiones = rand() % (size/20 - 1) + 1; // Asegura al menos una conexion por nodo
+        int conexiones = rand() % (size/3 - 1) + 1; // Asegura al menos una conexion por nodo
         for (int j = 0; j < conexiones; j++) {
             int nodo_conectar;
             do {
