@@ -326,8 +326,40 @@ Para ejecutar el programa se usan los siguientes parámetros:
 
 numero de aulas : 3
 
+\section{Análisis Teórico}
+Comenzamos mirando el interior del bucle for donde la eficiencia entre 
+las líneas 25 y 32 donde la cual es de $O(1)$ y por tanto tiene un tiempo 
+de ejecución constante el cual llamaremos a . 
+En la línea 21 el bucle while se ejecuta cuando las aulas se solapen 
+por tanto en el peor caso si se solapan todas las aulas recorrerá el vector horario 
+horario.size()-1 veces por tanto la eficiencia de este bucle es de $O(n)$ 
+el bucle for v.size()-1-1 veces por tanto la eficiencia de este bucle es de $O(n)$
+y al estar el bucle while dentro del for la eficiencia quedaría como 
 
-\section{Graficas}
+\begin{equation*}
+      \sum_{i=1}^{v.size -2} \sum_{i=0}^{horario.size -1}  a
+\end{equation*}
+
+Tomamos el peor de los casos donde todas las aulas se solapen 
+por tanto v.size = horario.size y si sustituimos por n tenemos que:
+\begin{equation*}
+      \sum_{i=1}^{n -2} \sum_{i=0}^{n-1}  a
+\end{equation*}
+\begin{equation*}
+      \sum_{i=1}^{n -2} na
+\end{equation*}
+\begin{equation*}
+      n\cdot a \sum_{i=1}^{n -2} 1
+\end{equation*}
+\begin{equation*}
+      n\cdot a \cdot (n-2) = an^2 -2an
+\end{equation*}
+Por tanto el Alogritmo tiene eficiencia de $O(n^2)$
+
+\section{Análisis empírico}
+Para el análisis empírico se ha usado un generador de horarios 
+aleatorios y como tamaño de datos se han usado de 5000 a 125000
+exámenes incrementando en 5000 exámenes cada test .
 
 \begin{figure}[H]
       \centering
