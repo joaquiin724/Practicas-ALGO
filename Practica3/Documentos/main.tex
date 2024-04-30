@@ -769,6 +769,18 @@ en cada iteración del bucle de la línea 24 se hace otro bucle que se ejecuta $
 es $O(n^2)$.\\
 Por último, la llamada a la función \textbf{printPath} tiene una eficiencia de $O(n)$, ya que se recorre (imprimiento) el camino recorrido, que como mucho tendrá $n$ nodos.\\ \\
 Por tanto, la eficiencia teórica del algoritmo Dijkstra implementado es $O(n^2)$, donde $n$ es el número de nodos del grafo.\\ \\
+\begin{figure}[H]
+      \centering
+      \includegraphics[width=0.8\textwidth]{assets/Img/gnu.png}
+      \caption{Representacón del algoritmo Dijkstra incrementando el número de nodos}
+
+\end{figure}
+Finalmente, la eficiencia de este problema no se puede reflejar de manera óptima con una gráfica, ya que debido a la creación aleatoria de los grafos puede ocurrir que aunque el número total de nodos 
+sea mayor que otra entrada anterior, los nodos sobre los que nos preguntamos pueden estar conectados de forma directa o con menor número de caminos que con la entrada de menor tamaño. \\
+Es por este motivo que el último dato recogido, 20000, tiene un tiempo de unos 6 segundos mientras que la entrada de 19000 tiene un tiempo de 15 segundos, a pesar de tener 1000 nodos menos.
+
+      
+
 \section{Representaciones gráficas}
 Finalmente, mostraremos varios ejemplos de la ejecución del algoritmo de Dijkstra sobre distintos grafos, y la representación gráfica de los mismos
  donde se pueden observar los posibles caminos y el mínimo escogido por dicho algoritmo.\\ \\
