@@ -337,7 +337,7 @@ y demostrando que siempre llega a la solución óptima.
 
 \end{itemize}
 
-\subsection{optimalidad}
+\subsection{Demostración }
 Una vez definidas las funciones, conjuntos de candidatos, etc,  pasaremos a realizar la demostración del algortimo greedy.
 Para la demostración se usará el método de inducción en el cual definiremos dos casos base uno para 1 exámen y otro para 2 
 exámenes para que sea más facil la  demostración.
@@ -387,31 +387,31 @@ Para ejecutar el programa se usan los siguientes parámetros:
 19:24 - 19:43 
 19:51 - 22:34 
 21:51 - 23:57 
+22:18 - 23:36 \\
+
+------------------------------\\
+
+0\\
+0:37 - 2:16   \\            
+2:44 - 5:11 \\
+8:32 - 10:2 \\
+10:47 - 11:17 \\
+13:12 - 16:12 \\
+17:51 - 20:46 \\
+21:51 - 23:57 \\
+
+1\\
+0:51 - 1:56 \\
+13:45 - 13:56 \\
+15:51 - 17:10 \\
+18:30 - 18:30 \\
+19:24 - 19:43 \\
+19:51 - 22:34 \\
+
+2 \\
 22:18 - 23:36 
 
-------------------------------
-
-0
-0:37 - 2:16               
-2:44 - 5:11 
-8:32 - 10:2 
-10:47 - 11:17 
-13:12 - 16:12 
-17:51 - 20:46 
-21:51 - 23:57 
-
-1
-0:51 - 1:56 
-13:45 - 13:56 
-15:51 - 17:10 
-18:30 - 18:30 
-19:24 - 19:43 
-19:51 - 22:34 
-
-2 
-22:18 - 23:36 
-
-numero de aulas : 3
+\\numero de aulas : 3
 
 \section{Análisis Teórico}
 Comenzamos mirando el interior del bucle for donde la eficiencia entre 
@@ -430,16 +430,7 @@ y al estar el bucle while dentro del for la eficiencia quedaría como
 Tomamos el peor de los casos donde todas las aulas se solapen 
 por tanto v.size = horario.size y si sustituimos por n tenemos que:
 \begin{equation*}
-      \sum_{i=1}^{n -2} \sum_{i=0}^{n-1}  a
-\end{equation*}
-\begin{equation*}
-      \sum_{i=1}^{n -2} na
-\end{equation*}
-\begin{equation*}
-      n\cdot a \sum_{i=1}^{n -2} 1
-\end{equation*}
-\begin{equation*}
-      n\cdot a \cdot (n-2) = an^2 -2an
+      \sum_{i=1}^{n -2} \sum_{i=0}^{n-1}  a = \sum_{i=1}^{n -2} na = n\cdot a \sum_{i=1}^{n -2} 1 = n\cdot a \cdot (n-2) = an^2 -2an
 \end{equation*}
 Por tanto el Alogritmo tiene eficiencia de $O(n^2)$
 
