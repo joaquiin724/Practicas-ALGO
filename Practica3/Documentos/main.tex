@@ -163,6 +163,13 @@ cada hijo se define como la suma de los beneficios de los bienes que se les lega
       return {sum1,son1};
   }
 \end{lstlisting}
+El algoritmo consite en dividir el vector padre en dos subvectores hijos, de forma que
+la suma de todos los elementos de un vector sea la máxima posible dado un número máximo
+de elementos que puede tener ese vector(aleatorio). Para ello como se divide entre dos hijos,
+le asignaremos siempre el rango mas grande al primer hijo(línea 13). Luego recorremos el vector,
+que como está ordenado en orden creciente, lo único que tenemos que hacer es asignar un número de 
+veces igual al rango los elementos del final del vector padre al hijo1 de forma que se queda con 
+el máximo número posible de elementos todos ellos del mayor valor posible.
 
 \section{Justificación}
 Proposiciones:
@@ -1174,7 +1181,7 @@ combinado de distintas mejoras como la elección de distintos puntos de partida
 o el uso de algoritmos más complejos como $\lambda$-opt o genéticos.
 
 \chapter{Conclusión}
-Como conclusión,además de lo visto en teoría (los algoritmos voraces tienen una 
+Como conclusión, además de lo visto en teoría (los algoritmos voraces tienen una 
 estructura característica muy marcada, aunque a veces la función de factibilidad 
 no es de utlilidad ya que siempre podrían obtenerse soluciones válidas dependiendo 
 del enunciado del problema) obtenemos que los algoritmos voraces son de gran 
@@ -1182,7 +1189,7 @@ utilidad en diferentes tipos problemas en los que podemos encontrar una solució
 óptima (en esta práctica el problema del viajante es el único que no presenta 
 una solución exacta, sino que es una aproximación). Sin embargo, no siempre 
 nos ofrecen resultados eficientes, debido a que se realizan por fuerza bruta. 
-De este modo lo recomendable sería buscar un punto medio entra la eficiencia 
+De este modo lo recomendable sería buscar un punto medio entre la eficiencia 
 y el resultado óptimo.
 
 
