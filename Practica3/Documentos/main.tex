@@ -445,13 +445,13 @@ el bucle for v.size()-1-1 veces por tanto la eficiencia de este bucle es de $O(n
 y al estar el bucle while dentro del for la eficiencia quedaría como 
 
 \begin{equation*}
-      \sum_{i=1}^{v.size -2} \sum_{i=0}^{horario.size -1}  a
+      \sum_{i=1}^{v.size -1} \sum_{i=0}^{horario.size -1}  a
 \end{equation*}
 
 Tomamos el peor de los casos donde todas las aulas se solapen 
 por tanto v.size = horario.size y si sustituimos por n tenemos que:
 \begin{equation*}
-      \sum_{i=1}^{n -2} \sum_{i=0}^{n-1}  a = \sum_{i=1}^{n -2} na = n\cdot a \sum_{i=1}^{n -2} 1 = n\cdot a \cdot (n-2) = an^2 -2an
+      \sum_{i=1}^{n -1} \sum_{i=0}^{n-1}  a = \sum_{i=1}^{n -1} na = n\cdot a \sum_{i=1}^{n -1} 1 = n\cdot a \cdot (n-2) = an^2 -an
 \end{equation*}
 Por tanto el Alogritmo tiene eficiencia de $O(n^2)$
 
