@@ -64,7 +64,7 @@ void generadorExamen(int n,int dm,vector<examen> & v){
 
 
         // Si la hora final es 24, ajustar a 23:59
-        if (h_final == 24) {
+        if (h_final <= 24) {
             h_final = 23;
             m_final = 59;
         }
