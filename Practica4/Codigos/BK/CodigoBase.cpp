@@ -1,5 +1,10 @@
 #include <cmath>
 #include <iostream>
+#include <ostream>
+#include<vector>
+#include <algorithm>
+using namespace std;
+
 
 class Point {
 public:
@@ -29,3 +34,39 @@ public:
 private:
   int x, y;
 };
+void printv(const vector<int> & v){
+  cout <<"["<< v[0];
+  for(int i = 1 ; i< v.size(); i++){
+    cout <<","<< v[i];
+  }
+  cout << "]"<<endl;
+}
+
+int next(int k , vector<int> & asigned,const vector<vector<double>> & graph){
+  do {
+    asigned[k]++;
+    if(graph[asigned[k-1]][asigned[k]] && (asigned.end()==find(asigned.begin(),asigned.end(),asigned[k])) && 
+    (asigned[k] < graph.size() || (k == graph.size() && graph[asigned[k]][asigned[1]])) ){
+      return asigned[k];
+    }
+  }while (asigned[k]<graph.size());
+  asigned[k]=0;
+  return 0;
+
+}
+
+void tsp (int k , vector<int> &asigned,const vector<vector<double>> &graph){
+  if(k == graph.size()){
+    printv(asigned);
+  }
+  else{
+    do{
+      asigned[k] = next(k,asigned,graph);
+      if(asigned[k] != 0){
+        tsp(k+1, asigned, graph);
+
+      }
+    }while(asigned[k] !=0);
+  }
+}
+
