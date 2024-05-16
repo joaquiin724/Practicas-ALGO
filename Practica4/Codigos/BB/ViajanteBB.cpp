@@ -18,6 +18,10 @@ public:
     [[nodiscard]] constexpr auto getX() const noexcept -> int { return x; }
     [[nodiscard]] constexpr auto getY() const noexcept -> int { return y; }
 
+    bool operator==(const Point &p) const {
+        return x == p.x && y == p.y;
+    }
+
     friend auto operator<<(std::ostream &os, const Point &point) -> std::ostream & {
         os << point.x << ',' << point.y;
         return os;
@@ -70,7 +74,7 @@ private:
 public:
     BranchBound(const std::vector<Point>& points) : path(points) {
         bestPath = nearestNeighborTSP(path);
-        bestSolution = totalDistance(path);
+        bestSolution = totalDistance(bestPath);
     };
 
     double getBestSolution() {
@@ -81,15 +85,26 @@ public:
         return bestPath;
     }
 
-    void getSolution() {
-        std::queue<Point> points;
-        for (auto& point : path) {
-            points.push(point);
+    void getSolution(const std::vector<Point>& path, const Point& toAdd, const double pathDistance) {
+        std::vector<Point> currentPath(path);
+        double distance = pathDistance + currentPath.back().distanceTo(toAdd);
+        currentPath.emplace_back(toAdd);
+
+        if (currentPath.size() == bestPath.size()) {
+            if (distance < bestSolution) {
+                bestPath = currentPath;
+                bestSolution = distance;
+            }
         }
-        while (!points.empty()) {            
-            Point current = points.front();
-            points.pop();
-            // Terminar o corregir directamente
+        else{
+            double equivalentDist = (bestSolution * currentPath.size() )/ bestPath.size();
+            if (distance <= equivalentDist) {
+                for (const Point& point : path) {
+                    if (std::find(currentPath.begin(), currentPath.end(), point) == currentPath.end()) {
+                        getSolution(currentPath, point, distance);
+                    }
+                }
+            }
         }
     }
 };
@@ -141,6 +156,7 @@ int main(int argc, char* argv[]) {
         std::cout << std::fixed;
         std::cout.precision(2);
         BranchBound solver(points);
+        solver.getSolution(points, points[0], 0);
         std::cout << size << " " << solver.getBestSolution() << std::endl;
     }
 
