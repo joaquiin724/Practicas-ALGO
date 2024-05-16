@@ -42,6 +42,10 @@ public:
     void initializeMatrix(const std::vector<Point>& points) {
         for (int i = 0; i < points.size(); ++i) {
             for (int j = 0; j < points.size(); ++j) {
+                if (i == j) {
+                    matrix[i][j] = std::numeric_limits<double>::infinity();
+                    continue;
+                }
                 matrix[i][j] = points[i].distanceTo(points[j]);
             }
         }
