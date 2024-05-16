@@ -72,10 +72,11 @@ private:
     std::vector<Point> bestPath;
     std::vector<Point> path;
 public:
-    BranchBound(const std::vector<Point>& points) : path(points) {
+    BranchBound(const std::vector<Point>& points) {
+        path = points;
         bestPath = nearestNeighborTSP(path);
         bestSolution = totalDistance(bestPath);
-    };
+    }
 
     double getBestSolution() {
         return bestSolution;
@@ -85,24 +86,25 @@ public:
         return bestPath;
     }
 
-    void getSolution(const std::vector<Point>& path, const Point& toAdd, const double pathDistance) {
-        std::vector<Point> currentPath(path);
-        double distance = pathDistance + currentPath.back().distanceTo(toAdd);
-        currentPath.emplace_back(toAdd);
-
-        if (currentPath.size() == bestPath.size()) {
-            if (distance < bestSolution) {
+    void getSolution(const std::vector<Point>& currentPath, const double pathDistance) {
+        if (currentPath.size() == path.size()) {
+            double totalDist = pathDistance + currentPath.back().distanceTo(currentPath[0]);
+            if (totalDist < bestSolution) {
+                bestSolution = totalDist;
                 bestPath = currentPath;
-                bestSolution = distance;
             }
+            return;
         }
-        else{
-            double equivalentDist = (bestSolution * currentPath.size() )/ bestPath.size();
-            if (distance <= equivalentDist) {
-                for (const Point& point : path) {
-                    if (std::find(currentPath.begin(), currentPath.end(), point) == currentPath.end()) {
-                        getSolution(currentPath, point, distance);
-                    }
+
+        for (const Point& point : path) {
+            if (std::find(currentPath.begin(), currentPath.end(), point) == currentPath.end()) {
+                double newDistance = pathDistance + currentPath.back().distanceTo(point);
+                double projectedDistance = newDistance + (bestSolution / path.size()) * (path.size() - currentPath.size());
+
+                if (projectedDistance < bestSolution) {
+                    std::vector<Point> newPath = currentPath;
+                    newPath.emplace_back(point);
+                    getSolution(newPath, newDistance);
                 }
             }
         }
@@ -111,7 +113,12 @@ public:
 
 
 int main(int argc, char* argv[]) {
-    if (strcmp(argv[2],"1") == 0) { // Random or Graph Results
+    if (argc < 3) {
+        std::cerr << "Usage: " << argv[0] << " <size or filename> <mode>" << std::endl;
+        return 1;
+    }
+
+    if (strcmp(argv[2], "1") == 0) { // Random or Graph Results
         const int VEC_SIZE = atoi(argv[1]);
         std::vector<Point> approximatePath; 
         std::vector<Point> path;
@@ -130,6 +137,7 @@ int main(int argc, char* argv[]) {
         /*------------------------|Para graficar los grafos|------------------*/
         std::ofstream outputFile("tsp_results.csv");
         BranchBound solver(approximatePath);
+        solver.getSolution({path[0]}, 0);
         path = solver.getBestPath();
 
         outputFile << std::endl;
@@ -139,7 +147,7 @@ int main(int argc, char* argv[]) {
 
         //-----------------------|Fin graficar resultados|---------------------*/
     } 
-    else if (strcmp(argv[2],"2") == 0){ // Get the distance of Cities
+    else if (strcmp(argv[2], "2") == 0) { // Get the distance of Cities
         std::string file = argv[1];
         std::ifstream input(file);
         std::vector<Point> points;
@@ -156,11 +164,9 @@ int main(int argc, char* argv[]) {
         std::cout << std::fixed;
         std::cout.precision(2);
         BranchBound solver(points);
-        solver.getSolution(points, points[0], 0);
+        solver.getSolution({points[0]}, 0);
         std::cout << size << " " << solver.getBestSolution() << std::endl;
     }
-
-
 
     return 0;
 }
