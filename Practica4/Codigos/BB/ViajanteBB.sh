@@ -12,17 +12,9 @@ opcion=2 # [1] Random test || [2] Made test
 size2=50 
 files=(
     "Paises/Djibouti.txt" 
-    "Paises/Uruguay.txt"
-    "Paises/Oman.txt"
-    "Paises/Nicaragua.txt" 
-    "Paises/Canada.txt"
-    "Paises/Egypt.txt" 
-    "Paises/Greece.txt"
-    "Paises/Japan.txt"
-    "Paises/Finland.txt" 
-    "Paises/Vietnam.txt"
-    "Paises/Burma.txt"
-    "Paises/China.txt"
+    # "Paises/Uruguay.txt"
+    # "Paises/Oman.txt"
+    # "Paises/Nicaragua.txt" 
     )
 
 #---------------------------|Soluciones Optimas|-------------------------------#

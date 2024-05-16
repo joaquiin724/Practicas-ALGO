@@ -31,6 +31,28 @@ private:
     int x, y;
 };
 
+class Matrix {
+public:
+    constexpr Matrix(int size) noexcept : matrix(size, std::vector<double>(size, 0)) {}
+    
+    [[nodiscard]] constexpr auto getDistance(int i, int j) const noexcept -> double {
+        return matrix[i][j];
+    }
+
+    void initializeMatrix(const std::vector<Point>& points) {
+        for (int i = 0; i < points.size(); ++i) {
+            for (int j = 0; j < points.size(); ++j) {
+                matrix[i][j] = points[i].distanceTo(points[j]);
+            }
+        }
+    }
+private:
+    std::vector<std::vector<double>> matrix;
+};
+
+
+
+
 double totalDistance(const std::vector<Point>& points) {
     double distance = 0;
     for (int i = 0; i < points.size() - 1; ++i) {
@@ -74,7 +96,7 @@ private:
 public:
     BranchBound(const std::vector<Point>& points) {
         path = points;
-        bestPath = nearestNeighborTSP(path);
+        bestPath = path;
         bestSolution = totalDistance(bestPath);
     }
 
@@ -99,9 +121,12 @@ public:
         for (const Point& point : path) {
             if (std::find(currentPath.begin(), currentPath.end(), point) == currentPath.end()) {
                 double newDistance = pathDistance + currentPath.back().distanceTo(point);
-                double projectedDistance = newDistance + (bestSolution / path.size()) * (path.size() - currentPath.size());
 
-                if (projectedDistance < bestSolution) {
+                if (newDistance < bestSolution * currentPath.size() / bestPath.size()) {
+                    if (newDistance < bestSolution * currentPath.size() / bestPath.size()) {
+                        std::cout << "projectedDistance: " << newDistance << std::endl;
+                        std::cout << "bestSolution: " << bestSolution * currentPath.size() / bestPath.size() << std::endl;
+                    }
                     std::vector<Point> newPath = currentPath;
                     newPath.emplace_back(point);
                     getSolution(newPath, newDistance);
