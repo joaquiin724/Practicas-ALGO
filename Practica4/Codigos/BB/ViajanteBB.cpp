@@ -7,6 +7,15 @@
 #include <algorithm>
 #include <queue>
 
+/**
+ * @brief Class which represents a point in a 2D plane.
+ * @note [[nodiscard]] is an attribute that tells the compiler to issue a warning if the return value of a function is ignored.
+ * @note constexpr is an attribute that tells the compiler that a function can be evaluated at compile time.
+ * @note noexcept is an attribute that tells the compiler that a function does not throw exceptions.
+ * @note -> is a new syntax that allows the compiler to deduce the return type of a function.
+ * 
+ * 
+ */
 class Point {
 public:
     constexpr Point(int x, int y) noexcept : x(x), y(y) {}
