@@ -66,5 +66,39 @@
 
 \chapter{Objetivos}
 
+\chapter{Backtracking Problema del Viajero}
+
+Tenemos un conjunto de n ciudades (puntos en un plano), cada una definida por las coor-
+denadas en el mapa $(x_i , y_i )$, con $i = 1, . . . , n$. La distancia entre dos ciudades viene dada por la
+distancia euclídea entre sus coordenadas.
+El problema de viajante de comercio consiste en encontrar el orden en el que un viajante,
+partiendo de la ciudad de origen (por ejemplo $(x_1 , y_1 )$) pase por todas y cada una de las ciudades
+una única vez, para volver a la ciudad de partida, formando un ciclo. \
+\\ \\       
+En esta práctica usamos el algorimo de exploración de grafos llamado Backtracking, que consiste en recorrer todos los caminos en profundidad obteniendo todas
+las posibles soluciones al problema. \\
+Para seleccionar la solución más óptima del problema debemos ir comparando cada vez que obtenemos una nueva solución al problema, quedándonos con la que más nos
+convenga, en este caso, al de menor distancia.
+\\ \\
+Hay varias formas de hacerlo:
+\begin{itemize}
+      \item La primera forma consiste en hacerlo mediante fuerza bruta, es decir, usar la definición al uso de Backtracking recorriendo todos los caminos sin preocuparnos
+      si estos nos permiten alcanzar una solución mejor que la obtenida anteriormente.
+      \item La otra forma es implementar una función de cota, esto nos permite decidir si seguimos explorando el camino seleccionado porque nos puede dar un resultado mejor
+      o si es mejor abandonarlo, ya que no se obtendrá una mejora.
+      Esta forma de realizarlo será, como es lógico, más eficiente.
+\end{itemize}
+
+Para la implementación del algoritmo, optamos por la segunda forma, usando diferentes funciones de cota que nos permitan aproximar si el camino seleccionado es bueno. \\ \\
+
+\textbf{Primera función de cota:} \\
+La primera función de cota implementada consiste en seleccionar, de todos los posibles puntos  que no hayan sido recorridos con aterioridad, el que esté a menor distancia, y tomarlo como si el resto tuvieran esa misma distancia,
+es decir, si hemos seleccionado ya 3 puntos y quedan 2 mas por recorrer, la función de cota interpretaría que la distancia total que nos quedaría por recorrer será dos veces, ya que sólo quedan dos puntos por seleccionar, la menor de esos dos puntos al último seleccionado.
+De esta forma si la solución que se propone mediante esta función de cota no es mejor que la que tengamos seleccionada en ese momento como la mejor, entonces se descartará el camino y se comenzará a explorar otro.
+
+
+
+
+
 
 \end{document}
