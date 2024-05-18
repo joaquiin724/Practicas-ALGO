@@ -7,6 +7,8 @@
 #include <algorithm>
 #include <queue>
 
+using namespace std;
+
 /**
  * @brief Class which represents a point in a 2D plane.
  * @note [[nodiscard]] is an attribute that tells the compiler to issue a warning if the return value of a function is ignored.
@@ -42,9 +44,9 @@ private:
 
 class Matrix {
 public:
-    constexpr Matrix(int size) noexcept : matrix(size, std::vector<double>(size, 0)) {}
+    Matrix(int size) noexcept : matrix(size, std::vector<double>(size, 0)) {}
     
-    [[nodiscard]] constexpr auto getDistance(int i, int j) const noexcept -> double {
+    [[nodiscard]] auto getDistance(int i, int j) const noexcept -> double {
         return matrix[i][j];
     }
 
@@ -148,6 +150,50 @@ public:
         }
     }
 };
+
+class Solucion {
+private:
+    vector<int> path;
+    int pos_e;
+    double distancia_recorrida;
+    double cota_inferior;
+public:
+    Solucion() {
+        pos_e = path.size();
+        distancia_recorrida = 0;
+        cota_inferior = 0;
+    }
+
+    bool Factible(int cota_global){
+        return cota_inferior < cota_global;
+    }
+
+    int Comp(){
+        return pos_e;
+    }
+
+    bool operator<(const Solucion& s) const {
+        return cota_inferior > s.cota_inferior;
+    }
+
+    vector<int> getPath() const {
+        return path;
+    }
+
+    int getPos_e() const {
+        return pos_e;
+    }
+
+    double getDistancia_recorrida() const {
+        return distancia_recorrida;
+    }
+
+    double getCota_inferior() const {
+        return cota_inferior;
+    }
+};
+
+Solucion Branch_and_Bound ()
 
 
 int main(int argc, char* argv[]) {
