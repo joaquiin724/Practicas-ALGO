@@ -7,10 +7,10 @@ cd $script_directory
 # Todo LO QUE SE CAMBIE AQUI SE CAMBIA TAMBIÉN EN AutoTest.sh
 # ---------------------------------------------------------
 # Número de ejecuciones
-num_puntos=7
+num_puntos=5
 num_archivos_puntos=10
 
-rango_max_puntos=100 # Rango máximo de puntos en el plano
+rango_max_puntos=50 # Rango máximo de puntos en el plano
 
 # ---------------------------------------------------------
 
