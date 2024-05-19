@@ -1,9 +1,11 @@
 #include <algorithm>
+#include <cstdlib>
 #include <fstream>
 #include <iostream>
 #include <limits>
 #include <sstream>
 #include <vector>
+#include <chrono>
 
 using namespace std;
 
@@ -111,30 +113,38 @@ vector<vector<double>> leerMatrizDesdeArchivo(const string &nombreArchivo) {
 
 int main(int argc, char *argv[]) {
 
-  if (argc != 2) {
-    cerr << "Uso: " << argv[0] << " <archivo>" << endl;
+  if (argc != 3) {
+    cerr << "Uso: " << argv[0] << " <archivo> <tipoejecucion>"  << endl;
     return 1;
   }
 
   string nombreArchivo = argv[1];
   vector<vector<double>> graph = leerMatrizDesdeArchivo(nombreArchivo);
-
+  int comienzo = 0;
   int tam = graph.size();
   vector<int> solucion(tam, -1);   //Vector de soluciones 
-  solucion[0] = 0; //comienzo
+  solucion[0] = comienzo; //comienzo
 
   double c_mejor = numeric_limits<double>::max(); //coste del mejor camino encontrado
   vector<int> s_mejor; //Vector de la mejor solucion
+  if (atoi(argv[2])==1){
+    tsp_backtracking(solucion, graph, 1, c_mejor, s_mejor, 0);
 
-  tsp_backtracking(solucion, graph, 1, c_mejor, s_mejor, 0);
-
-  if (!s_mejor.empty()) {
+  
     cout << "Solucion : ";
     printv(s_mejor);
     cout << "Coste: " << c_mejor << endl;
-  } else {
-    cout << "No solucion found." << endl;
+
+  
   }
+  else{
+    auto start = chrono::high_resolution_clock::now();
+    tsp_backtracking(solucion, graph,1 , c_mejor, s_mejor, 0);
+    auto end = chrono::high_resolution_clock::now();
+    cout << graph.size() << " " << chrono::duration_cast<chrono::nanoseconds>(end - start).count() << endl;
+    
+  }
+  
 
   return 0;
 }

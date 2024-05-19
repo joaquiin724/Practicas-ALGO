@@ -1,41 +1,38 @@
 #!/bin/bash
-# Script solo para crear gráficas
-script_directory=$(dirname "$0")
-cd $script_directory
+g++ -o Ejecutables/backtracking backtracking.cpp
 
-name="PrecisionMejora"
-# Crear un script de Gnuplot para generar la gráfica, todo lo que hay entre EOF y EOF se escribe en un archivo,
-# en este caso, script_gnuplot.gp
-cat << EOF > script_gnuplot.gp
-# Configuración del gráfico, se define el nombre de los ejes
-set xlabel "Tamaño de entrada"
-set ylabel "Tiempo de ejecución"
+# Ejecuta el código compilado para cada archivo .txt en la carpeta instancias que comienza con matriz
+echo " " > Salidas/salida.txt
+for file in Instancias/matriz_*.txt
+do
+    ./Ejecutables/backtracking $file 0 >> Salidas/salida.txt
+done
 
+# Verificar que se haya pasado el archivo de tiempos como argumento
+if [ "$#" -ne 1 ]; then
+    echo "Uso: $0 <archivo_tiempos>"
+    exit 1
+fi
+
+archivo_tiempos=$1
+grafico_salida="Salidas/grafico_tiempos.png"
+
+# Comprobar si el archivo de tiempos existe
+if [ ! -f "$archivo_tiempos" ]; then
+    echo "El archivo de tiempos '$archivo_tiempos' no existe."
+    exit 1
+fi
+
+# Generar el gráfico con GNUplot
+gnuplot <<- EOF
+    set terminal pngcairo size 800,600 enhanced font 'Verdana,10'
+    set output '$grafico_salida'
+    set title "Tiempos de Ejecución"
+    set xlabel "Tamaño de Entrada"
+    set ylabel "Tiempo (ns)"
+    set grid
+    set style data linespoints
+    plot '$archivo_tiempos' using 1:2 title 'Tiempo de Ejecución' with linespoints lw 2 pt 7
 EOF
-# Bucle para generar gráficos para cada algoritmo y tipo de dato
-cat << EOF >> script_gnuplot.gp
 
-# Comparación Tiempos
-# Da un nombre a la gráfica
-set title "Comparación Precision Mejora"
-# Establece la leyenda, donde 
-    # primer "" indica el lugar de donde tomar los datos
-    # 1:2 indica que se tomará la primera columna para el eje x y la segunda para el eje y
-    # with linespoints indica que se dibujarán líneas uniendo los puntos
-    # segundo "" indica el nombre que se le dará a la serie
-plot "Instancias/EjecucionPaisesCirc.txt" using 1:2 with linespoints title "Circ" , \
-        "Instancias/EjecucionPaisesSort.txt" using 1:2 with linespoints title "Sort" , \
-        "Instancias/EjecucionPaisesNNA.txt" using 1:2 with linespoints title "NNA" , \
-        "Instancias/PaisesOptimo.txt" using 1:2 with linespoints title "Optimo"
-        
-
-# Guardar la gráfica en un archivo de imagen, definiendo el formato primero y el nombre del archivo después
-set term png
-set output "Graficas/${name}.png"
-replot
-EOF
-# Ejecutar Gnuplot con el script generado
-gnuplot script_gnuplot.gp
-
-# Eliminar el script de Gnuplot
-rm script_gnuplot.gp
+echo "Gráfico generado en $grafico_salida"
