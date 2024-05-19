@@ -72,7 +72,7 @@ graph: $(OUT_DIR)/*.txt
 	        puntos_file=$(INST_DIR)/puntos_$${size}_$${inst}.txt; \
 	        resultado_file=$(OUT_DIR)/resultado_$${size}_$${inst}.txt; \
 	        grafico_file=$(GRAPH_DIR)/grafico_$${size}_$${inst}.png; \
-	        ./generate_plots.sh $${puntos_file} $${resultado_file} $${grafico_file}; \
+	        ./graph.sh $${puntos_file} $${resultado_file} $${grafico_file}; \
 	    done \
 	done
 	@echo "Gráficos generados en $(GRAPH_DIR)"

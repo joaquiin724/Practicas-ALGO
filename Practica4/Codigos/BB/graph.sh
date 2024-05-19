@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# Verificar que se hayan pasado los argumentos correctos
 if [ "$#" -ne 3 ]; then
     echo "Uso: $0 <archivo_puntos> <archivo_resultado> <archivo_salida>"
     exit 1
@@ -23,10 +24,10 @@ read -a orden < "$archivo_resultado"
 # Crear un archivo de datos para GNUplot
 datos_gnuplot=$(mktemp)
 for i in "${orden[@]}"; do
-    echo "${puntos_x[$i]} ${puntos_y[$i]}" >> "$datos_gnuplot"
+    echo "${puntos_x[$i]} ${puntos_y[$i]} $i" >> "$datos_gnuplot"
 done
 # Añadir el primer punto al final para cerrar el ciclo
-echo "${puntos_x[${orden[0]}]} ${puntos_y[${orden[0]}]}" >> "$datos_gnuplot"
+echo "${puntos_x[${orden[0]}]} ${puntos_y[${orden[0]}]} ${orden[0]}" >> "$datos_gnuplot"
 
 # Generar el gráfico con GNUplot
 gnuplot <<- EOF
@@ -36,7 +37,9 @@ gnuplot <<- EOF
     set xlabel 'X'
     set ylabel 'Y'
     set grid
-    plot '$datos_gnuplot' with linespoints lt rgb "blue" lw 2 pt 7
+    set key off
+    plot '$datos_gnuplot' using 1:2 with linespoints lt rgb "blue" lw 2 pt 7, \
+         '' using 1:2:(sprintf("(%d)", \$3)) with labels offset char 1,1 notitle
 EOF
 
 # Limpiar archivo temporal
