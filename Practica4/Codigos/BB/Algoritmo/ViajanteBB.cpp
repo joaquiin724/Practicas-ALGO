@@ -3,10 +3,13 @@
 #include <cmath>
 #include <limits>
 #include <cstring>
+#include <set>
 #include <algorithm>
 #include <queue>
 #include <fstream>
 #include <sstream>
+#include <string_view>
+#include <ranges>
 #include <numeric>
 
 using namespace std;
@@ -20,25 +23,17 @@ using namespace std;
  * 
  * @return suma de los mínimos de cada fila
 */
-double minimo(const vector<vector<double>>& matriz, const vector<int>& filas_a_ignorar = vector<int>()) {
+double minimo(const std::vector<std::vector<double>>& matriz, const std::vector<int>& filas_a_ignorar = {}) {
     double suma_minimos = 0.0;
 
     for (int i = 0; i < matriz.size(); ++i) {
-        // Verificar si la fila actual debe ser ignorada
-        if (find(filas_a_ignorar.begin(), filas_a_ignorar.end(), i) != filas_a_ignorar.end()) {
-            continue; // Saltar esta fila
-        }
+        if (std::ranges::find(filas_a_ignorar, i) != filas_a_ignorar.end()) { continue;}
 
         if (!matriz[i].empty()) {
-            // Encontrar el mínimo de la fila excluyendo los valores de 0
-            double minimo_fila = numeric_limits<double>::infinity();
-            for (double valor : matriz[i]) {
-                if (valor > 0 && valor < minimo_fila) {
-                    minimo_fila = valor;
-                }
-            }
-            // Asegurar que el mínimo es menor que infinito y sumarlo
-            if (minimo_fila != numeric_limits<double>::infinity()) {
+            auto minimo_fila = std::ranges::min(matriz[i] | std::views::filter([](double valor) { return valor > 0;}),
+             std::less<>(), [](double valor) { return valor; });
+
+            if (minimo_fila < std::numeric_limits<double>::max()) {
                 suma_minimos += minimo_fila;
             }
         }
@@ -55,20 +50,14 @@ double minimo(const vector<vector<double>>& matriz, const vector<int>& filas_a_i
  * 
  * @return vector con los números faltantes
 */
-vector<int> numeros_faltantes(const vector<int>& vec, int n) {
-    vector<bool> presente(n + 2, false); // Vector para marcar los números presentes, de 0 a n
-
-    // Marcar los números presentes en el vector dado
-    for (int num : vec) {
-        if (num >= 0 && num <= n) {
-            presente[num] = true;
-        }
-    }
+std::vector<int> numeros_faltantes(const std::vector<int>& vec, int n) {
+    // Crear un set con los números presentes en el vector dado
+    std::set<int> presentes(vec.begin(), vec.end());
 
     // Encontrar los números que no están presentes
-    vector<int> faltantes;
-    for (int i = 0; i <= n; ++i) {
-        if (!presente[i]) {
+    std::vector<int> faltantes;
+    for (int i : std::views::iota(0, n + 1)) {
+        if (!presentes.contains(i)) {
             faltantes.push_back(i);
         }
     }
@@ -79,27 +68,20 @@ vector<int> numeros_faltantes(const vector<int>& vec, int n) {
 
 /**
  * @brief Estructura para almacenar los datos de un nodo en el algoritmo de Branch and Bound
-*/
+ */
 struct Nodo {
-    /**
-     * @brief Miembros de la estructura Nodo
-    */
-    vector<int> path;
-
-    /**
-     * @brief Distancia recorrida hasta el nodo actual
-    */
-    double distancia_recorrida;
-
-    /**
-     * @brief Cota inferior para el nodo actual
-    */
-    double cota_inferior;
+    vector<int> path; // Vector que almacena el orden de los nodos visitados hasta el nodo actual
+    double distancia_recorrida; // Distancia recorrida hasta el nodo actual
+    double cota_inferior; // Cota inferior para el nodo actual
 
     /**
      * @brief Constructor de la estructura Nodo
-    */
-    Nodo(vector<int>&inicial, double dist_rec, double cota_inf) {
+     * 
+     * @param inicial vector con el orden de los nodos visitados hasta el nodo actual
+     * @param dist_rec distancia recorrida hasta el nodo actual
+     * @param cota_inf cota inferior para el nodo actual
+     */
+    Nodo(vector<int>& inicial, double dist_rec, double cota_inf) {
         path = inicial;
         distancia_recorrida = dist_rec;
         cota_inferior = cota_inf;
@@ -128,16 +110,16 @@ struct Comparador {
  *   - Si no, se generan los nodos hijos con los puntos faltantes y se agregan a la cola de prioridad.
  * Destacar que esta idea es un poco diferente a la presentada en las diapositivas, pero la eficiencia
  * es la misma.
- * 
+ * Es
  * @param points vector con los puntos a visitar
  * @param distancias matriz de distancias entre los puntos
  * @param inicial punto inicial
  * 
  * @return vector con el camino que minimiza la distancia total
 */
-vector<int> Branch_and_Bound (vector<int>& points, vector< vector<double>> &distancias, int inicial){
+vector<int> branch_and_bound(vector<int>& points, vector< vector<double>> &distancias, int inicial){
     priority_queue<Nodo, vector<Nodo>, Comparador> no_visitados;
-    vector<int> mejor_camino= {inicial};
+    vector<int> mejor_camino = {inicial};
     Nodo actual( mejor_camino, 0, minimo(distancias));
     no_visitados.push(actual);
 
@@ -195,9 +177,9 @@ vector<int> Branch_and_Bound (vector<int>& points, vector< vector<double>> &dist
  * 
  * @return vector con el camino que minimiza la distancia total
 */
-vector<int> Branch_and_Bound2 (vector<int>& points, vector< vector<double>> &distancias, int inicial){
+vector<int> branch_and_bound2 (vector<int>& points, vector< vector<double>> &distancias, int inicial){
     priority_queue<Nodo, vector<Nodo>, Comparador> no_visitados;
-    vector<int> mejor_camino= {inicial};
+    vector<int> mejor_camino = {inicial};
     Nodo actual( mejor_camino, 0, minimo(distancias));
     no_visitados.push(actual);
 
@@ -334,102 +316,42 @@ vector<vector<double>> leerMatrizDesdeArchivo(const string& nombreArchivo) {
     return matriz;
 }
 
+void guardarCaminoEnArchivo(const string& nombreArchivo, const vector<int>& camino) {
+    ofstream archivo(nombreArchivo);
+
+
+    for (int nodo : camino) {
+        archivo << nodo << " ";
+    }
+
+    archivo.close();
+}
+
+
+/**
+ * [Run] <archivo_matriz> <punto_inicial>
+ */
 int main(int argc, char* argv[]) {
 
-    if (argc < 3) {
-        cerr << "Uso: " << argv[0] << " <archivo_matriz> <valor_inicial>" << endl;
-        return 1;
-    }
+    string nombre_archivo = argv[1];
+    int punto_inicial = atoi(argv[2]);
 
-    string nombreArchivo = argv[1];
-    int inicial=atoi(argv[2]);
-
-    // Lectura de la matriz desde el archivo
-    vector<vector<double>> matriz = leerMatrizDesdeArchivo(nombreArchivo);
-    if (matriz.empty()) {
-        cerr << "No se pudo leer la matriz desde el archivo." << endl;
-        return 1;
-    }
-    
-    // if (argc < 3) {
-    //     std::cerr << "Usage: " << argv[0] << " <size or filename> <mode>" << std::endl;
-    //     return 1;
-    // }
+    vector<vector<double>> matriz = leerMatrizDesdeArchivo(nombre_archivo);
 
     vector<int> solucion;
-    vector<int> puntos;
+    vector<int> puntos(matriz.size());
 
-    for (int i = 0; i < matriz.size(); ++i) {
-        puntos.push_back(i);
-    }
-    solucion= Branch_and_Bound(puntos, matriz, inicial);
+    iota(puntos.begin(), puntos.end(), 0);
+    solucion = branch_and_bound(puntos, matriz, punto_inicial);
 
     for (int i = 0; i < solucion.size(); ++i) {
         cout << solucion[i] << " ";
     }
     cout << endl;
 
-    // Calcular la distancia total
     cout << "Distancia total: " << calcularDistanciaTotal(matriz, solucion) << endl;
 
-    vector<int> solucion_fuerza_bruta = bruteForceTSP(matriz, inicial);
-    for (int i = 0; i < solucion_fuerza_bruta.size(); ++i) {
-        cout << solucion_fuerza_bruta[i] << " ";
-    }
-    cout << endl;
-
-    // Calcular distancia total
-    cout << "Distancia total: " << calcularDistanciaTotal(matriz, solucion_fuerza_bruta) << endl;
-
-    // if (strcmp(argv[2], "1") == 0) { // Random or Graph Results
-    //     const int VEC_SIZE = atoi(argv[1]);
-    //     std::vector<Point> approximatePath; 
-    //     std::vector<Point> path;
-    //     approximatePath.reserve(VEC_SIZE);
-    //     path.reserve(VEC_SIZE);
-        
-    //     srand(time(NULL));
-
-    //     for (int i = 0; i < VEC_SIZE; ++i) {
-    //         int x = rand() % 100 - 50;
-    //         int y = rand() % 100 - 50;
-    //         approximatePath.emplace_back(Point(x, y));
-    //         path.emplace_back(Point(x, y));
-    //     }
-
-    //     /*------------------------|Para graficar los grafos|------------------*/
-    //     std::ofstream outputFile("tsp_results.csv");
-    //     BranchBound solver(approximatePath);
-    //     solver.getSolution({path[0]}, 0);
-    //     path = solver.getBestPath();
-
-    //     outputFile << std::endl;
-    //     for (const Point& point : path) {
-    //         outputFile << point.getX() << "," << point.getY() << std::endl;
-    //     }
-
-    //     //-----------------------|Fin graficar resultados|---------------------*/
-    // } 
-    // else if (strcmp(argv[2], "2") == 0) { // Get the distance of Cities
-    //     std::string file = argv[1];
-    //     std::ifstream input(file);
-    //     std::vector<Point> points;
-    //     double x, y;
-    //     int size;
-    //     int pos;
-    //     input >> size;
-    //     points.reserve(size);
-    //     for (int i = 0; i < size; ++i) {
-    //         input >> pos >> x >> y;
-    //         points.emplace_back(Point(x, y));
-    //     }
-    //     input.close();
-    //     std::cout << std::fixed;
-    //     std::cout.precision(2);
-    //     BranchBound solver(points);
-    //     solver.getSolution({points[0]}, 0);
-    //     std::cout << size << " " << solver.getBestSolution() << std::endl;
-    // }
+    guardarCaminoEnArchivo("pepe.txt", solucion);
 
     return 0;
 }
