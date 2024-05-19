@@ -1,2 +1,2 @@
-1 0 4 2 6 5 11 8 7 10 3 9 1 
-Distancia total: 144.234
+1 11 5 10 6 4 2 8 7 3 0 9 1 
+Distancia total: 131.493

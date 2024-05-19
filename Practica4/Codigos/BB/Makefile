@@ -3,6 +3,7 @@ GEN_DIR = Generador
 ALG_DIR = Algoritmo
 INST_DIR = Instancias
 OUT_DIR = Salidas
+GRAPH_DIR = Graficos
 
 # Archivos fuente
 GEN_SOURCES = $(wildcard $(GEN_DIR)/*.cpp)
@@ -62,10 +63,25 @@ run: $(ALG_EXEC)
 	done
 	@echo "Resultados guardados en $(OUT_DIR)"
 
+# Regla para graficar los resultados
+graph: $(OUT_DIR)/*.txt
+	@echo "Generando gráficos..."
+	@mkdir -p $(GRAPH_DIR)
+	@for size in $(shell seq 3 $(TAM)); do \
+	    for inst in $(shell seq 1 $(NUM)); do \
+	        puntos_file=$(INST_DIR)/puntos_$${size}_$${inst}.txt; \
+	        resultado_file=$(OUT_DIR)/resultado_$${size}_$${inst}.txt; \
+	        grafico_file=$(GRAPH_DIR)/grafico_$${size}_$${inst}.png; \
+	        python3 graph.py $${puntos_file} $${resultado_file} $${grafico_file}; \
+	    done \
+	done
+	@echo "Gráficos generados en $(GRAPH_DIR)"
+
 clean:
 	@echo "Limpiando archivos compilados y resultados..."
 	@rm -f $(CREA_PUNTOS_EXEC) $(CREA_MATRICES_EXEC) $(ALG_EXEC)
 	@rm -rf $(INST_DIR)/*
 	@rm -rf $(OUT_DIR)/*
+	@rm -rf $(GRAPH_DIR)/*
 
-.PHONY: all generate run clean
+.PHONY: all generate run graph clean
