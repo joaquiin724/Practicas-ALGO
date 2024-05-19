@@ -17,6 +17,10 @@ ALG_EXEC = $(ALG_DIR)/viajante_bb
 CXX = g++
 CXXFLAGS = -std=c++20 -O3
 
+# Variables de cantidad de archivos
+TAM = 12
+NUM = 5
+
 all: $(CREA_PUNTOS_EXEC) $(CREA_MATRICES_EXEC) $(ALG_EXEC)
 
 # Regla para compilar CreacionPuntos
@@ -35,21 +39,27 @@ $(ALG_EXEC): $(ALG_DIR)/ViajanteBB.cpp
 generate: $(CREA_PUNTOS_EXEC) $(CREA_MATRICES_EXEC)
 	@echo "Generando instancias..."
 	@mkdir -p $(INST_DIR)
-	$(CREA_PUNTOS_EXEC) 5 $(INST_DIR)/puntos_5.txt 50
-	$(CREA_MATRICES_EXEC) $(INST_DIR)/puntos_5.txt $(INST_DIR)/matriz_5.txt
-	$(CREA_PUNTOS_EXEC) 10 $(INST_DIR)/puntos_10.txt 50
-	$(CREA_MATRICES_EXEC) $(INST_DIR)/puntos_10.txt $(INST_DIR)/matriz_10.txt
-	$(CREA_PUNTOS_EXEC) 14 $(INST_DIR)/puntos_14.txt 50
-	$(CREA_MATRICES_EXEC) $(INST_DIR)/puntos_14.txt $(INST_DIR)/matriz_14.txt
+	@for size in $(shell seq 3 $(TAM)); do \
+	    for inst in $(shell seq 1 $(NUM)); do \
+	        puntos_file=$(INST_DIR)/puntos_$${size}_$${inst}.txt; \
+	        matriz_file=$(INST_DIR)/matriz_$${size}_$${inst}.txt; \
+	        $(CREA_PUNTOS_EXEC) $${size} $${puntos_file} 50; \
+	        $(CREA_MATRICES_EXEC) $${puntos_file} $${matriz_file}; \
+	    done \
+	done
 	@echo "Instancias generadas en $(INST_DIR)"
 
 # Regla para ejecutar el algoritmo con las instancias
 run: $(ALG_EXEC)
 	@echo "Ejecutando algoritmo..."
 	@mkdir -p $(OUT_DIR)
-	$(ALG_EXEC) $(INST_DIR)/matriz_5.txt 1 > $(OUT_DIR)/resultado_5.txt
-	$(ALG_EXEC) $(INST_DIR)/matriz_10.txt 1 > $(OUT_DIR)/resultado_10.txt
-	$(ALG_EXEC) $(INST_DIR)/matriz_14.txt 1 > $(OUT_DIR)/resultado_14.txt
+	@for size in $(shell seq 3 $(TAM)); do \
+	    for inst in $(shell seq 1 $(NUM)); do \
+	        matriz_file=$(INST_DIR)/matriz_$${size}_$${inst}.txt; \
+	        resultado_file=$(OUT_DIR)/resultado_$${size}_$${inst}.txt; \
+	        $(ALG_EXEC) $${matriz_file} 1 > $${resultado_file}; \
+	    done \
+	done
 	@echo "Resultados guardados en $(OUT_DIR)"
 
 clean:

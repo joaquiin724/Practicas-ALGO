@@ -344,7 +344,7 @@ int main(int argc, char* argv[]) {
     iota(puntos.begin(), puntos.end(), 0);
     solucion = branch_and_bound(puntos, matriz, punto_inicial);
 
-    for (int i = 0; i < solucion.size(); ++i) {
+    for (size_t i = 0; i < solucion.size(); ++i) {
         cout << solucion[i] << " ";
     }
     cout << endl;
