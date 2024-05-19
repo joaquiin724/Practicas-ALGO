@@ -9,6 +9,7 @@
 #include <fstream>
 #include <sstream>
 #include <string_view>
+#include <chrono>
 #include <ranges>
 #include <numeric>
 
@@ -320,7 +321,22 @@ vector<vector<double>> leerMatrizDesdeArchivo(const string& nombreArchivo) {
  * [Run] <archivo_matriz> <punto_inicial>
  */
 int main(int argc, char* argv[]) {
+    if (strcmp(argv[3],"2") == 0) {
+        string nombre_archivo = argv[1];
+        int punto_inicial = atoi(argv[2]);
 
+        vector<vector<double>> matriz = leerMatrizDesdeArchivo(nombre_archivo);
+
+        vector<int> solucion;
+        vector<int> puntos(matriz.size());
+
+        iota(puntos.begin(), puntos.end(), 0);
+        auto start = chrono::high_resolution_clock::now();
+        solucion = branch_and_bound(puntos, matriz, punto_inicial);
+        auto end = chrono::high_resolution_clock::now();
+        cout << matriz.size() << " " << chrono::duration_cast<chrono::nanoseconds>(end - start).count() << endl;
+        return 0;
+    }
     string nombre_archivo = argv[1];
     int punto_inicial = atoi(argv[2]);
 
