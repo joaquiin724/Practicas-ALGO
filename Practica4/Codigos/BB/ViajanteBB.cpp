@@ -314,32 +314,51 @@ double calcularDistanciaTotal(const vector<vector<double>>& distancias, const ve
  * @param points which will be used to calculate the minimum distance
  * @return minimum distance to visit all the points
  */
-vector<int> encontrarMejorCamino(const vector<vector<double>>& distancias, int nodoInicial) {
-    int n = distancias.size();
-    vector<int> permutation(n);
-    iota(permutation.begin(), permutation.end(), 0);
 
-    double minDistance = numeric_limits<double>::max();
-    vector<int> bestPermutation;
+/**
+ * @brief This function calculates the minimum distance required to visit
+ * all the points in the vector once, to do so, it generates all the possible
+ * permutations of the vector and calculates the distance needed to visit all
+ * the points in the order of the permutation.
+ * 
+ * @note Distance from first to last point has to be calculated to make a closed path.
+ * @note iota generates a sequence of numbers from 0 to n.
+ * @note If needed, it can return the permutation that generates the minimum distance.
+ * 
+ * @param points which will be used to calculate the minimum distance
+ * @return minimum distance to visit all the points
+ */
+std::vector<int> bruteForceTSP(const std::vector<std::vector<double>>& adjacencyMatrix, int startNode) {
+    int numNodes = adjacencyMatrix.size();
+    std::vector<int> nodes(numNodes);
+    std::iota(nodes.begin(), nodes.end(), 0);
+    nodes.erase(std::remove(nodes.begin(), nodes.end(), startNode), nodes.end());
+
+    double minDistance = std::numeric_limits<double>::max();
+    std::vector<int> bestPermutation;
     do {
-        // Asegurar que la permutación comience desde el nodo inicial
-        if (permutation.front() != nodoInicial) continue;
-
-        double distance = calcularDistanciaTotal(distancias, permutation);
-
-        // Añadir punto inicial al final de la permutación
-        distance += distancias[permutation.back()][permutation.front()];
-
+        double distance = 0;
+        int previousNode = startNode;
+        for (int i = 0; i < nodes.size(); ++i) {
+            distance += adjacencyMatrix[previousNode][nodes[i]];
+            previousNode = nodes[i];
+        }
+        distance += adjacencyMatrix[previousNode][startNode];
+        
         if (distance < minDistance) {
             minDistance = distance;
-            bestPermutation = permutation;
+            bestPermutation = nodes;
         }
-    } while (next_permutation(permutation.begin(), permutation.end()));
+    } while (std::next_permutation(nodes.begin(), nodes.end()));
 
-    // Añadir nodo inicial al final de la mejor permutación
-    bestPermutation.push_back(bestPermutation.front());
+    std::vector<int> bestPath;
+    bestPath.push_back(startNode);
+    for (int node : bestPermutation) {
+        bestPath.push_back(node);
+    }
+    bestPath.push_back(startNode);
 
-    return bestPermutation;
+    return bestPath;
 }
 
 // Función para leer una matriz desde un archivo
@@ -415,7 +434,7 @@ int main(int argc, char* argv[]) {
     // Calcular la distancia total
     cout << "Distancia total: " << calcularDistanciaTotal(matriz, solucion) << endl;
 
-    vector<int> solucion_fuerza_bruta = encontrarMejorCamino(matriz, inicial);
+    vector<int> solucion_fuerza_bruta = bruteForceTSP(matriz, inicial);
     for (int i = 0; i < solucion_fuerza_bruta.size(); ++i) {
         cout << solucion_fuerza_bruta[i] << " ";
     }
