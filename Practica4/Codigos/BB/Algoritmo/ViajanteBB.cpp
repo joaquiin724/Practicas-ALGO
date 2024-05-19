@@ -316,18 +316,6 @@ vector<vector<double>> leerMatrizDesdeArchivo(const string& nombreArchivo) {
     return matriz;
 }
 
-void guardarCaminoEnArchivo(const string& nombreArchivo, const vector<int>& camino) {
-    ofstream archivo(nombreArchivo);
-
-
-    for (int nodo : camino) {
-        archivo << nodo << " ";
-    }
-
-    archivo.close();
-}
-
-
 /**
  * [Run] <archivo_matriz> <punto_inicial>
  */
@@ -351,7 +339,6 @@ int main(int argc, char* argv[]) {
 
     cout << "Distancia total: " << calcularDistanciaTotal(matriz, solucion) << endl;
 
-    guardarCaminoEnArchivo("pepe.txt", solucion);
 
     return 0;
 }

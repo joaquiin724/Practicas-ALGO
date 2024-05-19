@@ -19,10 +19,10 @@ CXX = g++
 CXXFLAGS = -std=c++20 -O3
 
 # Variables de cantidad de archivos
-TAM = 12
-NUM = 5
+TAM = 13
+NUM = 1
 
-all: $(CREA_PUNTOS_EXEC) $(CREA_MATRICES_EXEC) $(ALG_EXEC)
+all: generate run graph
 
 # Regla para compilar CreacionPuntos
 $(CREA_PUNTOS_EXEC): $(GEN_DIR)/CreacionPuntos.cpp
@@ -72,7 +72,7 @@ graph: $(OUT_DIR)/*.txt
 	        puntos_file=$(INST_DIR)/puntos_$${size}_$${inst}.txt; \
 	        resultado_file=$(OUT_DIR)/resultado_$${size}_$${inst}.txt; \
 	        grafico_file=$(GRAPH_DIR)/grafico_$${size}_$${inst}.png; \
-	        python3 graph.py $${puntos_file} $${resultado_file} $${grafico_file}; \
+	        ./generate_plots.sh $${puntos_file} $${resultado_file} $${grafico_file}; \
 	    done \
 	done
 	@echo "Gráficos generados en $(GRAPH_DIR)"
