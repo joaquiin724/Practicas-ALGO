@@ -170,7 +170,7 @@ vector<int> branch_and_bound(vector<int>& points, vector< vector<double>> &dista
     Nodo actual( mejor_camino, 0, minimo(distancias));
     no_visitados.push(actual);
 
-    double costo_minimo = numeric_limits<double>::max();
+    double costo_minimo = 100;
     mejor_camino.clear();
 
     while (!no_visitados.empty()) {
