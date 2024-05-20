@@ -1,6 +1,5 @@
 #include <iostream>
 #include <vector>
-#include <cmath>
 #include <limits>
 #include <cstring>
 #include <set>
@@ -8,12 +7,40 @@
 #include <queue>
 #include <fstream>
 #include <sstream>
-#include <string_view>
 #include <chrono>
 #include <ranges>
 #include <numeric>
 
 using namespace std;
+
+
+vector<int> nearest_neighborTSP(const vector<vector<double>>& distancias, int inicial) {
+    int num_puntos = distancias.size();
+    vector<int> camino;
+    vector<bool> visitados(num_puntos, false);
+    camino.reserve(num_puntos);
+    camino.push_back(inicial);
+    visitados[inicial] = true;
+
+    for (int i = 0; i < num_puntos - 1; ++i) {
+        int actual = camino.back();
+        int siguiente = -1;
+        double min_distancia = numeric_limits<double>::max();
+
+        for (int j = 0; j < num_puntos; ++j) {
+            if (!visitados[j] && distancias[actual][j] < min_distancia) {
+                min_distancia = distancias[actual][j];
+                siguiente = j;
+            }
+        }
+
+        camino.push_back(siguiente);
+        visitados[siguiente] = true;
+    }
+
+    camino.push_back(inicial);
+    return camino;
+}
 
 /**
  * Función para calcular el mínimo de una matriz de distancias, excluyendo los valores de 0 y 
@@ -99,6 +126,25 @@ struct Comparador {
 };
 
 /**
+ * @brief Función para calcular la distancia total de un camino dado
+ * 
+ * @param distancias matriz de distancias entre los puntos
+ * @param camino vector con el orden de los nodos a visitar
+ * 
+ * @return distancia total del camino
+*/
+double calcularDistanciaTotal(const vector<vector<double>>& distancias, const vector<int>& camino) {
+    double total = 0.0;
+    for (int i = 0; i < camino.size() - 1; ++i) {
+        total += distancias[camino[i]][camino[i + 1]];
+    }
+    // Asegúrate de volver al punto inicial si tu problema lo requiere (como en el problema del viajante)
+    total += distancias[camino.back()][camino.front()];
+    return total;
+}
+
+
+/**
  * Función para resolver el problema del viajante de comercio utilizando el algoritmo de Branch and Bound.
  * La idea es la siguiente:
  *  - Se crea un nodo con el punto inicial y se agrega a la cola de prioridad.
@@ -124,7 +170,7 @@ vector<int> branch_and_bound(vector<int>& points, vector< vector<double>> &dista
     Nodo actual( mejor_camino, 0, minimo(distancias));
     no_visitados.push(actual);
 
-    double costo_minimo = numeric_limits<double>::infinity();
+    double costo_minimo = numeric_limits<double>::max();
     mejor_camino.clear();
 
     while (!no_visitados.empty()) {
@@ -148,7 +194,7 @@ vector<int> branch_and_bound(vector<int>& points, vector< vector<double>> &dista
                 for (int i = 0; i < faltantes.size(); ++i) {
                     Nodo nuevo= actual;
                     nuevo.path.push_back(faltantes[i]);
-                    nuevo.distancia_recorrida= nuevo.distancia_recorrida+ distancias[actual.path.back()][faltantes[i]];
+                    nuevo.distancia_recorrida += distancias[actual.path.back()][faltantes[i]];
                     nuevo.cota_inferior = nuevo.distancia_recorrida + minimo(distancias, nuevo.path);
                     no_visitados.push(nuevo);
                 }
@@ -158,130 +204,6 @@ vector<int> branch_and_bound(vector<int>& points, vector< vector<double>> &dista
 
     return mejor_camino;
 
-}
-
-/**
- * Función para resolver el problema del viajante de comercio utilizando el algoritmo de Branch and Bound.
- * La idea es la siguiente:
- *  - Se crea un nodo con el punto inicial y se agrega a la cola de prioridad.
- *  - Mientras la cola no esté vacía:
- *   - Se extrae el nodo con menor costo actual (a partir de la cota inferior y haciendo uso del comparador
- *     definido anteriormente).
- *   - Si el camino actual tiene todos los puntos añadimos el inicial para tener el camino completo y
- *    calculamos la distancia total, si es mejor que la actual, actualizamos la solución.
- *   - Si no, se generan los nodos hijos con los puntos faltantes y se agregan a la cola de prioridad.
- * Versión 2, con un mayor parecido al código presentado en las diapositivas, pero misma eficiencia.
- * 
- * @param points vector con los puntos a visitar
- * @param distancias matriz de distancias entre los puntos
- * @param inicial punto inicial
- * 
- * @return vector con el camino que minimiza la distancia total
-*/
-vector<int> branch_and_bound2 (vector<int>& points, vector< vector<double>> &distancias, int inicial){
-    priority_queue<Nodo, vector<Nodo>, Comparador> no_visitados;
-    vector<int> mejor_camino = {inicial};
-    Nodo actual( mejor_camino, 0, minimo(distancias));
-    no_visitados.push(actual);
-
-    double costo_minimo = numeric_limits<double>::infinity();
-    mejor_camino.clear();
-
-    while (!no_visitados.empty()) {
-        actual = no_visitados.top();
-        no_visitados.pop();
-
-        if(actual.cota_inferior < costo_minimo ){
-            vector<int> faltantes = numeros_faltantes(actual.path, points.size()-1);
-            for (int i = 0; i < faltantes.size(); ++i) {
-                Nodo nuevo= actual;
-                nuevo.path.push_back(faltantes[i]);
-                nuevo.distancia_recorrida= nuevo.distancia_recorrida+ distancias[actual.path.back()][faltantes[i]];
-                nuevo.cota_inferior = nuevo.distancia_recorrida + minimo(distancias, nuevo.path);
-                
-                if (nuevo.path.size() == points.size()) {
-                    nuevo.distancia_recorrida += distancias[nuevo.path.back()][inicial];
-                    nuevo.path.push_back(inicial);
-                    if (nuevo.distancia_recorrida < costo_minimo) {
-                        costo_minimo = nuevo.distancia_recorrida;
-                        mejor_camino = nuevo.path;
-                    }
-                } 
-                else{
-                    no_visitados.push(nuevo);
-                }
-            }
-        }
-    }
-
-    return mejor_camino;
-
-}
-
-/**
- * @brief Función para calcular la distancia total de un camino dado
- * 
- * @param distancias matriz de distancias entre los puntos
- * @param camino vector con el orden de los nodos a visitar
- * 
- * @return distancia total del camino
-*/
-double calcularDistanciaTotal(const vector<vector<double>>& distancias, const vector<int>& camino) {
-    double total = 0.0;
-    for (int i = 0; i < camino.size() - 1; ++i) {
-        total += distancias[camino[i]][camino[i + 1]];
-    }
-    // Asegúrate de volver al punto inicial si tu problema lo requiere (como en el problema del viajante)
-    total += distancias[camino.back()][camino.front()];
-    return total;
-}
-
-
-/**
- * @brief This function calculates the minimum distance required to visit
- * all the points in the vector once, to do so, it generates all the possible
- * permutations of the vector and calculates the distance needed to visit all
- * the points in the order of the permutation.
- * 
- * @note Distance from first to last point has to be calculated to make a closed path.
- * @note iota generates a sequence of numbers from 0 to n.
- * @note If needed, it can return the permutation that generates the minimum distance.
- * 
- * @param adjacencyMatrix matriz con la distancia entre los puntos
- * @param startNode nodo inicial
- * @return std::vector<int> vector con el orden de los nodos que minimiza la distancia
- */
-std::vector<int> bruteForceTSP(const std::vector<std::vector<double>>& adjacencyMatrix, int startNode) {
-    int numNodes = adjacencyMatrix.size();
-    std::vector<int> nodes(numNodes);
-    std::iota(nodes.begin(), nodes.end(), 0);
-    nodes.erase(std::remove(nodes.begin(), nodes.end(), startNode), nodes.end());
-
-    double minDistance = std::numeric_limits<double>::max();
-    std::vector<int> bestPermutation;
-    do {
-        double distance = 0;
-        int previousNode = startNode;
-        for (int i = 0; i < nodes.size(); ++i) {
-            distance += adjacencyMatrix[previousNode][nodes[i]];
-            previousNode = nodes[i];
-        }
-        distance += adjacencyMatrix[previousNode][startNode];
-        
-        if (distance < minDistance) {
-            minDistance = distance;
-            bestPermutation = nodes;
-        }
-    } while (std::next_permutation(nodes.begin(), nodes.end()));
-
-    std::vector<int> bestPath;
-    bestPath.push_back(startNode);
-    for (int node : bestPermutation) {
-        bestPath.push_back(node);
-    }
-    bestPath.push_back(startNode);
-
-    return bestPath;
 }
 
 
@@ -347,7 +269,7 @@ int main(int argc, char* argv[]) {
 
     iota(puntos.begin(), puntos.end(), 0);
     solucion = branch_and_bound(puntos, matriz, punto_inicial);
-
+    cout << solucion.size() << endl;
     for (size_t i = 0; i < solucion.size(); ++i) {
         cout << solucion[i] << " ";
     }
