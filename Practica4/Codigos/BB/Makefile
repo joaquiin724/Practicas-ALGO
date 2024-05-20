@@ -19,7 +19,7 @@ CXX = g++
 CXXFLAGS = -std=c++20 -O3
 
 # Variables de cantidad de archivos
-TAM = 15
+TAM = 14
 NUM = 1
 
 all: generate run graph

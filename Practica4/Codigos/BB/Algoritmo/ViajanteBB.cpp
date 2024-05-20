@@ -189,7 +189,7 @@ vector<int> branch_and_bound(vector<int>& points, vector< vector<double>> &dista
             }
         } 
         else { 
-            if(actual.cota_inferior < costo_minimo ){
+            if (actual.cota_inferior <= costo_minimo ){
                 vector<int> faltantes = numeros_faltantes(actual.path, points.size()-1);
                 for (int i = 0; i < faltantes.size(); ++i) {
                     Nodo nuevo= actual;
@@ -204,6 +204,10 @@ vector<int> branch_and_bound(vector<int>& points, vector< vector<double>> &dista
 
     return mejor_camino;
 
+}
+
+vector<int> branch_and_bound2(vector<int>& points, vector< vector<double>> &distancias, int inicial) {
+    
 }
 
 
