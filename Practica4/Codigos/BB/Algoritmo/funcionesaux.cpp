@@ -16,32 +16,88 @@
 using namespace std;
 
 /**
- * Función para calcular el mínimo de una matriz de distancias, excluyendo los valores de 0 y 
- * se pasan como parámetro las filas que se deben ignorar en la búsqueda del mínimo.
+ * Función para calcular cota inferior calculando el mínimo de una matriz de distancias, excluyendo los valores de 0 y 
+ * se pasan como parámetro las filas que se deben ignorar en la búsqueda del mínimo. Destacar que además
+ * de obviar dichas filas se obviarán sus respectivas columnas indicadas en el vector de enteros, ya que
+ * el objetivo es eliminar las conexiones de ciertos nodos, por lo que eliminamos sus filas y columnas respectivas.
  * 
  * @param matriz matriz de de adyacencia entre los puntos
  * @param filas_a_ignorar filas que se deben ignorar en la búsqueda del mínimo
  * 
  * @return suma de los mínimos de cada fila
 */
-double minimo(const std::vector<std::vector<double>>& matriz, const std::vector<int>& filas_a_ignorar = {}) {
+double cota_inferior_1(const std::vector<std::vector<double>>& matriz, const std::vector<int>& indices_a_ignorar = {}) {
     double suma_minimos = 0.0;
 
     for (int i = 0; i < matriz.size(); ++i) {
-        if (std::ranges::find(filas_a_ignorar, i) != filas_a_ignorar.end()) { continue;}
+        // Ignorar la fila si está en la lista de filas a ignorar
+        if (std::find(indices_a_ignorar.begin(), indices_a_ignorar.end(), i) != indices_a_ignorar.end()) {
+            continue;
+        }
 
-        if (!matriz[i].empty()) {
-            auto minimo_fila = std::ranges::min(matriz[i] | std::views::filter([](double valor) { return valor > 0;}),
-             std::less<>(), [](double valor) { return valor; });
-
-            if (minimo_fila < std::numeric_limits<double>::max()) {
-                suma_minimos += minimo_fila;
+        double minimo_fila = std::numeric_limits<double>::max();
+        for (int j = 0; j < matriz[i].size(); ++j) {
+            // Ignorar la columna si está en la lista de columnas a ignorar
+            if (std::find(indices_a_ignorar.begin(), indices_a_ignorar.end(), j) != indices_a_ignorar.end()) {
+                continue;
             }
+            if (matriz[i][j] > 0 && matriz[i][j] < minimo_fila) {
+                minimo_fila = matriz[i][j];
+            }
+        }
+
+        if (minimo_fila < std::numeric_limits<double>::max()) {
+            suma_minimos += minimo_fila;
         }
     }
 
     return suma_minimos;
 }
+
+
+/**
+ * Función para calcular cota inferior calculando el mínimo de una matriz de distancias, excluyendo el 0 y las filas 
+ * y columnas pasadas en el parámetro @b indices_a_ignorar. Después, se multiplica dicho valor por las filas restantes (las 
+ * que no se ignoran). La idea es calcular el mínimo camino posible entre nodos disponibles y suponer que ese camino será
+ * el minimo para todos, de ahí que se multiplique por el número de nodos restantes.
+ * 
+ * @param matriz matriz de de adyacencia entre los puntos
+ * @param filas_a_ignorar filas que se deben ignorar en la búsqueda del mínimo
+ * 
+ * @return suma de los mínimos de cada fila
+*/
+double cota_inferior_2(const std::vector<std::vector<double>>& matriz, const std::vector<int>& indices_a_ignorar = {}) {
+    double min_global = std::numeric_limits<double>::max();
+    int filas_contadas = 0;
+
+    for (int i = 0; i < matriz.size(); ++i) {
+        // Ignorar la fila si está en la lista de filas a ignorar
+        if (std::find(indices_a_ignorar.begin(), indices_a_ignorar.end(), i) != indices_a_ignorar.end()) {
+            continue;
+        }
+
+        double minimo_fila = std::numeric_limits<double>::max();
+        for (int j = 0; j < matriz[i].size(); ++j) {
+            // Ignorar la columna si está en la lista de columnas a ignorar
+            if (std::find(indices_a_ignorar.begin(), indices_a_ignorar.end(), j) != indices_a_ignorar.end()) {
+                continue;
+            }
+            if (matriz[i][j] > 0 && matriz[i][j] < minimo_fila) {
+                minimo_fila = matriz[i][j];
+            }
+        }
+
+        if (minimo_fila < std::numeric_limits<double>::max()) {
+            if (minimo_fila < min_global) {
+                min_global = minimo_fila;
+            }
+            ++filas_contadas;
+        }
+    }
+
+    return  (min_global * filas_contadas);
+}
+
 
 /**
  * Función para encontrar los números faltantes desde 0 hasta n en un vector de enteros
@@ -65,6 +121,25 @@ std::vector<int> numeros_faltantes(const std::vector<int>& vec, int n) {
 
     return faltantes;
 }
+
+/**
+ * @brief Función para calcular la distancia total de un camino dado
+ * 
+ * @param distancias matriz de distancias entre los puntos
+ * @param camino vector con el orden de los nodos a visitar
+ * 
+ * @return distancia total del camino
+*/
+double calcularDistanciaTotal(const vector<vector<double>>& distancias, const vector<int>& camino) {
+    double total = 0.0;
+    for (int i = 0; i < camino.size() - 1; ++i) {
+        total += distancias[camino[i]][camino[i + 1]];
+    }
+    // Asegúrate de volver al punto inicial si tu problema lo requiere (como en el problema del viajante)
+    total += distancias[camino.back()][camino.front()];
+    return total;
+}
+
 
 /**
  * @brief Estructura para almacenar los datos de un nodo en el algoritmo de Branch and Bound
@@ -150,6 +225,67 @@ std::vector<int> bruteForceTSP(const std::vector<std::vector<double>>& adjacency
  * La idea es la siguiente:
  *  - Se crea un nodo con el punto inicial y se agrega a la cola de prioridad.
  *  - Mientras la cola no esté vacía:
+ *     - Se extrae el nodo con menor costo actual (a partir de la cota inferior y haciendo uso del comparador
+ *      definido anteriormente).
+ *    - Si el camino actual tiene todos los puntos menos unos, sabemos de forma determinada cual queda
+ *      mediante la función faltantes de antes, por lo que se calcula la distancia a dicho punto y al inicial
+ *     y se agrega a la solución si es mejor que la actual.
+ *   - Si no, se generan los nodos hijos con los puntos faltantes y se agregan a la cola de prioridad.
+ * Destacar que esta idea es un poco diferente a la presentada en las diapositivas, pero la eficiencia
+ * es la misma.
+ * @param points vector con los puntos a visitar
+ * @param distancias matriz de distancias entre los puntos
+ * @param inicial punto inicial
+ * 
+ * @return vector con el camino que minimiza la distancia total
+*/
+vector<int> branch_and_bound(vector<int>& points, vector< vector<double>> &distancias, int inicial){
+    priority_queue<Nodo, vector<Nodo>, Comparador> no_visitados;
+    vector<int> mejor_camino = {inicial};
+    Nodo actual( mejor_camino, 0, cota_inferior(distancias));
+    no_visitados.push(actual);
+
+    double costo_minimo = numeric_limits<double>::infinity();
+    mejor_camino.clear();
+
+    while (!no_visitados.empty()) {
+        actual = no_visitados.top();
+        no_visitados.pop();
+
+        if (actual.path.size() == points.size()-1) {
+            vector<int> faltantes= numeros_faltantes(actual.path, points.size()-1);
+            actual.distancia_recorrida += distancias[actual.path.back()][faltantes[0]];
+            actual.distancia_recorrida += distancias[faltantes[0]][inicial];
+            actual.path.push_back(faltantes[0]);
+            actual.path.push_back(inicial);
+            if (actual.distancia_recorrida <= costo_minimo) {
+                costo_minimo = actual.distancia_recorrida;
+                mejor_camino = actual.path;
+            }
+        } 
+        else { 
+            if (actual.cota_inferior <= costo_minimo ){
+                vector<int> faltantes = numeros_faltantes(actual.path, points.size()-1);
+                for (int i = 0; i < faltantes.size(); ++i) {
+                    Nodo nuevo= actual;
+                    nuevo.path.push_back(faltantes[i]);
+                    nuevo.distancia_recorrida += distancias[actual.path.back()][faltantes[i]];
+                    nuevo.cota_inferior = nuevo.distancia_recorrida + cota_inferior(distancias, nuevo.path);
+                    no_visitados.push(nuevo);
+                }
+            }
+        }
+    }
+
+    return mejor_camino;
+
+}
+
+/**
+ * Función para resolver el problema del viajante de comercio utilizando el algoritmo de Branch and Bound.
+ * La idea es la siguiente:
+ *  - Se crea un nodo con el punto inicial y se agrega a la cola de prioridad.
+ *  - Mientras la cola no esté vacía:
  *   - Se extrae el nodo con menor costo actual (a partir de la cota inferior y haciendo uso del comparador
  *     definido anteriormente).
  *   - Si el camino actual tiene todos los puntos añadimos el inicial para tener el camino completo y
@@ -166,7 +302,7 @@ std::vector<int> bruteForceTSP(const std::vector<std::vector<double>>& adjacency
 vector<int> branch_and_bound2 (vector<int>& points, vector< vector<double>> &distancias, int inicial){
     priority_queue<Nodo, vector<Nodo>, Comparador> no_visitados;
     vector<int> mejor_camino = {inicial};
-    Nodo actual( mejor_camino, 0, minimo(distancias));
+    Nodo actual( mejor_camino, 0, cota_inferior(distancias));
     no_visitados.push(actual);
 
     double costo_minimo = numeric_limits<double>::infinity();
@@ -182,7 +318,7 @@ vector<int> branch_and_bound2 (vector<int>& points, vector< vector<double>> &dis
                 Nodo nuevo= actual;
                 nuevo.path.push_back(faltantes[i]);
                 nuevo.distancia_recorrida= nuevo.distancia_recorrida+ distancias[actual.path.back()][faltantes[i]];
-                nuevo.cota_inferior = nuevo.distancia_recorrida + minimo(distancias, nuevo.path);
+                nuevo.cota_inferior = nuevo.distancia_recorrida + cota_inferior(distancias, nuevo.path);
                 
                 if (nuevo.path.size() == points.size()) {
                     nuevo.distancia_recorrida += distancias[nuevo.path.back()][inicial];
@@ -203,13 +339,62 @@ vector<int> branch_and_bound2 (vector<int>& points, vector< vector<double>> &dis
 
 }
 
-vector<int> branch_and_bound(vector<int>& points, vector< vector<double>> &distancias, int inicial){
+
+vector<int> nearest_neighborTSP(const vector<vector<double>>& distancias, int inicial) {
+    int num_puntos = distancias.size();
+    vector<int> camino;
+    vector<bool> visitados(num_puntos, false);
+    camino.reserve(num_puntos);
+    camino.push_back(inicial);
+    visitados[inicial] = true;
+
+    for (int i = 0; i < num_puntos - 1; ++i) {
+        int actual = camino.back();
+        int siguiente = -1;
+        double min_distancia = numeric_limits<double>::max();
+
+        for (int j = 0; j < num_puntos; ++j) {
+            if (!visitados[j] && distancias[actual][j] < min_distancia) {
+                min_distancia = distancias[actual][j];
+                siguiente = j;
+            }
+        }
+
+        camino.push_back(siguiente);
+        visitados[siguiente] = true;
+    }
+
+    camino.push_back(inicial);
+    return camino;
+}
+
+
+/**
+ * Función para resolver el problema del viajante de comercio utilizando el algoritmo de Branch and Bound.
+ * La idea es la siguiente:
+ *  - Se crea un nodo con el punto inicial y se agrega a la cola de prioridad.
+ *  - Mientras la cola no esté vacía:
+ *     - Se extrae el nodo con menor costo actual (a partir de la cota inferior y haciendo uso del comparador
+ *      definido anteriormente).
+ *    - Si el camino actual tiene todos los puntos menos unos, sabemos de forma determinada cual queda
+ *      mediante la función faltantes de antes, por lo que se calcula la distancia a dicho punto y al inicial
+ *     y se agrega a la solución si es mejor que la actual.
+ *   - Si no, se generan los nodos hijos con los puntos faltantes y se agregan a la cola de prioridad.
+ * Versión con Greedy como cota global.
+ * 
+ * @param points vector con los puntos a visitar
+ * @param distancias matriz de distancias entre los puntos
+ * @param inicial punto inicial
+ * 
+ * @return vector con el camino que minimiza la distancia total
+*/
+vector<int> branch_and_bound_greedy(vector<int>& points, vector< vector<double>> &distancias, int inicial){
     priority_queue<Nodo, vector<Nodo>, Comparador> no_visitados;
     vector<int> mejor_camino = {inicial};
-    Nodo actual( mejor_camino, 0, minimo(distancias));
+    Nodo actual( mejor_camino, 0, cota_inferior(distancias));
     no_visitados.push(actual);
 
-    double costo_minimo = numeric_limits<double>::max();
+    double costo_minimo = calcularDistanciaTotal(distancias, nearest_neighborTSP(distancias, inicial));
     mejor_camino.clear();
 
     while (!no_visitados.empty()) {
@@ -217,24 +402,24 @@ vector<int> branch_and_bound(vector<int>& points, vector< vector<double>> &dista
         no_visitados.pop();
 
         if (actual.path.size() == points.size()-1) {
-            vector<int> faltantes = numeros_faltantes(actual.path, points.size()-1);
+            vector<int> faltantes= numeros_faltantes(actual.path, points.size()-1);
             actual.distancia_recorrida += distancias[actual.path.back()][faltantes[0]];
             actual.distancia_recorrida += distancias[faltantes[0]][inicial];
             actual.path.push_back(faltantes[0]);
             actual.path.push_back(inicial);
-            if (actual.distancia_recorrida < costo_minimo) {
+            if (actual.distancia_recorrida <= costo_minimo) {
                 costo_minimo = actual.distancia_recorrida;
                 mejor_camino = actual.path;
             }
         } 
         else { 
-            if (actual.cota_inferior < costo_minimo ){
+            if (actual.cota_inferior <= costo_minimo ){
                 vector<int> faltantes = numeros_faltantes(actual.path, points.size()-1);
                 for (int i = 0; i < faltantes.size(); ++i) {
                     Nodo nuevo= actual;
                     nuevo.path.push_back(faltantes[i]);
                     nuevo.distancia_recorrida += distancias[actual.path.back()][faltantes[i]];
-                    nuevo.cota_inferior = nuevo.distancia_recorrida + minimo(distancias, nuevo.path);
+                    nuevo.cota_inferior = nuevo.distancia_recorrida + cota_inferior(distancias, nuevo.path);
                     no_visitados.push(nuevo);
                 }
             }
