@@ -16,11 +16,11 @@ ALG_EXEC = $(ALG_DIR)/viajante_bb
 
 # Compilador y banderas
 CXX = g++
-CXXFLAGS = -std=c++20 -Og
+CXXFLAGS = -std=c++20 -O3
 
 # Variables de cantidad de archivos
-TAM = 10
-NUM = 1
+TAM = 13
+NUM = 3
 
 all: generate run graph
 
@@ -29,16 +29,12 @@ $(CREA_PUNTOS_EXEC): $(GEN_DIR)/CreacionPuntos.cpp
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
 # Regla para compilar CreacionMatrices
-$(CREa_MATRICES_EXEC): $(GEN_DIR)/CreacionMatrices.cpp
+$(CREA_MATRICES_EXEC): $(GEN_DIR)/CreacionMatrices.cpp
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
 # Regla para compilar ViajanteBB
 $(ALG_EXEC): $(ALG_DIR)/ViajanteBB.cpp
 	$(CXX) $(CXXFLAGS) -o $@ $^
-
-# Regla para compilar todos los ejecutables
-compile: $(CREA_PUNTOS_EXEC) $(CREA_MATRICES_EXEC) $(ALG_EXEC)
-	@echo "Todos los archivos han sido compilados."
 
 # Regla para ejecutar el generador y crear instancias
 generate: $(CREA_PUNTOS_EXEC) $(CREA_MATRICES_EXEC)
@@ -73,12 +69,14 @@ time: $(ALG_EXEC)
 	@mkdir -p $(OUT_DIR)
 	@rm -f $(OUT_DIR)/tiempos.txt
 	@for size in $(shell seq 3 $(TAM)); do \
-	    matriz_file=$(INST_DIR)/matriz_$${size}_1.txt; \
-	    resultado_file=$(OUT_DIR)/resultado_$${size}_1.txt; \
-	    $(ALG_EXEC) $${matriz_file} 1 2 >> $(OUT_DIR)/tiempos.txt; \
+	        matriz_file=$(INST_DIR)/matriz_$${size}_1.txt; \
+	        resultado_file=$(OUT_DIR)/resultado_$${size}_1.txt; \
+	        $(ALG_EXEC) $${matriz_file} 1 2 >> Salidas/tiempos.txt; \
 	done
-	@bash ./eficiencia.sh $(OUT_DIR)/tiempos.txt
+	@bash ./eficiencia.sh Salidas/tiempos.txt
 	@echo "Resultados guardados en $(OUT_DIR)"
+
+
 
 # Regla para graficar los resultados
 graph: $(OUT_DIR)/*.txt
@@ -94,6 +92,9 @@ graph: $(OUT_DIR)/*.txt
 	done
 	@echo "Gráficos generados en $(GRAPH_DIR)"
 
+compile: $(CREA_PUNTOS_EXEC) $(CREA_MATRICES_EXEC) $(ALG_EXEC)
+	@echo "Todos los archivos han sido compilados."
+
 clean:
 	@echo "Limpiando archivos compilados y resultados..."
 	@rm -f $(CREA_PUNTOS_EXEC) $(CREA_MATRICES_EXEC) $(ALG_EXEC)
@@ -101,4 +102,4 @@ clean:
 	@rm -rf $(OUT_DIR)/*
 	@rm -rf $(GRAPH_DIR)/*
 
-.PHONY: all generate run graph clean compile
+.PHONY: all generate run graph clean
