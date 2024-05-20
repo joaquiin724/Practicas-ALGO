@@ -429,3 +429,39 @@ vector<int> branch_and_bound_greedy(vector<int>& points, vector< vector<double>>
     return mejor_camino;
 
 }
+
+vector<int> branch_and_bound3(vector<int>& points, vector<vector<double>>& distances, int start) {
+    priority_queue<Nodo, vector<Nodo>, Comparador> to_visit;
+    vector<int> best_path = { start };
+    Nodo current(best_path, 0, minimo(distances));
+    to_visit.push(current);
+
+    double min_cost = calcularDistanciaTotal(distances, nearest_neighborTSP(distances, start));
+    best_path.clear();
+
+    while (!to_visit.empty()) {
+        current = to_visit.top();
+        to_visit.pop();
+
+        if (current.path.size() == points.size()) {
+            double total_dist = calcularDistanciaTotal(distances, current.path);
+            if (total_dist <= min_cost) {
+                min_cost = total_dist;
+                best_path = current.path;
+            }
+        } else {
+            vector<int> faltantes = numeros_faltantes(current.path, points.size() - 1);
+            for (int i : faltantes) {
+                Nodo nuevo(current.path, current.distancia_recorrida, current.cota_inferior);
+                nuevo.path.push_back(i);
+                nuevo.distancia_recorrida += distances[current.path.back()][i];
+                nuevo.cota_inferior = nuevo.distancia_recorrida + (nuevo.distancia_recorrida / nuevo.path.size()) * (points.size() - nuevo.path.size());
+                if (nuevo.cota_inferior <= min_cost ) {
+                    to_visit.push(nuevo);
+                }
+            }
+        }
+    }
+
+    return best_path;
+}
