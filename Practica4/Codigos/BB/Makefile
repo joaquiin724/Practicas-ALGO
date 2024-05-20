@@ -16,7 +16,7 @@ ALG_EXEC = $(ALG_DIR)/viajante_bb
 
 # Compilador y banderas
 CXX = g++
-CXXFLAGS = -std=c++20 -O3
+CXXFLAGS = -std=c++20 -Og
 
 # Variables de cantidad de archivos
 TAM = 10
@@ -77,4 +77,28 @@ time: $(ALG_EXEC)
 	    resultado_file=$(OUT_DIR)/resultado_$${size}_1.txt; \
 	    $(ALG_EXEC) $${matriz_file} 1 2 >> $(OUT_DIR)/tiempos.txt; \
 	done
-	@bash ./eficiencia.sh $(OUT_DIR)/tiempos
+	@bash ./eficiencia.sh $(OUT_DIR)/tiempos.txt
+	@echo "Resultados guardados en $(OUT_DIR)"
+
+# Regla para graficar los resultados
+graph: $(OUT_DIR)/*.txt
+	@echo "Generando gráficos..."
+	@mkdir -p $(GRAPH_DIR)
+	@for size in $(shell seq 3 $(TAM)); do \
+	    for inst in $(shell seq 1 $(NUM)); do \
+	        puntos_file=$(INST_DIR)/puntos_$${size}_$${inst}.txt; \
+	        resultado_file=$(OUT_DIR)/resultado_$${size}_$${inst}.txt; \
+	        grafico_file=$(GRAPH_DIR)/grafico_$${size}_$${inst}.png; \
+	        ./graph.sh $${puntos_file} $${resultado_file} $${grafico_file}; \
+	    done \
+	done
+	@echo "Gráficos generados en $(GRAPH_DIR)"
+
+clean:
+	@echo "Limpiando archivos compilados y resultados..."
+	@rm -f $(CREA_PUNTOS_EXEC) $(CREA_MATRICES_EXEC) $(ALG_EXEC)
+	@rm -rf $(INST_DIR)/*
+	@rm -rf $(OUT_DIR)/*
+	@rm -rf $(GRAPH_DIR)/*
+
+.PHONY: all generate run graph clean compile
