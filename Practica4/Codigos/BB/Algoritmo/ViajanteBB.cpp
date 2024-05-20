@@ -170,7 +170,7 @@ vector<int> branch_and_bound(vector<int>& points, vector< vector<double>> &dista
     Nodo actual( mejor_camino, 0, minimo(distancias));
     no_visitados.push(actual);
 
-    double costo_minimo = numeric_limits<double>::max();
+    double costo_minimo = calcularDistanciaTotal(distancias, nearest_neighborTSP(distancias, inicial));
     mejor_camino.clear();
 
     while (!no_visitados.empty()) {
@@ -183,7 +183,7 @@ vector<int> branch_and_bound(vector<int>& points, vector< vector<double>> &dista
             actual.distancia_recorrida += distancias[faltantes[0]][inicial];
             actual.path.push_back(faltantes[0]);
             actual.path.push_back(inicial);
-            if (actual.distancia_recorrida < costo_minimo) {
+            if (actual.distancia_recorrida <= costo_minimo) {
                 costo_minimo = actual.distancia_recorrida;
                 mejor_camino = actual.path;
             }
@@ -240,7 +240,7 @@ vector<vector<double>> leerMatrizDesdeArchivo(const string& nombreArchivo) {
 }
 
 /**
- * [Run] <archivo_matriz> <punto_inicial>
+ * [Run] <archivo_matriz> <punto_inicial> [2]
  */
 int main(int argc, char* argv[]) {
     if (argc == 4 && strcmp(argv[3],"2") == 0) {
@@ -273,9 +273,8 @@ int main(int argc, char* argv[]) {
         cout << solucion[i] << " ";
     }
     cout << endl;
-
+    
     cout << "Distancia total: " << calcularDistanciaTotal(matriz, solucion) << endl;
-
 
     return 0;
 }
