@@ -243,7 +243,7 @@ vector<vector<double>> leerMatrizDesdeArchivo(const string& nombreArchivo) {
  * [Run] <archivo_matriz> <punto_inicial>
  */
 int main(int argc, char* argv[]) {
-    if (strcmp(argv[3],"2") == 0) {
+    if (argc == 4 && strcmp(argv[3],"2") == 0) {
         string nombre_archivo = argv[1];
         int punto_inicial = atoi(argv[2]);
 
@@ -269,7 +269,6 @@ int main(int argc, char* argv[]) {
 
     iota(puntos.begin(), puntos.end(), 0);
     solucion = branch_and_bound(puntos, matriz, punto_inicial);
-    cout << solucion.size() << endl;
     for (size_t i = 0; i < solucion.size(); ++i) {
         cout << solucion[i] << " ";
     }

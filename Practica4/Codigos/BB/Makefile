@@ -20,7 +20,7 @@ CXXFLAGS = -std=c++20 -O3
 
 # Variables de cantidad de archivos
 TAM = 13
-NUM = 3
+NUM = 1
 
 all: generate run graph
 
@@ -58,7 +58,7 @@ run: $(ALG_EXEC)
 	    for inst in $(shell seq 1 $(NUM)); do \
 	        matriz_file=$(INST_DIR)/matriz_$${size}_$${inst}.txt; \
 	        resultado_file=$(OUT_DIR)/resultado_$${size}_$${inst}.txt; \
-	        $(ALG_EXEC) $${matriz_file} 1 1 > $${resultado_file}; \
+	        $(ALG_EXEC) $${matriz_file} 1 > $${resultado_file}; \
 	    done \
 	done
 	@echo "Resultados guardados en $(OUT_DIR)"
