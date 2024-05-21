@@ -8,13 +8,9 @@ do
     ./Ejecutables/backtracking $file 0 >> Salidas/salida.txt
 done
 
-# Verificar que se haya pasado el archivo de tiempos como argumento
-if [ "$#" -ne 1 ]; then
-    echo "Uso: $0 <archivo_tiempos>"
-    exit 1
-fi
 
-archivo_tiempos=$1
+
+archivo_tiempos="Salidas/salida.txt"
 grafico_salida="Salidas/grafico_tiempos.png"
 
 # Comprobar si el archivo de tiempos existe
