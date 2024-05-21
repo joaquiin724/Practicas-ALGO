@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <fstream>
 #include <iostream>
+#include <iterator>
 #include <limits>
 #include <sstream>
 #include <vector>
@@ -21,56 +22,20 @@ void printv(const vector<int> &v) {
 }
 double calcularDistanciaTotal(const vector<vector<double>>& distancias, const vector<int>& camino) {
     double total = 0.0;
-    vector<int> usados(camino.begin(),find(camino.begin(),camino.end(),-1));
-    for (int i = 0; i < usados.size() - 1; ++i) {
-        total += distancias[usados[i]][usados[i + 1]];
+    //vector<int> usados(camino.begin(),find(camino.begin(),camino.end(),-1));
+    for (int i = 0; i < camino.size() - 1; ++i) {
+        total += distancias[camino[i]][camino[i + 1]];
     }
     // Asegúrate de volver al punto inicial si tu problema lo requiere (como en el problema del viajante)
-    total += distancias[usados.back()][usados.front()];
+    total += distancias[camino.back()][camino.front()];
     return total;
 }
 
-double cota1(const vector<vector<double>> & graph, const vector<int> & camino ,double c_actual){
-  double cota =0;
-  double min = numeric_limits<double>::max();
-  vector<int> usados(camino.begin(),find(camino.begin(),camino.end(),-1));
-  for(int i = 0; i< usados.size();i++){
-    for(int j = 0; j< graph.size();j++){
-      if(find(usados.begin(),usados.end(),j)==usados.end()){
-        if(graph[usados[i]][j]<min){
-          min = graph[usados[i]][j];
-        }
-      }
-      
-    }
-  }
-  return min*(graph.size()-usados.size()) + c_actual;
+double cota1(const vector<vector<double>> & graph, const vector<int> & camino ,double c_actual ,double arco_menorpeso){
+  return arco_menorpeso*(graph.size()-camino.size()) + c_actual;
+}
 
-}
-/**
- * @brief Busca si es posible la siguiente ciudad a visitar que cumpla que no ha
- * sido visitada y que existe una arista entre la ciudad actual y la siguiente
- * ciudad que las unen.
- *
- * @param nciudad numero del nodo de la ciudad que se va a visitar
- * @param solucion vector de la posible solucion
- * @param graph matriz de adyacencia
- * @return  devuelve el numero de la siguiente ciudad a visitar o -1 si no se
- * cumplen las condiciones
- */
-int siguiente(int nciudad, vector<int> &solucion,const vector<vector<double>> &graph) {
-  do {
-    solucion[nciudad]++;
-    if (solucion[nciudad] < graph.size() &&
-        (find(solucion.begin(), solucion.begin() + nciudad, solucion[nciudad]) ==
-            solucion.begin() + nciudad) && (nciudad <= graph.size() - 1 && graph[solucion[nciudad]][solucion[0]] > 0)) {
-      
-      return solucion[nciudad];
-    }
-  } while (solucion[nciudad] < graph.size());
-  solucion[nciudad] = -1; 
-  return -1;
-}
+
 /**
  * @brief Funcion para resolver el tsp con backtracking .
  * @param solucion vector de ciudades , la posicion de la ciudad indica el orden
@@ -83,23 +48,25 @@ int siguiente(int nciudad, vector<int> &solucion,const vector<vector<double>> &g
  */
 void tsp_backtracking(vector<int> &solucion,const vector<vector<double>> &graph, int nciudad,double &c_mejor, vector<int> &s_mejor, double c_actual) {
   if (nciudad == graph.size()) {
-    c_actual += graph[solucion[nciudad - 1]][solucion[0]];
+    printv(solucion);
+    //c_actual += graph[solucion.back()][solucion[0]];
     if (c_actual < c_mejor) {
       c_mejor = c_actual;
       s_mejor = solucion;
     }
   } else {
-    do {
-      solucion[nciudad] = siguiente(nciudad, solucion, graph);
-      if (solucion[nciudad] != -1 && (calcularDistanciaTotal(graph, solucion) < cota1(graph,solucion,c_actual))){
-        tsp_backtracking(solucion, graph, nciudad + 1, c_mejor, s_mejor,c_actual +graph[solucion[nciudad - 1]][solucion[nciudad]]);
-        printv(solucion);
+    for(int i = 0; i< graph.size();i++){
+      if(find(solucion.begin(),solucion.end(),i)==solucion.end()){
+        solucion.emplace_back(i);
+        c_actual = calcularDistanciaTotal(graph, solucion);
+        tsp_backtracking(solucion,graph, nciudad+1, c_mejor, s_mejor, c_actual);
+        solucion.pop_back();
+        
       }
-    } while (solucion[nciudad] != -1);
+    }
     
   }
 }
-
 /**
  * @brief Función para leer una matriz de adyacencia desde un archivo de texto.
  *
@@ -143,20 +110,17 @@ int main(int argc, char *argv[]) {
   vector<vector<double>> graph = leerMatrizDesdeArchivo(nombreArchivo);
   int comienzo = 0;
   int tam = graph.size();
-  vector<int> solucion(tam, -1);   //Vector de soluciones 
-  solucion[0] = comienzo; //comienzo
+  vector<int> solucion;   //Vector de soluciones 
+  solucion.emplace_back(0); //comienzo
 
   double c_mejor = numeric_limits<double>::max(); //coste del mejor camino encontrado
   vector<int> s_mejor; //Vector de la mejor solucion
   if (atoi(argv[2])==1){
-    tsp_backtracking(solucion, graph, 1, c_mejor, s_mejor, 0);
 
-  
+    tsp_backtracking(solucion, graph, 1, c_mejor, s_mejor, 0);
     cout << "Solucion : ";
     printv(s_mejor);
-    cout << "Coste: " << c_mejor << endl;
-
-  
+    cout << "Coste: " << c_mejor << endl;  
   }
   else{
     auto start = chrono::high_resolution_clock::now();
