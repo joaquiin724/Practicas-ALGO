@@ -97,6 +97,240 @@ es decir, si hemos seleccionado ya 3 puntos y quedan 2 mas por recorrer, la func
 De esta forma si la solución que se propone mediante esta función de cota no es mejor que la que tengamos seleccionada en ese momento como la mejor, entonces se descartará el camino y se comenzará a explorar otro.
 
 
+\chapter{Branch and bound}
+Al igual que en el apartado anterior resolveremos el problema del viajante, solo que en vez de solucionar el problema mediante el bakctraking 
+lo resolveremos mediante Branch and bound. A continuación se mostrarán las funciones de cota al igual que el algoritmo principal que hemos usado:
+
+\section{Diseño}
+\subsection{Cota global}
+
+Primero empezaremos mostrando la función de cota global:
+\begin{lstlisting}
+vector<int> nearest_neighborTSP(const vector<vector<double>>& distancias, int inicial) {
+    int num_puntos = distancias.size();
+    vector<int> camino;
+    vector<bool> visitados(num_puntos, false);
+    camino.reserve(num_puntos);
+    camino.push_back(inicial);
+    visitados[inicial] = true;
+
+    for (int i = 0; i < num_puntos - 1; ++i) {
+      int actual = camino.back();
+      int siguiente = -1;
+      double min_distancia = numeric_limits<double>::max();
+
+      for (int j = 0; j < num_puntos; ++j) {
+          if (!visitados[j] && distancias[actual][j] < min_distancia) {
+              min_distancia = distancias[actual][j];
+              siguiente = j;
+          }
+      }
+
+      camino.push_back(siguiente);
+      visitados[siguiente] = true;
+    }
+
+    camino.push_back(inicial);
+    return camino;
+}
+
+\end{lstlisting} 
+Esta función es obtenida de la práctica anterior de algoritmos Greedy. La idea es sencilla, nos dan un conjunto de 
+puntos y queremos encontrar el camino más corto que los recorra, para ello, elegimos un punto inicial y a partir de 
+ese punto, en un proceso iterativo, elegimos en cada paso el siguiente punto más cercano al actual, o lo que es lo mismo, 
+el punto para el cual la distancia al punto actual es la menor. Este proceso se repite hasta que 
+todos los puntos han sido visitados.
+Este algoritmo Greey junto con la siguiente función, que calcula la distancia total de un camino dado a partir de su matriz
+de adyacencia, nos permite obtener una cota superior inicial.
+\\ 
+\begin{lstlisting}
+double calcularDistanciaTotal(const vector<vector<double>>& distancias, const vector<int>& camino) {
+    double total = 0.0;
+    for (int i = 0; i < camino.size() - 1; ++i) {
+        total += distancias[camino[i]][camino[i + 1]];
+    }
+    total += distancias[camino.back()][camino.front()];
+    return total;
+}
+      
+\end{lstlisting}
+\subsection{Cota local}
+
+Además de esta cota global, hemos implementado do funciones de cota local distintas:
+\\ 
+\begin{lstlisting}
+double cota_inferior_1(const std::vector<std::vector<double>>& matriz, const std::vector<int>& indices_a_ignorar = {}) {
+    double suma_minimos = 0.0;
+
+    for (int i = 0; i < matriz.size(); ++i) {
+        
+        if (std::find(indices_a_ignorar.begin(), indices_a_ignorar.end(), i) != indices_a_ignorar.end()) {
+            continue;
+        }
+
+        double minimo_fila = std::numeric_limits<double>::max();
+        for (int j = 0; j < matriz[i].size(); ++j) {
+            
+            if (std::find(indices_a_ignorar.begin(), indices_a_ignorar.end(), j) != indices_a_ignorar.end()) {
+                continue;
+            }
+            if (matriz[i][j] > 0 && matriz[i][j] < minimo_fila) {
+                minimo_fila = matriz[i][j];
+            }
+        }
+
+        if (minimo_fila < std::numeric_limits<double>::max()) {
+            suma_minimos += minimo_fila;
+        }
+    }
+
+    return suma_minimos;
+}    
+
+double cota_inferior_2(const std::vector<std::vector<double>>& matriz, const std::vector<int>& indices_a_ignorar = {}) {
+    double min_global = std::numeric_limits<double>::max();
+    int filas_contadas = 0;
+
+    for (int i = 0; i < matriz.size(); ++i) {
+        
+        if (std::find(indices_a_ignorar.begin(), indices_a_ignorar.end(), i) != indices_a_ignorar.end()) {
+            continue;
+        }
+
+        double minimo_fila = std::numeric_limits<double>::max();
+        for (int j = 0; j < matriz[i].size(); ++j) {
+            
+            if (std::find(indices_a_ignorar.begin(), indices_a_ignorar.end(), j) != indices_a_ignorar.end()) {
+                continue;
+            }
+            if (matriz[i][j] > 0 && matriz[i][j] < minimo_fila) {
+                minimo_fila = matriz[i][j];
+            }
+        }
+
+        if (minimo_fila < std::numeric_limits<double>::max()) {
+            if (minimo_fila < min_global) {
+                min_global = minimo_fila;
+            }
+            ++filas_contadas;
+        }
+    }
+
+    return  (min_global * filas_contadas);
+}
+            
+\end{lstlisting}
+La primera función de cota local consiste en calcular el mínimo de una matriz de distancias, excluyendo obviamente los valores
+de 0, pasandose como parámetros los índices a ignorar.Destacar que además de obviar dichas filas se obviarán sus respectivas 
+columnas indicadas en el vector de enteros, ya que el objetivo es eliminar las conexiones de ciertos nodos, por lo que 
+eliminamos sus filas y columnas respectivas.
+\\ \\
+Por otro lado, la segunda función de cota, que es la que vamos a utilizar en nuestro algoritmo Branch and Bound, tiene un funcionamiento 
+distinto. Consiste principalmente en encontrar la mínima distancia de una matriz de adyacencia y depués multiplicar dicho valor por
+las filas restantes, suponiendo que ese camino será el mínimo para todos, de ahí que se multiplique por el número de nodos restantes.
+Ignorando, igual que con la cota anterior, los 0 y las filas y las columnas que se pasan como parámetros a ignorar. Función para calcular 
+cota inferior calculando el mínimo de una matriz de distancias, excluyendo el 0 y las filas. Es claro que este segundo método nos proporciona 
+una cota más restrictiva por lo que nos interesa más.
+\\ \\
+Más adelante en el apartado de eficiencia seguiremos comparando dichas cotas.
+
+\subsection{Algoritmo Branch and Bound}
+Primero de todo, el struct con el que trabajaremos para almacenar la información sobre la cota mínima, el camino y la distancia recorrida será:
+
+\begin{lstlisting}
+      struct Nodo {
+            vector<int> path;
+            double distancia_recorrida; 
+            double cota_inferior; 
+        
+            Nodo(vector<int>& inicial, double dist_rec, double cota_inf) {
+                path = inicial;
+                distancia_recorrida = dist_rec;
+                cota_inferior = cota_inf;
+            }
+      };
+\end{lstlisting}
+
+Ahora, el algoritmo Brach and Bound que hemos implementado ha sido:
+
+\begin{lstlisting}
+vector<int> branch_and_bound_greedy(vector<int>& points, vector< vector<double>> &distancias, int inicial){
+    priority_queue<Nodo, vector<Nodo>, Comparador> no_visitados;
+    vector<int> mejor_camino = {inicial};
+    Nodo actual( mejor_camino, 0, cota_inferior(distancias));
+    no_visitados.push(actual);
+
+    double costo_minimo = calcularDistanciaTotal(distancias, nearest_neighborTSP(distancias, inicial));
+    mejor_camino.clear();
+
+    while (!no_visitados.empty()) {
+        actual = no_visitados.top();
+        no_visitados.pop();
+
+        if (actual.path.size() == points.size()-1) {
+            vector<int> faltantes= numeros_faltantes(actual.path, points.size()-1);
+            actual.distancia_recorrida += distancias[actual.path.back()][faltantes[0]];
+            actual.distancia_recorrida += distancias[faltantes[0]][inicial];
+            actual.path.push_back(faltantes[0]);
+            actual.path.push_back(inicial);
+            if (actual.distancia_recorrida <= costo_minimo) {
+                costo_minimo = actual.distancia_recorrida;
+                mejor_camino = actual.path;
+            }
+        } 
+        else { 
+            if (actual.cota_inferior <= costo_minimo ){
+                vector<int> faltantes = numeros_faltantes(actual.path, points.size()-1);
+                for (int i = 0; i < faltantes.size(); ++i) {
+                    Nodo nuevo= actual;
+                    nuevo.path.push_back(faltantes[i]);
+                    nuevo.distancia_recorrida += distancias[actual.path.back()][faltantes[i]];
+                    nuevo.cota_inferior = nuevo.distancia_recorrida + cota_inferior(distancias, nuevo.path);
+                    no_visitados.push(nuevo);
+                }
+            }
+        }
+    }
+
+    return mejor_camino;
+
+}
+\end{lstlisting}
+El funcionamiento de este método se basa en empezar creando un nodo con el punto inicial y agregarlo a la cola de prioridad (cuyo comparador
+consiste en comparar la distancia recorrida por un nodo a y un nodo b y ver qué distancia es menor). Mientras la cola no esté vacía; primero,
+se extrae el nodo con menor costo actual (a partir de la cota inferior y haciendo uso del comparador definido anteriormente); si el camino actual 
+tiene todos los puntos menos unos, sabemos de forma determinada cual queda mediante la función faltantes de antes(dicha función encuentra los números
+faltantes desde 0 hasta n en un vector de enteros), por lo que se calcula la distancia a dicho punto y al inicial y se agrega a la solución si es 
+mejor que la actual; si no, se generan los nodos hijos con los puntos faltantes y se agregan a la cola de prioridad.
+\\ \\
+A continuación se mostrará la notación mostrada en teoría, aunque sigamos un esquema similar, hay ciertos ámbitos que pueden ser suprimidos.
+\\\\
+\textbf{Notación:}
+\begin{itemize}
+      \item \textbf{Solución parcial:} Vector path del Nodo actual.
+      \item \textbf{Función poda:} Momento en que la cota inferior supera al costo minimo,siendo este la cota global.
+      \item \textbf{Restricciones explícitas:}
+      \item \textbf{Restricciones implícitas:}
+      \item \textbf{Árbol de estado:} El espacio solución con el que se trabaja es el Nodo actual, sin embargo, el 
+      vector mejor camino es el árbol de estado al encontrar la solución.
+      \item \textbf{Estado del problema:} Cada uno de los nodos del árbol
+      \item \textbf{Estado solución:} Nodo actual
+      \item \textbf{Estado respuesta:}Vector mejor camino
+      \item \textbf{Nodo vivo:}
+      \item \textbf{Nodo muerto:}
+      \item \textbf{e-nodo:}Nodo actual
+\end{itemize}
+
+
+\newpage
+\section{Justificación}
+
+\newpage
+
+\section{Eficiencia teórica y empírica}
+\subsection{Eficiencia teórica}
+
+En primer lugar, como ya calculamos en la práctica anterior, tenemos que la eficiencai de la cota global es de $O(n^2)$
 
 
 
