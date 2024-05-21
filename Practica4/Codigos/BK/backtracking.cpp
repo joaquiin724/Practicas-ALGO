@@ -47,9 +47,10 @@ double cota1(const vector<vector<double>> & graph, const vector<int> & camino ,d
  * @param c_actual coste actual
  */
 void tsp_backtracking(vector<int> &solucion,const vector<vector<double>> &graph, int nciudad,double &c_mejor, vector<int> &s_mejor, double c_actual) {
-  if (nciudad == graph.size()) {
+  c_actual += solucion.size()<=1 ?0 : graph[solucion.back()][solucion[solucion.size()-2]];
+  if (solucion.size() == graph.size()) {
     printv(solucion);
-    //c_actual += graph[solucion.back()][solucion[0]];
+    c_actual += graph[solucion.back()][solucion[0]];
     if (c_actual < c_mejor) {
       c_mejor = c_actual;
       s_mejor = solucion;
@@ -58,7 +59,8 @@ void tsp_backtracking(vector<int> &solucion,const vector<vector<double>> &graph,
     for(int i = 0; i< graph.size();i++){
       if(find(solucion.begin(),solucion.end(),i)==solucion.end()){
         solucion.emplace_back(i);
-        c_actual = calcularDistanciaTotal(graph, solucion);
+        //c_actual = calcularDistanciaTotal(graph, solucion);
+        
         tsp_backtracking(solucion,graph, nciudad+1, c_mejor, s_mejor, c_actual);
         solucion.pop_back();
         
@@ -113,18 +115,18 @@ int main(int argc, char *argv[]) {
   vector<int> solucion;   //Vector de soluciones 
   solucion.emplace_back(0); //comienzo
 
-  double c_mejor = numeric_limits<double>::max(); //coste del mejor camino encontrado
+  double c_actual=0,c_mejor = numeric_limits<double>::max(); //coste del mejor camino encontrado
   vector<int> s_mejor; //Vector de la mejor solucion
   if (atoi(argv[2])==1){
 
-    tsp_backtracking(solucion, graph, 1, c_mejor, s_mejor, 0);
+    tsp_backtracking(solucion, graph, 1, c_mejor, s_mejor, c_actual);
     cout << "Solucion : ";
     printv(s_mejor);
     cout << "Coste: " << c_mejor << endl;  
   }
   else{
     auto start = chrono::high_resolution_clock::now();
-    tsp_backtracking(solucion, graph,1 , c_mejor, s_mejor, 0);
+    tsp_backtracking(solucion, graph,1 , c_mejor, s_mejor, c_actual);
     auto end = chrono::high_resolution_clock::now();
     cout << graph.size() << " " << chrono::duration_cast<chrono::nanoseconds>(end - start).count() << endl;
     
