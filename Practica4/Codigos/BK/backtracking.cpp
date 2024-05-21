@@ -6,6 +6,9 @@
 #include <sstream>
 #include <vector>
 #include <chrono>
+#include <set>
+#include <ranges>
+
 
 using namespace std;
 
@@ -16,16 +19,33 @@ void printv(const vector<int> &v) {
   }
   cout << "]" << endl;
 }
-double cota2(const vector<int>&solucion,const vector<vector<double>>&graph, int actual){
-    double cota=0;
-    for(int i =0; i<graph.size();i++){
-         if(find(solucion.begin(), solucion.end(),i) ==solucion.end()){
-            cota = cota + graph[actual][i];
-         }
+double calcularDistanciaTotal(const vector<vector<double>>& distancias, const vector<int>& camino) {
+    double total = 0.0;
+    vector<int> usados(camino.begin(),find(camino.begin(),camino.end(),-1));
+    for (int i = 0; i < usados.size() - 1; ++i) {
+        total += distancias[usados[i]][usados[i + 1]];
     }
-   
+    // Asegúrate de volver al punto inicial si tu problema lo requiere (como en el problema del viajante)
+    total += distancias[usados.back()][usados.front()];
+    return total;
+}
 
-    return cota;
+double cota1(const vector<vector<double>> & graph, const vector<int> & camino ,double c_actual){
+  double cota =0;
+  double min = numeric_limits<double>::max();
+  vector<int> usados(camino.begin(),find(camino.begin(),camino.end(),-1));
+  for(int i = 0; i< usados.size();i++){
+    for(int j = 0; j< graph.size();j++){
+      if(find(usados.begin(),usados.end(),j)==usados.end()){
+        if(graph[usados[i]][j]<min){
+          min = graph[usados[i]][j];
+        }
+      }
+      
+    }
+  }
+  return min*(graph.size()-usados.size()) + c_actual;
+
 }
 /**
  * @brief Busca si es posible la siguiente ciudad a visitar que cumpla que no ha
@@ -71,8 +91,9 @@ void tsp_backtracking(vector<int> &solucion,const vector<vector<double>> &graph,
   } else {
     do {
       solucion[nciudad] = siguiente(nciudad, solucion, graph);
-      if (solucion[nciudad] != -1) {
+      if (solucion[nciudad] != -1 && (calcularDistanciaTotal(graph, solucion) < cota1(graph,solucion,c_actual))){
         tsp_backtracking(solucion, graph, nciudad + 1, c_mejor, s_mejor,c_actual +graph[solucion[nciudad - 1]][solucion[nciudad]]);
+        printv(solucion);
       }
     } while (solucion[nciudad] != -1);
     

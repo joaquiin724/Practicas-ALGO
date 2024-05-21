@@ -7,4 +7,4 @@ cd $script_directory
 # Compilar los programas
 g++ -o Ejecutables/CreacionPuntos CreacionPuntos.cpp
 g++ -o Ejecutables/CreacionMatrices CreacionMatrices.cpp
-g++ -o Ejecutables/backtracking backtracking.cpp
+g++ -g -o Ejecutables/backtracking backtracking.cpp
