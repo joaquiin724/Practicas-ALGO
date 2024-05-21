@@ -242,7 +242,7 @@ std::vector<int> bruteForceTSP(const std::vector<std::vector<double>>& adjacency
 vector<int> branch_and_bound(vector<int>& points, vector< vector<double>> &distancias, int inicial){
     priority_queue<Nodo, vector<Nodo>, Comparador> no_visitados;
     vector<int> mejor_camino = {inicial};
-    Nodo actual( mejor_camino, 0, cota_inferior(distancias));
+    Nodo actual( mejor_camino, 0, cota_inferior_1(distancias));
     no_visitados.push(actual);
 
     double costo_minimo = numeric_limits<double>::infinity();
@@ -270,7 +270,7 @@ vector<int> branch_and_bound(vector<int>& points, vector< vector<double>> &dista
                     Nodo nuevo= actual;
                     nuevo.path.push_back(faltantes[i]);
                     nuevo.distancia_recorrida += distancias[actual.path.back()][faltantes[i]];
-                    nuevo.cota_inferior = nuevo.distancia_recorrida + cota_inferior(distancias, nuevo.path);
+                    nuevo.cota_inferior = nuevo.distancia_recorrida + cota_inferior_1(distancias, nuevo.path);
                     no_visitados.push(nuevo);
                 }
             }
@@ -302,7 +302,7 @@ vector<int> branch_and_bound(vector<int>& points, vector< vector<double>> &dista
 vector<int> branch_and_bound2 (vector<int>& points, vector< vector<double>> &distancias, int inicial){
     priority_queue<Nodo, vector<Nodo>, Comparador> no_visitados;
     vector<int> mejor_camino = {inicial};
-    Nodo actual( mejor_camino, 0, cota_inferior(distancias));
+    Nodo actual( mejor_camino, 0, cota_inferior_1(distancias));
     no_visitados.push(actual);
 
     double costo_minimo = numeric_limits<double>::infinity();
@@ -318,7 +318,7 @@ vector<int> branch_and_bound2 (vector<int>& points, vector< vector<double>> &dis
                 Nodo nuevo= actual;
                 nuevo.path.push_back(faltantes[i]);
                 nuevo.distancia_recorrida= nuevo.distancia_recorrida+ distancias[actual.path.back()][faltantes[i]];
-                nuevo.cota_inferior = nuevo.distancia_recorrida + cota_inferior(distancias, nuevo.path);
+                nuevo.cota_inferior = nuevo.distancia_recorrida + cota_inferior_1(distancias, nuevo.path);
                 
                 if (nuevo.path.size() == points.size()) {
                     nuevo.distancia_recorrida += distancias[nuevo.path.back()][inicial];
@@ -391,7 +391,7 @@ vector<int> nearest_neighborTSP(const vector<vector<double>>& distancias, int in
 vector<int> branch_and_bound_greedy(vector<int>& points, vector< vector<double>> &distancias, int inicial){
     priority_queue<Nodo, vector<Nodo>, Comparador> no_visitados;
     vector<int> mejor_camino = {inicial};
-    Nodo actual( mejor_camino, 0, cota_inferior(distancias));
+    Nodo actual( mejor_camino, 0, cota_inferior_1(distancias));
     no_visitados.push(actual);
 
     double costo_minimo = calcularDistanciaTotal(distancias, nearest_neighborTSP(distancias, inicial));
@@ -419,7 +419,7 @@ vector<int> branch_and_bound_greedy(vector<int>& points, vector< vector<double>>
                     Nodo nuevo= actual;
                     nuevo.path.push_back(faltantes[i]);
                     nuevo.distancia_recorrida += distancias[actual.path.back()][faltantes[i]];
-                    nuevo.cota_inferior = nuevo.distancia_recorrida + cota_inferior(distancias, nuevo.path);
+                    nuevo.cota_inferior = nuevo.distancia_recorrida + cota_inferior_1(distancias, nuevo.path);
                     no_visitados.push(nuevo);
                 }
             }
