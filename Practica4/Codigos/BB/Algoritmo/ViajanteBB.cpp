@@ -55,8 +55,7 @@ vector<int> nearest_neighborTSP(const vector<vector<double>>& distancias, int in
  * @return suma de los mínimos de cada fila
 */
 double cota_inferior(const std::vector<std::vector<double>>& matriz, const std::vector<int>& indices_a_ignorar = {}) {
-    double min_global = std::numeric_limits<double>::max();
-    int filas_contadas = 0;
+    double suma_minimos = 0.0;
 
     for (int i = 0; i < matriz.size(); ++i) {
         // Ignorar la fila si está en la lista de filas a ignorar
@@ -76,14 +75,11 @@ double cota_inferior(const std::vector<std::vector<double>>& matriz, const std::
         }
 
         if (minimo_fila < std::numeric_limits<double>::max()) {
-            if (minimo_fila < min_global) {
-                min_global = minimo_fila;
-            }
-            ++filas_contadas;
+            suma_minimos += minimo_fila;
         }
     }
 
-    return  (min_global * filas_contadas);
+    return suma_minimos;
 }
 
 

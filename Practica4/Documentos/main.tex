@@ -104,8 +104,6 @@ veremos como se ha elegido cada cota .
 \subsection{Eficiencia teórica}
 
 
-
-
 \chapter{Branch and bound}
 Al igual que en el apartado anterior resolveremos el problema del viajante, solo que en vez de solucionar el problema mediante el bakctraking 
 lo resolveremos mediante Branch and bound. A continuación se mostrarán las funciones de cota al igual que el algoritmo principal que hemos usado:
@@ -234,7 +232,7 @@ de 0, pasandose como parámetros los índices a ignorar.Destacar que además de 
 columnas indicadas en el vector de enteros, ya que el objetivo es eliminar las conexiones de ciertos nodos, por lo que 
 eliminamos sus filas y columnas respectivas.
 \\ \\
-Por otro lado, la segunda función de cota, que es la que vamos a utilizar en nuestro algoritmo Branch and Bound, tiene un funcionamiento 
+Por otro lado, la segunda función de cota, tiene un funcionamiento 
 distinto. Consiste principalmente en encontrar la mínima distancia de una matriz de adyacencia y depués multiplicar dicho valor por
 las filas restantes, suponiendo que ese camino será el mínimo para todos, de ahí que se multiplique por el número de nodos restantes.
 Ignorando, igual que con la cota anterior, los 0 y las filas y las columnas que se pasan como parámetros a ignorar. Función para calcular 
@@ -339,9 +337,91 @@ A continuación se mostrará la notación mostrada en teoría, aunque sigamos un
 \section{Eficiencia teórica y empírica}
 \subsection{Eficiencia teórica}
 
-En primer lugar, como ya calculamos en la práctica anterior, tenemos que la eficiencai de la cota global es de $O(n^2)$
+En primer lugar, como ya calculamos en la práctica anterior, tenemos que la eficiencai de la cota global es de $O(n^2)$. En cuanto a las cotas locales tenemos
+que: \\\\
+·Para la primera cota tenemos una eficiencia de $O(n^3)$. Esto se debe a que el bucle for interno se ejecuta n veces, y en dicho bucle se realiza un if con 
+una función find que a su vez también tiene eficiencia $O(n)$, por lo que dicho bucle for tiene eficiencia $O(n^2)$. Además, tenemos que el bucle for exterior 
+se ejecuta n veces, por lo que finalmente obtenemos una eficiencia $O(n^3)$.\\\\
+·Para la segunda cota tenemos por el mismo razonamiento una eficiencia de $O(n^3)$.\\\\
+Ahora veamos la eficiencia del algoritmo Branch and Bound. Empezando por la parte más interna del código, tenemos una estructura if-else. En dicha estructura,
+el bloque de sentencias if tienen una eficiencia $O(nlog(n))$ debido a que llama a la funcion numeros faltantes cuya eficiencia se ve claramente, debido a que 
+se ejecuta en un bucle for n veces un if cuya condición es $O(log(n))$.
+\begin{lstlisting}
+std::vector<int> numeros_faltantes(const std::vector<int>& vec, int n) {
+            
+      std::set<int> presentes(vec.begin(), vec.end());
+        
+      std::vector<int> faltantes;
+      for (int i : std::views::iota(0, n + 1)) {
+            if (!presentes.contains(i)) {
+                faltantes.push_back(i);
+            }
+      }
+        
+      return faltantes;
+}
+\end{lstlisting}
+Por otro lado, tenemos para el else una eficiencia de $O(n^4)$, esto se debe a que hay un bucle for que se ejecuta n veces y en su cuerpo se llama a la función 
+cota inferior que tiene una eficiencia de $O(n^3)$. De aquí obtenemos que la eficiencia del bloque if-else es $O(n^4)$. Como la condición del bucle while es $O(n!)$,
+tenemos que la eficiencia del método Branch and Bound es de $O(n! \cdot n^4 )$. 
 
+\subsection{Eficiencia empírica}
+En cuanto a la eficiencia empírica, podemos decir que aunque ambas cotas tienen el mismo orden de eficiencia, se observa
+claramente que a partir de la primera cota obtenemos mejores resultados.
 
+\begin{figure}[H]
+      \centering
+      \begin{minipage}{.48\textwidth}
+            \centering
+            \includegraphics[width=1\linewidth]{assets/Img/Cota_1_BB/grafico_tiempos.png}
+            \caption{Cota 1}
+            \label{fig:Cota 1}
+      \end{minipage}%
+      \begin{minipage}{.48\textwidth}
+            \centering
+            \includegraphics[width=1\linewidth]{assets/Img/Cota_2_BB/grafico_tiempos.png}
+            \caption{Cota 2}
+            \label{fig:Cota 2}
+      \end{minipage}
+\end{figure}
 
+\section{Gráficas}
+Finalmente, mostraremos varias ejecuciones del algoritmo del viajante mediante el Branch and Bound. Mostraremos gráficas realizadas con ambas
+cotas aunque eso no se ve reflejado en el resultado final sino más bien en el tiempo de ejecución como hemos mostrado previamente.
 
+\begin{figure}[H]
+      \centering
+      \begin{minipage}{.48\textwidth}
+            \centering
+            \includegraphics[width=1\linewidth]{assets/Img/Cota_1_BB/grafico_8_1.png}
+            \caption{Cota 1, 8 puntos}
+            \label{fig:Cota 1}
+      \end{minipage}%
+      \begin{minipage}{.48\textwidth}
+            \centering
+            \includegraphics[width=1\linewidth]{assets/Img/Cota_2_BB/grafico_8_1.png}
+            \caption{Cota 2, 8 puntos}
+            \label{fig:Cota 2}
+      \end{minipage}
+\end{figure}
+
+\begin{figure}[H]
+      \centering
+      \begin{minipage}{.48\textwidth}
+            \centering
+            \includegraphics[width=1\linewidth]{assets/Img/Cota_1_BB/grafico_12_1.png}
+            \caption{Cota 1, 12 puntos}
+            \label{fig:Cota 1}
+      \end{minipage}%
+      \begin{minipage}{.48\textwidth}
+            \centering
+            \includegraphics[width=1\linewidth]{assets/Img/Cota_2_BB/grafico_12_1.png}
+            \caption{Cota 2, 12 puntos}
+            \label{fig:Cota 2}
+      \end{minipage}
+\end{figure}
+
+A simple vista podemos apreciar que verdaderamenta obtenemos resultados correctos independietmente de la 
+cota utilizada, sin embargo, sigue siendo un factor a tener en cuenta devido a la diferencia de tiempo a la 
+hora de la ejecución.
 \end{document}
