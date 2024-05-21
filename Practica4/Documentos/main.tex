@@ -65,20 +65,23 @@
 \end{itemize}
 
 \chapter{Objetivos}
+    El objetivo de esta práctica es resolver el problema del viajante de comercio el cual viene descrito por el siguiente enunciado :\
+    Tenemos un conjunto de n ciudades (puntos en un plano), cada una definida por las coordenadas en el mapa $(x_i , y_i )$, con $i = 1, . . . , n$. La distancia entre dos ciudades viene dada por la
+    distancia euclídea entre sus coordenadas.
+    El problema de viajante de comercio consiste en encontrar el orden en el que un viajante,
+    partiendo de la ciudad de origen (por ejemplo $(x_1 , y_1 )$) pase por todas y cada una de las ciudades
+    una única vez, para volver a la ciudad de partida, formando un ciclo. \ 
 
-\chapter{Backtracking Problema del Viajero}
-
-Tenemos un conjunto de n ciudades (puntos en un plano), cada una definida por las coor-
-denadas en el mapa $(x_i , y_i )$, con $i = 1, . . . , n$. La distancia entre dos ciudades viene dada por la
-distancia euclídea entre sus coordenadas.
-El problema de viajante de comercio consiste en encontrar el orden en el que un viajante,
-partiendo de la ciudad de origen (por ejemplo $(x_1 , y_1 )$) pase por todas y cada una de las ciudades
-una única vez, para volver a la ciudad de partida, formando un ciclo. \
-\\ \\       
-En esta práctica usamos el algorimo de exploración de grafos llamado Backtracking, que consiste en recorrer todos los caminos en profundidad obteniendo todas
+    Para ello usaremos dos diseños distintos de  algoritmos dedicados a la exploraciónde grafos , backtracking y brannch and bound 
+    con el objetivo de ver las diferencias entre la eficiencia de estos dos algoritmos. Además se probarán distintas funciones de cotsa 
+    para estudiar que influencia tienen en cada caso las distintas funciones.Por último se realizará un estudio tanto teórico como 
+    empírico de la eficiencia de los algoritmos implementados.
+\chapter{Backtracking}   
+\section{Diseño}   
+En esta sección analizaremos el algorimo de exploración de grafos llamado Backtracking, que consiste en recorrer todos los caminos en profundidad obteniendo todas
 las posibles soluciones al problema. \\
-Para seleccionar la solución más óptima del problema debemos ir comparando cada vez que obtenemos una nueva solución al problema, quedándonos con la que más nos
-convenga, en este caso, al de menor distancia.
+Para seleccionar la solución más óptima del problema debemos ir comparando con la anterior posible solución  cada vez que obtenemos una nueva solución al problema, quedándonos con la que más nos
+convenga, en este caso, la que nos de un camino de menor disatancia.
 \\ \\
 Hay varias formas de hacerlo:
 \begin{itemize}
@@ -89,12 +92,20 @@ Hay varias formas de hacerlo:
       Esta forma de realizarlo será, como es lógico, más eficiente.
 \end{itemize}
 
-Para la implementación del algoritmo, optamos por la segunda forma, usando diferentes funciones de cota que nos permitan aproximar si el camino seleccionado es bueno. \\ \\
-
+Para la implementación del algoritmo, optamos por la segunda forma, usando diferentes funciones de cota que nos permitan aproximar si el camino seleccionado es bueno.A continuación
+veremos como se ha elegido cada cota .
+\subsection{Cota global}
+\subsection{Cota local}
 \textbf{Primera función de cota:} \\
-La primera función de cota implementada consiste en seleccionar, de todos los posibles puntos  que no hayan sido recorridos con aterioridad, el que esté a menor distancia, y tomarlo como si el resto tuvieran esa misma distancia,
-es decir, si hemos seleccionado ya 3 puntos y quedan 2 mas por recorrer, la función de cota interpretaría que la distancia total que nos quedaría por recorrer será dos veces, ya que sólo quedan dos puntos por seleccionar, la menor de esos dos puntos al último seleccionado.
-De esta forma si la solución que se propone mediante esta función de cota no es mejor que la que tengamos seleccionada en ese momento como la mejor, entonces se descartará el camino y se comenzará a explorar otro.
+    La primera función de cota implementada consiste en seleccionar, de todos los posibles puntos  que no hayan sido recorridos con aterioridad, el que esté a menor distancia, y tomarlo como si el resto tuvieran esa misma distancia,
+    es decir, si hemos seleccionado ya 3 puntos y quedan 2 mas por recorrer, la función de cota interpretaría que la distancia total que nos quedaría por recorrer será dos veces, ya que sólo quedan dos puntos por seleccionar, la menor de esos dos puntos al último seleccionado.
+    De esta forma si la solución que se propone mediante esta función de cota no es mejor que la que tengamos seleccionada en ese momento como la mejor, entonces se descartará el camino y se comenzará a explorar otro.
+\subsection{Algoritmo Backtracking}
+\section{Justificación}
+\section{Eficiencia teórica y empírica}
+\subsection{Eficiencia teórica}
+
+
 
 
 \chapter{Branch and bound}
