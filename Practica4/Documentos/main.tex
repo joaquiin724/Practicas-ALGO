@@ -229,15 +229,16 @@ A continuación se muestra el algoritmo de Backtracking implementado:
     El vector de enteros solucion contiene el punto inicial sobre el que se aplica el algoritmo , si el vector solución
     
 \section{Justificación}
-Para la justificación del Backtracking necesitamos comprobar, en nuestro caso por reducción al absurdo en el paso
-de inducción, que la solución obtenida es la mejor posible:
+Para la justificación del Backtracking debemos comprobar que se obtiene la mejor solución posible, en nuestro caso, esa demostración la haremos usando reducción al absurdo:
 \begin{enumerate}
-    \item Llamaremos N al conjunto de todos los nodos 
-    \item Llamaremos $C_l$ a la cota local
+    \item Llamaremos n al conjunto de todos los nodos
+    \item Llamaremos $C_l$ a la cota local 
     \item Llamaremos C a la cota global
-    \item Una solución será la óptima cuando se hayan explorado todos los caminos teniendo en cuenta la cota local y global de ese momento
+    \item La solución óptima se obtendrá tras haber explorado todas las ramas llegando al final, o no, dependiendo de los valores de las cotas
 \end{enumerate}
-En la inducción sobre N, el caso base es evidente, ya que si hay un único nodo, este será la solución al problema y la distancia recorrida será de 0. Ocurre de igual forma
+Para la demostración empezaremos del algorimo supondremos que la solución K obtenida no es la solución óptima, esto implica que existe otra forma de explorar el grafo teniéndose que $K>K'$ siendo K' la solución óptima.
+Al devolver nuestro algorimo K, la cota global contendrá precisamente este valor, cosa que nos lleva a una contradicción, ya que si una vez explorado todo el grafo hubiera una solución mejor que K, la cota global del programa deberá ser igual 
+a ella, que en nuestro caso no ocurre, o bien porque la $C_l$ ha hecho que se descarte la exploración de esa rama, o bien porque se exploró completamente sin mejorar la solución que ya teníamos.
 
 \section{Eficiencia teórica y empírica}
 \subsection{Eficiencia teórica}
