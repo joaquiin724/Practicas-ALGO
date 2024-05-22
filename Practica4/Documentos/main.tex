@@ -92,13 +92,153 @@ Hay varias formas de hacerlo:
 Para la implementación del algoritmo, optamos por la segunda forma, usando diferentes funciones de cota que nos permitan aproximar si el camino seleccionado es bueno.A continuación
 veremos como se ha elegido cada cota .
 \subsection{Cota global}
+
+\begin{lstlisting}
+    vector<int> nearest_neighborTSP(const vector<vector<double>>& distancias, int inicial) {
+    int num_puntos = distancias.size();
+    vector<int> camino;
+    vector<bool> visitados(num_puntos, false);
+    camino.reserve(num_puntos);
+    camino.push_back(inicial);
+    visitados[inicial] = true;
+
+    for (int i = 0; i < num_puntos - 1; ++i) {
+        int actual = camino.back();
+        int siguiente = -1;
+        double min_distancia = numeric_limits<double>::max();
+
+        for (int j = 0; j < num_puntos; ++j) {
+            if (!visitados[j] && distancias[actual][j] < min_distancia) {
+                min_distancia = distancias[actual][j];
+                siguiente = j;
+            }
+        }
+
+        camino.push_back(siguiente);
+        visitados[siguiente] = true;
+    }
+
+    camino.push_back(inicial);
+    return camino;
+}
+\end{lstlisting} 
+Esta funcion de la practica anterior la usaremos par obtener una cota global, ya que nos proporciona una solución al problema del viajante, aunque no sea la mejor, nos servirá para comparar
+Si la decision que toma nuestro algoritmo es mejor que la que nos proporciona esta función. 
+
 \subsection{Cota local}
 \textbf{Primera función de cota:} \\
-    La primera función de cota implementada consiste en seleccionar, de todos los posibles puntos  que no hayan sido recorridos con aterioridad, el que esté a menor distancia, y tomarlo como si el resto tuvieran esa misma distancia,
-    es decir, si hemos seleccionado ya 3 puntos y quedan 2 mas por recorrer, la función de cota interpretaría que la distancia total que nos quedaría por recorrer será dos veces, ya que sólo quedan dos puntos por seleccionar, la menor de esos dos puntos al último seleccionado.
-    De esta forma si la solución que se propone mediante esta función de cota no es mejor que la que tengamos seleccionada en ese momento como la mejor, entonces se descartará el camino y se comenzará a explorar otro.
+    La primera función de cota que hemos implementado consiste en calcular el mínimo valor de los arcos del grafo que no han sido 
+    usados todavía , se multiplican por el numero de nodos restantes y se suman al coste actual.
+    \begin{lstlisting}
+        double cota1(const vector<vector<double>> &graph, const vector<int> &solucion,double c_actual, double arco_menorpeso) {
+            return arco_menorpeso * (graph.size() - solucion.size() + 1) + c_actual;
+        }
+
+    \end{lstlisting}
+\textbf{Segunda función de cota:} \\
+    La segunda función de cota que hemos implementado consiste en calcular el mínimo valor de salir de todos los nodos del grafo que no 
+    han sido visitados y sumarle la distancia del recorrido actual.
+    En el siguiente codigose recorre la matriz de adyacencia y se selecciona el menor valor de los arcos de los nodos que no han sido visitados 
+    y se suman al coste actual.
+    \begin{listing}
+        double cota2(const vector<vector<double>> &graph, const vector<int> &solucion,=double c_actual) {
+            double cota = 0;
+            vector<double> v;
+            double min = numeric_limits<double>::max();
+            for (int i = 1; i < graph.size(); ++i) {
+                if ((find(solucion.begin(), solucion.end(), i) == solucion.end())) {
+                    v = graph[i];
+                    sort(v.begin(), v.end());
+                    cota += v[1];
+                }
+            }
+            return cota + c_actual;
+        }
+    \end{listing}
+    \textbf{Tercera función de cota:} \\
+    La tercera función de cota que hemos implementado consiste en calcular el mínimo valor de salir y entrar  de todos los nodos del grafo que no 
+    han sido visitados ,hacer la media  y sumarle la distancia del recorrido actual.
+    El siguiente codigo busca en una matriz de adyacencia los valores de los arcos de los nodos que no han sido todavia visitados , se 
+    seleccionan todos ellos y se ordenande menor a mayor para seleccionar los dos menores y hacer la media de estos.
+    \begin{listing}
+        double cota3(const vector<vector<double>> &graph, const vector<int> &solucion,double c_actual) {
+            double cota = 0;
+            vector<double> v;
+            double min = numeric_limits<double>::max();
+            for (int i = 1; i < graph.size(); ++i) {
+                if ((find(solucion.begin(), solucion.end(), i) == solucion.end())) {
+                    v = graph[i];
+                    sort(v.begin(), v.end());
+                    cota += (v[1] + v[2]) / 2;
+                }
+            }
+            return cota + c_actual;
+        }
+    \end{listing}
 \subsection{Algoritmo Backtracking}
+A continuación se muestra el algoritmo de Backtracking implementado:
+
+\begin{lstlisting}
+/**
+ * @brief Funcion para resolver el tsp con backtracking .
+ * @param solucion vector de ciudades , la posicion de la ciudad indica el orden
+ * en el que es visitada
+ * @param graph graph de adyacencia
+ * @param c_mejor mejor coste encontrado
+ * @param s_mejor mejor solucion encontrada
+ * @param c_actual coste actual
+ * @param arco_menorpeso arco de menor peso del grafo (para no tener que calcularlo siempre)
+ *@param cota cota a utilizar
+ */
+ void tsp_backtracking(vector<int> &solucion,const vector<vector<double>> &graph, double &c_mejor,vector<int> &s_mejor, double c_actual, int arco_menorpeso,int cota = 0) {
+  c_actual += solucion.size() <= 1? 0: graph[solucion.back()][solucion[solucion.size() - 2]];
+  if (solucion.size() == graph.size()) {
+    c_actual += graph[solucion.back()][solucion[0]];
+    if (c_actual < c_mejor) {
+      c_mejor = c_actual;
+      s_mejor = solucion;
+    }
+  } else {
+    for (int i = 1; i < graph.size(); i++) {
+      if (find(solucion.begin(), solucion.end(), i) == solucion.end()) {
+        double acotacion;
+        if (cota == 1) {
+            acotacion = cota1(graph, solucion, c_actual, arco_menorpeso);
+        } else if (cota == 2) {
+            acotacion = cota2(graph, solucion, c_actual);
+        } else if (cota == 3) {
+            acotacion = cota3(graph, solucion, c_actual);
+        } else {
+            acotacion = 0;
+        }
+        if (acotacion <= c_mejor) {
+            solucion.emplace_back(i);
+            tsp_backtracking(solucion, graph, c_mejor, s_mejor, c_actual,arco_menorpeso, cota);
+            solucion.pop_back();
+          }
+      }
+    }
+  }
+}
+
+  
+                
+    \end{lstlisting}
+
+    El algoritmo recive como parametros una matriz de adyacencia , un vector de enteros que representa la solución actual, un vector de enteros que representa la mejor solución encontrada, un double que representa el mejor coste encontrado, un double que representa el coste actual, un entero que representa el arco de menor peso del grafo y un entero que representa la cota a utilizar.
+    El vector de enteros solucion contiene el punto inicial sobre el que se aplica el algoritmo , si el vector solución
+    
 \section{Justificación}
+Para la justificación del Backtracking necesitamos comprobar, en nuestro caso por reducción al absurdo en el paso
+de inducción, que la solución obtenida es la mejor posible:
+\begin{enumerate}
+    \item Llamaremos N al conjunto de todos los nodos 
+    \item Llamaremos $C_l$ a la cota local
+    \item Llamaremos C a la cota global
+    \item Una solución será la óptima cuando se hayan explorado todos los caminos teniendo en cuenta la cota local y global de ese momento
+\end{enumerate}
+En la inducción sobre N, el caso base es evidente, ya que si hay un único nodo, este será la solución al problema y la distancia recorrida será de 0. Ocurre de igual forma
+
 \section{Eficiencia teórica y empírica}
 \subsection{Eficiencia teórica}
 
@@ -109,8 +249,9 @@ lo resolveremos mediante Branch and bound. A continuación se mostrarán las fun
 
 \section{Diseño}
 \subsection{Cota global}
+Para selecionar la cota global usaremos la función de nearest neighbor de la práctica anterior la cual 
+nos proporciona una cota principal con la que poder comparar las distintas soluciones que vaya obteniendo nuestro algoritmo.
 
-Primero empezaremos mostrando la función de cota global:
 \begin{lstlisting}
 vector<int> nearest_neighborTSP(const vector<vector<double>>& distancias, int inicial) {
     int num_puntos = distancias.size();
@@ -141,28 +282,13 @@ vector<int> nearest_neighborTSP(const vector<vector<double>>& distancias, int in
 }
 
 \end{lstlisting} 
-Esta función es obtenida de la práctica anterior de algoritmos Greedy. La idea es sencilla, nos dan un conjunto de 
-puntos y queremos encontrar el camino más corto que los recorra, para ello, elegimos un punto inicial y a partir de 
-ese punto, en un proceso iterativo, elegimos en cada paso el siguiente punto más cercano al actual, o lo que es lo mismo, 
-el punto para el cual la distancia al punto actual es la menor. Este proceso se repite hasta que 
-todos los puntos han sido visitados.
-Este algoritmo Greey junto con la siguiente función, que calcula la distancia total de un camino dado a partir de su matriz
-de adyacencia, nos permite obtener una cota superior inicial.
 \\ 
-\begin{lstlisting}
-double calcularDistanciaTotal(const vector<vector<double>>& distancias, const vector<int>& camino) {
-    double total = 0.0;
-    for (int i = 0; i < camino.size() - 1; ++i) {
-        total += distancias[camino[i]][camino[i + 1]];
-    }
-    total += distancias[camino.back()][camino.front()];
-    return total;
-}
+
       
 \end{lstlisting}
 \subsection{Cota local}
 
-Además de esta cota global, hemos implementado do funciones de cota local distintas:
+Además de esta cota global, hemos implementado dos funciones de cota local distintas:
 \\ 
 \begin{lstlisting}
 double cota_inferior_1(const std::vector<std::vector<double>>& matriz, const std::vector<int>& indices_a_ignorar = {}) {
