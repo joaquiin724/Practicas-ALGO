@@ -315,23 +315,22 @@ A continuación se mostrará la notación mostrada en teoría, aunque sigamos un
 \begin{itemize}
       \item \textbf{Solución parcial:} Vector path del Nodo actual.
       \item \textbf{Función poda:} Momento en que la cota inferior supera al costo minimo,siendo este la cota global.
-      \item \textbf{Restricciones explícitas:}
-      \item \textbf{Restricciones implícitas:}
+      \item \textbf{Restricciones explícitas:}Que el siguiete nodo a seleccionar este dentro de los nodos faltantes
+      \item \textbf{Restricciones implícitas:}Que el camino del nodo actual sea menor que el costo minimo
       \item \textbf{Árbol de estado:} El espacio solución con el que se trabaja es el Nodo actual, sin embargo, el 
       vector mejor camino es el árbol de estado al encontrar la solución.
       \item \textbf{Estado del problema:} Cada uno de los nodos del árbol
       \item \textbf{Estado solución:} Nodo actual
       \item \textbf{Estado respuesta:}Vector mejor camino
-      \item \textbf{Nodo vivo:}
-      \item \textbf{Nodo muerto:}
+      \item \textbf{Nodo vivo:} Nodos que todavia no hemos podado y pueden darnos una solución en el caso de que el nodo actual con el que
+      estamos trabajando supere el valor del costo mínimo 
+      \item \textbf{Nodo muerto:}Nodo podado o que hemos recorrido todo su camino
       \item \textbf{e-nodo:}Nodo actual
 \end{itemize}
 
 
 \newpage
-\section{Justificación}
 
-\newpage
 
 \section{Eficiencia teórica y empírica}
 \subsection{Eficiencia teórica}
@@ -383,6 +382,38 @@ claramente que a partir de la primera cota obtenemos mejores resultados.
             \label{fig:Cota 2}
       \end{minipage}
 \end{figure}
+\newpage
+
+\section{Justificación}
+
+Para demostrar que el algoritmo Branch and Bound que hemos creado nos proporciona una solución óptima, realizaremos una
+demostración por reducción al absurdo. Proposiciones:
+\begin{enumerate}
+      \item Llamaremos N al conjunto de todos los nodos pertenecientes al último nivel
+      \item Llamaremo T al conjunto de todos los nodos pertenecientes a niveles superiores que están podados.
+      \item Llamaremos $N_A$ al nodo que nos devuelve nuestro algoritmo
+      \item Llamaremos $k_i$ al camino correspondiente de $N_i$
+      \item Llamaremos $c_i$ a la cota inferior local correspondiente de $N_i$
+      \item Llamaremos C a la cota global
+      \item Supondremos que una solución es la óptima cuando en el último nivel del árbol de estado exista
+      un camino tal que $k_i \leq k_j \ \ \ \forall N_j \in N$ y que cumpla que $k_i \leq c_{ln}  \ \ \ c_{ln} \in T $ donde 
+      n indica el nivel de su ultimo desarrollo, es decir, su rama esta podada 
+\end{enumerate}
+
+Procedemos ahora a realizar la reduccioón al absurdo.
+Empezamos suponiendo que la solución devuelta no es la óptima, entonces pueden ocurrir dos cosas:
+\begin{enumerate}
+    \item Existe un nodo en el último nivel al que llamaremos $N_j$ tal que $ N_j \in N$ que cumple que
+     $k_j < k_A  \ \ $  entonces  $ N_j$  sería una mejor solución que $N_A$. De hecho, en prticular, se cumpliría que
+     $ \exists N_j \in N \text{tal que } k_l \leq k_i  \ \ \forall N_i \in N $. Por tanto, nuestro algoritmo hubiera 
+     devuelto $N_j$ en vez de $N_A$ y llegamos a una contradicción
+    \item Existiría un nodo $N_{jm} \in T \text{tal que } c_{jm} < K_A = C$ del nivel m, donde la rama estaría podada
+    por lo que llegamos a una contradicción, ya que debería seguir desarrollandose al ser menor que la cota global. 
+\end{enumerate}
+
+Como podemos ver en ambos casos llegamos a contracción que es lo que buscábamos
+
+\newpage
 
 \section{Gráficas}
 Finalmente, mostraremos varias ejecuciones del algoritmo del viajante mediante el Branch and Bound. Mostraremos gráficas realizadas con ambas
