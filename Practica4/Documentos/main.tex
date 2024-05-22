@@ -140,7 +140,7 @@ Si la decision que toma nuestro algoritmo es mejor que la que nos proporciona es
     han sido visitados y sumarle la distancia del recorrido actual.
     En el siguiente codigose recorre la matriz de adyacencia y se selecciona el menor valor de los arcos de los nodos que no han sido visitados 
     y se suman al coste actual.
-    \begin{listing}
+    \begin{lstlisting}
         double cota2(const vector<vector<double>> &graph, const vector<int> &solucion,=double c_actual) {
             double cota = 0;
             vector<double> v;
@@ -154,13 +154,13 @@ Si la decision que toma nuestro algoritmo es mejor que la que nos proporciona es
             }
             return cota + c_actual;
         }
-    \end{listing}
+    \end{lstlisting}
     \textbf{Tercera función de cota:} \\
     La tercera función de cota que hemos implementado consiste en calcular el mínimo valor de salir y entrar  de todos los nodos del grafo que no 
     han sido visitados ,hacer la media  y sumarle la distancia del recorrido actual.
     El siguiente codigo busca en una matriz de adyacencia los valores de los arcos de los nodos que no han sido todavia visitados , se 
     seleccionan todos ellos y se ordenande menor a mayor para seleccionar los dos menores y hacer la media de estos.
-    \begin{listing}
+    \begin{lstlisting}
         double cota3(const vector<vector<double>> &graph, const vector<int> &solucion,double c_actual) {
             double cota = 0;
             vector<double> v;
@@ -174,7 +174,7 @@ Si la decision que toma nuestro algoritmo es mejor que la que nos proporciona es
             }
             return cota + c_actual;
         }
-    \end{listing}
+    \end{lstlisting}
 \subsection{Algoritmo Backtracking}
 A continuación se muestra el algoritmo de Backtracking implementado:
 
@@ -224,9 +224,9 @@ A continuación se muestra el algoritmo de Backtracking implementado:
   
                 
     \end{lstlisting}
-
     El algoritmo recive como parametros una matriz de adyacencia , un vector de enteros que representa la solución actual, un vector de enteros que representa la mejor solución encontrada, un double que representa el mejor coste encontrado, un double que representa el coste actual, un entero que representa el arco de menor peso del grafo y un entero que representa la cota a utilizar.
-    El vector de enteros solucion contiene el punto inicial sobre el que se aplica el algoritmo , si el vector solución
+    El vector de enteros solucion contiene el punto inicial sobre el que se aplica el algoritmo , si el vector solución está completo se comprueba si 
+    la solución obtenida es mejor que la que se tenía y se actualiza en caso de serlo. Si no está completo se calcula la cota local y se  añade un nuevo punto al vector solución y se llama a la función recursivamente hasta que encuentra un camino completo.
     
 \section{Justificación}
 Para la justificación del Backtracking debemos comprobar que se obtiene la mejor solución posible, en nuestro caso, esa demostración la haremos usando reducción al absurdo:
@@ -241,6 +241,30 @@ Al devolver nuestro algorimo K, la cota global contendrá precisamente este valo
 a ella, que en nuestro caso no ocurre, o bien porque la $C_l$ ha hecho que se descarte la exploración de esa rama, o bien porque se exploró completamente sin mejorar la solución que ya teníamos.
 
 \section{Eficiencia teórica y empírica}
+\subsection{Eficiencia empírica}
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{.48\textwidth}
+          \centering
+          \includegraphics[width=1\linewidth]{assets/Img/grafico_tiemposbk.png}
+          \caption{Cota 1}
+          \label{fig:Cota 1}
+    \end{minipage}%
+    \begin{minipage}{.48\textwidth}
+          \centering
+          \includegraphics[width=1\linewidth]{assets/Img/grafico_tiempos2.png}
+          \caption{Cota 3}
+          \label{fig:Cota 3}
+    \end{minipage}
+\end{minipage}%
+\begin{minipage}{.48\textwidth}
+      \centering
+      \includegraphics[width=1\linewidth]{assets/Img/grafico_tiempos.png}
+      \caption{Cota 2}
+      \label{fig:Cota 3}
+\end{minipage}
+\end{figure}
+\newpage
 \subsection{Eficiencia teórica}
 
 
