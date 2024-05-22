@@ -12,17 +12,13 @@
 using namespace std;
 double cota2(const vector<vector<double>> & graph, const vector<int> & solucion ,double c_actual ){
   double cota = 0;
-  double min ,j=0;
+  vector<double>v;
+  double min = numeric_limits<double>::max();
       for (int i = 0; i < graph.size(); ++i) {
-        min = graph[i][j]==0?numeric_limits<double>::max() : graph[i][j];
-        for (j = i; j < graph[i].size(); ++j) { 
-            if (graph[i][j] > 0 &&(find(solucion.begin(),solucion.end(),i)==solucion.end() 
-            &&find(solucion.begin(),solucion.end(),j)==solucion.end())) {
-                cout <<graph[i][j]<<endl;                if(graph[i][j]<min){
-                  min = graph[i][j];
-                  cota +=graph[i][j];
-                }
-            }
+        if ((find(solucion.begin(),solucion.end(),i)==solucion.end())){
+          v =graph[i];
+          sort(v.begin(),v.end());
+          cota+=v[1];
         }
     }
   return cota+c_actual;

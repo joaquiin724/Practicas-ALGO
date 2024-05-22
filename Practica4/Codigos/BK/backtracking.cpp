@@ -30,31 +30,59 @@ double calcularDistanciaTotal(const vector<vector<double>>& distancias, const ve
     total += distancias[camino.back()][camino.front()];
     return total;
 }
-///ver por que va mal , siempre sale menor que la minima posible 
+/**
+ * @brief Calcula la cota segun el arco de menor peso , multiplica el arco de menor peso de 
+  * la matriz de adyacencia por el numero de nodos no visitados y le suma el coste actual
+ * 
+ * @param graph matriz de adyacencia
+ * @param solucion vector de puntos visitados
+ * @param c_actual coste del camino actual
+ * @return double cota
+ */
 double cota1(const vector<vector<double>> & graph, const vector<int> & solucion ,double c_actual ,double arco_menorpeso){
   return arco_menorpeso*(graph.size()-solucion.size() +1) + c_actual;
 }
-//sale muy alto siempre 
+/**
+ * @brief Calcula el menor coste de salir de cada nodo visitado  y le suma el coste actual
+ * 
+ * @param graph matriz de adyacencia
+ * @param solucion vector de puntos visitados
+ * @param c_actual coste del camino actual
+ * @return double cota
+ */
 double cota2(const vector<vector<double>> & graph, const vector<int> & solucion ,double c_actual ){
   double cota = 0;
+  vector<double>v;
   double min = numeric_limits<double>::max();
       for (int i = 0; i < graph.size(); ++i) {
-        for (int j = i; j < graph[i].size(); ++j) { 
-            if (graph[i][j] > 0 &&(find(solucion.begin(),solucion.end(),i)==solucion.end() 
-            ||find(solucion.begin(),solucion.end(),j)==solucion.end())) {
-                //if(graph[i][j]<min){
-                  //min = graph[i][j];
-                  cota +=graph[i][j];
-                //}
-            }
+        if ((find(solucion.begin(),solucion.end(),i)==solucion.end())){
+          v =graph[i];
+          sort(v.begin(),v.end());
+          cota+=v[1];
         }
     }
   return cota+c_actual;
 }
+/**
+ * @brief Calcula la media del menor coste de salir y entrar a un nodo no visitado y le suma el coste actual
+ * 
+ * @param graph matriz de adyacencia
+ * @param solucion vector de puntos visitados
+ * @param c_actual coste del camino actual
+ * @return double cota
+ */
 double cota3(const vector<vector<double>> & graph, const vector<int> & solucion ,double c_actual ){
-  double cota = cota2(graph, solucion, c_actual);
-
-  return cota;
+  double cota = 0;
+  vector<double>v;
+  double min = numeric_limits<double>::max();
+      for (int i = 0; i < graph.size(); ++i) {
+        if ((find(solucion.begin(),solucion.end(),i)==solucion.end())){
+          v =graph[i];
+          sort(v.begin(),v.end());
+          cota+=(v[1] + v[2])/2;
+        }
+    }
+  return cota+c_actual;
 }
 
 /**
@@ -62,15 +90,15 @@ double cota3(const vector<vector<double>> & graph, const vector<int> & solucion 
  * @param solucion vector de ciudades , la posicion de la ciudad indica el orden
  * en el que es visitada
  * @param graph graph de adyacencia
- * @param nciudad numero del nodo de la ciudad que se va a visitar
  * @param c_mejor mejor coste encontrado
  * @param s_mejor mejor solucion encontrada
  * @param c_actual coste actual
+  * @param arco_menorpeso arco de menor peso del grafo (para no tener que calcularlo siempre)
+ *@param cota cota a utilizar 
  */
-void tsp_backtracking(vector<int> &solucion,const vector<vector<double>> &graph, int nciudad,double &c_mejor, vector<int> &s_mejor, double c_actual,int arco_menorpeso) {
+void tsp_backtracking(vector<int> &solucion,const vector<vector<double>> &graph,double &c_mejor, vector<int> &s_mejor, double c_actual,int arco_menorpeso,int cota=0) {
   c_actual += solucion.size()<=1 ?0 : graph[solucion.back()][solucion[solucion.size()-2]];
   if (solucion.size() == graph.size()) {
-    printv(solucion);cout<<c_actual<<endl;
     c_actual += graph[solucion.back()][solucion[0]];
     if (c_actual < c_mejor) {
       c_mejor = c_actual;
@@ -79,13 +107,20 @@ void tsp_backtracking(vector<int> &solucion,const vector<vector<double>> &graph,
   } else {
     for(int i = 1; i< graph.size();i++){
       if(find(solucion.begin(),solucion.end(),i)==solucion.end()){
-        double c2 =cota2(graph, solucion, c_actual);
-       cout<<c2<<endl;
-       double dist =c_actual + graph[solucion.back()][i];
-       cout<<dist<<endl;
-        if (c2<c_mejor){
+        double acotacion;
+        if(cota==1){
+          acotacion = cota1(graph, solucion, c_actual,arco_menorpeso);
+        }else if (cota==2) {
+          acotacion = cota2(graph, solucion, c_actual);
+        }else if(cota==3){
+          acotacion = cota3(graph, solucion, c_actual);
+        }
+        else{
+          acotacion = 0;
+        }
+        if (acotacion<c_mejor){
           solucion.emplace_back(i);
-          tsp_backtracking(solucion,graph, nciudad+1, c_mejor, s_mejor, c_actual,arco_menorpeso);
+          tsp_backtracking(solucion,graph,  c_mejor, s_mejor, c_actual,arco_menorpeso,cota);
           solucion.pop_back();
        } 
         
@@ -94,6 +129,7 @@ void tsp_backtracking(vector<int> &solucion,const vector<vector<double>> &graph,
     
   }
 }
+
 /**
  * @brief Función para leer una graph de adyacencia desde un archivo de texto.
  *
@@ -141,8 +177,8 @@ double encontrarArcoMenorPeso(const vector<vector<double>>& graph) {
 
 int main(int argc, char *argv[]) {
 
-  if (argc != 3) {
-    cerr << "Uso: " << argv[0] << " <archivo> <tipoejecucion>"  << endl;
+  if (argc != 4) {
+    cerr << "Uso: " << argv[0] << " <archivo> <tipoejecucion> <tipocota>"  << endl;
     return 1;
   }
 
@@ -156,16 +192,17 @@ int main(int argc, char *argv[]) {
   double c_actual=0,c_mejor = numeric_limits<double>::max(); //coste del mejor camino encontrado
   vector<int> s_mejor; //Vector de la mejor solucion
   double arco_menorpeso = encontrarArcoMenorPeso(graph);
+  int cota = atoi(argv[3]);
   if (atoi(argv[2])==1){
 
-    tsp_backtracking(solucion, graph, 1, c_mejor, s_mejor, c_actual,arco_menorpeso);
+    tsp_backtracking(solucion, graph, c_mejor, s_mejor, c_actual,arco_menorpeso,cota);
     cout << "Solucion : ";
     printv(s_mejor);
     cout << "Coste: " << c_mejor << endl;  
   }
   else{
     auto start = chrono::high_resolution_clock::now();
-    tsp_backtracking(solucion, graph,1 , c_mejor, s_mejor, c_actual,arco_menorpeso);
+    tsp_backtracking(solucion, graph, c_mejor, s_mejor, c_actual,arco_menorpeso);
     auto end = chrono::high_resolution_clock::now();
     cout << graph.size() << " " << chrono::duration_cast<chrono::nanoseconds>(end - start).count() << endl;
     

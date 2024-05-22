@@ -5,7 +5,7 @@ g++ -o Ejecutables/backtracking backtracking.cpp
 echo " " > Salidas/salida.txt
 for file in Instancias/matriz_*.txt
 do
-    ./Ejecutables/backtracking $file 0 >> Salidas/salida.txt
+    ./Ejecutables/backtracking $file 0 3 >> Salidas/salida.txt
 done
 
 
