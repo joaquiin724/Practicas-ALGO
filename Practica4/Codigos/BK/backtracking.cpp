@@ -37,15 +37,24 @@ double cota1(const vector<vector<double>> & graph, const vector<int> & solucion 
 //sale muy alto siempre 
 double cota2(const vector<vector<double>> & graph, const vector<int> & solucion ,double c_actual ){
   double cota = 0;
+  double min = numeric_limits<double>::max();
       for (int i = 0; i < graph.size(); ++i) {
-        for (int j = i + 1; j < graph[i].size(); ++j) { 
+        for (int j = i; j < graph[i].size(); ++j) { 
             if (graph[i][j] > 0 &&(find(solucion.begin(),solucion.end(),i)==solucion.end() 
             ||find(solucion.begin(),solucion.end(),j)==solucion.end())) {
-                cota += graph[i][j];
+                //if(graph[i][j]<min){
+                  //min = graph[i][j];
+                  cota +=graph[i][j];
+                //}
             }
         }
     }
   return cota+c_actual;
+}
+double cota3(const vector<vector<double>> & graph, const vector<int> & solucion ,double c_actual ){
+  double cota = cota2(graph, solucion, c_actual);
+
+  return cota;
 }
 
 /**
@@ -61,7 +70,7 @@ double cota2(const vector<vector<double>> & graph, const vector<int> & solucion 
 void tsp_backtracking(vector<int> &solucion,const vector<vector<double>> &graph, int nciudad,double &c_mejor, vector<int> &s_mejor, double c_actual,int arco_menorpeso) {
   c_actual += solucion.size()<=1 ?0 : graph[solucion.back()][solucion[solucion.size()-2]];
   if (solucion.size() == graph.size()) {
-    //printv(solucion);cout<<c_actual<<endl;
+    printv(solucion);cout<<c_actual<<endl;
     c_actual += graph[solucion.back()][solucion[0]];
     if (c_actual < c_mejor) {
       c_mejor = c_actual;
@@ -70,11 +79,11 @@ void tsp_backtracking(vector<int> &solucion,const vector<vector<double>> &graph,
   } else {
     for(int i = 1; i< graph.size();i++){
       if(find(solucion.begin(),solucion.end(),i)==solucion.end()){
-         double c2 =cota2(graph, solucion, c_actual);
-       //cout<<c2<<endl;
+        double c2 =cota2(graph, solucion, c_actual);
+       cout<<c2<<endl;
        double dist =c_actual + graph[solucion.back()][i];
-       //cout<<dist<<endl;
-        if (dist<c2){
+       cout<<dist<<endl;
+        if (c2<c_mejor){
           solucion.emplace_back(i);
           tsp_backtracking(solucion,graph, nciudad+1, c_mejor, s_mejor, c_actual,arco_menorpeso);
           solucion.pop_back();
@@ -161,7 +170,5 @@ int main(int argc, char *argv[]) {
     cout << graph.size() << " " << chrono::duration_cast<chrono::nanoseconds>(end - start).count() << endl;
     
   }
-  
-
   return 0;
 }
