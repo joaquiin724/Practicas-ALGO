@@ -1,7 +1,7 @@
 # Fdb version 4
-["pdflatex"] 1716494685 "/home/pablolinari/ALGO/Practica4/Documentos/main.tex" "main.pdf" "main" 1716494685 2
+["pdflatex"] 1716497162 "/home/pablolinari/ALGO/Practica4/Documentos/main.tex" "main.pdf" "main" 1716497162 2
   "/etc/texmf/web2c/texmf.cnf" 1714301391 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/pablolinari/ALGO/Practica4/Documentos/main.tex" 1716494684 30641 01ad0e0788de1ba086c3c5d4237593e6 ""
+  "/home/pablolinari/ALGO/Practica4/Documentos/main.tex" 1716497161 30853 4bb9e5b29569011564a96df1602fbcad ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmr10.tfm" 1136768653 1296 45809c5a464d5f32c8f98ba97c1bb47f ""
   "/usr/share/texlive/texmf-dist/tex/generic/atbegshi/atbegshi.sty" 1575674566 24708 5584a51a7101caf7e6bbf1fc27d8f7b1 ""
@@ -51,8 +51,8 @@
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1714301904 6494429 a557669b4c843077f8eba93305af8e77 ""
   "assets/formulas.sty" 1716494622 6317 8145caee088b4ca07f07664a2092df90 ""
   "assets/portada.tex" 1716494622 1655 b1e53d628969a7e084472c187f7092c1 ""
-  "main.aux" 1716494685 32 3985256e7290058c681f74d7a3565a19 "pdflatex"
-  "main.tex" 1716494684 30641 01ad0e0788de1ba086c3c5d4237593e6 ""
+  "main.aux" 1716497162 32 3985256e7290058c681f74d7a3565a19 "pdflatex"
+  "main.tex" 1716497161 30853 4bb9e5b29569011564a96df1602fbcad ""
   "mathdesign.sty" 0 -1 0 ""
   (generated)
   "main.aux"
