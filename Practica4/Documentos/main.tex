@@ -69,7 +69,7 @@
     una única vez, para volver a la ciudad de partida, formando un ciclo. \ 
 
     Para ello usaremos dos diseños distintos de  algoritmos dedicados a la exploraciónde grafos , backtracking y brannch and bound 
-    con el objetivo de ver las diferencias entre la eficiencia de estos dos algoritmos. Además se probarán distintas funciones de cotsa 
+    con el objetivo de ver las diferencias entre la eficiencia de estos dos algoritmos. Además se probarán distintas funciones de cota 
     para estudiar que influencia tienen en cada caso las distintas funciones.Por último se realizará un estudio tanto teórico como 
     empírico de la eficiencia de los algoritmos implementados.
 \chapter{Backtracking}   
@@ -77,7 +77,7 @@
 En esta sección analizaremos el algorimo de exploración de grafos llamado Backtracking, que consiste en recorrer todos los caminos en profundidad obteniendo todas
 las posibles soluciones al problema. \\
 Para seleccionar la solución más óptima del problema debemos ir comparando con la anterior posible solución  cada vez que obtenemos una nueva solución al problema, quedándonos con la que más nos
-convenga, en este caso, la que nos de un camino de menor disatancia.
+convenga, en este caso, la que nos de un camino de menor distancia.
 \\ \\
 Hay varias formas de hacerlo:
 \begin{itemize}
@@ -154,7 +154,7 @@ Si la decision que toma nuestro algoritmo es mejor que la que nos proporciona es
 \textbf{Segunda función de cota:} \\
     La segunda función de cota que hemos implementado consiste en calcular el mínimo valor de salir de todos los nodos del grafo que no 
     han sido visitados y sumarle la distancia del recorrido actual.
-    En el siguiente codigose recorre la matriz de adyacencia y se selecciona el menor valor de los arcos de los nodos que no han sido visitados 
+    En el siguiente codigo se recorre la matriz de adyacencia y se selecciona el menor valor de los arcos de los nodos que no han sido visitados 
     y se suman al coste actual.
     \begin{lstlisting}
         double cota2(const vector<vector<double>> &graph, const vector<int> &solucion,=double c_actual) {
@@ -240,7 +240,7 @@ A continuación se muestra el algoritmo de Backtracking implementado:
   
                 
     \end{lstlisting}
-    El algoritmo recive como parametros una matriz de adyacencia , un vector de enteros que representa la solución actual, un vector de enteros que representa la mejor solución encontrada, un double que representa el mejor coste encontrado, un double que representa el coste actual, un entero que representa el arco de menor peso del grafo y un entero que representa la cota a utilizar.
+    El algoritmo recibe como parámetros una matriz de adyacencia , un vector de enteros que representa la solución actual, un vector de enteros que representa la mejor solución encontrada, un double que representa el mejor coste encontrado, un double que representa el coste actual, un entero que representa el arco de menor peso del grafo y un entero que representa la cota a utilizar.
     El vector de enteros solucion contiene el punto inicial sobre el que se aplica el algoritmo , si el vector solución está completo se comprueba si 
     la solución obtenida es mejor que la que se tenía y se actualiza en caso de serlo. Si no está completo se calcula la cota local y se  añade un nuevo punto al vector solución y se llama a la función recursivamente hasta que encuentra un camino completo.
     
@@ -289,24 +289,19 @@ A continuación se mostrarán los resultados obtenidos en la ejecución del algo
       \caption{Cota 3}
       \label{fig:Cota 3}
 \end{minipage}
+
 \end{figure}
+
 \newpage
-\subsection{Eficiencia teórica}
-La eficiencia teórica del algorimo es factorial, puesto las dos funciones de cota de dentro del código son $O(n)$, la primera es constante y la llamada recursiva es n! luego al estar en el for ($O(n)$)
-obtenemos que la eficiencia teórica del algoritmo es de $O(n!)$
 
-\subsection{Gráficas}
-Aquí podremos ver los caminos que han sido representados con el algoritmo usando las diferentes cotas al igual que una tabla con comparación de los valores obtenidos de las ejecuciones
 
+\subsection{Caminos generados y comparación de nodos generados}
 \textbf{Graficas de Caminos generados }
+Aquí podremos ver los caminos que han sido representados con el algoritmo usando las diferentes cotas al igual que una tabla con la comparación de los valores obtenidos de las ejecuciones
+
 \begin{figure}[H]
     \centering
-    \begin{minipage}{.48\textwidth}
-        \centering
-        \includegraphics[width=1\linewidth]{assets/Img/grafico_tiempos0.png}
-        \caption{Sin cota}
-        \label{fig:Sin cota}
-  \end{minipage}%
+
     \begin{minipage}{.48\textwidth}
           \centering
           \includegraphics[width=1\linewidth]{assets/Img/cota1camino.png}
@@ -329,7 +324,7 @@ Aquí podremos ver los caminos que han sido representados con el algoritmo usand
 \end{minipage}
 \end{figure}
 
-\textbf{Comparación de nodos generados} 
+\textbf{Comparación de nodos generados} \
 En las siguientes tablas se comparan el numero de nodos generados en cada ejecución del algoritmo con las distintas funciones de cota.
 \begin{figure}[H]
     \centering
@@ -343,13 +338,15 @@ En las siguientes tablas se comparan el numero de nodos generados en cada ejecuc
         \centering
         \includegraphics[width=1\linewidth]{assets/Img/graficonodos.png}
         \caption{Sin cota}
-        \label{TAbla nodos BK}
+        \label{Tabla nodos BK}
   \end{minipage}%
 \end{figure}
 Como podemos observar en el grafico de la creación de nodos la cota 2 y 3 generan muchos menos nodos que la cota 1 por tanto son mas eficientes 
 a la hora de completar el camino ya que descartan muchas ramas que no nos aportan una solución mejor que la que ya tenemos.
 Por otro lado la cota 1 disminuye los nodos en cuanto a usar el algoritmo sin cota pero sigue generando muchos nodos que no nos aportan una solución mejor que la que ya tenemos.
-
+\subsection{Eficiencia teórica}
+La eficiencia teórica del algorimo es factorial, puesto las dos funciones de cota de dentro del código son $O(n)$, la primera es constante y la llamada recursiva es n! luego al estar en el for ($O(n)$)
+obtenemos que la eficiencia teórica del algoritmo es de $O(n!)$
 \chapter{Branch and bound}
 Al igual que en el apartado anterior resolveremos el problema del viajante, solo que en vez de solucionar el problema mediante el bakctraking 
 lo resolveremos mediante Branch and bound. A continuación se mostrarán las funciones de cota al igual que el algoritmo principal que hemos usado:
