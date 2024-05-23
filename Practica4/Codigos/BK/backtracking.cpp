@@ -231,10 +231,11 @@ int main(int argc, char *argv[]) {
   if (atoi(argv[2]) == 1) {
 
     tsp_backtracking(solucion, graph, c_mejor, s_mejor, c_actual,arco_menorpeso, cota);
-    cout << "Solucion : ";
-    printv(s_mejor);
-    cout << "Coste: " << c_mejor << endl;
-    cout <<"Nodos:"<<nodos<<endl;
+    //cout << "Solucion : ";
+    //printv(s_mejor);
+    //cout << "Coste: " << c_mejor << endl;
+    //cout << "Nodos: " << nodos << endl;
+    cout <<tam<<","<<c_mejor << ","<<nodos<<endl;
   } else {
     auto start = chrono::high_resolution_clock::now();
     tsp_backtracking(solucion, graph, c_mejor, s_mejor, c_actual,arco_menorpeso,cota);
