@@ -19,8 +19,9 @@
 \begin{itemize}
       \item \textbf{Miguel Ángel De la Vega Rodríguez:} 20\%
             \begin{itemize}
-                  \item Algoritmos Greedy del Viajante
-                  \item Redacción memoria sección Viajante
+                  \item Makefile | Organización Branch and Bound
+                  \item Programación Branch and Bound
+                  \item Branch and bound redacción
             \end{itemize}
       \item \textbf{Joaquín Avilés De la Fuente:} 20\%
             \begin{itemize}
@@ -30,9 +31,7 @@
             \end{itemize}
       \item \textbf{Alberto De la Vera Sánchez: } 20\%
             \begin{itemize}
-                  \item Programación hijo predilecto
-                  \item Redacción hijo predilecto
-                  \item Conclusión
+                  \item Branch and bound redacción
             \end{itemize}
       \item \textbf{Manuel Gomez Rubio} 20\%
             \begin{itemize}
@@ -94,7 +93,7 @@ veremos como se ha elegido cada cota .
 \subsection{Cota global}
 
 \begin{lstlisting}
-    vector<int> nearest_neighborTSP(const vector<vector<double>>& distancias, int inicial) {
+    vector<int> nearest_neighbourTSP(const vector<vector<double>>& distancias, int inicial) {
     int num_puntos = distancias.size();
     vector<int> camino;
     vector<bool> visitados(num_puntos, false);
@@ -256,7 +255,6 @@ a ella, que en nuestro caso no ocurre, o bien porque la $C_l$ ha hecho que se de
           \caption{Cota 3}
           \label{fig:Cota 3}
     \end{minipage}
-\end{minipage}%
 \begin{minipage}{.48\textwidth}
       \centering
       \includegraphics[width=1\linewidth]{assets/Img/grafico_tiempos.png}
@@ -266,7 +264,7 @@ a ella, que en nuestro caso no ocurre, o bien porque la $C_l$ ha hecho que se de
 \end{figure}
 \newpage
 \subsection{Eficiencia teórica}
-La eficiencia teórica del algorimo es factorial,puesto las dos funciones de cota de dentro del código son $O(n)$, la primera es constante y la llamada recursiva es n! luego al estar en el for ($O(n)$)
+La eficiencia teórica del algorimo es factorial, puesto las dos funciones de cota de dentro del código son $O(n)$, la primera es constante y la llamada recursiva es n! luego al estar en el for ($O(n)$)
 obtenemos que la eficiencia teórica del algoritmo es de $O(n!)$
 
 \chapter{Branch and bound}
@@ -275,11 +273,11 @@ lo resolveremos mediante Branch and bound. A continuación se mostrarán las fun
 
 \section{Diseño}
 \subsection{Cota global}
-Para selecionar la cota global usaremos la función de nearest neighbor de la práctica anterior la cual 
+Para selecionar la cota global usaremos la función de nearest neighbour de la práctica anterior la cual 
 nos proporciona una cota principal con la que poder comparar las distintas soluciones que vaya obteniendo nuestro algoritmo.
 
 \begin{lstlisting}
-vector<int> nearest_neighborTSP(const vector<vector<double>>& distancias, int inicial) {
+vector<int> nearest_neighbourTSP(const vector<vector<double>>& distancias, int inicial) {
     int num_puntos = distancias.size();
     vector<int> camino;
     vector<bool> visitados(num_puntos, false);
@@ -308,28 +306,26 @@ vector<int> nearest_neighborTSP(const vector<vector<double>>& distancias, int in
 }
 
 \end{lstlisting} 
-\\ 
 
       
-\end{lstlisting}
 \subsection{Cota local}
 
 Además de esta cota global, hemos implementado dos funciones de cota local distintas:
 \\ 
 \begin{lstlisting}
-double cota_inferior_1(const std::vector<std::vector<double>>& matriz, const std::vector<int>& indices_a_ignorar = {}) {
+double cota_inferior_1(const vector<vector<double>>& matriz, const vector<int>& indices_a_ignorar = {}) {
     double suma_minimos = 0.0;
 
     for (int i = 0; i < matriz.size(); ++i) {
         
-        if (std::find(indices_a_ignorar.begin(), indices_a_ignorar.end(), i) != indices_a_ignorar.end()) {
+        if (find(indices_a_ignorar.begin(), indices_a_ignorar.end(), i) != indices_a_ignorar.end()) {
             continue;
         }
 
-        double minimo_fila = std::numeric_limits<double>::max();
+        double minimo_fila = numeric_limits<double>::max();
         for (int j = 0; j < matriz[i].size(); ++j) {
             
-            if (std::find(indices_a_ignorar.begin(), indices_a_ignorar.end(), j) != indices_a_ignorar.end()) {
+            if (find(indices_a_ignorar.begin(), indices_a_ignorar.end(), j) != indices_a_ignorar.end()) {
                 continue;
             }
             if (matriz[i][j] > 0 && matriz[i][j] < minimo_fila) {
@@ -337,7 +333,7 @@ double cota_inferior_1(const std::vector<std::vector<double>>& matriz, const std
             }
         }
 
-        if (minimo_fila < std::numeric_limits<double>::max()) {
+        if (minimo_fila < numeric_limits<double>::max()) {
             suma_minimos += minimo_fila;
         }
     }
@@ -345,20 +341,20 @@ double cota_inferior_1(const std::vector<std::vector<double>>& matriz, const std
     return suma_minimos;
 }    
 
-double cota_inferior_2(const std::vector<std::vector<double>>& matriz, const std::vector<int>& indices_a_ignorar = {}) {
-    double min_global = std::numeric_limits<double>::max();
+double cota_inferior_2(const vector<vector<double>>& matriz, const vector<int>& indices_a_ignorar = {}) {
+    double min_global = numeric_limits<double>::max();
     int filas_contadas = 0;
 
     for (int i = 0; i < matriz.size(); ++i) {
         
-        if (std::find(indices_a_ignorar.begin(), indices_a_ignorar.end(), i) != indices_a_ignorar.end()) {
+        if (find(indices_a_ignorar.begin(), indices_a_ignorar.end(), i) != indices_a_ignorar.end()) {
             continue;
         }
 
-        double minimo_fila = std::numeric_limits<double>::max();
+        double minimo_fila = numeric_limits<double>::max();
         for (int j = 0; j < matriz[i].size(); ++j) {
             
-            if (std::find(indices_a_ignorar.begin(), indices_a_ignorar.end(), j) != indices_a_ignorar.end()) {
+            if (find(indices_a_ignorar.begin(), indices_a_ignorar.end(), j) != indices_a_ignorar.end()) {
                 continue;
             }
             if (matriz[i][j] > 0 && matriz[i][j] < minimo_fila) {
@@ -366,7 +362,7 @@ double cota_inferior_2(const std::vector<std::vector<double>>& matriz, const std
             }
         }
 
-        if (minimo_fila < std::numeric_limits<double>::max()) {
+        if (minimo_fila < numeric_limits<double>::max()) {
             if (minimo_fila < min_global) {
                 min_global = minimo_fila;
             }
@@ -418,7 +414,7 @@ vector<int> branch_and_bound_greedy(vector<int>& points, vector< vector<double>>
     Nodo actual( mejor_camino, 0, cota_inferior(distancias));
     no_visitados.push(actual);
 
-    double costo_minimo = calcularDistanciaTotal(distancias, nearest_neighborTSP(distancias, inicial));
+    double costo_minimo = calcularDistanciaTotal(distancias, nearest_neighbourTSP(distancias, inicial));
     mejor_camino.clear();
 
     while (!no_visitados.empty()) {
@@ -497,12 +493,12 @@ Ahora veamos la eficiencia del algoritmo Branch and Bound. Empezando por la part
 el bloque de sentencias if tienen una eficiencia $O(nlog(n))$ debido a que llama a la funcion numeros faltantes cuya eficiencia se ve claramente, debido a que 
 se ejecuta en un bucle for n veces un if cuya condición es $O(log(n))$.
 \begin{lstlisting}
-std::vector<int> numeros_faltantes(const std::vector<int>& vec, int n) {
+vector<int> numeros_faltantes(const vector<int>& vec, int n) {
             
-      std::set<int> presentes(vec.begin(), vec.end());
+      set<int> presentes(vec.begin(), vec.end());
         
-      std::vector<int> faltantes;
-      for (int i : std::views::iota(0, n + 1)) {
+      vector<int> faltantes;
+      for (int i : views::iota(0, n + 1)) {
             if (!presentes.contains(i)) {
                 faltantes.push_back(i);
             }
