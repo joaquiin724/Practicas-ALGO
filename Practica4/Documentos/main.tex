@@ -126,12 +126,29 @@ Si la decision que toma nuestro algoritmo es mejor que la que nos proporciona es
 
 \subsection{Cota local}
 \textbf{Primera función de cota:} \\
-    La primera función de cota que hemos implementado consiste en calcular el mínimo valor de los arcos del grafo que no han sido 
-    usados todavía , se multiplican por el numero de nodos restantes y se suman al coste actual.
+    La primera función de cota que hemos implementado consiste en calcular el mínimo valor de los arcos del grafo ,
+     se multiplica por el numero de nodos restantes y se suman al coste actual.
     \begin{lstlisting}
         double cota1(const vector<vector<double>> &graph, const vector<int> &solucion,double c_actual, double arco_menorpeso) {
             return arco_menorpeso * (graph.size() - solucion.size() + 1) + c_actual;
         }
+
+    \end{lstlisting}
+    \begin{lstlisting}
+        double encontrarArcoMenorPeso(const vector<vector<double>> &graph) {
+            double minPeso = numeric_limits<double>::max();
+          
+            for (int i = 0; i < graph.size(); ++i) {
+              for (int j = i + 1; j < graph[i].size(); ++j) {
+                if (graph[i][j] < minPeso) {
+                  minPeso = graph[i][j];
+                }
+              }
+            }
+          
+            return minPeso;
+          }
+          
 
     \end{lstlisting}
 \textbf{Segunda función de cota:} \\
