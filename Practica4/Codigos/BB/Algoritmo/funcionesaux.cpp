@@ -98,6 +98,21 @@ double cota_inferior_2(const std::vector<std::vector<double>>& matriz, const std
     return  (min_global * filas_contadas);
 }
 
+double cota_inferior_3(const vector<vector<double>>& matriz) {
+    double suma_costos = 0.0;
+
+    for (const auto& fila : matriz) {
+        vector<double> costos_fila = fila;
+        sort(costos_fila.begin(), costos_fila.end());
+
+        double costo1 = costos_fila[0];
+        double costo2 = costos_fila[1];
+
+        suma_costos += (costo1 + costo2) / 2.0;
+    }
+
+    return suma_costos;
+}
 
 /**
  * Función para encontrar los números faltantes desde 0 hasta n en un vector de enteros
