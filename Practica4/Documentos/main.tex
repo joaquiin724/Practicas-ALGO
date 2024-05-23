@@ -268,6 +268,18 @@ a ella, que en nuestro caso no ocurre, o bien porque la $C_l$ ha hecho que se de
       \label{fig:Cota 3}
 \end{minipage}
 \end{figure}
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{.48\textwidth}
+        \centering
+        \includegraphics[width=1\linewidth]{assets/Img/graficonodos.png}
+        \caption{Sin cota}
+        \label{fig:Sin cota}
+  \end{minipage}%
+\end{figure}
+Como podemos observar en el grafico de la creación de nodos la cota 2 y 3 generan muchos menos nodos que la cota 1 por tanto son mas eficientes 
+a la hora de completar el camino ya que descartan muchas ramas que no nos aportan una solución mejor que la que ya tenemos.
+Por otro lado la cota 1 disminuye los nodos en cuanto a usar el algoritmo sin cota pero sigue generando muchos nodos que no nos aportan una solución mejor que la que ya tenemos.
 \newpage
 \subsection{Eficiencia teórica}
 La eficiencia teórica del algorimo es factorial, puesto las dos funciones de cota de dentro del código son $O(n)$, la primera es constante y la llamada recursiva es n! luego al estar en el for ($O(n)$)
