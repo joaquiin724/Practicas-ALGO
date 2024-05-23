@@ -267,15 +267,12 @@ a ella, que en nuestro caso no ocurre, o bien porque la $C_l$ ha hecho que se de
 La eficiencia teórica del algorimo es factorial, puesto las dos funciones de cota de dentro del código son $O(n)$, la primera es constante y la llamada recursiva es n! luego al estar en el for ($O(n)$)
 obtenemos que la eficiencia teórica del algoritmo es de $O(n!)$
 
-\chapter{Branch and bound}
-Al igual que en el apartado anterior resolveremos el problema del viajante, solo que en vez de solucionar el problema mediante el bakctraking 
-lo resolveremos mediante Branch and bound. A continuación se mostrarán las funciones de cota al igual que el algoritmo principal que hemos usado:
+\chapter{Branch and Bound}
+En esta sección, abordamos la resolución del problema del viajante utilizando el algoritmo Branch and Bound. A diferencia del método de backtracking empleado anteriormente, este enfoque permite una exploración más eficiente del espacio de soluciones. Describiremos las funciones de cota utilizadas y el algoritmo principal.
 
 \section{Diseño}
-\subsection{Cota global}
-Para selecionar la cota global usaremos la función de nearest neighbour de la práctica anterior la cual 
-nos proporciona una cota principal con la que poder comparar las distintas soluciones que vaya obteniendo nuestro algoritmo.
-
+\subsection{Cota Global}
+Para la cota global, utilizamos la función "nearest neighbour" desarrollada en la práctica anterior. Esta función proporciona una cota superior inicial, que sirve como referencia para comparar las soluciones que nuestro algoritmo vaya generando. La cota global es crucial, ya que ayuda a reducir el número de nodos a explorar al proporcionar un límite superior sobre el cual los nodos con cotas inferiores son evaluados.
 \begin{lstlisting}
 vector<int> nearest_neighbourTSP(const vector<vector<double>>& distancias, int inicial) {
     int num_puntos = distancias.size();
@@ -310,8 +307,15 @@ vector<int> nearest_neighbourTSP(const vector<vector<double>>& distancias, int i
       
 \subsection{Cota local}
 
-Además de esta cota global, hemos implementado dos funciones de cota local distintas:
-\\ 
+Además de la cota global, hemos implementado tres funciones de cota local diferentes para estimar de manera 
+más precisa el costo de completar un camino parcial. Estas funciones nos ayudan a determinar si es 
+prometedor continuar expandiendo un nodo dado en el árbol de soluciones.
+\begin{itemize}
+    \item La primera cota local calcula el mínimo de cada fila en una matriz de distancias, excluyendo tanto los valores de 0 (que representan la distancia de un nodo a sí mismo) como los nodos específicos indicados en un vector de índices a ignorar. Este método asegura que no se considere volver a visitar los mismos nodos, proporcionando una suma de los mínimos costos posibles restantes.
+    \item La segunda cota local opera de manera distinta. Encuentra la mínima distancia global en la matriz y multiplica este valor por el número de filas restantes, suponiendo que este mínimo es representativo del costo de conectar todos los nodos restantes. Aunque esta cota es más restrictiva, suele proporcionar una estimación más cercana al costo real, permitiendo podar más efectivamente el árbol de búsqueda.
+\end{itemize}
+
+Veamos la implementación de las 3:
 \begin{lstlisting}
 double cota_inferior_1(const vector<vector<double>>& matriz, const vector<int>& indices_a_ignorar = {}) {
     double suma_minimos = 0.0;
@@ -374,18 +378,7 @@ double cota_inferior_2(const vector<vector<double>>& matriz, const vector<int>& 
 }
             
 \end{lstlisting}
-La primera función de cota local consiste en calcular el mínimo de una matriz de distancias, excluyendo obviamente los valores
-de 0, pasandose como parámetros los índices a ignorar.Destacar que además de obviar dichas filas se obviarán sus respectivas 
-columnas indicadas en el vector de enteros, ya que el objetivo es eliminar las conexiones de ciertos nodos, por lo que 
-eliminamos sus filas y columnas respectivas.
-\\ \\
-Por otro lado, la segunda función de cota, tiene un funcionamiento 
-distinto. Consiste principalmente en encontrar la mínima distancia de una matriz de adyacencia y depués multiplicar dicho valor por
-las filas restantes, suponiendo que ese camino será el mínimo para todos, de ahí que se multiplique por el número de nodos restantes.
-Ignorando, igual que con la cota anterior, los 0 y las filas y las columnas que se pasan como parámetros a ignorar. Función para calcular 
-cota inferior calculando el mínimo de una matriz de distancias, excluyendo el 0 y las filas. Es claro que este segundo método nos proporciona 
-una cota más restrictiva por lo que nos interesa más.
-\\ \\
+
 Más adelante en el apartado de eficiencia seguiremos comparando dichas cotas.
 
 \subsection{Algoritmo Branch and Bound}
@@ -450,31 +443,31 @@ vector<int> branch_and_bound_greedy(vector<int>& points, vector< vector<double>>
 
 }
 \end{lstlisting}
-El funcionamiento de este método se basa en empezar creando un nodo con el punto inicial y agregarlo a la cola de prioridad (cuyo comparador
-consiste en comparar la distancia recorrida por un nodo a y un nodo b y ver qué distancia es menor). Mientras la cola no esté vacía; primero,
-se extrae el nodo con menor costo actual (a partir de la cota inferior y haciendo uso del comparador definido anteriormente); si el camino actual 
-tiene todos los puntos menos unos, sabemos de forma determinada cual queda mediante la función faltantes de antes(dicha función encuentra los números
-faltantes desde 0 hasta n en un vector de enteros), por lo que se calcula la distancia a dicho punto y al inicial y se agrega a la solución si es 
-mejor que la actual; si no, se generan los nodos hijos con los puntos faltantes y se agregan a la cola de prioridad.
+\subsection{Algoritmo Branch and Bound}
+El algoritmo Branch and Bound se basa en explorar sistemáticamente el espacio de soluciones posibles utilizando una estructura de árbol. Cada nodo en el árbol representa un estado parcial del problema, y el objetivo es encontrar el camino de menor costo que visite todos los nodos exactamente una vez y regrese al nodo inicial.
+
+Primero, definimos una estructura para almacenar la información de cada nodo, que incluye el camino recorrido hasta el momento, la distancia acumulada y la cota inferior calculada.
+
+El algoritmo comienza creando un nodo inicial que contiene solo el nodo de partida. Este nodo se agrega a una cola de prioridad, que ordena los nodos en función de sus cotas inferiores. La cola de prioridad garantiza que siempre se explora primero el nodo con la menor cota inferior.
+
+El algoritmo procede iterativamente extrayendo el nodo con la menor cota inferior de la cola de prioridad. Si el camino representado por este nodo incluye todos los nodos excepto uno, se completa el camino agregando el último nodo y retornando al inicial. Si la distancia total de este camino es menor que el costo mínimo conocido, se actualiza la mejor solución.
+
+Si el nodo extraído no representa una solución completa, se generan nodos hijos para cada posible extensión del camino actual, agregando un nodo no visitado. Cada nuevo nodo hijo incluye el camino extendido, la nueva distancia acumulada y una cota inferior recalculada. Solo se agregan a la cola de prioridad aquellos nodos cuya cota inferior es menor o igual al costo mínimo conocido.
 \\ \\
-A continuación se mostrará la notación mostrada en teoría, aunque sigamos un esquema similar, hay ciertos ámbitos que pueden ser suprimidos.
-\\\\
 \textbf{Notación:}
 \begin{itemize}
-      \item \textbf{Solución parcial:} Vector path del Nodo actual.
-      \item \textbf{Función poda:} Momento en que la cota inferior supera al costo minimo,siendo este la cota global.
-      \item \textbf{Restricciones explícitas:}Que el siguiete nodo a seleccionar este dentro de los nodos faltantes
-      \item \textbf{Restricciones implícitas:}Que el camino del nodo actual sea menor que el costo minimo
-      \item \textbf{Árbol de estado:} El espacio solución con el que se trabaja es el Nodo actual, sin embargo, el 
-      vector mejor camino es el árbol de estado al encontrar la solución.
-      \item \textbf{Estado del problema:} Cada uno de los nodos del árbol
-      \item \textbf{Estado solución:} Nodo actual
-      \item \textbf{Estado respuesta:}Vector mejor camino
-      \item \textbf{Nodo vivo:} Nodos que todavia no hemos podado y pueden darnos una solución en el caso de que el nodo actual con el que
-      estamos trabajando supere el valor del costo mínimo 
-      \item \textbf{Nodo muerto:}Nodo podado o que hemos recorrido todo su camino
-      \item \textbf{e-nodo:}Nodo actual
-\end{itemize}
+    \item \textbf{Solución parcial:} El camino actual recorrido almacenado en el vector de nodos del nodo en cuestión.
+    \item \textbf{Función poda:} Se activa cuando la cota inferior de un nodo supera el costo mínimo global conocido, eliminando así la necesidad de explorar este nodo.
+    \item \textbf{Restricciones explícitas:} El siguiente nodo a seleccionar debe estar entre los nodos aún no visitados.
+    \item \textbf{Restricciones implícitas:} El camino parcial de un nodo debe tener un costo menor que el costo mínimo global para ser considerado.
+    \item \textbf{Árbol de estado:} El espacio de soluciones representado por todos los posibles caminos desde el nodo inicial hasta completar un circuito.
+    \item \textbf{Estado del problema:} Cada nodo en el árbol de búsqueda.
+    \item \textbf{Estado solución:} El nodo actual siendo evaluado.
+    \item \textbf{Estado respuesta:} El mejor camino encontrado hasta el momento que cubre todos los nodos.
+    \item \textbf{Nodo vivo:} Nodos que aún no han sido podados y pueden potencialmente llevar a una solución mejor.
+    \item \textbf{Nodo muerto:} Nodos que han sido podados o totalmente explorados y no pueden mejorar la solución actual.
+    \item \textbf{e-nodo:} El nodo actual que está siendo expandido.
+    \end{itemize}
 
 
 \newpage
