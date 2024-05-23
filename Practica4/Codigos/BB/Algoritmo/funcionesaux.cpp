@@ -234,10 +234,7 @@ std::vector<int> bruteForceTSP(const std::vector<std::vector<double>>& adjacency
 
     std::vector<int> bestPath;
     bestPath.push_back(startNode);
-    for (int node : bestPermutation) {
-        bestPath.push_back(node);
-    }
-    bestPath.push_back(startNode);
+    bestPath.insert(bestPath.end(), bestPermutation.begin(), bestPermutation.end());
 
     return bestPath;
 }
