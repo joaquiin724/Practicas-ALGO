@@ -1,13 +1,13 @@
 #!/bin/bash
 
 # Verificar que se haya pasado el archivo de tiempos como argumento
-if [ "$#" -ne 1 ]; then
-    echo "Uso: $0 <archivo_tiempos>"
+if [ "$#" -ne 2 ]; then
+    echo "Uso: $0 <archivo_tiempos> <archivo_grafico>"
     exit 1
 fi
 
 archivo_tiempos=$1
-grafico_salida="Salidas/grafico_tiempos.png"
+grafico_salida=$2
 
 # Comprobar si el archivo de tiempos existe
 if [ ! -f "$archivo_tiempos" ]; then

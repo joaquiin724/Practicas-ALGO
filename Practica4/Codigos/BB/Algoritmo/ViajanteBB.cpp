@@ -42,6 +42,42 @@ vector<int> nearest_neighborTSP(const vector<vector<double>>& distancias, int in
     return camino;
 }
 
+/**
+ * Función para calcular cota inferior calculando el mínimo de una matriz de distancias, excluyendo los valores de 0 y 
+ * se pasan como parámetro las filas que se deben ignorar en la búsqueda del mínimo. Destacar que además
+ * de obviar dichas filas se obviarán sus respectivas columnas indicadas en el vector de enteros, ya que
+ * el objetivo es eliminar las conexiones de ciertos nodos, por lo que eliminamos sus filas y columnas respectivas.
+ * 
+ * @param matriz matriz de de adyacencia entre los puntos
+ * @param filas_a_ignorar filas que se deben ignorar en la búsqueda del mínimo
+ * 
+ * @return suma de los mínimos de cada fila
+*/
+double cota_inferior_1(const std::vector<std::vector<double>>& matriz, const std::vector<int>& indices_a_ignorar = {}) {
+    double suma_minimos = 0.0;
+
+    for (int i = 0; i < matriz.size(); ++i) {
+        // Ignorar la fila si está en la lista de filas a ignorar
+        if (std::find(indices_a_ignorar.begin(), indices_a_ignorar.end(), i) != indices_a_ignorar.end()) {
+            continue;
+        }
+
+        double minimo_fila = std::numeric_limits<double>::max();
+        for (int j = 0; j < matriz[i].size(); ++j) {
+            
+            bool condicion_2=find(indices_a_ignorar.begin(), indices_a_ignorar.end(), j) != indices_a_ignorar.end();
+            // Ignorar la columna si está en la lista de columnas a ignorar
+            if (!condicion_2 && matriz[i][j] > 0 && matriz[i][j] < minimo_fila) {
+                minimo_fila = matriz[i][j];
+            }
+        }
+
+        suma_minimos += minimo_fila;
+    }
+
+    return suma_minimos;
+}
+
 
 /**
  * Función para calcular cota inferior calculando el mínimo de una matriz de distancias, excluyendo el 0 y las filas 
@@ -54,34 +90,78 @@ vector<int> nearest_neighborTSP(const vector<vector<double>>& distancias, int in
  * 
  * @return suma de los mínimos de cada fila
 */
-double cota_inferior(const std::vector<std::vector<double>>& matriz, const std::vector<int>& indices_a_ignorar = {}) {
-    double suma_minimos = 0.0;
+double cota_inferior_2(const std::vector<std::vector<double>>& matriz, const std::vector<int>& indices_a_ignorar = {}) {
+    double min_global = std::numeric_limits<double>::max();
+    int filas_contadas = 0;
 
     for (int i = 0; i < matriz.size(); ++i) {
+        bool condicion_1=find(indices_a_ignorar.begin(), indices_a_ignorar.end(), i) != indices_a_ignorar.end();
+
         // Ignorar la fila si está en la lista de filas a ignorar
-        if (std::find(indices_a_ignorar.begin(), indices_a_ignorar.end(), i) != indices_a_ignorar.end()) {
+        if (condicion_1) {
             continue;
         }
 
         double minimo_fila = std::numeric_limits<double>::max();
         for (int j = 0; j < matriz[i].size(); ++j) {
+            bool condicion_2=find(indices_a_ignorar.begin(), indices_a_ignorar.end(), j) != indices_a_ignorar.end();
             // Ignorar la columna si está en la lista de columnas a ignorar
-            if (std::find(indices_a_ignorar.begin(), indices_a_ignorar.end(), j) != indices_a_ignorar.end()) {
-                continue;
-            }
-            if (matriz[i][j] > 0 && matriz[i][j] < minimo_fila) {
+            if (!condicion_2 && matriz[i][j] > 0 && matriz[i][j] < minimo_fila) {
                 minimo_fila = matriz[i][j];
             }
         }
 
-        if (minimo_fila < std::numeric_limits<double>::max()) {
-            suma_minimos += minimo_fila;
+        if (minimo_fila < min_global) {
+                min_global = minimo_fila;
         }
+        ++filas_contadas;
     }
 
-    return suma_minimos;
+    return  (min_global * filas_contadas);
 }
 
+
+/**
+ * @brief Función para calcular la cota inferior de una matriz de distancias, calculando la media de los dos menores
+ * valores de cada fila y sumándolos. La idea es que si se toman los dos menores valores de cada fila, se obtendrá
+ * un camino más corto que el real, por lo que se suma la media de dichos valores. Se obviarán las filas indicadas
+ * en el vector de enteros llamado @b indices_a_ignorar.
+ * 
+ * @param matriz matriz de distancias entre los puntos
+ * @param indices_a_ignorar vector de enteros que indican los índices de las filas a ignorar
+ * 
+ * @return double 
+ */
+
+double cota_inferior_3(const std::vector<std::vector<double>>& matriz, const std::vector<int>& indices_a_ignorar = {}) {
+    double suma_costos = 0.0;
+
+    for (int i = 0; i < matriz.size(); ++i) {
+        // Ignorar la fila si está en la lista de filas a ignorar
+        if (find(indices_a_ignorar.begin(), indices_a_ignorar.end(),i) != indices_a_ignorar.end()) {
+            continue;
+        }
+
+        std::vector<double> costos_fila;
+        for (int j = 0; j < matriz[i].size(); ++j) {
+            costos_fila.push_back(matriz[i][j]);
+        }
+
+        // Asegurarse de que hay al menos dos costos en la fila
+        if (costos_fila.size() < 2) {
+            continue;  // Podría manejar esto de otra manera, dependiendo de los requisitos específicos
+        }
+
+        std::sort(costos_fila.begin(), costos_fila.end());
+
+        double costo1 = costos_fila[0];
+        double costo2 = costos_fila[1];
+
+        suma_costos += (costo1 + costo2) / 2.0;
+    }
+
+    return suma_costos;
+}
 
 /**
  * Función para encontrar los números faltantes desde 0 hasta n en un vector de enteros
@@ -175,10 +255,12 @@ double calcularDistanciaTotal(const vector<vector<double>>& distancias, const ve
  * 
  * @return vector con el camino que minimiza la distancia total
 */
-vector<int> branch_and_bound_greedy(vector<int>& points, vector< vector<double>> &distancias, int inicial){
+vector<int> branch_and_bound_greedy(vector<int>& points, vector< vector<double>> &distancias, int inicial, int &nodos_desarrollados, 
+            double (*funcion_cota)(const vector<vector<double>>& matriz, const std::vector<int>& indices_a_ignorar)){
     priority_queue<Nodo, vector<Nodo>, Comparador> no_visitados;
     vector<int> mejor_camino = {inicial};
-    Nodo actual( mejor_camino, 0, cota_inferior(distancias));
+    vector <int> auxiliar={};
+    Nodo actual( mejor_camino, 0, funcion_cota(distancias, auxiliar));
     no_visitados.push(actual);
 
     double costo_minimo = calcularDistanciaTotal(distancias, nearest_neighborTSP(distancias, inicial));
@@ -189,6 +271,7 @@ vector<int> branch_and_bound_greedy(vector<int>& points, vector< vector<double>>
         no_visitados.pop();
 
         if (actual.path.size() == points.size()-1) {
+            nodos_desarrollados++;
             vector<int> faltantes= numeros_faltantes(actual.path, points.size()-1);
             actual.distancia_recorrida += distancias[actual.path.back()][faltantes[0]];
             actual.distancia_recorrida += distancias[faltantes[0]][inicial];
@@ -201,12 +284,13 @@ vector<int> branch_and_bound_greedy(vector<int>& points, vector< vector<double>>
         } 
         else { 
             if (actual.cota_inferior <= costo_minimo ){
+                nodos_desarrollados++;
                 vector<int> faltantes = numeros_faltantes(actual.path, points.size()-1);
                 for (int i = 0; i < faltantes.size(); ++i) {
                     Nodo nuevo= actual;
                     nuevo.path.push_back(faltantes[i]);
                     nuevo.distancia_recorrida += distancias[actual.path.back()][faltantes[i]];
-                    nuevo.cota_inferior = nuevo.distancia_recorrida + cota_inferior(distancias, nuevo.path);
+                    nuevo.cota_inferior = nuevo.distancia_recorrida + funcion_cota(distancias, nuevo.path);
                     no_visitados.push(nuevo);
                 }
             }
@@ -252,15 +336,35 @@ vector<vector<double>> leerMatrizDesdeArchivo(const string& nombreArchivo) {
 /**
  * Versión general de Branch and Bround que llama a la versión que queramos añadir
 */
-vector<int> branch_and_bound(vector<int>& points, vector< vector<double>> &distancias, int inicial){
-    return branch_and_bound_greedy(points, distancias, inicial);
-}
+// vector<int> branch_and_bound(vector<int>& points, vector< vector<double>> &distancias, int inicial, int &nodos_desarrollados){
+//     return branch_and_bound_greedy(points, distancias, inicial, nodos_desarrollados);
+// }
+
+
+
 
 /**
  * [Run] <archivo_matriz> <punto_inicial> [2]
  */
 int main(int argc, char* argv[]) {
-    if (argc == 4 && strcmp(argv[3],"2") == 0) {
+    string nombre_archivo = argv[1];
+    int punto_inicial = atoi(argv[2]);
+
+    int accion = std::stoi(argv[3]);
+
+    if (accion < 1 || accion > 3) {
+        cerr << "El tercer parámetro debe ser 1, 2 o 3." << std::endl;
+        return 1;
+    }
+
+    vector<vector<double>> matriz = leerMatrizDesdeArchivo(nombre_archivo);
+
+    vector<int> solucion;
+    vector<int> puntos(matriz.size());
+    int nodos_desarrollados = 0;
+    iota(puntos.begin(), puntos.end(), 0);
+
+    if (argc == 5 && strcmp(argv[4],"2") == 0) {
         string nombre_archivo = argv[1];
         int punto_inicial = atoi(argv[2]);
 
@@ -268,30 +372,32 @@ int main(int argc, char* argv[]) {
 
         vector<int> solucion;
         vector<int> puntos(matriz.size());
+        int nodos_desarrollados = 0;
 
         iota(puntos.begin(), puntos.end(), 0);
         auto start = chrono::high_resolution_clock::now();
-        solucion = branch_and_bound(puntos, matriz, punto_inicial);
+        solucion = branch_and_bound_greedy(puntos, matriz, punto_inicial, nodos_desarrollados, cota_inferior_1);
         auto end = chrono::high_resolution_clock::now();
         cout << matriz.size() << " " << chrono::duration_cast<chrono::nanoseconds>(end - start).count() << endl;
         return 0;
     }
-    string nombre_archivo = argv[1];
-    int punto_inicial = atoi(argv[2]);
+    else {
+        if(accion == 1){
+            solucion = branch_and_bound_greedy(puntos, matriz, punto_inicial, nodos_desarrollados, cota_inferior_1);
+        } else if(accion == 2){
+            solucion = branch_and_bound_greedy(puntos, matriz, punto_inicial, nodos_desarrollados, cota_inferior_2);
+        } else if(accion == 3){
+            solucion = branch_and_bound_greedy(puntos, matriz, punto_inicial, nodos_desarrollados, cota_inferior_3);
+        }
 
-    vector<vector<double>> matriz = leerMatrizDesdeArchivo(nombre_archivo);
-
-    vector<int> solucion;
-    vector<int> puntos(matriz.size());
-
-    iota(puntos.begin(), puntos.end(), 0);
-    solucion = branch_and_bound(puntos, matriz, punto_inicial);
-    for (const auto& punto : solucion) {
-        cout << punto << " ";
+        for (const auto& punto : solucion) {
+            cout << punto << " ";
+        }
+        cout << endl;
+        
+        cout << "Distancia total: " << calcularDistanciaTotal(matriz, solucion) << endl;
+        cout << "Nodos desarrollados: " << nodos_desarrollados << endl;
     }
-    cout << endl;
-    
-    cout << "Distancia total: " << calcularDistanciaTotal(matriz, solucion) << endl;
 
     return 0;
 }

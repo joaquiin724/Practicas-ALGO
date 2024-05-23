@@ -56,9 +56,12 @@ run: $(ALG_EXEC)
 	@mkdir -p $(OUT_DIR)
 	@for size in $(shell seq 3 $(TAM)); do \
 	    for inst in $(shell seq 1 $(NUM)); do \
-	        matriz_file=$(INST_DIR)/matriz_$${size}_$${inst}.txt; \
-	        resultado_file=$(OUT_DIR)/resultado_$${size}_$${inst}.txt; \
-	        $(ALG_EXEC) $${matriz_file} 1 > $${resultado_file}; \
+			for cota in $(shell seq 1 3); do \
+				mkdir -p $(OUT_DIR)/Cota$${cota}; \
+				matriz_file=$(INST_DIR)/matriz_$${size}_$${inst}.txt; \
+				resultado_file=$(OUT_DIR)/Cota$${cota}/resultado_$${size}_$${inst}.txt; \
+				$(ALG_EXEC) $${matriz_file} 1 $${cota} > $${resultado_file}; \
+			done \
 	    done \
 	done
 	@echo "Resultados guardados en $(OUT_DIR)"
@@ -67,13 +70,15 @@ run: $(ALG_EXEC)
 time: $(ALG_EXEC)
 	@echo "Ejecutando algoritmo..."
 	@mkdir -p $(OUT_DIR)
-	@rm -f $(OUT_DIR)/tiempos.txt
-	@for size in $(shell seq 3 $(TAM)); do \
-	        matriz_file=$(INST_DIR)/matriz_$${size}_1.txt; \
-	        resultado_file=$(OUT_DIR)/resultado_$${size}_1.txt; \
-	        $(ALG_EXEC) $${matriz_file} 1 2 >> Salidas/tiempos.txt; \
+	@for cota in $(shell seq 1 3); do \
+		rm -f $(OUT_DIR)/Cota$${cota}_tiempos.txt; \
+		for size in $(shell seq 3 $(TAM)); do \
+			matriz_file=$(INST_DIR)/matriz_$${size}_1.txt; \
+			resultado_file=$(OUT_DIR)/Cota$${cota}/resultado_$${size}_1.txt; \
+			$(ALG_EXEC) $${matriz_file} 1 $${cota} 2 >> Salidas/Cota$${cota}_tiempos.txt; \
+		done; \
+		./eficiencia.sh Salidas/Cota$${cota}_tiempos.txt Salidas/Cota$${cota}_grafico_tiempos.png; \
 	done
-	@bash ./eficiencia.sh Salidas/tiempos.txt
 	@echo "Resultados guardados en $(OUT_DIR)"
 
 
