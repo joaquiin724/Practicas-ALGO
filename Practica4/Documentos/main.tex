@@ -274,6 +274,9 @@ A continuación se mostrarán los resultados obtenidos en la ejecución del algo
           \caption{Cota 1}
           \label{fig:Cota 1}
     \end{minipage}%
+\end{figure}
+    
+\begin{figure}
     \begin{minipage}{.48\textwidth}
           \centering
           \includegraphics[width=1\linewidth]{assets/Img/grafico_tiempos2.png}
@@ -287,7 +290,15 @@ A continuación se mostrarán los resultados obtenidos en la ejecución del algo
       \label{fig:Cota 3}
 \end{minipage}
 \end{figure}
-\\textbf{Graficas de Caminos generados }
+\newpage
+\subsection{Eficiencia teórica}
+La eficiencia teórica del algorimo es factorial, puesto las dos funciones de cota de dentro del código son $O(n)$, la primera es constante y la llamada recursiva es n! luego al estar en el for ($O(n)$)
+obtenemos que la eficiencia teórica del algoritmo es de $O(n!)$
+
+\subsection{Gráficas}
+Aquí podremos ver los caminos que han sido representados con el algoritmo usando las diferentes cotas al igual que una tabla con comparación de los valores obtenidos de las ejecuciones
+
+\textbf{Graficas de Caminos generados }
 \begin{figure}[H]
     \centering
     \begin{minipage}{.48\textwidth}
@@ -298,10 +309,12 @@ A continuación se mostrarán los resultados obtenidos en la ejecución del algo
   \end{minipage}%
     \begin{minipage}{.48\textwidth}
           \centering
-          \includegraphics[width=1\linewidth]{assets/Img/cota1camino.png.png}
+          \includegraphics[width=1\linewidth]{assets/Img/cota1camino.png}
           \caption{Cota 1}
           \label{fig:Cota 1 camino }
     \end{minipage}%
+\end{figure}
+\begin{figure}[H]
     \begin{minipage}{.48\textwidth}
           \centering
           \includegraphics[width=1\linewidth]{assets/Img/cota2camino.png}
@@ -315,8 +328,9 @@ A continuación se mostrarán los resultados obtenidos en la ejecución del algo
       \label{fig:Cota 3 camino}
 \end{minipage}
 \end{figure}
-\\textbf{Comparación de nodos generados}
-\\En las siguientes tablas se comparan el numero de nodos generados en cada ejecución del algoritmo con las distintas funciones de cota.
+
+\textbf{Comparación de nodos generados} 
+En las siguientes tablas se comparan el numero de nodos generados en cada ejecución del algoritmo con las distintas funciones de cota.
 \begin{figure}[H]
     \centering
     \begin{minipage}{.48\textwidth}
@@ -335,10 +349,6 @@ A continuación se mostrarán los resultados obtenidos en la ejecución del algo
 Como podemos observar en el grafico de la creación de nodos la cota 2 y 3 generan muchos menos nodos que la cota 1 por tanto son mas eficientes 
 a la hora de completar el camino ya que descartan muchas ramas que no nos aportan una solución mejor que la que ya tenemos.
 Por otro lado la cota 1 disminuye los nodos en cuanto a usar el algoritmo sin cota pero sigue generando muchos nodos que no nos aportan una solución mejor que la que ya tenemos.
-\newpage
-\subsection{Eficiencia teórica}
-La eficiencia teórica del algorimo es factorial, puesto las dos funciones de cota de dentro del código son $O(n)$, la primera es constante y la llamada recursiva es n! luego al estar en el for ($O(n)$)
-obtenemos que la eficiencia teórica del algoritmo es de $O(n!)$
 
 \chapter{Branch and bound}
 Al igual que en el apartado anterior resolveremos el problema del viajante, solo que en vez de solucionar el problema mediante el bakctraking 
