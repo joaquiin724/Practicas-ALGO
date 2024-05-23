@@ -13,11 +13,11 @@
 using namespace std;
 int nodos=0;
 void printv(const vector<int> &v) {
-  cout << "[" << v[0];
+  cout << v[0];
   for (int i = 1; i < v.size(); i++) {
-    cout << "," << v[i];
+    cout << " "<<v[i];//"," << v[i];
   }
-  cout << "]" << endl;
+  cout << " "<<v[0] << endl;
 }
 double calcularDistanciaTotal(const vector<vector<double>> &distancias,
                               const vector<int> &camino) {
@@ -235,7 +235,7 @@ int main(int argc, char *argv[]) {
     //printv(s_mejor);
     //cout << "Coste: " << c_mejor << endl;
     //cout << "Nodos: " << nodos << endl;
-    cout <<tam<<","<<c_mejor << ","<<nodos<<endl;
+    printv(s_mejor);
   } else {
     auto start = chrono::high_resolution_clock::now();
     tsp_backtracking(solucion, graph, c_mejor, s_mejor, c_actual,arco_menorpeso,cota);

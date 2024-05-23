@@ -258,6 +258,8 @@ a ella, que en nuestro caso no ocurre, o bien porque la $C_l$ ha hecho que se de
 
 \section{Eficiencia teórica y empírica}
 \subsection{Eficiencia empírica}
+A continuación se mostrarán los resultados obtenidos en la ejecución del algoritmo Backtracking con las distintas funciones de cota y como afecta cada una de ellas a la generación de nodos y al tiempo de ejecución.
+
 \begin{figure}[H]
     \centering
     \begin{minipage}{.48\textwidth}
@@ -275,16 +277,46 @@ a ella, que en nuestro caso no ocurre, o bien porque la $C_l$ ha hecho que se de
     \begin{minipage}{.48\textwidth}
           \centering
           \includegraphics[width=1\linewidth]{assets/Img/grafico_tiempos2.png}
-          \caption{Cota 3}
-          \label{fig:Cota 3}
+          \caption{Cota 2}
+          \label{fig:Cota 2}
     \end{minipage}
 \begin{minipage}{.48\textwidth}
       \centering
       \includegraphics[width=1\linewidth]{assets/Img/grafico_tiempos3.png}
-      \caption{Cota 2}
+      \caption{Cota 3}
       \label{fig:Cota 3}
 \end{minipage}
 \end{figure}
+\\textbf{Graficas de Caminos generados }
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{.48\textwidth}
+        \centering
+        \includegraphics[width=1\linewidth]{assets/Img/grafico_tiempos0.png}
+        \caption{Sin cota}
+        \label{fig:Sin cota}
+  \end{minipage}%
+    \begin{minipage}{.48\textwidth}
+          \centering
+          \includegraphics[width=1\linewidth]{assets/Img/cota1camino.png.png}
+          \caption{Cota 1}
+          \label{fig:Cota 1 camino }
+    \end{minipage}%
+    \begin{minipage}{.48\textwidth}
+          \centering
+          \includegraphics[width=1\linewidth]{assets/Img/cota2camino.png}
+          \caption{Cota 2 camino}
+          \label{fig:Cota 2 camino}
+    \end{minipage}
+\begin{minipage}{.48\textwidth}
+      \centering
+      \includegraphics[width=1\linewidth]{assets/Img/cota3camino.png}
+      \caption{Cota 3 camino}
+      \label{fig:Cota 3 camino}
+\end{minipage}
+\end{figure}
+\\textbf{Comparación de nodos generados}
+\\En las siguientes tablas se comparan el numero de nodos generados en cada ejecución del algoritmo con las distintas funciones de cota.
 \begin{figure}[H]
     \centering
     \begin{minipage}{.48\textwidth}
