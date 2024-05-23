@@ -2,16 +2,16 @@
 g++ -o Ejecutables/backtracking backtracking.cpp
 
 # Ejecuta el código compilado para cada archivo .txt en la carpeta instancias que comienza con matriz
-echo " " > Salidas/salida.txt
+echo " " > Salidas/salida0.txt
 for file in Instancias/matriz_*.txt
 do
-    ./Ejecutables/backtracking $file 0 3 >> Salidas/salida.txt
+    ./Ejecutables/backtracking $file 0 0 >> Salidas/salida0.txt
 done
 
 
 
-archivo_tiempos="Salidas/salida.txt"
-grafico_salida="Salidas/grafico_tiempos.png"
+archivo_tiempos="Salidas/salida0.txt"
+grafico_salida="Salidas/grafico_tiempos0.png"
 
 # Comprobar si el archivo de tiempos existe
 if [ ! -f "$archivo_tiempos" ]; then

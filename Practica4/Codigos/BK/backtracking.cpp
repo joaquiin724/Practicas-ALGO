@@ -11,7 +11,7 @@
 #include <vector>
 
 using namespace std;
-
+int nodos=0;
 void printv(const vector<int> &v) {
   cout << "[" << v[0];
   for (int i = 1; i < v.size(); i++) {
@@ -129,10 +129,10 @@ double cota3(const vector<vector<double>> &graph, const vector<int> &solucion,do
  * @param arco_menorpeso arco de menor peso del grafo (para no tener que calcularlo siempre)
  *@param cota cota a utilizar
  */
-void tsp_backtracking(vector<int> &solucion,const vector<vector<double>> &graph, double &c_mejor,vector<int> &s_mejor, double c_actual, int arco_menorpeso,int cota = 0) {
-  c_actual += solucion.size() <= 1? 0: graph[solucion.back()][solucion[solucion.size() - 2]];
+void tsp_backtracking(vector<int> &solucion,const vector<vector<double>> &graph, double &c_mejor,vector<int> &s_mejor, double c_actual, int arco_menorpeso,int cota ) {
   if (solucion.size() == graph.size()) {
     c_actual += graph[solucion.back()][solucion[0]];
+  
     if (c_actual < c_mejor) {
       c_mejor = c_actual;
       s_mejor = solucion;
@@ -141,6 +141,8 @@ void tsp_backtracking(vector<int> &solucion,const vector<vector<double>> &graph,
     for (int i = 1; i < graph.size(); i++) {
       if (find(solucion.begin(), solucion.end(), i) == solucion.end()) {
         double acotacion;
+       
+        double c_siguiente = c_actual + (solucion.empty() ? 0 : graph[solucion.back()][i]);
         if (cota == 1) {
             acotacion = cota1(graph, solucion, c_actual, arco_menorpeso);
         } else if (cota == 2) {
@@ -151,8 +153,9 @@ void tsp_backtracking(vector<int> &solucion,const vector<vector<double>> &graph,
             acotacion = 0;
         }
         if (acotacion <= c_mejor) {
+            nodos++;
             solucion.emplace_back(i);
-            tsp_backtracking(solucion, graph, c_mejor, s_mejor, c_actual,arco_menorpeso, cota);
+            tsp_backtracking(solucion, graph, c_mejor, s_mejor, c_siguiente,arco_menorpeso, cota);
             solucion.pop_back();
           }
       }
@@ -231,9 +234,10 @@ int main(int argc, char *argv[]) {
     cout << "Solucion : ";
     printv(s_mejor);
     cout << "Coste: " << c_mejor << endl;
+    cout <<"Nodos:"<<nodos<<endl;
   } else {
     auto start = chrono::high_resolution_clock::now();
-    tsp_backtracking(solucion, graph, c_mejor, s_mejor, c_actual,arco_menorpeso);
+    tsp_backtracking(solucion, graph, c_mejor, s_mejor, c_actual,arco_menorpeso,cota);
     auto end = chrono::high_resolution_clock::now();
     cout << graph.size() << " "<< chrono::duration_cast<chrono::nanoseconds>(end - start).count()<< endl;
   }
