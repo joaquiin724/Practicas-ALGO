@@ -1,3 +1,3 @@
-1 8 9 3 10 0 4 11 2 12 7 5 6 13 1 
-Distancia total: 169.187
-Nodos desarrollados: 827054
+1 0 2 12 9 5 8 7 10 6 4 13 3 11 1 
+Distancia total: 160.346
+Nodos desarrollados: 1046419

@@ -46,7 +46,7 @@ generate: $(CREA_PUNTOS_EXEC) $(CREA_MATRICES_EXEC)
 	        matriz_file=$(INST_DIR)/matriz_$${size}_$${inst}.txt; \
 	        $(CREA_PUNTOS_EXEC) $${size} $${puntos_file} 50; \
 	        $(CREA_MATRICES_EXEC) $${puntos_file} $${matriz_file}; \
-	    done \
+	    done; \
 	done
 	@echo "Instancias generadas en $(INST_DIR)"
 
@@ -61,8 +61,8 @@ run: $(ALG_EXEC)
 				matriz_file=$(INST_DIR)/matriz_$${size}_$${inst}.txt; \
 				resultado_file=$(OUT_DIR)/Cota$${cota}/resultado_$${size}_$${inst}.txt; \
 				$(ALG_EXEC) $${matriz_file} 1 $${cota} > $${resultado_file}; \
-			done \
-	    done \
+			done; \
+	    done; \
 	done
 	@echo "Resultados guardados en $(OUT_DIR)"
 
@@ -81,19 +81,21 @@ time: $(ALG_EXEC)
 	done
 	@echo "Resultados guardados en $(OUT_DIR)"
 
-
-
-# Regla para graficar los resultados
-graph: $(OUT_DIR)/*.txt
+# Regla para graficar los resultados y la comparación de nodos desarrollados
+graph:
 	@echo "Generando gráficos..."
 	@mkdir -p $(GRAPH_DIR)
 	@for size in $(shell seq 3 $(TAM)); do \
 	    for inst in $(shell seq 1 $(NUM)); do \
 	        puntos_file=$(INST_DIR)/puntos_$${size}_$${inst}.txt; \
-	        resultado_file=$(OUT_DIR)/resultado_$${size}_$${inst}.txt; \
-	        grafico_file=$(GRAPH_DIR)/grafico_$${size}_$${inst}.png; \
-	        ./graph.sh $${puntos_file} $${resultado_file} $${grafico_file}; \
-	    done \
+	        for cota in $(shell seq 1 3); do \
+	            resultado_file=$(OUT_DIR)/Cota$${cota}/resultado_$${size}_$${inst}.txt; \
+	            grafico_file=$(GRAPH_DIR)/grafico_$${size}_$${inst}_cota$${cota}.png; \
+	            ./graph.sh $${puntos_file} $${resultado_file} $${grafico_file}; \
+	        done; \
+	    done; \
+	    comparacion_file=$(GRAPH_DIR)/comparacion_nodos_$${size}.png; \
+	    python3 comparar_nodos.py $(OUT_DIR) $${size} $${comparacion_file}; \
 	done
 	@echo "Gráficos generados en $(GRAPH_DIR)"
 
