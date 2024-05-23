@@ -13,11 +13,11 @@
 using namespace std;
 int nodos=0;
 void printv(const vector<int> &v) {
-  cout << v[0];
+  cout << "[" << v[0];
   for (int i = 1; i < v.size(); i++) {
-    cout << " "<<v[i];//"," << v[i];
+    cout << "," << v[i];
   }
-  cout << " "<<v[0] << endl;
+  cout << "]" << endl;
 }
 double calcularDistanciaTotal(const vector<vector<double>> &distancias,
                               const vector<int> &camino) {
@@ -222,8 +222,7 @@ int main(int argc, char *argv[]) {
   vector<int> solucion;     // Vector de soluciones
   solucion.emplace_back(0); // comienzo
 
-  double c_actual = 0,
-  c_mejor =numeric_limits<double>::max(); // coste del mejor camino encontrado
+  double c_actual = 0,c_mejor =numeric_limits<double>::max(); // coste del mejor camino encontrado
   vector<int> s_mejor;                      // Vector de la mejor solucion
   double arco_menorpeso = encontrarArcoMenorPeso(graph);
   int cota = atoi(argv[3]);
@@ -231,11 +230,11 @@ int main(int argc, char *argv[]) {
   if (atoi(argv[2]) == 1) {
 
     tsp_backtracking(solucion, graph, c_mejor, s_mejor, c_actual,arco_menorpeso, cota);
-    //cout << "Solucion : ";
-    //printv(s_mejor);
-    //cout << "Coste: " << c_mejor << endl;
-    //cout << "Nodos: " << nodos << endl;
+    cout << "Solucion : ";
     printv(s_mejor);
+    cout << "Coste: " << c_mejor << endl;
+    cout << "Nodos: " << nodos << endl;
+    
   } else {
     auto start = chrono::high_resolution_clock::now();
     tsp_backtracking(solucion, graph, c_mejor, s_mejor, c_actual,arco_menorpeso,cota);
