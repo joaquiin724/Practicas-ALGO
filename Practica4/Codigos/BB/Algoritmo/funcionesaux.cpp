@@ -98,6 +98,14 @@ double cota_inferior_2(const std::vector<std::vector<double>>& matriz, const std
     return  (min_global * filas_contadas);
 }
 
+/**
+ * @brief Función para calcular la cota inferior de una matriz de distancias, calculando la media de los dos menores
+ * valores de cada fila y sumándolos. La idea es que si se toman los dos menores valores de cada fila, se obtendrá
+ * un camino más corto que el real, por lo que se suma la media de dichos valores.
+ * 
+ * @param matriz 
+ * @return double 
+ */
 double cota_inferior_3(const vector<vector<double>>& matriz) {
     double suma_costos = 0.0;
 
