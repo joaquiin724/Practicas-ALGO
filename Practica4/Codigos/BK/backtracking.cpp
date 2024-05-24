@@ -86,7 +86,7 @@ double cota2(const vector<vector<double>> &graph, const vector<int> &solucion,
   double cota = 0;
   vector<double> v;
   double min = numeric_limits<double>::max();
-  for (int i = 1; i < graph.size(); ++i) {
+  for (int i = 0; i < graph.size(); ++i) {
     if ((find(solucion.begin(), solucion.end(), i) == solucion.end())) {
       v = graph[i];
       sort(v.begin(), v.end());
@@ -108,7 +108,7 @@ double cota3(const vector<vector<double>> &graph, const vector<int> &solucion,do
   double cota = 0;
   vector<double> v;
   double min = numeric_limits<double>::max();
-  for (int i = 1; i < graph.size(); ++i) {
+  for (int i = 0; i < graph.size(); ++i) {
     if ((find(solucion.begin(), solucion.end(), i) == solucion.end())) {
       v = graph[i];
       sort(v.begin(), v.end());
@@ -138,7 +138,7 @@ void tsp_backtracking(vector<int> &solucion,const vector<vector<double>> &graph,
       s_mejor = solucion;
     }
   } else {
-    for (int i = 1; i < graph.size(); i++) {
+    for (int i = 0; i < graph.size(); i++) {
       if (find(solucion.begin(), solucion.end(), i) == solucion.end()) {
         double acotacion;
        
@@ -220,7 +220,7 @@ int main(int argc, char *argv[]) {
   int comienzo = 0;
   int tam = graph.size();
   vector<int> solucion;     // Vector de soluciones
-  solucion.emplace_back(0); // comienzo
+  solucion.emplace_back(comienzo); // comienzo
 
   double c_actual = 0,c_mejor =numeric_limits<double>::max(); // coste del mejor camino encontrado
   vector<int> s_mejor;                      // Vector de la mejor solucion

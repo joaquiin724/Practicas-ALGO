@@ -157,11 +157,11 @@ Si la decision que toma nuestro algoritmo es mejor que la que nos proporciona es
     En el siguiente codigo se recorre la matriz de adyacencia y se selecciona el menor valor de los arcos de los nodos que no han sido visitados 
     y se suman al coste actual.
     \begin{lstlisting}
-        double cota2(const vector<vector<double>> &graph, const vector<int> &solucion,=double c_actual) {
+        double cota2(const vector<vector<double>> &graph, const vector<int> &solucion,double c_actual) {
             double cota = 0;
             vector<double> v;
             double min = numeric_limits<double>::max();
-            for (int i = 1; i < graph.size(); ++i) {
+            for (int i = 0; i < graph.size(); ++i) {
                 if ((find(solucion.begin(), solucion.end(), i) == solucion.end())) {
                     v = graph[i];
                     sort(v.begin(), v.end());
@@ -181,7 +181,7 @@ Si la decision que toma nuestro algoritmo es mejor que la que nos proporciona es
             double cota = 0;
             vector<double> v;
             double min = numeric_limits<double>::max();
-            for (int i = 1; i < graph.size(); ++i) {
+            for (int i = 0; i < graph.size(); ++i) {
                 if ((find(solucion.begin(), solucion.end(), i) == solucion.end())) {
                     v = graph[i];
                     sort(v.begin(), v.end());
@@ -214,7 +214,7 @@ A continuación se muestra el algoritmo de Backtracking implementado:
       s_mejor = solucion;
     }
   } else {
-    for (int i = 1; i < graph.size(); i++) {
+    for (int i = 0; i < graph.size(); i++) {
       if (find(solucion.begin(), solucion.end(), i) == solucion.end()) {
         double acotacion;
         double c_siguiente = c_actual + (solucion.empty() ? 0 : graph[solucion.back()][i]);
@@ -743,4 +743,11 @@ cotas aunque eso no se ve reflejado en el resultado final sino más bien en el t
 
 A simple vista podemos apreciar que verdaderamenta obtenemos resultados correctos independientemente de la 
 cota utilizada.
+
+\chapter{Conclusiones}
+Tras implementar y ejecutar los algoritmos de Backtracking y Branch and Bound, hemos podido observar que ambos algoritmos nos una solución óptima al problema del viajante.
+Las diferencias que podemos ver en cuanto a la ejecución de ambos algoritmos es que el algoritmo de Branch and Bound es mucho más eficiente que el de Backtracking, ya que
+los tiempos generados a la hora de la ejecución son mucho menores.Debido a esto hemos podido comprobar la importancia de las funciones de cota ya que 
+el alcance de estos algoritmos sería mucho menor si no se implementaran. Las funciones de cota nos permiten descartar ramas que no nos aportan una solución mejor que la que ya tenemos y por 
+tanto generar menos nodos sobre los cuales tomar decisiones y poder así llegar a la solución óptima de una forma más eficiente.
 \end{document}
