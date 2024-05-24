@@ -355,6 +355,10 @@ lo resolveremos mediante Branch and bound. A continuación se mostrarán las fun
 \subsection{Cota global}
 Para selecionar la cota global usaremos la función de nearest neighbour de la práctica anterior la cual 
 nos proporciona una cota principal con la que poder comparar las distintas soluciones que vaya obteniendo nuestro algoritmo.
+La idea se basa en dado un conjunto de puntos queremos encontrar el camino más corto que los recorra,
+para ello, elegimos un punto inicial y a partir de ese punto, en un proceso iterativo, elegimos en cada paso el
+siguiente punto más cercano al actual, o lo que es lo mismo, el punto para el cual la distancia al punto actual es
+la menor. Este proceso se repite hasta que todos los puntos han sido visitados.
 
 \begin{lstlisting}
 vector<int> nearest_neighbourTSP(const vector<vector<double>>& distancias, int inicial) {
@@ -390,81 +394,111 @@ vector<int> nearest_neighbourTSP(const vector<vector<double>>& distancias, int i
       
 \subsection{Cota local}
 
-Además de esta cota global, hemos implementado dos funciones de cota local distintas:
+Además de esta cota global, hemos implementado tres funciones de cota local distintas:
 \\ 
 \begin{lstlisting}
-double cota_inferior_1(const vector<vector<double>>& matriz, const vector<int>& indices_a_ignorar = {}) {
-    double suma_minimos = 0.0;
-
+double cota_inferior_1(const std::vector<std::vector<double>>& matriz, const std::vector<int>& indices_a_ignorar = {}) {
+        double suma_minimos = 0.0;
+    
     for (int i = 0; i < matriz.size(); ++i) {
         
-        if (find(indices_a_ignorar.begin(), indices_a_ignorar.end(), i) != indices_a_ignorar.end()) {
+        if (std::find(indices_a_ignorar.begin(), indices_a_ignorar.end(), i) != indices_a_ignorar.end()) {
             continue;
         }
-
-        double minimo_fila = numeric_limits<double>::max();
+    
+        double minimo_fila = std::numeric_limits<double>::max();
         for (int j = 0; j < matriz[i].size(); ++j) {
-            
-            if (find(indices_a_ignorar.begin(), indices_a_ignorar.end(), j) != indices_a_ignorar.end()) {
-                continue;
-            }
-            if (matriz[i][j] > 0 && matriz[i][j] < minimo_fila) {
+                
+            bool condicion_2=find(indices_a_ignorar.begin(), indices_a_ignorar.end(), j) != indices_a_ignorar.end();
+               
+            if (!condicion_2 && matriz[i][j] > 0 && matriz[i][j] < minimo_fila) {
                 minimo_fila = matriz[i][j];
             }
         }
-
-        if (minimo_fila < numeric_limits<double>::max()) {
-            suma_minimos += minimo_fila;
-        }
+    
+        suma_minimos += minimo_fila;
     }
-
+    
     return suma_minimos;
-}    
+}   
+\end{lstlisting}
 
-double cota_inferior_2(const vector<vector<double>>& matriz, const vector<int>& indices_a_ignorar = {}) {
-    double min_global = numeric_limits<double>::max();
+La primera función de cota consiste en a partir de los índices a ignorar que hemos pasado como parámetro se ignoran la fila y
+columna que lo contengan. Luego a partir de las filas restantes obtenemos el mínimo y se lo sumamos a la variable 
+$suma\_mínimos$. Repetimos este proceso hasta recorrerlas todas.
+
+
+\begin{lstlisting}    
+
+double cota_inferior_2(const std::vector<std::vector<double>>& matriz, const std::vector<int>& indices_a_ignorar = {}) {
+    double min_global = std::numeric_limits<double>::max();
     int filas_contadas = 0;
 
     for (int i = 0; i < matriz.size(); ++i) {
+        bool condicion_1=find(indices_a_ignorar.begin(), indices_a_ignorar.end(), i) != indices_a_ignorar.end();
+
         
-        if (find(indices_a_ignorar.begin(), indices_a_ignorar.end(), i) != indices_a_ignorar.end()) {
+        if (condicion_1) {
             continue;
         }
 
-        double minimo_fila = numeric_limits<double>::max();
+        double minimo_fila = std::numeric_limits<double>::max();
         for (int j = 0; j < matriz[i].size(); ++j) {
+            bool condicion_2=find(indices_a_ignorar.begin(), indices_a_ignorar.end(), j) != indices_a_ignorar.end();
             
-            if (find(indices_a_ignorar.begin(), indices_a_ignorar.end(), j) != indices_a_ignorar.end()) {
-                continue;
-            }
-            if (matriz[i][j] > 0 && matriz[i][j] < minimo_fila) {
+            if (!condicion_2 && matriz[i][j] > 0 && matriz[i][j] < minimo_fila) {
                 minimo_fila = matriz[i][j];
             }
         }
 
-        if (minimo_fila < numeric_limits<double>::max()) {
-            if (minimo_fila < min_global) {
+        if (minimo_fila < min_global) {
                 min_global = minimo_fila;
-            }
-            ++filas_contadas;
         }
+        ++filas_contadas;
     }
 
     return  (min_global * filas_contadas);
 }
-            
 \end{lstlisting}
-La primera función de cota local consiste en calcular el mínimo de una matriz de distancias, excluyendo obviamente los valores
-de 0, pasandose como parámetros los índices a ignorar.Destacar que además de obviar dichas filas se obviarán sus respectivas 
-columnas indicadas en el vector de enteros, ya que el objetivo es eliminar las conexiones de ciertos nodos, por lo que 
-eliminamos sus filas y columnas respectivas.
-\\ \\
-Por otro lado, la segunda función de cota, tiene un funcionamiento 
-distinto. Consiste principalmente en encontrar la mínima distancia de una matriz de adyacencia y depués multiplicar dicho valor por
-las filas restantes, suponiendo que ese camino será el mínimo para todos, de ahí que se multiplique por el número de nodos restantes.
-Ignorando, igual que con la cota anterior, los 0 y las filas y las columnas que se pasan como parámetros a ignorar. Función para calcular 
-cota inferior calculando el mínimo de una matriz de distancias, excluyendo el 0 y las filas. Es claro que este segundo método nos proporciona 
-una cota más restrictiva por lo que nos interesa más.
+
+La segunda función de cota consiste principalmente en encontrar la mínima distancia de una matriz de adyacencia y depués multiplicar dicho valor por
+las filas restantes, suponiendo que ese camino será el mínimo para todos.
+\begin{lstlisting}          
+double cota_inferior_3(const std::vector<std::vector<double>>& matriz, const std::vector<int>& indices_a_ignorar = {}) {
+    double suma_costos = 0.0;
+
+    for (int i = 0; i < matriz.size(); ++i) {
+        
+        if (find(indices_a_ignorar.begin(), indices_a_ignorar.end(),i) != indices_a_ignorar.end()) {
+            continue;
+        }
+
+        std::vector<double> costos_fila;
+        for (int j = 0; j < matriz[i].size(); ++j) {
+            costos_fila.push_back(matriz[i][j]);
+        }
+
+        
+        if (costos_fila.size() < 2) {
+            continue;  
+        }
+
+        std::sort(costos_fila.begin(), costos_fila.end());
+
+        double costo1 = costos_fila[0];
+        double costo2 = costos_fila[1];
+
+        suma_costos += (costo1 + costo2) / 2.0;
+    }
+
+    return suma_costos;
+}
+
+\end{lstlisting}
+
+Por último, la tercera función de cota consiste en obviar las filas que se encuentran dentro de las filas a ignorar, en este caso, a diferencia de la cota 1 no obviamos 
+las columnas. De las filas disponibles se cogen los dos valores más pequeños a través del sort que las ordena, habiendo comprobado previamente que hay más de dos valores 
+disponibles para que no se produzcan errores. Con esos dos valores hace la media y se la suma a la variable $suma\_costos$.
 \\ \\
 Más adelante en el apartado de eficiencia seguiremos comparando dichas cotas.
 
@@ -488,13 +522,15 @@ Primero de todo, el struct con el que trabajaremos para almacenar la informació
 Ahora, el algoritmo Brach and Bound que hemos implementado ha sido:
 
 \begin{lstlisting}
-vector<int> branch_and_bound_greedy(vector<int>& points, vector< vector<double>> &distancias, int inicial){
+vector<int> branch_and_bound_greedy(vector<int>& points, vector< vector<double>> &distancias, int inicial, int &nodos_desarrollados, 
+double (*funcion_cota)(const vector<vector<double>>& matriz, const std::vector<int>& indices_a_ignorar)){
     priority_queue<Nodo, vector<Nodo>, Comparador> no_visitados;
     vector<int> mejor_camino = {inicial};
-    Nodo actual( mejor_camino, 0, cota_inferior(distancias));
+    vector <int> auxiliar={};
+    Nodo actual( mejor_camino, 0, funcion_cota(distancias, auxiliar));
     no_visitados.push(actual);
 
-    double costo_minimo = calcularDistanciaTotal(distancias, nearest_neighbourTSP(distancias, inicial));
+    double costo_minimo = calcularDistanciaTotal(distancias, nearest_neighborTSP(distancias, inicial));
     mejor_camino.clear();
 
     while (!no_visitados.empty()) {
@@ -502,6 +538,7 @@ vector<int> branch_and_bound_greedy(vector<int>& points, vector< vector<double>>
         no_visitados.pop();
 
         if (actual.path.size() == points.size()-1) {
+            nodos_desarrollados++;
             vector<int> faltantes= numeros_faltantes(actual.path, points.size()-1);
             actual.distancia_recorrida += distancias[actual.path.back()][faltantes[0]];
             actual.distancia_recorrida += distancias[faltantes[0]][inicial];
@@ -514,12 +551,13 @@ vector<int> branch_and_bound_greedy(vector<int>& points, vector< vector<double>>
         } 
         else { 
             if (actual.cota_inferior <= costo_minimo ){
+                nodos_desarrollados++;
                 vector<int> faltantes = numeros_faltantes(actual.path, points.size()-1);
                 for (int i = 0; i < faltantes.size(); ++i) {
                     Nodo nuevo= actual;
                     nuevo.path.push_back(faltantes[i]);
                     nuevo.distancia_recorrida += distancias[actual.path.back()][faltantes[i]];
-                    nuevo.cota_inferior = nuevo.distancia_recorrida + cota_inferior(distancias, nuevo.path);
+                    nuevo.cota_inferior = nuevo.distancia_recorrida + funcion_cota(distancias, nuevo.path);
                     no_visitados.push(nuevo);
                 }
             }
@@ -530,14 +568,23 @@ vector<int> branch_and_bound_greedy(vector<int>& points, vector< vector<double>>
 
 }
 \end{lstlisting}
+
 El funcionamiento de este método se basa en empezar creando un nodo con el punto inicial y agregarlo a la cola de prioridad (cuyo comparador
-consiste en comparar la distancia recorrida por un nodo a y un nodo b y ver qué distancia es menor). Mientras la cola no esté vacía; primero,
-se extrae el nodo con menor costo actual (a partir de la cota inferior y haciendo uso del comparador definido anteriormente); si el camino actual 
-tiene todos los puntos menos unos, sabemos de forma determinada cual queda mediante la función faltantes de antes(dicha función encuentra los números
-faltantes desde 0 hasta n en un vector de enteros), por lo que se calcula la distancia a dicho punto y al inicial y se agrega a la solución si es 
-mejor que la actual; si no, se generan los nodos hijos con los puntos faltantes y se agregan a la cola de prioridad.
+consiste en comparar la distancia recorrida por un nodo a y un nodo b y ver qué distancia es menor).Luego calculamos una cota global inicial que nos ayudará
+a reducir considerablemente el número de caminos posibles. Mientras la cola no esté vacía, tomamos como nodo actual el menor de todos los disponibles en la cola de prioridad:
+
+·En el caso de que hayamos recorridos todos los puntos menos uno, agregamos la distancia del último nodo que tenemos al nodo faltante 
+y la distancia del nodo faltante al primero del camino, creando así un camino cerrado que recorra todos los puntos. En el caso de que este camino
+recorrido sea mejor que la cota global actualizamos la variable $mejor\_camino$ que es lo que devolveremos una vez termina el bucle y la cota global.
+
+·En el caso en que no hayamos recorridos todos los nodos menos uno, comparamos la cota inferior suministrada por el nodo actual con la cota global. En el caso
+de que dicha cota inferior sea menor podemos seguir ejecutando el código sino, podamos. Una vez visto que la cota inferior es menor que la cota global, añadimos 
+los nodos faltantes a la cola de prioridad y volvemos a realizar los mismos pasos cogiendo el nodo con mejor camino de la cola de prioridad. 
 \\ \\
-A continuación se mostrará la notación mostrada en teoría, aunque sigamos un esquema similar, hay ciertos ámbitos que pueden ser suprimidos.
+Cabe destacar que en nuestra función Branch and Bound hemos decidido pasar como parámetro una función que nos permita elegir entre las distintas cotas
+disponibles, lo cual nos proporciona un código más funcional.
+\\\\
+A continuación se mostrará la notación dada en teoría, aunque sigamos un esquema similar, hay ciertos ámbitos que pueden ser suprimidos.
 \\\\
 \textbf{Notación:}
 \begin{itemize}
@@ -569,9 +616,12 @@ que: \\\\
 una función find que a su vez también tiene eficiencia $O(n)$, por lo que dicho bucle for tiene eficiencia $O(n^2)$. Además, tenemos que el bucle for exterior 
 se ejecuta n veces, por lo que finalmente obtenemos una eficiencia $O(n^3)$.\\\\
 ·Para la segunda cota tenemos por el mismo razonamiento una eficiencia de $O(n^3)$.\\\\
+·Para la tercera cota a diferencia de las dos cotas anteriores tenemos una eficiencia de $O(n^2)$, que es fácil de observar.
 Ahora veamos la eficiencia del algoritmo Branch and Bound. Empezando por la parte más interna del código, tenemos una estructura if-else. En dicha estructura,
 el bloque de sentencias if tienen una eficiencia $O(nlog(n))$ debido a que llama a la funcion numeros faltantes cuya eficiencia se ve claramente, debido a que 
 se ejecuta en un bucle for n veces un if cuya condición es $O(log(n))$.
+
+
 \begin{lstlisting}
 vector<int> numeros_faltantes(const vector<int>& vec, int n) {
             
@@ -587,28 +637,48 @@ vector<int> numeros_faltantes(const vector<int>& vec, int n) {
       return faltantes;
 }
 \end{lstlisting}
-Por otro lado, tenemos para el else una eficiencia de $O(n^4)$, esto se debe a que hay un bucle for que se ejecuta n veces y en su cuerpo se llama a la función 
-cota inferior que tiene una eficiencia de $O(n^3)$. De aquí obtenemos que la eficiencia del bloque if-else es $O(n^4)$. Como la condición del bucle while es $O(n!)$,
-tenemos que la eficiencia del método Branch and Bound es de $O(n! \cdot n^4 )$. 
+Por otro lado, tenemos para el else una eficiencia de $O(n^4)$ o $O(n^3)$, esto se debe a que hay un bucle for que se ejecuta n veces y en su cuerpo se llama a la función 
+cota inferior que tiene una eficiencia de $O(n^3)$ o $O(n^2)$. De aquí obtenemos que la eficiencia del bloque if-else es $O(n^4)$o $O(n^3)$. Sin embargo, calculamos como la condición del bucle while es $O(n!)$,
+tenemos que la eficiencia del método Branch and Bound es de $O(n!)$. 
 
 \subsection{Eficiencia empírica}
-En cuanto a la eficiencia empírica, podemos decir que aunque ambas cotas tienen el mismo orden de eficiencia, se observa
-claramente que a partir de la primera cota obtenemos mejores resultados.
+En cuanto a la eficiencia empírica, podemos observar como las cotas 1 y 2 desarrollan muchos menos nodos que la cota 3. Sin embargo,
+debido a que la eficiencía de las cotas 1 y 2 es mayor que la de la cota 3 no se ven afectados los tiempos de ejecución de unas cotas
+respecto de la otra. A continuación, mostraremos distintas gráficas que lo demuestran.
 
 \begin{figure}[H]
       \centering
       \begin{minipage}{.48\textwidth}
             \centering
-            \includegraphics[width=1\linewidth]{assets/Img/Cota_1_BB/grafico_tiempos.png}
-            \caption{Cota 1}
-            \label{fig:Cota 1}
+            \includegraphics[width=1\linewidth]{assets/Img/comparacion_nodos_12.png}
+            \caption{Comparación nodos}
+            \label{fig:Comparacion nodos}
       \end{minipage}%
       \begin{minipage}{.48\textwidth}
             \centering
-            \includegraphics[width=1\linewidth]{assets/Img/Cota_2_BB/grafico_tiempos.png}
-            \caption{Cota 2}
-            \label{fig:Cota 2}
+            \includegraphics[width=1\linewidth]{assets/Img/comparacion_nodos_14.png}
+            \caption{Comparación nodos}
+            \label{fig:Comparacion nodos}
       \end{minipage}
+      \begin{minipage}{.48\textwidth}
+        \centering
+        \includegraphics[width=1\linewidth]{assets/Img/Cota_1_BB/Cota1_grafico_tiempos.png}
+        \caption{Cota 1 }
+        \label{fig:Tiempos}
+       \end{minipage}
+       \begin{minipage}{.48\textwidth}
+        \centering
+        \includegraphics[width=1\linewidth]{assets/Img/Cota_2_BB/Cota2_grafico_tiempos.png}
+        \caption{Cota 2 }
+        \label{fig:Tiempos}
+       \end{minipage}
+       \begin{minipage}{.48\textwidth}
+        \centering
+        \includegraphics[width=1\linewidth]{assets/Img/Cota_3_BB/Cota3_grafico_tiempos.png}
+        \caption{Cota 3 }
+        \label{fig:Tiempos}
+       \end{minipage}
+
 \end{figure}
 \newpage
 
@@ -645,41 +715,32 @@ Como podemos ver en ambos casos llegamos a contracción que es lo que buscábamo
 
 \section{Gráficas}
 Finalmente, mostraremos varias ejecuciones del algoritmo del viajante mediante el Branch and Bound. Mostraremos gráficas realizadas con ambas
-cotas aunque eso no se ve reflejado en el resultado final sino más bien en el tiempo de ejecución como hemos mostrado previamente.
+cotas aunque eso no se ve reflejado en el resultado final sino más bien en el tiempo de ejecución y el número de nodos desarrollados,como hemos mostrado previamente.
 
 \begin{figure}[H]
       \centering
       \begin{minipage}{.48\textwidth}
             \centering
-            \includegraphics[width=1\linewidth]{assets/Img/Cota_1_BB/grafico_8_1.png}
-            \caption{Cota 1, 8 puntos}
-            \label{fig:Cota 1}
+            \includegraphics[width=1\linewidth]{assets/Img/Cota_3_BB/grafico_6_1_cota3.png}
+            \caption{Cota 1}
+            \label{fig:Nodos}
       \end{minipage}%
-      \begin{minipage}{.48\textwidth}
-            \centering
-            \includegraphics[width=1\linewidth]{assets/Img/Cota_2_BB/grafico_8_1.png}
-            \caption{Cota 2, 8 puntos}
-            \label{fig:Cota 2}
-      \end{minipage}
-\end{figure}
-
-\begin{figure}[H]
       \centering
       \begin{minipage}{.48\textwidth}
             \centering
-            \includegraphics[width=1\linewidth]{assets/Img/Cota_1_BB/grafico_12_1.png}
-            \caption{Cota 1, 12 puntos}
-            \label{fig:Cota 1}
-      \end{minipage}%
+            \includegraphics[width=1\linewidth]{assets/Img/Cota_3_BB/grafico_10_1_cota3.png}
+            \caption{Cota 2}
+            \label{fig:Nodos}
+      \end{minipage}
       \begin{minipage}{.48\textwidth}
             \centering
-            \includegraphics[width=1\linewidth]{assets/Img/Cota_2_BB/grafico_12_1.png}
-            \caption{Cota 2, 12 puntos}
-            \label{fig:Cota 2}
+            \includegraphics[width=1\linewidth]{assets/Img/Cota_3_BB/grafico_14_1_cota3.png}
+            \caption{Cota 3}
+            \label{fig:Nodos}
       \end{minipage}
 \end{figure}
 
-A simple vista podemos apreciar que verdaderamenta obtenemos resultados correctos independietmente de la 
-cota utilizada, sin embargo, sigue siendo un factor a tener en cuenta devido a la diferencia de tiempo a la 
-hora de la ejecución.
+
+A simple vista podemos apreciar que verdaderamenta obtenemos resultados correctos independientemente de la 
+cota utilizada.
 \end{document}

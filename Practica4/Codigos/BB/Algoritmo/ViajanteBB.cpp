@@ -342,6 +342,48 @@ vector<vector<double>> leerMatrizDesdeArchivo(const string& nombreArchivo) {
 
 
 
+vector<int> branch_and_bound(vector<int>& points, vector< vector<double>> &distancias, int inicial){
+    priority_queue<Nodo, vector<Nodo>, Comparador> no_visitados;
+    vector<int> mejor_camino = {inicial};
+    Nodo actual( mejor_camino, 0, cota_inferior_1(distancias));
+    no_visitados.push(actual);
+
+    double costo_minimo = numeric_limits<double>::infinity();
+    mejor_camino.clear();
+
+    while (!no_visitados.empty()) {
+        actual = no_visitados.top();
+        no_visitados.pop();
+
+        if (actual.path.size() == points.size()-1) {
+            vector<int> faltantes= numeros_faltantes(actual.path, points.size()-1);
+            actual.distancia_recorrida += distancias[actual.path.back()][faltantes[0]];
+            actual.distancia_recorrida += distancias[faltantes[0]][inicial];
+            actual.path.push_back(faltantes[0]);
+            actual.path.push_back(inicial);
+            if (actual.distancia_recorrida <= costo_minimo) {
+                costo_minimo = actual.distancia_recorrida;
+                mejor_camino = actual.path;
+            }
+        } 
+        else { 
+            if (actual.cota_inferior <= costo_minimo ){
+                vector<int> faltantes = numeros_faltantes(actual.path, points.size()-1);
+                for (int i = 0; i < faltantes.size(); ++i) {
+                    Nodo nuevo= actual;
+                    nuevo.path.push_back(faltantes[i]);
+                    nuevo.distancia_recorrida += distancias[actual.path.back()][faltantes[i]];
+                    nuevo.cota_inferior = nuevo.distancia_recorrida + cota_inferior_1(distancias, nuevo.path);
+                    no_visitados.push(nuevo);
+                }
+            }
+        }
+    }
+
+    return mejor_camino;
+
+}
+
 
 /**
  * [Run] <archivo_matriz> <punto_inicial> [2]
