@@ -259,7 +259,7 @@ Paso 1: Definir los Componentes del Modelo Oculto de Markov (HMM)
       \item Inicialización: \\ 
       Definir Estados Ocultos posibles. En este caso, son los diferentes fonemas que se pueden emplear en los idiomas
       
-      Definir las probabilidades de cada estado oculto. $\{}pi$(fonema): Probabilidad inicial de cada fonema. Estas probabilidades pueden estar basadas en la frecuencia de los fonemas al inicio de palabras en el idioma.
+      Definir las probabilidades de cada estado oculto. $\{}pi$ fonema: Probabilidad inicial de cada fonema. Estas probabilidades pueden estar basadas en la frecuencia de los fonemas al inicio de palabras en el idioma.
       \item Recursión: \\
       Seleccionado un elemento cualquiera, sin que sea el primero, de la secuencia, hay calcular la probabilidad para cada estado oculto pposible. Para cada segmento de la señal de voz (cada observación acústica), \\
       calculamos la probabilidad de que cada posible estado oculto (fonema) siga a cada estado anterior utilizando las probabilidades de transición y de emisión.
@@ -271,7 +271,7 @@ Paso 1: Definir los Componentes del Modelo Oculto de Markov (HMM)
       
       \item Reconstrucción de la secuencia de estados: \\
       Se usan las probabilidades calculadas para reconstruir la secuencia de fonemas más probables. \\ \\
-
+\end{itemize}
 Usamos las probabilidades calculadas para reconstruir la secuencia de fonemas más probable, y luego mapeamos estos fonemas a palabras usando un diccionario fonético.
 Ejemplo Práctico
 
@@ -288,7 +288,89 @@ Se reconstruye esta secuencia obteniendo que la secuencia de fonemas más probab
 Este ejemplo muestra cómo el algoritmo de Viterbi se utiliza para convertir una secuencia de observaciones acústicas en una secuencia de fonemas, y luego en palabras, en el reconocimiento de voz.
 
 \end{itemize}
+\section{Predicción de genes}
 
+En esta sección, presentamos un ejemplo de uso del algoritmo de Viterbi en la predicción de genes en secuencias de ADN. La predicción de genes es un problema importante en bioinformática,
+En general, la predicción de genes trata de localizar en las largas secuencias de ADN, y de forma automatizada, las subsecuencias de nucleótidos que conforman los diferentes genes.
+\subsection*{Explicación del problema}
+Existen cuatro tipos de nucleótidos, que se suelen representar por las letras A, C, G y T en función de la base nitrogenada
+que contengan: Adenina, Citosina, Guanina o Timina. Una cadena compuesta por estas cuatro letras representa la estructura primaria de una molécula de ADN.
+Por tanto el algoritmo se utiliza para identificar exones que poseen la información necesaria para la sintesis 
+de proteínas .Los modelos ocultos de Markov (HMM) son una herramienta común en la predicción de genes debido a su capacidad para manejar secuencias donde los estados exones e intrones (sirven de mensajeros para el codigo de los exones) 
+son ocultos y solo las secuencias de ADN observables están disponibles. 
+\subsection*{Definición del modelo oculto de Markov (HMM)}
+      Primero definimos los elementos del modelo oculto de Markov:
+      \begin{itemize}
+            \item El conjunto $Q$ de estados ocultos (exones e intrones)
+            \item El conjunto $V$ de estados observables (nucleótidos)
+            \item El conjunto $A$ de probabilidades de transición entre estados (probabilidades de cambio de exón a intrón y viceversa)
+            \item El conjunto $B$ de probabilidades de emisión de observaciones (probabildes de observar una A en un exón)
+      \end{itemize}
+El modelo de Markov oculto dado,
+trata de capturar las diferencias estadísticas en exones e intrones. El modelo tiene
+cuatro estados, donde $E_1$, $E_2$, y $E_3$ se utilizan para modelar las propiedades estadísticas básicas en los exones. Cada estado $E_i$ utiliza un conjunto de probabilidades de
+emisión diferentes para reflejar el símbolo en la posición i de un codón(secuencia de 3 nuecleótidos ej: ATC). El estado $I$
+se utiliza para modelizar los intrones.
+\begin{figure}[H]
+      \centering
+      \begin{minipage}{.48\textwidth}
+          \centering
+          \includegraphics[width=1\linewidth]{assets/Img/modelo oculto modelizar procariotas.png}
+          \caption{modelo de Markov}
+          \label{fig:Modelo de markov para modelizar genes de procariotas}
+    \end{minipage}%
+
+  \end{figure}
+  El modelo construido  se utiliza ahora para analizar nuevas secuencias observadas. Por ejemplo, supongamos que tenemos una nueva secuencia de ADN $X =
+x_1, . . . , x_19 = ATGCGACTGCATAGCACTT$. ¿Cómo podemos saber si esta secuencia de ADN es la región codificada de un gen o no? 
+Podemos responder a la  pregunta calculando la probabilidad observada de X basada en el modelo dado, que modeliza
+genes codificantes. Si esta probabilidad es alta, implica que esta secuencia de ADN
+es probablemente la de la región codificada de un gen (porción de adn que codifíca la proteina).
+\subsection*{Aplicación del algoritmo}
+\begin{itemize}
+      \item Inicialización:
+      \begin{itemize}
+            \item Se inicializa una matriz para almacenar las probabilidades de la secuencia más probable que termina en cada estado, para cada posición en la secuencia de ADN.
+            \item Se inicializa otra matriz para realizar un seguimiento de los estados previos
+            \item $\pi(\text{verb}) = P(\text{verb} | \text{estado}_0)$.
+      \end{itemize}
+      \item Recursión:
+      \begin{itemize}
+            \item Para cada posición en la secuencia de ADN y para cada estado, se calcula la probabilidad de que la secuencia más probable termine en ese estado en esa posición. Esto se hace usando las probabilidades de transición y de emisión.
+            \item Se actualizan las matrices de probabilidades y de estados previos.
+            \item Se selecciona el estado que maximiza esta probabilidad.
+      \end{itemize}
+      \item Terminación:
+      \begin{itemize}
+            \item Una vez que se llega al final de la secuencia de ADN, se selecciona el estado con la probabilidad más alta en la última posición de la matriz de probabilidades.
+            \item Se realiza un seguimiento hacia atrás usando la matriz de estados previos para determinar la secuencia de estados más probable.
+      \end{itemize}
+      \item Reconstrucción de la  Predicción de Genes:
+      \begin{itemize}
+            \item La secuencia de estados obtenida se traduce en regiones codificantes (exones) e intrones.
+            \item Las predicciones se ajustan y se anotan en la secuencia de ADN.
+
+      \end{itemize}
+\end{itemize}
+\begin{figure}[H]
+\centering
+\begin{minipage}{.48\textwidth}
+    \centering
+    \includegraphics[width=1\linewidth]{assets/Img/dibujomarkov.png}
+    \caption{Cálculo para una procariota}
+    \label{fig:Uso del HMM}
+\end{minipage}%
+\end{figure}
+
+\section{Integración en el software}
+
+Existen varias herramientas bioinformáticas que implementan el algoritmo de Viterbi para la predicción de genes como 
+GeneMark que utiliza Cadenas Ocultas de markov para identificar genes en células procariotas y eucariotas . Glimmer es otra herramienta que utiliza el algoritmo de Viterbi para la predicción de genes en 
+genomas bacterianos .Estos programas suelen integrar datos adicionales y heurísticas para mejorar la precisión de la predicción, adaptándose a las características específicas del genoma en estudio.
+En resumen, el algoritmo de Viterbi es una técnica poderosa para la predicción de genes, aprovechando su capacidad para manejar secuencias y estados ocultos en un contexto biológico complejo ya que muchas 
+veces se necesita modelizar el comportamiento futuro del ADN para detectar genes y regiones codificantes y así poder detectar enfermedades genéticas y tratarlas a tiempo.
+
+\end{document}
 
 
 \end{document}

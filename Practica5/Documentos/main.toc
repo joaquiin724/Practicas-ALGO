@@ -13,3 +13,5 @@
 \contentsline {section}{\numberline {5.1}Lenguaje}{9}{section.5.1}%
 \contentsline {subsection}{\numberline {5.1.1}Desambiguación de palabras}{9}{subsection.5.1.1}%
 \contentsline {subsubsection}{Aplicación del Algoritmo de Viterbi}{10}{section*.1}%
+\contentsline {section}{\numberline {5.2}Predicción de genes}{12}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Integración en el software}{14}{section.5.3}%
