@@ -100,20 +100,33 @@ El algoritmo de Viterbi se puede resumir en los siguientes pasos:
 \end{itemize}
 
 El uso de programación dinámica en este caso es claro, tener una matriz de probabilidades donde se almacenen la probabilidad máxima de cada estado hasta el instante de tiempo $t$,
-lo que nos permitirá calcular la probabilidad máxima de cada estado hasta el instante de tiempo $t+1$ de forma eficiente. Por tanto tendremos una matriz $\mathscr{M}$ de $L$ filas 
-(una para cada estado $q_k$ donde $k\in L$) y $T=L$ columnas (una para cada instante de tiempo $t\in T=L$). Recordemos que teníamos la secuencia de observaciones $O=\{o_1, o_2, \ldots, o_L\}$.\\ \\
+lo que nos permitirá calcular la probabilidad máxima de cada estado hasta el instante de tiempo $t+1$ de forma eficiente. Por tanto tendremos una matriz $\mathscr{M}$ de $N$ filas 
+(una para cada estado $q_k$ donde $k\in N$) y $T=L$ columnas (una para cada instante de tiempo $t\in T=L$). Recordemos que teníamos la secuencia de observaciones $O=\{o_1, o_2, \ldots, o_L\}$.\\
+
+A continuación procederemos a explicar los pasos del algoritmo de Viterbi de forma más detallada. \\ \\ 
+\subsection{Inicialización}
 La matriz $\mathscr{M}$ se inicializa de la siguiente forma:
 \begin{itemize}
       \item $\mathscr{M}[k][1] = \pi_k \cdot b_k(o_1) \forall k \in N$, es decir, la probabilidad de que el estado $k$ sea el estado inicial multiplicado por la probabilidad de que se observe
       la primera observación en el estado $k$. Destacar que $N$ representa la cantidad de estados posibles ocultos en el modelo oculto de Markov.
 \end{itemize}
+
+\subsection{Recursión}
 Una vez inicializada la matriz $\mathscr{M}$, se procede a calcular las probabilidades de la secuencia de estados más probable hasta el instante de tiempo $t$ a partir de la probabilidad
-de la secuencia de estados más probable hasta el instante de tiempo $t-1$. Para ello, se utiliza la siguiente fórmula:
+de la secuencia de estados más probable hasta el instante de tiempo $t-1$, es decir, para calcular los valores de la columnas $t$ usaremos los de la columna $t-1$, es aquí donde hacemos
+un uso claro de la programación dinámica. Para ello, se utiliza la siguiente fórmula:
 \begin{itemize}
-      \item $\mathscr{M}[j][t] = \max_{i=1}^{N} \left\{ \mathscr{M}[i][t-1] \cdot a_{ij} \cdot b_j(o_t) \right\}$, es decir, la probabilidad de la secuencia de estados más probable
-      hasta el instante de tiempo $t-1$ multiplicada por
-      la probabilidad de transición de $i$ a $j$ multiplicada por la probabilidad de observar $o_t$ en el estado $j$.
+      \item $\mathscr{M}[j][t] = \max_{i=1}^{N} \left\{ \mathscr{M}[i][t-1] \cdot a_{ij} \cdot b_j(o_t) \right\}$, es decir, se multiplica la probabilidad máxima del estado $i$ en
+      el instante $t-1$ por la probabilidad de transición de $i$ a $j$ por la probabilidad de observar $o_t$ en el estado $j$, todo esto para todo $i\in N$ y se 
+      selecciona el máximo de estos valores. Tenemos así la máxima probabilidad de llegar al estado $j\in N$ en el instante de tiempo $t$.
 \end{itemize}
+\subsection{Terminación}
+En esta última fase el objetivo será obtener cual es la máxima probabilidad de llegar a un estado en el instante de tiempo $T=L$, es decir, la probabilidad de la secuencia de estados
+más probable hasta el instante de tiempo $T$. Para ello, se utiliza la siguiente fórmula:
+\begin{itemize}
+      \item $P = \max_{i=1}^{N} \left\{ \mathscr{M}[i][T] \right\}$, es decir, se selecciona el máximo de las probabilidades de llegar a cada estado en el instante de tiempo $T$.
+\end{itemize}
+
 
 
 
