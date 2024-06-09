@@ -241,6 +241,54 @@ El algoritmo de Viterbi se utiliza para encontrar la secuencia más probable de 
             \item Por ejemplo: quiero (verbo), aprobar (verbo), la (determinante), asignatura (nombre).
       \end{itemize}
 \end{itemize}
+\subsection*{Reconocimiento de voz}
+
+\textbf{Problema:} Dada una secuencia de observaciones acústicas, queremos predecir la secuencia de las palabras que se obtendrán.
+Paso 1: Definir los Componentes del Modelo Oculto de Markov (HMM)
+      \begin{itemize}
+            \item  Estados Ocultos (Q): Fonemas (sonidos básicos del habla)
+            \item  Observaciones (V): Características acústicas extraídas de la señal de voz (vectores de características como Mel-Frequency Cepstral Coefficients - MFCC)
+            \item  Probabilidades de Transición (A): Probabilidades de transición entre fonemas.
+            \item  Probabilidades de Emisión (B): Probabilidades de emitir una característica acústica específica dado un fonema.
+      \end{itemize}
+   
+    Mel-Frequency Cepstral Coefficients - MFCC estudia los diferentes tonos, acentuaciones, etc. que tienen las palabras dentro de los idiomas, lo que permite a las IAs aprender
+    con mayor precisión los lenguajes mediante señales de audio
+
+\begin{itemize}
+      \item Inicialización: \\ 
+      Definir Estados Ocultos posibles. En este caso, son los diferentes fonemas que se pueden emplear en los idiomas
+      
+      Definir las probabilidades de cada estado oculto. $\{}pi$(fonema): Probabilidad inicial de cada fonema. Estas probabilidades pueden estar basadas en la frecuencia de los fonemas al inicio de palabras en el idioma.
+      \item Recursión: \\
+      Seleccionado un elemento cualquiera, sin que sea el primero, de la secuencia, hay calcular la probabilidad para cada estado oculto pposible. Para cada segmento de la señal de voz (cada observación acústica), \\
+      calculamos la probabilidad de que cada posible estado oculto (fonema) siga a cada estado anterior utilizando las probabilidades de transición y de emisión.
+
+
+      y se seleccionará el estado que maximice la probabilidad.
+      \item Terminación: \\
+      Una vez procesados los fonemas que son empleados en las palabras, se selecciona la secuencia de estados que maximiza la probabilidad total de la secuencia obtenida. Obteniendo así, la secuencia de fonemas con mayor probabilidad
+      
+      \item Reconstrucción de la secuencia de estados: \\
+      Se usan las probabilidades calculadas para reconstruir la secuencia de fonemas más probables. \\ \\
+
+Usamos las probabilidades calculadas para reconstruir la secuencia de fonemas más probable, y luego mapeamos estos fonemas a palabras usando un diccionario fonético.
+Ejemplo Práctico
+
+Imaginemos que la secuencia de observaciones acústicas es O={o1,o2,o3}y los fonemas posibles son /k/, /ae/, /t/, que corresponden a las palabras "cat".
+Inicialización
+Recursión
+
+Y así sucesivamente para /ae/ y /t/.
+Terminación
+Obtendremos la secuencia con mayor probabilidad
+Reconstrucción
+Se reconstruye esta secuencia obteniendo que la secuencia de fonemas más probable es /k/ -> /ae/ -> /t/, que mapeamos a la palabra "cat".
+
+Este ejemplo muestra cómo el algoritmo de Viterbi se utiliza para convertir una secuencia de observaciones acústicas en una secuencia de fonemas, y luego en palabras, en el reconocimiento de voz.
+
+\end{itemize}
+
 
 
 \end{document}
