@@ -1,7 +1,7 @@
 # Fdb version 4
-["pdflatex"] 1717962436 "/home/pablolinari/ALGO/Practica5/Documentos/main.tex" "main.pdf" "main" 1717962437 2
+["pdflatex"] 1717962523 "/home/pablolinari/ALGO/Practica5/Documentos/main.tex" "main.pdf" "main" 1717962523 2
   "/etc/texmf/web2c/texmf.cnf" 1714301391 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/pablolinari/ALGO/Practica5/Documentos/main.tex" 1717962435 26510 fc99643e4dc1897d6d15113adee2504a ""
+  "/home/pablolinari/ALGO/Practica5/Documentos/main.tex" 1717962522 26535 fcd4bcb0bd1cb6ed976d8e0830d8d04d ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/ly1/texnansi.enc" 1276641224 6938 5135be6a8802f13a7faf296d1959a1ab ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -323,9 +323,9 @@
   "assets/Img/modelo oculto modelizar procariotas.png" 1717962099 33948 955071941ed6d564c7ee2554f3276198 ""
   "assets/formulas.sty" 1717961481 6386 7434157d572a58925d4af8ebdd4686e7 ""
   "assets/portada.tex" 1717961481 1643 2da8016c88f94292b9bfe48d5ac99de1 ""
-  "main.aux" 1717962437 7711 b7de9ff7f63ced295909b8e952ad3747 "pdflatex"
-  "main.tex" 1717962435 26510 fc99643e4dc1897d6d15113adee2504a ""
-  "main.toc" 1717962437 1335 0f498a2ead8b8e62792b10c0320506ad "pdflatex"
+  "main.aux" 1717962523 7711 b7de9ff7f63ced295909b8e952ad3747 "pdflatex"
+  "main.tex" 1717962522 26535 fcd4bcb0bd1cb6ed976d8e0830d8d04d ""
+  "main.toc" 1717962523 1335 0f498a2ead8b8e62792b10c0320506ad "pdflatex"
   (generated)
   "main.aux"
   "main.log"
