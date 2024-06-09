@@ -19,30 +19,24 @@
 \begin{itemize}
       \item \textbf{Miguel Ángel De la Vega Rodríguez:} 20\%
             \begin{itemize}
-                  \item Makefile | Organización Branch and Bound
-                  \item Programación Branch and Bound
-                  \item Branch and bound redacción
+                  \item Estructura del documento
+                  \item Ejemplos de Uso
             \end{itemize}
       \item \textbf{Joaquín Avilés De la Fuente:} 20\%
             \begin{itemize}
-                  \item Programación Branch and Bound
-                  \item Programación creación de casos (puntos y matrices de adyacencia)
-                  \item Programación de funciones de cota para Branch and Bound
+                  \item RELLENAR
             \end{itemize}
       \item \textbf{Alberto De la Vera Sánchez: } 20\%
             \begin{itemize}
-                  \item Branch and bound redacción
+                  \item RELLENAR
             \end{itemize}
       \item \textbf{Manuel Gomez Rubio} 20\%
             \begin{itemize}
-                \item Programacion Backtracking
-                \item Redacción Backtracking
+                \item RELLENAR
             \end{itemize}
       \item \textbf{Pablo Linari Pérez:} 20\%
             \begin{itemize}
-                  \item Programacion Backtracking
-                  \item Redacción Objetivos
-                  \item Redacción Backtracking
+                  \item RELLENAR
             \end{itemize}
 \end{itemize}
 
@@ -59,5 +53,101 @@
                   \item Compilador GCC 12.2.0
             \end{itemize}
 \end{itemize}
+
+\chapter{Ejemplos de Uso}
+El algoritmo de Viterbi es ampliamente utilizado en diversos campos tales como 
+el lenguaje, la ingeniería de comunicaciones, la robótica, la biología, la medicina,
+la meteorología, etc. A continuación presentamos algunas de las aplicaciones específicas
+de este algoritmo en distintos campos.
+
+\section{Lenguaje}
+El algoritmo de Viterbi es utilizado en el reconocimiento de voz, en el reconocimiento
+de escritura a mano, en la corrección de errores en el texto, en la traducción automática,
+en la generación de texto, en la síntesis de voz, en la transcripción de audio, etc. Veamos
+un ejemplo de uso de Viterbi en el proceso de desambiguación de palabras en un texto.
+\subsection{Desambiguación de palabras}
+Cuando queremos procesar el lenguaje natural, es común encontrarnos con palabras que tienen
+múltiples significados. Por ejemplo, la palabra \textit{privado} está reconocida por la RAE como 
+un adjetivo, un sustantivo y un verbo. Para desambiguar estas palabras cuando procesamos
+un texto, podemos utilizar el algoritmo de Viterbi, en este caso particular, 
+los elementos del modelo oculto de Markov serían:
+\begin{itemize}
+      \boldmath
+      \item El conjunto $Q$ de estados ocultos (categorías gramaticales)
+      \item El conjunto $V$ de estados observables (palabras)
+      \item El conjunto $A$ de probabilidades de transición entre estados (probabilidades de cambio de categoría gramatical, por ejemplo, que un nombre vaya detras de un verbo)
+      \item El conjunto $B$ de probabilidades de emisión de observaciones (probabilidades de que una palabra pertenezca a una categoría gramatical, por ejemplo, 
+      que la palabra \textit{perro} sea un sustantivo es mucho mayor a que sea un adjetivo)
+\end{itemize}
+Mostramos un ejemplo para el texto \textit{quiero aprobar la asignatura}:
+\begin{center}
+\begin{tikzpicture}[every node/.style={draw, text height=1.5ex, text depth=.25ex}]
+      % Nodes
+      \node (s0) [rectangle, minimum width=1cm, minimum height=1cm] at (0,0) {estado 0};
+      \node (verb1) [rectangle, minimum width=1cm, minimum height=1cm, right=1cm of s0] {verbo};
+      \node (verb2) [rectangle, minimum width=1cm, minimum height=1cm, right=1cm of verb1] {verbo};
+      \node (noun) [rectangle, minimum width=1cm, minimum height=1cm, right=1cm of verb2] {nombre};
+      \node (noun2) [rectangle, minimum width=1cm, minimum height=1cm, right=1cm of noun] {nombre};
+      \node (s1) [rectangle, minimum width=1cm, minimum height=1cm, right=1cm of noun2] {estado 0};
+  
+      % Solid lines
+      \draw[->] (s0) -- (verb1);
+      \draw[->] (verb1) -- (verb2);
+      \draw[-, dashed] (verb2) -- (noun);
+      \draw[-, dashed] (noun) -- (noun2);
+      \draw[->] (noun2) -- (s1);
+  
+      % Text above nodes
+      \node[draw=none, above=0.1cm of verb1] {quiero};
+      \node[draw=none, above=0.1cm of verb2] {aprobar};
+      \node[draw=none, above=0.1cm of noun] {la};
+      \node[draw=none, above=0.1cm of noun2] {asignatura};
+      
+      % Possible transitions (dashed lines)
+      \node (adv) [rectangle, minimum width=1cm, minimum height=1cm, below=1.5cm of verb1] {adverbio};
+      \node (adj) [rectangle, minimum width=1cm, minimum height=1cm, below=1.5cm of noun] {adjetivo};
+      \node (det) [rectangle, minimum width=1cm, minimum height=1cm, below=1.5cm of adj] {determinante};
+
+      \draw[-, dashed] (s0) -- (adv);
+      \draw[->] (verb2) -- (det);
+      \draw[->] (det) -- (noun2);
+      \draw[-, dashed] (adv) -- (verb2);
+      \draw[-, dashed] (verb2) -- (adj);
+      \draw[-, dashed] (adj) -- (noun2);
+  \end{tikzpicture}
+\end{center}
+Donde, los observables son la secuencia de palabras \textit{quiero aprobar la asignatura} y los estados ocultos son las categorías gramaticales de las palabras,
+que como se puede ver, contemplan sólo un conjunto limitado de categorías gramaticales. Esto se debe a que 
+la probablidad de pertenencia de determinadas palabras a ciertas categorías gramaticales es 0, lo que simplifica
+y acelera el proceso de desambiguación.
+
+\subsubsection{Aplicación del Algoritmo de Viterbi}
+El algoritmo de Viterbi se utiliza para encontrar la secuencia más probable de estados ocultos (categorías gramaticales) dada una secuencia de observaciones (palabras). Para nuestro ejemplo, el proceso se desarrolla de la siguiente manera:
+
+\begin{itemize}
+      \item Inicialización:
+      \begin{itemize}
+            \item Definir los estados ocultos posibles. Por ejemplo, en nuestro caso, los estados posibles son verbo, nombre, determinante, etc.
+            \item Definir las probabilidades iniciales para cada estado oculto. Por ejemplo, es muy probable que la primera palabra quiero sea un verbo.
+            \item $\pi(\text{verb}) = P(\text{verb} | \text{estado}_0)$.
+      \end{itemize}
+      \item Recursión:
+      \begin{itemize}
+            \item Para cada palabra en la secuencia, calcular la probabilidad de que cada posible estado oculto (categoría gramatical) siga a cada estado anterior. Esto se hace utilizando las probabilidades de transición ($A$) y las probabilidades de emisión ($B$).
+            \item Ejemplo: Para la palabra aprobar, se calcularía $P(\text{verb}_2 | \text{verb}_1) \cdot P(\text{aprobar} | \text{verb}_2)$ para todas las categorías posibles de aprobar.
+            \item Se selecciona el estado que maximiza esta probabilidad.
+      \end{itemize}
+      \item Terminación:
+      \begin{itemize}
+            \item Una vez procesadas todas las palabras, se selecciona la secuencia de estados que maximiza la probabilidad total de la secuencia observada.
+            \item Esta secuencia representará las categorías gramaticales más probables para la oración.
+      \end{itemize}
+      \item Reconstrucción de la secuencia de estados:
+      \begin{itemize}
+            \item Utilizando las probabilidades calculadas, se reconstruye la secuencia de categorías gramaticales más probable.
+            \item Por ejemplo: quiero (verbo), aprobar (verbo), la (determinante), asignatura (nombre).
+      \end{itemize}
+\end{itemize}
+
 
 \end{document}
