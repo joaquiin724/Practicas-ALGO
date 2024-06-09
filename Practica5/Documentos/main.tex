@@ -121,13 +121,28 @@ un uso claro de la programación dinámica. Para ello, se utiliza la siguiente f
       selecciona el máximo de estos valores. Tenemos así la máxima probabilidad de llegar al estado $j\in N$ en el instante de tiempo $t$.
 \end{itemize}
 \subsection{Terminación}
-En esta última fase el objetivo será obtener cual es la máxima probabilidad de llegar a un estado en el instante de tiempo $T=L$, es decir, la probabilidad de la secuencia de estados
-más probable hasta el instante de tiempo $T$. Para ello, se utiliza la siguiente fórmula:
+En esta última fase el objetivo será obtener cual es la máxima probabilidad de llegar a un estado $k\in N$ en el instante de tiempo $t=T$, es decir, la probabilidad de la secuencia de estados
+más probable hasta el instante de tiempo $t=T$. Para ello, se utiliza la siguiente fórmula:
 \begin{itemize}
-      \item $P = \max_{i=1}^{N} \left\{ \mathscr{M}[i][T] \right\}$, es decir, se selecciona el máximo de las probabilidades de llegar a cada estado en el instante de tiempo $T$.
+      \item $P = \max_{i=1}^{N} \left\{ \mathscr{M}[i][T] \right\}$, es decir, se selecciona el máximo de las probabilidades de llegar a cada estado en el instante de tiempo $t=T$.
 \end{itemize}
-
-
+donde tenemos que $P$ almacena la probabilidad máxima de todos los posibles estados $k\in N$ en el instante de tiempo $t=T$.
+\subsection{Reconstrucción de la secuencia de estados}
+Una vez obtenida la probabilidad máxima de la secuencia de estados más probable hasta el instante de tiempo $t=T$, se procede a reconstruir la secuencia de estados más probable. 
+La idea a desarrolar es la siguiente: \\
+\begin{itemize}
+      \item En el instante $t=T$ se selecciona el estado $k$ que maximiza la probabilidad de llegar a dicho estado en el instante de tiempo $t=T$, es decir,
+      se selecciona el estado $k$ tal que $\mathscr{M}[k][T] = P$, ya obtenido dicho valor obtendremos el estado $s$ en el instante $t-1$ que maximiza la probabilidad de llegar a $k$ en el instante
+      de tiempo $t=T$, es decir, se selecciona el estado $s$ tal que $\mathscr{M}[s][T-1] \cdot a_{sk} \cdot b_k(o_T) = \mathscr{M}[k][T] = P$, y así sucesivamente hasta llegar al instante de tiempo $t=1$.      
+\end{itemize}
+Tenemos ahora la idea con la que obtendremos dicha secuencia más probable de estados, es decir, la secuencia de estados $S = \{s_1, s_2, \ldots, s_L\}$ que maximiza la probabilidad de la secuencia de observaciones $O=\{o_1, o_2, \ldots, o_L\}$.
+Veamos por tanto como vamos a hacerlo:
+\begin{itemize}
+      \item En el instante de tiempo $t-1$ se selecciona el estado $i\in N$ y se multiplica dicho valor por la probabilidad de transición de $i$ a $k$ y por la probabilidad de observar $o_t$ en el estado $k$, 
+      si dicho valor nuevo obtenido coincide con el valor de la matriz $\mathscr{M}[k][T]=P$, entonces se selecciona el estado $i$ como el estado anterior a $k$ en la secuencia de estados más probable. En caso 
+      contrario se hace dicha comprobación para todos los estados $i\in N$, obteniendo así el estado $s$ en el instante $t-1$ de la secuencia de estados ocultos con mayor probabilidad.
+      \item Este proceso se repite para todo $t\in T$ hasta llegar al instante de tiempo $t=1$, obteniendo así la secuencia de estados ocultos con mayor probabilidad.
+\end{itemize}
 
 
 \chapter{Ejemplos de Uso}
