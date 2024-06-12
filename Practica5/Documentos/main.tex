@@ -157,14 +157,15 @@ de este algoritmo en distintos campos.
 \section{Lenguaje}
 El algoritmo de Viterbi es utilizado en el reconocimiento de voz, en el reconocimiento
 de escritura a mano, en la corrección de errores en el texto, en la traducción automática,
-en la generación de texto, en la síntesis de voz, en la transcripción de audio, etc. Veamos
-un ejemplo de uso de Viterbi en el proceso de desambiguación de palabras en un texto.
-\subsection*{Definición del modelo oculto de Markov (HMM)}
-
+en la generación de texto, en la síntesis de voz, en la transcripción de audio, etc. 
+\subsection{Desambiguación de palabras}
 Cuando queremos procesar el lenguaje natural, es común encontrarnos con palabras que tienen
 múltiples significados. Por ejemplo, la palabra \textit{privado} está reconocida por la RAE como 
 un adjetivo, un sustantivo y un verbo. Para desambiguar estas palabras cuando procesamos
-un texto, podemos utilizar el algoritmo de Viterbi, en este caso particular, 
+un texto, podemos utilizar el algoritmo de Viterbi, 
+\subsection*{Definición del modelo oculto de Markov (HMM)}
+
+En este caso particular, 
 los elementos del modelo oculto de Markov serían:
 \begin{itemize}
       \boldmath
@@ -261,7 +262,7 @@ Dada una secuencia de observaciones acústicas, queremos predecir la secuencia d
       \item Inicialización: \\ 
       Definir Estados Ocultos posibles. En este caso, son los diferentes fonemas que se pueden emplear en los idiomas
       
-      Definir las probabilidades de cada estado oculto. $\{}pi$ fonema: Probabilidad inicial de cada fonema. Estas probabilidades pueden estar basadas en la frecuencia de los fonemas al inicio de palabras en el idioma.
+      Definir las probabilidades de cada estado oculto. $\pi$ (fonema): Probabilidad inicial de cada fonema. Estas probabilidades pueden estar basadas en la frecuencia de los fonemas al inicio de palabras en el idioma.
       \item Recursión: \\
       Seleccionado un elemento cualquiera, sin que sea el primero, de la secuencia, hay calcular la probabilidad para cada estado oculto pposible. Para cada segmento de la señal de voz (cada observación acústica), \\
       calculamos la probabilidad de que cada posible estado oculto (fonema) siga a cada estado anterior utilizando las probabilidades de transición y de emisión.
@@ -293,7 +294,7 @@ Este ejemplo muestra cómo el algoritmo de Viterbi se utiliza para convertir una
 
 En esta sección, presentamos un ejemplo de uso del algoritmo de Viterbi en la predicción de genes en secuencias de ADN. La predicción de genes es un problema importante en bioinformática,
 En general, la predicción de genes trata de localizar en las largas secuencias de ADN, y de forma automatizada, las subsecuencias de nucleótidos que conforman los diferentes genes.
-\subsection*{Explicación del problema}
+\subsection*{Descripción del problema}
 Existen cuatro tipos de nucleótidos, que se suelen representar por las letras A, C, G y T en función de la base nitrogenada
 que contengan: Adenina, Citosina, Guanina o Timina. Una cadena compuesta por estas cuatro letras representa la estructura primaria de una molécula de ADN.
 Por tanto el algoritmo se utiliza para identificar exones que poseen la información necesaria para la sintesis 
