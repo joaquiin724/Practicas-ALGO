@@ -30,7 +30,8 @@
             \end{itemize}
       \item \textbf{Alberto De la Vera Sánchez: } 20\%
             \begin{itemize}
-                  \item RELLENAR
+                  \item Ejemplo corrección de errores en receptores SDR
+                  \item Connclusión
             \end{itemize}
       \item \textbf{Manuel Gomez Rubio} 20\%
             \begin{itemize}
@@ -158,7 +159,8 @@ El algoritmo de Viterbi es utilizado en el reconocimiento de voz, en el reconoci
 de escritura a mano, en la corrección de errores en el texto, en la traducción automática,
 en la generación de texto, en la síntesis de voz, en la transcripción de audio, etc. Veamos
 un ejemplo de uso de Viterbi en el proceso de desambiguación de palabras en un texto.
-\subsection{Desambiguación de palabras}
+\subsection*{Definición del modelo oculto de Markov (HMM)}
+
 Cuando queremos procesar el lenguaje natural, es común encontrarnos con palabras que tienen
 múltiples significados. Por ejemplo, la palabra \textit{privado} está reconocida por la RAE como 
 un adjetivo, un sustantivo y un verbo. Para desambiguar estas palabras cuando procesamos
@@ -241,17 +243,17 @@ El algoritmo de Viterbi se utiliza para encontrar la secuencia más probable de 
             \item Por ejemplo: quiero (verbo), aprobar (verbo), la (determinante), asignatura (nombre).
       \end{itemize}
 \end{itemize}
-\subsection*{Reconocimiento de voz}
+\subsection{Reconocimiento de voz}
 
-\textbf{Problema:} Dada una secuencia de observaciones acústicas, queremos predecir la secuencia de las palabras que se obtendrán.
-Paso 1: Definir los Componentes del Modelo Oculto de Markov (HMM)
+Dada una secuencia de observaciones acústicas, queremos predecir la secuencia de las palabras que se obtendrán.
+\subsection*{Definición del modelo oculto de Markov (HMM)}
       \begin{itemize}
             \item  Estados Ocultos (Q): Fonemas (sonidos básicos del habla)
             \item  Observaciones (V): Características acústicas extraídas de la señal de voz (vectores de características como Mel-Frequency Cepstral Coefficients - MFCC)
             \item  Probabilidades de Transición (A): Probabilidades de transición entre fonemas.
             \item  Probabilidades de Emisión (B): Probabilidades de emitir una característica acústica específica dado un fonema.
       \end{itemize}
-   
+\subsection*{Aplicación del algoritmo}  
     Mel-Frequency Cepstral Coefficients - MFCC estudia los diferentes tonos, acentuaciones, etc. que tienen las palabras dentro de los idiomas, lo que permite a las IAs aprender
     con mayor precisión los lenguajes mediante señales de audio
 
@@ -287,7 +289,6 @@ Se reconstruye esta secuencia obteniendo que la secuencia de fonemas más probab
 
 Este ejemplo muestra cómo el algoritmo de Viterbi se utiliza para convertir una secuencia de observaciones acústicas en una secuencia de fonemas, y luego en palabras, en el reconocimiento de voz.
 
-\end{itemize}
 \section{Predicción de genes}
 
 En esta sección, presentamos un ejemplo de uso del algoritmo de Viterbi en la predicción de genes en secuencias de ADN. La predicción de genes es un problema importante en bioinformática,
@@ -331,8 +332,7 @@ es probablemente la de la región codificada de un gen (porción de adn que codi
       \item Inicialización:
       \begin{itemize}
             \item Se inicializa una matriz para almacenar las probabilidades de la secuencia más probable que termina en cada estado, para cada posición en la secuencia de ADN.
-            \item Se inicializa otra matriz para realizar un seguimiento de los estados previos
-            \item $\pi(\text{verb}) = P(\text{verb} | \text{estado}_0)$.
+            \item Se inicializa otra matriz para realizar un seguimiento de los estados previos.
       \end{itemize}
       \item Recursión:
       \begin{itemize}
@@ -362,7 +362,7 @@ es probablemente la de la región codificada de un gen (porción de adn que codi
 \end{minipage}%
 \end{figure}
 
-\section{Integración en el software}
+\subsection*{Integración en el software}
 
 Existen varias herramientas bioinformáticas que implementan el algoritmo de Viterbi para la predicción de genes como 
 GeneMark que utiliza Cadenas Ocultas de markov para identificar genes en células procariotas y eucariotas . Glimmer es otra herramienta que utiliza el algoritmo de Viterbi para la predicción de genes en 
@@ -370,7 +370,85 @@ genomas bacterianos .Estos programas suelen integrar datos adicionales y heurís
 En resumen, el algoritmo de Viterbi es una técnica poderosa para la predicción de genes, aprovechando su capacidad para manejar secuencias y estados ocultos en un contexto biológico complejo ya que muchas 
 veces se necesita modelizar el comportamiento futuro del ADN para detectar genes y regiones codificantes y así poder detectar enfermedades genéticas y tratarlas a tiempo.
 
-\end{document}
 
+\section{Corrección de errores en receptores SDR(Software Defined Radio)}
+Es una tecnología para comunicaciones inalámbricas que se enfoca en la especificación en software de los 
+elementos de un sistema de comunicación. Una de las características de una SDR, es la detección y correción de errores, que nos permite
+un uso eficiente del ancho de banda asignado, pudiendo así aumentar el número de usuarios que el sistema puede soportar.
+
+\subsection*{Descripción del problema}
+En general, en sistemas de comunicación inalámbrica, la correción de errores es 
+esencial para asegurar la integridad de los datos transmitidos. La radio definida
+por software(SDR) permite diseñar terminales móviles reconfigurables que
+operan  bajo múltiples estándares de comunicación, como GSM(Global System Mobile) y 
+DCS(Digital System Communication). Estos sistemas utilizan la codificación
+convencional para la detección y correción de errores, y el algoritmo de  
+Viterbi se utiliza para la decodificación eficiente de estos códigos
+
+\subsection*{Elementos del modelo oculto de Markov (HMM)}
+
+Primero definimos los elementos del modelo oculto de Markov:
+\begin{itemize}
+      \item El conjunto $Q$ de estados ocultos (las posibles combinaciones de bits en el codificador)
+      \item El conjunto $V$ de estados observables (datos codificados recibidos)
+      \item El conjunto $A$ de probabilidades de transición entre estados (probabilidades de transición entre estados, generados por la combinación de los distintos bits)
+      \item El conjunto $B$ de probabilidades de emisión de observaciones (probabildes 
+      de que una observación (bit recibido) sea emitida desde un estado particular,es decir, la 
+      probabilidad de recibir una secuencia de bits dados los estados del codificador)
+      
+\end{itemize}
+
+\subsection*{Aplicación del algoritmo}
+El algoritmo de Viterbi se utiliza para encontrar la secuencia más probable de 
+estados ocultos (bits originales) dada una secuencia de observaciones (bits 
+recibidos). A continuación, se describe el proceso detallado:
+
+\begin{itemize}
+      \item Inicialización:
+      \begin{itemize}
+            \item Definir los estados ocultos: Los estados son las poibles combinaciones de bits que el codificador puede generar .
+            \item Por ejemplo, en un codificador con N = 4 bits, hay $2^{N}= 16 $ estados posibles.
+            \item Definir las probabilidades iniciales: Asignamos una probabilidad inicial a cada estado oculto.
+            \item Por ejemplo, es probable que el estado inicial sea 0000.
+      \end{itemize}
+
+      \item Recursión:
+      \begin{itemize}
+            \item Cálculo métrico de la rama (Branch Metrics): Para cada bit recibido, calculamos la distancia Hamming(métrica utilizada para comparar dos secuencias
+            de simboles del mismo tamaño, determinando cuántas posiciones en las secuencias difieren entre sí) entre los bits recibidos 
+            y las posibles secuencias de bits generadas por las transiciones de estado.
+            \item Por ejemplo, para una secuencia recibida "11", calculamos la distancia Hamming con todas las transiciones posibles
+            \item Selección de transiciones sobrevivientes: Determinamos las transiciones con la menor métrica acumulada en cada pasos.
+            \item Por ejemplo, tomando la secuencia anterior, calculamos P(00|11)· P(11|estado) para todas las categorias posibles.
+            \item Actualizar métricas: Acumulamos las métricas de distancia para cada posible trayectoria(aquí es donde toma relevancia la programación dinámica).
+      \end{itemize}
+
+      \item Terminación:
+      \begin{itemize}
+            \item Una vez procesados todos los bits recibidos,seleccionamos la secuencia de estados(bits originales) que maximiza la probabilidad total
+            \item Esta secuencia representará los bits originales más probables
+      \end{itemize}
+      \item Reconstrucción de la secuencia de estados:
+      \begin{itemize}
+            \item Utilizamo las probabilidades calculadas para reconstruir la secuencia  de bits originales
+            \item Por ejemplo, si la secuencia más probable de estados es 10 01 00 11 , esta es la secuencia de bits original decodificada
+      \end{itemize}
+\end{itemize}
+
+Una vez visto la aplicación del algoritmo más detallada, podemos decir que el algoritmo de Viterbi para la corrección de errores
+se basa en: dada una secuencia de bits recibida(la cual puede contener ruido, además de estar codificada), el algoritmo de Viterbi 
+calcula las métricas de rama (distancai Hamming) y selecciona las transiciones con menor métrica acumulada. Finalmente, reconstruye
+la secuencia de bits originales más probable
+
+
+\chapter{Conclusión}
+Esta práctica nos proporciona un acercamiento al algoritmo Viterbi, sobre todo en el ámbito de la programación dinámica visto a través
+de diferentes ejemplos. Podemos destacar de dicho algoritmo que puede resolver eficientemete problemas complejos de secuenciación en 
+diversos ámbitos. De este modo, conseguimos que el lector de dicha memoria, en este caso para alumnos, no solo comprenda el funcionamiento del algoritmo,
+sino que también vea de una forma más cercana sus aplicaciones en problemas reales.
+
+Este análisis teorico y desarrollo de ejemplos prácticos refuerzan la importancia de la programación dinámica
+como herramienta esencial en la resolución de problemas de optimización y secuenciación, mostranto como puede 
+ser de gran utilidad en diversos campos de la ciencia e ingeniería.
 
 \end{document}
